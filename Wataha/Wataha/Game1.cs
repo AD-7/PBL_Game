@@ -1,6 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Content;
+using Wataha.GameObjects;
 
 namespace Wataha
 {
@@ -12,10 +16,17 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private GameObject model = new GameObject();
+        private Matrix world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 10), new Vector3(0, 0, 0), Vector3.UnitY);
+        private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
+
         public Game1()
         {
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            graphics.IsFullScreen = false;
         }
 
         /// <summary>
@@ -24,6 +35,10 @@ namespace Wataha
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
+        /// 
+
+
+
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -37,10 +52,12 @@ namespace Wataha
         /// </summary>
         protected override void LoadContent()
         {
+            Content = new ContentManager(this.Services, "Content");
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            model.model = Content.Load<Model>("wolf");
         }
 
         /// <summary>
@@ -59,10 +76,13 @@ namespace Wataha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
-
-            // TODO: Add your update logic here
+            }
+            
+            world = Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
+            world = world * Matrix.CreateScale(0.1f);
 
             base.Update(gameTime);
         }
@@ -73,9 +93,10 @@ namespace Wataha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            model.DrawModel(model.model, world, view, projection);
+
 
             base.Draw(gameTime);
         }
