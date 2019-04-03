@@ -57,7 +57,7 @@ namespace Wataha
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            model.model = Content.Load<Model>("wolf");
+            //model.model = Content.Load<Model>("wolf");
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Wataha
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            model.DrawModel(model.model, world, view, projection);
+           // model.DrawModel(model.model, world, view, projection);
 
 
             base.Draw(gameTime);
