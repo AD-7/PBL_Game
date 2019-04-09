@@ -15,28 +15,35 @@ namespace Wataha.GameObjects
 
 
 
-        public virtual void Draw()
+        public virtual  void Draw()
         {
 
         }
 
-        public virtual void Updated()
+        public virtual void Update()
         {
 
+          
         }
 
 
-        public void DrawModel(Model model, Matrix world, Matrix view, Matrix projection)
+        public void DrawModel(Model model, Matrix world, Matrix view, Matrix projection, ContentManager content)
         {
+          
             foreach (ModelMesh mesh in model.Meshes)
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                    effect.World = world;
+                 
+                 
+
+                   effect.World = world;
                     effect.View = view;
                     effect.Projection = projection;
+                
+                   
                 }
-
+              
                 mesh.Draw();
             }
         }

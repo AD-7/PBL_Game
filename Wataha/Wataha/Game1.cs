@@ -18,7 +18,7 @@ namespace Wataha
 
         private GameObject model = new GameObject();
         private Matrix world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 0, 10), new Vector3(0, 0, 0), Vector3.UnitY);
+        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 10, 30), new Vector3(0, 0, -10), Vector3.UnitY);
         private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
 
         public Game1()
@@ -57,7 +57,9 @@ namespace Wataha
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            //model.model = Content.Load<Model>("wolf");
+            model.model = Content.Load<Model>("terrain");
+            
+           
         }
 
         /// <summary>
@@ -76,14 +78,19 @@ namespace Wataha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            model.Update();
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
-            
-            world = Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
-            world = world * Matrix.CreateScale(0.1f);
+            //(float)gameTime.TotalGameTime.TotalSeconds
 
+
+        //    world = Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
+           world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world = world * Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
+            world = world * Matrix.CreateScale(1f);
+            world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             base.Update(gameTime);
         }
 
@@ -95,9 +102,11 @@ namespace Wataha
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-           // model.DrawModel(model.model, world, view, projection);
+          
 
-
+          
+            model.DrawModel(model.model, world, view, projection,Content);
+      
             base.Draw(gameTime);
         }
     }

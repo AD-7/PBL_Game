@@ -10,7 +10,7 @@ namespace Wataha.GameObjects.Movable
 
         }
 
-        public override void Updated()
+        public override void Update()
         {
 
         }
