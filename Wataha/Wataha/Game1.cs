@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Wataha.GameObjects;
+using Wataha.GameObjects.Static;
 
 namespace Wataha
 {
@@ -16,11 +17,12 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private GameObject model = new GameObject();
+        private Forest example_forest;
         private Matrix world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
         private Matrix view = Matrix.CreateLookAt(new Vector3(0, 10, 30), new Vector3(0, 0, -10), Vector3.UnitY);
         private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
 
+       
         public Game1()
         {
 
@@ -56,10 +58,11 @@ namespace Wataha
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            model.model = Content.Load<Model>("terrain");
-            
-           
+       
+             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world = world * Matrix.CreateScale(1f);
+            world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            example_forest = new Forest(Content.Load<Model>("terrain"), world);
         }
 
         /// <summary>
@@ -76,22 +79,24 @@ namespace Wataha
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+
         protected override void Update(GameTime gameTime)
         {
-            model.Update();
+            float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+
+          
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
-            //(float)gameTime.TotalGameTime.TotalSeconds
+    
+    
+            example_forest.RotateY(delta);
 
 
-        //    world = Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
-           world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            world = world * Matrix.CreateRotationY((float)gameTime.TotalGameTime.TotalSeconds);
-            world = world * Matrix.CreateScale(1f);
-            world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             base.Update(gameTime);
+            
         }
 
         /// <summary>
@@ -105,7 +110,7 @@ namespace Wataha
           
 
           
-            model.DrawModel(model.model, world, view, projection,Content);
+            example_forest.DrawModel(example_forest.model, view, projection);
       
             base.Draw(gameTime);
         }

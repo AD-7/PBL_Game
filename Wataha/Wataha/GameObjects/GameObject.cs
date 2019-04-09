@@ -7,9 +7,7 @@ namespace Wataha.GameObjects
 {
     class GameObject
     {
-        public Vector3 Position { get; set; }
-        public Vector3 Scale { get; set; }
-        public Quaternion Rotation { get; set; }
+        public Matrix world;
 
         public Model model;
 
@@ -17,7 +15,7 @@ namespace Wataha.GameObjects
 
         public virtual  void Draw()
         {
-
+            
         }
 
         public virtual void Update()
@@ -26,8 +24,28 @@ namespace Wataha.GameObjects
           
         }
 
+        public void RotateY(float radians)
+        {
+            world *= Matrix.CreateRotationY(radians);
+        }
+        public void RotateX(float radians)
+        {
+            world *= Matrix.CreateRotationX(MathHelper.ToRadians(radians));
+        }
+        public void RotateZ(float radians)
+        {
+            world *= Matrix.CreateRotationZ(MathHelper.ToRadians(radians));
+        }
+        public void Translate(Vector3 vector)
+        {
+            world *= Matrix.CreateTranslation(vector);
+        } 
+        public void Scale(float scale)
+        {
+            world *= Matrix.CreateScale(scale);
+        }
 
-        public void DrawModel(Model model, Matrix world, Matrix view, Matrix projection, ContentManager content)
+        public void DrawModel(Model model,  Matrix view, Matrix projection)
         {
           
             foreach (ModelMesh mesh in model.Meshes)
