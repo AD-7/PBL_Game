@@ -8,5 +8,6 @@ namespace Wataha.GameObjects.Movable
 {
     class Wolf : GameObject
     {
+
     }
 }

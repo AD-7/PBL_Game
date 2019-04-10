@@ -8,12 +8,14 @@ namespace Wataha.GameObjects
     class GameObject
     {
         public Matrix world;
+        public Matrix view;
+        public Matrix projection;
+
 
         public Model model;
 
 
-
-        public virtual  void Draw()
+        public virtual void Draw()
         {
             
         }
@@ -52,14 +54,9 @@ namespace Wataha.GameObjects
             {
                 foreach (BasicEffect effect in mesh.Effects)
                 {
-                 
-                 
-
-                   effect.World = world;
+                    effect.World = world;
                     effect.View = view;
                     effect.Projection = projection;
-                
-                   
                 }
               
                 mesh.Draw();

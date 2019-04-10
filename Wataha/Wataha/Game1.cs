@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Wataha.GameObjects;
+using Wataha.System;
 using Wataha.GameObjects.Static;
 
 namespace Wataha
@@ -17,16 +18,18 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private Forest example_forest;
+        GameSystem gameSystem;
+
         private Matrix world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 10, 30), new Vector3(0, 0, -10), Vector3.UnitY);
-        private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
+        //private Matrix view = Matrix.CreateLookAt(new Vector3(0, 10, 30), new Vector3(0, 0, -10), Vector3.UnitY);
+       // private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
 
        
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = true;
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
         }
@@ -43,7 +46,8 @@ namespace Wataha
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+
+            gameSystem = new GameSystem(Content, world);
 
             base.Initialize();
         }
@@ -54,15 +58,12 @@ namespace Wataha
         /// </summary>
         protected override void LoadContent()
         {
-            Content = new ContentManager(this.Services, "Content");
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
        
-             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world = world * Matrix.CreateScale(1f);
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            example_forest = new Forest(Content.Load<Model>("terrain"), world);
         }
 
         /// <summary>
@@ -90,11 +91,9 @@ namespace Wataha
             {
                 Exit();
             }
-    
-    
-            example_forest.RotateY(delta);
 
 
+            gameSystem.Update();
             base.Update(gameTime);
             
         }
@@ -107,10 +106,10 @@ namespace Wataha
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-          
 
-          
-            example_forest.DrawModel(example_forest.model, view, projection);
+
+
+            gameSystem.Draw();
       
             base.Draw(gameTime);
         }
