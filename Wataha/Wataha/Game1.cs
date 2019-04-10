@@ -75,7 +75,8 @@ namespace Wataha
 
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world *= Matrix.CreateTranslation(new Vector3(0, 2.5f, 10));
+            world *= Matrix.CreateTranslation(new Vector3(0, 2.5f,camera.CamPos.Z-10));
+            world *= Matrix.CreateScale(0.7f);
             wolf = new Wolf(Content.Load<Model>("Wolf"),world,camera);
         }
 
