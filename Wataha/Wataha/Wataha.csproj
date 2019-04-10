@@ -55,6 +55,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="System\AudioSystem.cs" />
+    <Compile Include="System\Camera.cs" />
     <Compile Include="System\ColisionSystem.cs" />
     <Compile Include="System\GameSystem.cs" />
     <Compile Include="System\HuntingSystem.cs" />

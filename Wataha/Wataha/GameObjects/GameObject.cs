@@ -8,7 +8,7 @@ namespace Wataha.GameObjects
     class GameObject
     {
         public Matrix world;
-
+        
         public Model model;
 
 

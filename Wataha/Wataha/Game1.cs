@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Wataha.GameObjects;
 using Wataha.GameObjects.Static;
+using Wataha.System;
+using Wataha.GameObjects.Movable;
 
 namespace Wataha
 {
@@ -17,10 +19,14 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+
+       
+
+
         private Forest example_forest;
-        private Matrix world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-        private Matrix view = Matrix.CreateLookAt(new Vector3(0, 10, 30), new Vector3(0, 0, -10), Vector3.UnitY);
-        private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
+        private Wolf wolf;
+        private Matrix world;
+        private Camera camera;
 
        
         public Game1()
@@ -29,6 +35,9 @@ namespace Wataha
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
+            camera = new Camera();
+           world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+          
         }
 
         /// <summary>
@@ -63,6 +72,11 @@ namespace Wataha
             world = world * Matrix.CreateScale(1f);
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             example_forest = new Forest(Content.Load<Model>("terrain"), world);
+
+            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            world *= Matrix.CreateTranslation(new Vector3(0, 2.5f, 10));
+            wolf = new Wolf(Content.Load<Model>("Wolf"),world,camera);
         }
 
         /// <summary>
@@ -90,10 +104,14 @@ namespace Wataha
             {
                 Exit();
             }
-    
-    
-            example_forest.RotateY(delta);
 
+
+
+            // example_forest.RotateY(delta);
+
+              world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+
+            wolf.Update();
 
             base.Update(gameTime);
             
@@ -110,8 +128,8 @@ namespace Wataha
           
 
           
-            example_forest.DrawModel(example_forest.model, view, projection);
-      
+            example_forest.DrawModel(example_forest.model, camera.View, camera.Projection);
+            wolf.DrawModel(wolf.model, camera.View, camera.Projection);
             base.Draw(gameTime);
         }
     }
