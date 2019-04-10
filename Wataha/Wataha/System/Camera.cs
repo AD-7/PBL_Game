@@ -56,13 +56,15 @@ namespace Wataha.System
         public void Updated()
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
-                position.X += 10;
+                position.X += 0.01f;
             if (Keyboard.GetState().IsKeyDown(Keys.Left))
-                position.X -= 10;
+            {
+                position.X -= 0.01f;
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
-                position.Y += 10;
+                position.Y += 0.01f;
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
-                position.Y -= 10;
+                position.Y -= 0.01f;
         }
 
     }

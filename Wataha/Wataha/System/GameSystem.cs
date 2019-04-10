@@ -54,6 +54,7 @@ namespace Wataha.System
             {
                 obj.Update();
             }
+            Camera.Updated();
         }
 
     }

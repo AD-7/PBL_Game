@@ -22,7 +22,11 @@ namespace Wataha.GameObjects.Movable
             projection = camera.ProjectionMatrix;
         }
 
-
+        public override void Update()
+        {
+            camera.Updated();
+            base.Update();
+        }
 
         public override void Draw()
         {
