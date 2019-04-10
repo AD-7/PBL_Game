@@ -11,23 +11,28 @@ using Microsoft.Xna.Framework.Content;
 
 using Wataha.GameObjects;
 using Wataha.GameObjects.Static;
+using Wataha.GameObjects.Movable;
 
 namespace Wataha.System
 {
     class GameSystem
     {
         ContentManager Content;
+        Camera Camera;
         private Matrix world;
 
         public List<GameObject> objects;
 
-        public GameSystem(ContentManager content, Matrix world)
+        public GameSystem(ContentManager content, Matrix world, GraphicsDevice graphicsDevice)
         {
+            Camera = new Camera(graphicsDevice);
             objects = new List<GameObject>();
             Content = content;
             this.world = world;
-            Forest example_forest = new Forest(Content.Load<Model>("terrain"), world);
+            Forest example_forest = new Forest(Content.Load<Model>("terrain"), world, Camera);
             AddObjcets(example_forest);
+            AddObjcets(new Wolf(Content.Load<Model>("Wolf"), world, Camera));
+
         }
 
         public void AddObjcets(GameObject gameObject)
@@ -45,7 +50,7 @@ namespace Wataha.System
 
         public void Update()
         {
-            foreach(GameObject obj in objects)
+            foreach (GameObject obj in objects)
             {
                 obj.Update();
             }

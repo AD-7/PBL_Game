@@ -21,10 +21,8 @@ namespace Wataha
         GameSystem gameSystem;
 
         private Matrix world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-        //private Matrix view = Matrix.CreateLookAt(new Vector3(0, 10, 30), new Vector3(0, 0, -10), Vector3.UnitY);
-       // private Matrix projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45), 800 / 480f, 0.1f, 100f);
 
-       
+
         public Game1()
         {
 
@@ -47,7 +45,12 @@ namespace Wataha
         protected override void Initialize()
         {
 
-            gameSystem = new GameSystem(Content, world);
+
+            //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            //world = world * Matrix.CreateScale(1f);
+            //world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
+
+            gameSystem = new GameSystem(Content, world, graphics.GraphicsDevice);
 
             base.Initialize();
         }
@@ -60,10 +63,6 @@ namespace Wataha
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-       
-            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            world = world * Matrix.CreateScale(1f);
-            world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
         }
 
         /// <summary>

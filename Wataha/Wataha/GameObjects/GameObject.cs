@@ -22,8 +22,8 @@ namespace Wataha.GameObjects
 
         public virtual void Update()
         {
+           
 
-          
         }
 
         public void RotateY(float radians)
