@@ -23,15 +23,16 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private Forest example_forest;
+        private GameObjects.Static.Plane plane;
         private Wolf wolf;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
 
         private Matrix world;
         private Camera camera;
+        private ColisionSystem colisionSystem;
+        private GameObjects.Static.Environment trees;
 
-       
         public Game1()
         {
 
@@ -39,7 +40,11 @@ namespace Wataha
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
             camera = new Camera();
-            world = Matrix.CreateTranslation(new Vector3(0, 0, 0)); 
+
+            colisionSystem = new ColisionSystem();
+            world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+
+
         }
 
         /// <summary>
@@ -73,20 +78,25 @@ namespace Wataha
 
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world = world * Matrix.CreateScale(1f);
-            world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            example_forest = new Forest(Content.Load<Model>("terrain"), world);
 
+            world = world * Matrix.CreateTranslation(new Vector3(-10, 0, 0));
+            plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
+            Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
 
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world = world * Matrix.CreateScale(1f);
             world = world * Matrix.CreateTranslation(new Vector3(10, 0, 0));
             questGivers.Add(new QuestGiver(Content.Load<Model>("wolf"), world));
 
-            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world *= Matrix.CreateTranslation(new Vector3(0, 2.5f,camera.CamPos.Z-10));
-            world *= Matrix.CreateScale(0.7f);
-            wolf = new Wolf(Content.Load<Model>("Wolf"),world,camera);
+         
+
+            Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            world2 *= Matrix.CreateTranslation(new Vector3(0, 4.0f, camera.CamPos.Z - 10));
+            world2 *= Matrix.CreateScale(0.7f);
+            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 4, camera);
+
         }
 
         /// <summary>
@@ -109,13 +119,13 @@ namespace Wataha
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
-          
+
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null )
+            if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null)
             {
                 Debug.WriteLine("test");
             }
@@ -123,15 +133,20 @@ namespace Wataha
             ChceckNearestQuestGiver();
 
 
+            if (colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider) || colisionSystem.IsTreeCollision(wolf.collider, trees.colliders))
+            {
+                wolf.ifColisionTerrain = true;
+                wolf.cam.blocked = true;
+            }
 
-            // example_forest.RotateY(delta);
 
-            world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+
+
 
             wolf.Update();
 
             base.Update(gameTime);
-            
+
         }
 
         /// <summary>
@@ -142,9 +157,12 @@ namespace Wataha
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            example_forest.Draw(camera);
+
+            plane.Draw(camera);
             questGivers[0].Draw(camera);
+            trees.Draw(camera);
             wolf.Draw(camera);
+
             base.Draw(gameTime);
         }
 
@@ -153,7 +171,7 @@ namespace Wataha
         {
             foreach (QuestGiver giver in questGivers)
             {
-                if(Vector3.Distance(wolf.world.Translation, giver.world.Translation)<3.0f)
+                if (Vector3.Distance(wolf.world.Translation, giver.world.Translation) < 3.0f)
                 {
                     currentGiver = giver;
                     return;
@@ -162,8 +180,8 @@ namespace Wataha
                 {
                     currentGiver = null;
                 }
-                
+
             }
-       }
+        }
     }
 }

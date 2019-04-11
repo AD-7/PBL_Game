@@ -57,14 +57,14 @@ namespace Wataha.GameObjects.Movable
                 if (Keyboard.GetState().IsKeyDown(Keys.A) )
                 {
                       Translate(new Vector3(-0.1f, 0, 0));
-                    RotateY(0.5f);
+                 //   RotateY(0.5f);
                     LastMove = new Vector3(-0.1f, 0, 0);
                     cam.CamMoveLeft(0.1f);
                 }
                 if (Keyboard.GetState().IsKeyDown(Keys.D) )
                 {
                     Translate(new Vector3(0.1f, 0, 0));
-                  RotateY(-0.5f);
+                //  RotateY(-0.5f);
                     LastMove = new Vector3(0.1f, 0, 0);
                     cam.CamMoveRight(0.1f);
                 }
@@ -74,7 +74,7 @@ namespace Wataha.GameObjects.Movable
                 Translate(-LastMove);
                 LastMove = new Vector3(0, 0, 0);
                 ifColisionTerrain = false;
-                //cam.blocked = false;
+                cam.blocked = false;
             }
            
          
