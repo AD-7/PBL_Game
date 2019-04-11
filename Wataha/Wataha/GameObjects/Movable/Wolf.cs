@@ -24,7 +24,11 @@ namespace Wataha.GameObjects.Movable
          
         }
 
-
+        public void Draw(Camera camera)
+        {
+         //   base.DrawModel(model, camera.View, camera.Projection)
+            base.Draw(camera);
+        }
 
         public override void Update()
         {
@@ -52,6 +56,7 @@ namespace Wataha.GameObjects.Movable
                 cam.CamMoveRight(0.1f);
             }
             cam.Update();
+
 
 
         }
