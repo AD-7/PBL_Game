@@ -4,9 +4,15 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/olek1/Desktop/PBL/PBL_Game/PBL_Game/Wataha/Wataha/Content/Wolf.fbx</File>
-    <File>C:/Users/olek1/Desktop/PBL/PBL_Game/PBL_Game/Wataha/Wataha/Content/terrain.fbx</File>
-    <File>C:/Users/olek1/Desktop/PBL/PBL_Game/PBL_Game/Wataha/Wataha/Content/plane.FBX</File>
-    <File>C:/Users/olek1/Desktop/PBL/PBL_Game/PBL_Game/Wataha/Wataha/Content/tres.obj</File>
+    <File>C:/Users/Mantis/Desktop/sem6/PBL/PBL_Game/Wataha/Wataha/Content/plane.FBX</File>
+    <File>C:/Users/Mantis/Desktop/sem6/PBL/PBL_Game/Wataha/Wataha/Content/terrain.fbx</File>
+    <File>C:/Users/Mantis/Desktop/sem6/PBL/PBL_Game/Wataha/Wataha/Content/tres.obj</File>
+    <File>C:/Users/Mantis/Desktop/sem6/PBL/PBL_Game/Wataha/Wataha/Content/Wolf.fbx</File>
   </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
 </SourceFileCollection>

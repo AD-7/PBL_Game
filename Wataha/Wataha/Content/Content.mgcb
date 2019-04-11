@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Wolf.fbx
+#begin plane.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -30,7 +30,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:Wolf.fbx
+/build:plane.FBX
 
 #begin terrain.fbx
 /importer:FbxImporter
@@ -51,7 +51,7 @@
 /processorParam:TextureFormat=Compressed
 /build:terrain.fbx
 
-#begin plane.FBX
+#begin tres.obj
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
@@ -68,10 +68,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:plane.FBX
+/build:tres.obj
 
-#begin tres.obj
-/importer:OpenAssetImporter
+#begin Wolf.fbx
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -87,5 +87,5 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:tres.obj
+/build:Wolf.fbx
 
