@@ -15,12 +15,18 @@ namespace Wataha.System
 
         public void Draw()
         {
-
+            foreach(GameObject gameObject in objects)
+            {
+                gameObject.Draw();
+            }
         }
 
         public void Update()
         {
-
+            foreach (GameObject gameObject in objects)
+            {
+                gameObject.Update();
+            }
         }
 
     }
