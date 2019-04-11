@@ -4,10 +4,14 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+
 using Wataha.GameObjects;
 using Wataha.GameObjects.Static;
 using Wataha.System;
 using Wataha.GameObjects.Movable;
+using Wataha.GameObjects.Interable;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Wataha
 {
@@ -19,12 +23,11 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-
-       
-
-
         private Forest example_forest;
         private Wolf wolf;
+        private List<QuestGiver> questGivers;
+        private QuestGiver currentGiver;
+
         private Matrix world;
         private Camera camera;
 
@@ -36,8 +39,7 @@ namespace Wataha
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
             camera = new Camera();
-           world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-          
+            world = Matrix.CreateTranslation(new Vector3(0, 0, 0)); 
         }
 
         /// <summary>
@@ -53,6 +55,7 @@ namespace Wataha
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            questGivers = new List<QuestGiver>();
 
             base.Initialize();
         }
@@ -67,11 +70,17 @@ namespace Wataha
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-       
-             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+
+            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world = world * Matrix.CreateScale(1f);
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             example_forest = new Forest(Content.Load<Model>("terrain"), world);
+
+
+            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world = world * Matrix.CreateScale(1f);
+            world = world * Matrix.CreateTranslation(new Vector3(10, 0, 0));
+            questGivers.Add(new QuestGiver(Content.Load<Model>("wolf"), world));
 
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
@@ -106,11 +115,18 @@ namespace Wataha
                 Exit();
             }
 
+            if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null )
+            {
+                Debug.WriteLine("test");
+            }
+
+            ChceckNearestQuestGiver();
+
 
 
             // example_forest.RotateY(delta);
 
-              world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
             wolf.Update();
 
@@ -126,12 +142,28 @@ namespace Wataha
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
 
-          
-
-          
-            example_forest.DrawModel(example_forest.model, camera.View, camera.Projection);
-            wolf.DrawModel(wolf.model, camera.View, camera.Projection);
+            example_forest.Draw(camera);
+            questGivers[0].Draw(camera);
+            wolf.Draw(camera);
             base.Draw(gameTime);
         }
+
+
+        public void ChceckNearestQuestGiver()
+        {
+            foreach (QuestGiver giver in questGivers)
+            {
+                if(Vector3.Distance(wolf.world.Translation, giver.world.Translation)<3.0f)
+                {
+                    currentGiver = giver;
+                    return;
+                }
+                else
+                {
+                    currentGiver = null;
+                }
+                
+            }
+       }
     }
 }
