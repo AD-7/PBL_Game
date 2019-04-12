@@ -68,10 +68,11 @@ namespace Wataha.GameObjects.Movable
                         //LastMove = new Vector3(-0.1f, 0, 0);
                         //cam.CamMoveLeft(0.2f);
                         angle += 0.05f;
+                        
                   //     cam.CamPos -= new Vector3(dirX /2 , 0, dirZ/2);
                   //     cam.CamTarget += new Vector3(dirX/2 , 0, dirZ/2);
 
-                    }
+                }
                 if (Keyboard.GetState().IsKeyDown(Keys.D) )
                 {
                     //Translate(new Vector3(0.1f, 0, 0));
@@ -95,7 +96,10 @@ namespace Wataha.GameObjects.Movable
             // *
             world =  Matrix.CreateRotationX(MathHelper.ToRadians(-90)) *Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);// * Matrix.CreateFromAxisAngle(Vector3.UnitY, MathHelper.ToRadians(-90)); ;
 
-            cam.Update();
+            cam.CameraUpdate(world);
+
+          
+           // cam.Update();
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
             new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
 

@@ -21,7 +21,7 @@ namespace Wataha.System
              CamPos = new Vector3(2, 10, 30);
              CamTarget = new Vector3(0, 0, -5);
             Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(30), 800 / 480f, 0.1f, 100f);
-            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.UnitY);
+            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up);
             maxDist = Math.Abs(CamPos.X - CamTarget.X);
            // StaticObjectsView = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.UnitY);
         }
@@ -29,7 +29,16 @@ namespace Wataha.System
         public void Update()
         {
             
-            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.UnitY);
+            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up);
+        }
+
+        public void CameraUpdate(Matrix playerMatrix)
+        {
+            CamPos = playerMatrix.Translation + (playerMatrix.Up * 20) +
+                                    (playerMatrix.Backward * 5);
+            CamTarget = playerMatrix.Translation;
+
+            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up); 
         }
 
         public void CamMoveLeft(float value)
