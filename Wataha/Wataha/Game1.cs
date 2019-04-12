@@ -75,7 +75,8 @@ namespace Wataha
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            graphics.IsFullScreen = true;
+            graphics.ApplyChanges();
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world = world * Matrix.CreateScale(1f);
 
