@@ -20,6 +20,13 @@ namespace Wataha.GameObjects.Movable
         public Vector3 position;
         public float angle;
 
+        public int strength = 10;
+        public int resistance = 10;
+        public int speed = 10;
+        public int energy = 100;
+        float energyRecoverTime = 5.0f;
+
+
         public Wolf(Model model, Matrix world,float colliderSize,Camera cam)
         {
             base.model = model;
