@@ -136,7 +136,6 @@ namespace Wataha
             if (colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider) || colisionSystem.IsTreeCollision(wolf.collider, trees.colliders))
             {
                 wolf.ifColisionTerrain = true;
-                wolf.cam.blocked = true;
             }
 
 
