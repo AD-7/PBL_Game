@@ -93,8 +93,8 @@ namespace Wataha
 
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world2 *= Matrix.CreateTranslation(new Vector3(0, 4.0f, camera.CamPos.Z - 10));
-            world2 *= Matrix.CreateScale(0.7f);
+            world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
+            world2 *= Matrix.CreateScale(0.5f);
             wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 4, camera);
 
         }
