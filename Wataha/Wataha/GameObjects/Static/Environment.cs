@@ -16,9 +16,20 @@ namespace Wataha.GameObjects.Static
 
             foreach(ModelMesh mesh in model.Meshes)
             {
-                BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize/2, mesh.BoundingSphere.Center.Y - colliderSize , mesh.BoundingSphere.Center.Z - colliderSize/2  ),
-               new Vector3(mesh.BoundingSphere.Center.X + colliderSize / 2, mesh.BoundingSphere.Center.Y + colliderSize, mesh.BoundingSphere.Center.Z + colliderSize / 2));
-                colliders.Add(box);
+                float houseSize = colliderSize * 8; 
+                if(mesh.Name == "g House")
+                {
+                    BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - (houseSize+1) , mesh.BoundingSphere.Center.Y - houseSize, mesh.BoundingSphere.Center.Z - houseSize ),
+              new Vector3(mesh.BoundingSphere.Center.X + (houseSize+1) , mesh.BoundingSphere.Center.Y + houseSize, mesh.BoundingSphere.Center.Z + houseSize ));
+                    colliders.Add(box);
+                }
+                else
+                {
+                BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize / 2, mesh.BoundingSphere.Center.Y - colliderSize, mesh.BoundingSphere.Center.Z - colliderSize / 2),
+                new Vector3(mesh.BoundingSphere.Center.X + colliderSize / 2, mesh.BoundingSphere.Center.Y + colliderSize, mesh.BoundingSphere.Center.Z + colliderSize / 2));
+                    colliders.Add(box);
+                }
+               
             }
             
         }
