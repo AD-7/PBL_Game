@@ -55,6 +55,8 @@
     <Compile Include="GameObjects\Static\Plane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="System\Animation\Animation.cs" />
+    <Compile Include="System\Animation\AnimationSystem.cs" />
     <Compile Include="System\AudioSystem.cs" />
     <Compile Include="System\Camera.cs" />
     <Compile Include="System\ColisionSystem.cs" />
