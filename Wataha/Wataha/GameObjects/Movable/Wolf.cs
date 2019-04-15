@@ -91,7 +91,7 @@ namespace Wataha.GameObjects.Movable
             }
             else
             {
-                position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 8);
+                position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 5);
                 ifColisionTerrain = false;
             }
             // *
