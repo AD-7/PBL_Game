@@ -7,23 +7,48 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
+using System.IO;
 
 namespace Wataha.System.Animation
 {
-    class Animation
+    public class Animation
     {
         public int CurrentFrame { get; set; }
+        public int NumberOfFrames { get; private set; }
         public bool IsLooping { get; set; }
-        public Dictionary<String,Model> animation { get; private set; }
+        public Dictionary<int,Model> animation { get; private set; }
         public float frameSpeed { get; set; }
         public ContentManager content { get; set; }
 
         public Animation(ContentManager content,String animationfolder)
         {
             this.content = content;
-            Model animationFrame;
-            animationFrame = content.Load<Model>(animationfolder+"");
+            loadContent(animationfolder);
             frameSpeed = 0.2f;
+        }
+        public Animation()
+        {
+            //For testing purposes;
+        }
+        public void loadContent(String animationFolder)
+        {
+            String path = Directory.GetCurrentDirectory();
+            List<String> objList = new List<string>();
+            int pom = path.IndexOf("Wataha");
+            path = path.Substring(0,pom+6);
+            path = path + "\\Wataha\\Content\\"+animationFolder;
+            String[] fileList = Directory.GetFiles(path, "*.fbx");
+            foreach (String file in fileList)
+            {
+                objList.Add(Path.GetFileNameWithoutExtension(file));
+            }
+            foreach(String obj in objList)
+            {
+                int i =  0;
+                animation.Add(i, content.Load<Model>(obj));
+            }
+            NumberOfFrames = animation.Count;
+            
         }
     }
 }
