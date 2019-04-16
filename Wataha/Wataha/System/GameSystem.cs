@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using Wataha.GameObjects;
 
-namespace Wataha.System
+namespace Wataha.GameSystem
 {
     class GameSystem
     {

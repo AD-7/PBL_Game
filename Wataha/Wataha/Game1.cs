@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Wataha.GameObjects;
 using Wataha.GameObjects.Static;
-using Wataha.System;
+using Wataha.GameSystem;
 using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
@@ -32,6 +32,7 @@ namespace Wataha
         private Matrix world;
         private Camera camera;
         private ColisionSystem colisionSystem;
+        private AudioSystem audioSystem;
         private GameObjects.Static.Environment trees;
 
         public Game1()
@@ -46,6 +47,7 @@ namespace Wataha
             camera = new Camera();
 
             colisionSystem = new ColisionSystem();
+            audioSystem = new AudioSystem(Content);
             world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
 
@@ -128,6 +130,12 @@ namespace Wataha
             {
                 Exit();
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                audioSystem.soundEffects[2].CreateInstance().Play();
+            }
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null)
             {

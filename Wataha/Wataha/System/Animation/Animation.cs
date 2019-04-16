@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Content;
 using System.IO;
 
-namespace Wataha.System.Animation
+namespace Wataha.GameSystem.Animation
 {
     public class Animation
     {

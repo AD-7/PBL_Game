@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameObjects.Movable;
 
-namespace Wataha.System
+namespace Wataha.GameSystem
 {
     class HuntingSystem
     {
