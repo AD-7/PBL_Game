@@ -85,7 +85,7 @@ namespace Wataha
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
-            skybox = new Skybox("Skyboxes/Sunset", Content);
+            skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
 
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -99,7 +99,7 @@ namespace Wataha
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
             world2 *= Matrix.CreateScale(0.5f);
-            wolf = new Wolf(Content.Load<Model>("piesblend"), world2, 4, camera);
+            wolf = new Wolf(Content.Load<Model>("wolf"), world2, 4, camera);
 
         }
 
@@ -165,7 +165,16 @@ namespace Wataha
             //questGivers[0].Draw(camera);
             trees.Draw(camera);
             wolf.Draw(camera);
-            skybox.Draw(camera);
+
+             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
+             RasterizerState rasterizerState = new RasterizerState();
+             rasterizerState.CullMode = CullMode.None;
+             graphics.GraphicsDevice.RasterizerState = rasterizerState;
+
+             skybox.Draw(camera);
+
+             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+
 
             base.Draw(gameTime);
         }

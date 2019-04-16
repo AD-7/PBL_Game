@@ -19,7 +19,7 @@ namespace Wataha.System
         {
              CamPos = new Vector3(2, 10, 30);
              CamTarget = new Vector3(0, 0, -10);
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(30), 800 / 480f, 0.1f, 100f);
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(30), 800 / 480f, 0.1f, 220f);
             View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up);
             maxDist = Math.Abs(CamPos.X - CamTarget.X);
 
