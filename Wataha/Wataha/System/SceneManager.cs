@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wataha.System
+namespace Wataha.GameSystem
 {
     class SceneManager
     {

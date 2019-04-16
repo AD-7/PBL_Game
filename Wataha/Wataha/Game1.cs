@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework.Content;
 
 using Wataha.GameObjects;
 using Wataha.GameObjects.Static;
-using Wataha.System;
+using Wataha.GameSystem;
 using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
@@ -28,10 +28,12 @@ namespace Wataha
         private Wolf wolf;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
+        Skybox skybox;
 
         private Matrix world;
         private Camera camera;
         private ColisionSystem colisionSystem;
+        private AudioSystem audioSystem;
         private GameObjects.Static.Environment trees;
 
         public Game1()
@@ -40,9 +42,13 @@ namespace Wataha
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
+            //graphics.IsFullScreen = true;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.ApplyChanges();
             camera = new Camera();
 
             colisionSystem = new ColisionSystem();
+            audioSystem = new AudioSystem(Content);
             world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
 
@@ -73,11 +79,8 @@ namespace Wataha
         protected override void LoadContent()
         {
             Content = new ContentManager(this.Services, "Content");
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           // graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             
 
@@ -85,20 +88,21 @@ namespace Wataha
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
+            skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
+
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             //world = world * Matrix.CreateScale(1f);
             //world = world * Matrix.CreateTranslation(new Vector3(10, 0, 0));
             //questGivers.Add(new QuestGiver(Content.Load<Model>("wolf"), world));
 
-         
+
 
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
             world2 *= Matrix.CreateScale(0.5f);
-            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 4, camera);
-            //AnimationPlayer anim = new AnimationPlayer(this, "PiesAnim\\piesanim");
+            wolf = new Wolf(Content.Load<Model>("wolf"), world2, 4, camera);
 
         }
 
@@ -127,6 +131,12 @@ namespace Wataha
             {
                 Exit();
             }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.E))
+            {
+                audioSystem.playGrowl(2);
+            }
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null)
             {
@@ -164,6 +174,16 @@ namespace Wataha
             //questGivers[0].Draw(camera);
             trees.Draw(camera);
             wolf.Draw(camera);
+
+             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
+             RasterizerState rasterizerState = new RasterizerState();
+             rasterizerState.CullMode = CullMode.None;
+             graphics.GraphicsDevice.RasterizerState = rasterizerState;
+
+             skybox.Draw(camera);
+
+             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+
 
             base.Draw(gameTime);
         }
