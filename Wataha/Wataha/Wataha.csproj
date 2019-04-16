@@ -65,6 +65,7 @@
     <Compile Include="System\QuestSystem.cs" />
     <Compile Include="System\ResoucersSystem.cs" />
     <Compile Include="System\SceneManager.cs" />
+    <Compile Include="System\Skybox.cs" />
     <Compile Include="System\UpgradeSystem.cs" />
   </ItemGroup>
   <ItemGroup>
