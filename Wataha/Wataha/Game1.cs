@@ -12,6 +12,7 @@ using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Wataha
 {
@@ -133,7 +134,7 @@ namespace Wataha
 
             if (Keyboard.GetState().IsKeyDown(Keys.E))
             {
-                audioSystem.soundEffects[2].CreateInstance().Play();
+                audioSystem.playGrowl(2);
             }
 
 

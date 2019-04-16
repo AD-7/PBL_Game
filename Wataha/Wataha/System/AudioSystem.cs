@@ -13,40 +13,63 @@ namespace Wataha.GameSystem
     {
         public List<Song> songList;
         public List<SoundEffect> soundEffects;
+        public List<SoundEffectInstance> growl;
         Random rnd = new Random();
+        int i = 0;
 
         ContentManager Content;
+  
+
 
         public AudioSystem(ContentManager content)
         {
             Content = content;
             songList = new List<Song>();
             soundEffects = new List<SoundEffect>();
+            growl = new List<SoundEffectInstance>();
 
             songList.Add(Content.Load<Song>("Songs/forest (1)"));
-            songList.Add(Content.Load<Song>("Songs/forest"));
             songList.Add(Content.Load<Song>("Songs/Forest3"));
+            songList.Add(Content.Load<Song>("Songs/forest"));
+         
+
+            MediaPlayer.Volume = 0.4f;
+            MediaPlayer.Play(songList[i]);
+            //  Uncomment the following line will also loop the song
+            //MediaPlayer.IsRepeating = true;
+            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
 
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl6"));
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl5"));
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl4"));
 
-            SoundEffect.MasterVolume = 0.3f;
+            growl.Add(soundEffects[0].CreateInstance());
+            growl.Add(soundEffects[1].CreateInstance());
+            growl.Add(soundEffects[2].CreateInstance());
 
-            MediaPlayer.Play(songList[0]);
-            //  Uncomment the following line will also loop the song
-            //MediaPlayer.IsRepeating = true;
-            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+            SoundEffect.MasterVolume = 0.3f;
         }
 
         void MediaPlayer_MediaStateChanged(object sender, EventArgs e)
         {
+            i++;
             // 0.0f is silent, 1.0f is full volume
-            MediaPlayer.Volume = 0.2f;
+            MediaPlayer.Volume = 0.4f;
             if (MediaPlayer.State != MediaState.Playing && MediaPlayer.PlayPosition.TotalSeconds == 0.0f)
             {
-                MediaPlayer.Play(songList[rnd.Next(songList.Count)]);
+                if (i == songList.Count)
+                    i = 0;
+                MediaPlayer.Play(songList[i]);
+
             }
         }
+
+        public void playGrowl(int i)
+        {
+            if (!growl[i].State.Equals(SoundState.Playing))
+                growl[i].Play();
+        }
+
+
     }
 }
