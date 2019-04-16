@@ -25,6 +25,7 @@ namespace Wataha.GameSystem
 
             songList.Add(Content.Load<Song>("Songs/forest (1)"));
             songList.Add(Content.Load<Song>("Songs/forest"));
+            songList.Add(Content.Load<Song>("Songs/Forest3"));
 
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl6"));
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl5"));
