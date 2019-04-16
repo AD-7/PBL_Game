@@ -12,6 +12,7 @@ using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
 using System.Diagnostics;
+using SkinnedModel;
 
 namespace Wataha
 {
@@ -96,7 +97,8 @@ namespace Wataha
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
             world2 *= Matrix.CreateScale(0.5f);
-            wolf = new Wolf(Content.Load<Model>("piesblend"), world2, 4, camera);
+            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 4, camera);
+            //AnimationPlayer anim = new AnimationPlayer(this, "PiesAnim\\piesanim");
 
         }
 
