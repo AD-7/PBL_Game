@@ -27,6 +27,7 @@ namespace Wataha
         private Wolf wolf;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
+        Skybox skybox;
 
         private Matrix world;
         private Camera camera;
@@ -39,6 +40,9 @@ namespace Wataha
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
+            //graphics.IsFullScreen = true;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.ApplyChanges();
             camera = new Camera();
 
             colisionSystem = new ColisionSystem();
@@ -72,11 +76,8 @@ namespace Wataha
         protected override void LoadContent()
         {
             Content = new ContentManager(this.Services, "Content");
-
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-           // graphics.IsFullScreen = true;
-            graphics.ApplyChanges();
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             
 
@@ -84,13 +85,15 @@ namespace Wataha
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
+            skybox = new Skybox("Skyboxes/Sunset", Content);
+
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             //world = world * Matrix.CreateScale(1f);
             //world = world * Matrix.CreateTranslation(new Vector3(10, 0, 0));
             //questGivers.Add(new QuestGiver(Content.Load<Model>("wolf"), world));
 
-         
+
 
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
@@ -162,6 +165,7 @@ namespace Wataha
             //questGivers[0].Draw(camera);
             trees.Draw(camera);
             wolf.Draw(camera);
+            skybox.Draw(camera);
 
             base.Draw(gameTime);
         }
