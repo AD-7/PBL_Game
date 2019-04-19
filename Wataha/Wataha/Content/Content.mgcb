@@ -16,10 +16,10 @@
 
 #begin PiesAnim/piesanim.fbx
 /importer:FbxImporter
-/processor:SkinnedModelProcessor
-/processorParam:DefaultEffect=SkinnedEffect
+/processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
 /processorParam:GenerateMipmaps=True
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
@@ -52,7 +52,7 @@
 /processorParam:TextureFormat=Compressed
 /build:PiesAnim/piesv3.fbx
 
-#begin piesblend.fbx
+#begin plane.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0

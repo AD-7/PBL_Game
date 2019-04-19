@@ -1,6 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Kinect;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using SkinnedModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +27,33 @@ namespace Wataha.GameObjects.Movable
         public int speed = 10;
         public int energy = 100;
         float energyRecoverTime = 5.0f;
+        public AnimationPlayer animationPlayer;
+        public KinectSensor kinectSensor;
+        Skeleton[] skeletonData;
 
 
-        public Wolf(Model model, Matrix world,float colliderSize,Camera cam)
+        public Wolf(String animationName,Game game ,Matrix world,float colliderSize,Camera cam)
+        {
+            //base.model = model;
+
+            animationPlayer = new AnimationPlayer(game, animationName);
+            kinectSensor = KinectSensor.KinectSensors[0];
+            kinectSensor.SkeletonStream.Enable();
+            kinectSensor.Start();
+
+            skeletonData = new Skeleton[kinectSensor.SkeletonStream.FrameSkeletonArrayLength];
+            kinectSensor.AllFramesReady += new EventHandler<AllFramesReadyEventArgs>(KinectAllFramesReady);
+
+            base.world = world;
+            this.cam = cam;
+            ifColisionTerrain = false;
+            position = world.Translation;
+            angle = 180;
+            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize/2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
+                                        new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
+            this.colliderSize = colliderSize;
+        }
+        public Wolf(Model model, Matrix world, float colliderSize, Camera cam)
         {
             base.model = model;
             base.world = world;
@@ -35,7 +61,7 @@ namespace Wataha.GameObjects.Movable
             ifColisionTerrain = false;
             position = world.Translation;
             angle = 180;
-            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize/2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
+            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
                                         new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
             this.colliderSize = colliderSize;
         }
@@ -109,5 +135,22 @@ namespace Wataha.GameObjects.Movable
 
 
         }
+        public void KinectAllFramesReady(object sender, AllFramesReadyEventArgs e)
+        {
+            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
+            {
+                if (skeletonFrame != null)
+                {
+                    skeletonFrame.CopySkeletonDataTo(skeletonData);
+                    if (skeletonData[0] != null && skeletonData[0].TrackingState == SkeletonTrackingState.Tracked)
+                    {
+                        animationPlayer.Update(skeletonData[0], Matrix.Identity);
+                        //animationPlayer.Draw(cameraArc, cameraDistance, cameraRotation);
+
+                    }
+                }
+            }
+        }
     }
+    
 }
