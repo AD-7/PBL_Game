@@ -12,7 +12,7 @@ using Wataha.GameSystem;
 
 namespace Wataha.GameObjects.Movable
 {
-     class Wolf : GameObject
+    public class Wolf : GameObject
     {
         public Camera cam;
         public bool ifColisionTerrain;
@@ -21,7 +21,8 @@ namespace Wataha.GameObjects.Movable
         public Vector3 LastMove;
         public Vector3 position;
         public float angle;
-
+        float dirX,dirZ, speedFactor;
+        
         public int strength = 10;
         public int resistance = 10;
         public int speed = 10;
@@ -74,12 +75,12 @@ namespace Wataha.GameObjects.Movable
 
         public override void Update()
         {
-            float dirX = (float)Math.Sin(angle);
-            float dirZ = (float)Math.Cos(angle);
-            float speedFactor = 4;
+            dirX = (float)Math.Sin(angle);
+            dirZ = (float)Math.Cos(angle);
+             speedFactor = 4;
 
-            if (!ifColisionTerrain)
-            {
+           if (!ifColisionTerrain)
+           {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
                     speedFactor = 1.5f;
@@ -113,13 +114,11 @@ namespace Wataha.GameObjects.Movable
                     }
                 }
                
-
             }
-            else
-            {
-                position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 5);
-                ifColisionTerrain = false;
-            }
+            //else
+            //{
+               
+            //}
             // *
             world =  Matrix.CreateRotationX(MathHelper.ToRadians(-90)) *Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);// * Matrix.CreateFromAxisAngle(Vector3.UnitY, MathHelper.ToRadians(-90)); ;
 
@@ -135,6 +134,14 @@ namespace Wataha.GameObjects.Movable
 
 
         }
+
+        public void ProccedCollision()
+        {
+            //  position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 5);
+            position -= (new Vector3(dirX / speedFactor, 0, dirZ / speedFactor));
+            ifColisionTerrain = false;
+        }
+
         public void KinectAllFramesReady(object sender, AllFramesReadyEventArgs e)
         {
             using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())

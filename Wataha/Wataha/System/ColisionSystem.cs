@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Wataha.GameObjects;
+using Wataha.GameObjects.Movable;
 
 namespace Wataha.GameSystem
 {
@@ -24,8 +26,10 @@ namespace Wataha.GameSystem
         {
             foreach(BoundingBox box in trees)
             {
+
                 if (player.Intersects(box))
                 {
+                 
                     return true;
                 }
             }

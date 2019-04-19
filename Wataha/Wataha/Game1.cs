@@ -145,17 +145,19 @@ namespace Wataha
 
             ChceckNearestQuestGiver();
 
-
+           
             if (colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider) || colisionSystem.IsTreeCollision(wolf.collider, trees.colliders))
             {
+              
                 wolf.ifColisionTerrain = true;
+                wolf.ProccedCollision();
             }
 
+             wolf.Update();
 
 
 
-
-            wolf.Update();
+            
 
             base.Update(gameTime);
 
