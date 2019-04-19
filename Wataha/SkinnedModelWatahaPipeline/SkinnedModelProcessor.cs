@@ -26,7 +26,7 @@ namespace SkinnedModelPipeline
     /// Custom processor extends the builtin framework ModelProcessor class,
     /// adding animation support.
     /// </summary>
-    [ContentProcessor(DisplayName = "Skined Model Processor")]
+    [ContentProcessor(DisplayName = "SkinedModelProcessor")]
     public class SkinnedModelProcessor : ModelProcessor
     {
         /// <summary>
