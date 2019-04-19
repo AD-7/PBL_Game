@@ -22,6 +22,8 @@ namespace Wataha.GameSystem
              
                         return false;
         }
+
+
         public bool IsTreeCollision(BoundingBox player, List<BoundingBox> trees)
         {
             foreach(BoundingBox box in trees)
@@ -35,6 +37,8 @@ namespace Wataha.GameSystem
             }
             return false;
         }
+
+
 
     }
 }

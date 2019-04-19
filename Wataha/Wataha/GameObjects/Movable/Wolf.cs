@@ -77,13 +77,13 @@ namespace Wataha.GameObjects.Movable
         {
             dirX = (float)Math.Sin(angle);
             dirZ = (float)Math.Cos(angle);
-             speedFactor = 4;
+          
 
            if (!ifColisionTerrain)
            {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
-                    speedFactor = 1.5f;
+                    speedFactor = 2.5f;
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
@@ -138,7 +138,11 @@ namespace Wataha.GameObjects.Movable
         public void ProccedCollision()
         {
             //  position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 5);
-            position -= (new Vector3(dirX / speedFactor, 0, dirZ / speedFactor));
+         
+                position -= new Vector3(dirX / speedFactor, 0, -dirZ / speedFactor);
+          
+
+           
             ifColisionTerrain = false;
         }
 

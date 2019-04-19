@@ -25,8 +25,8 @@ namespace Wataha.GameObjects.Static
                 }
                 else
                 {
-                BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize / 2, mesh.BoundingSphere.Center.Y - colliderSize, mesh.BoundingSphere.Center.Z - colliderSize / 2),
-                new Vector3(mesh.BoundingSphere.Center.X + colliderSize / 2, mesh.BoundingSphere.Center.Y + colliderSize, mesh.BoundingSphere.Center.Z + colliderSize / 2));
+                BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize / 2, mesh.BoundingSphere.Center.Y -colliderSize, mesh.BoundingSphere.Center.Z - colliderSize / 2),
+                new Vector3(mesh.BoundingSphere.Center.X + colliderSize / 2, mesh.BoundingSphere.Center.Y + colliderSize/2, mesh.BoundingSphere.Center.Z + colliderSize / 2));
                     colliders.Add(box);
                 }
                
