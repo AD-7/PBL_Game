@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Wataha.GameObjects.Static
 {
-    class Environment : GameObject
+    public class Environment : GameObject
     {
        public List<BoundingBox> colliders;
 
@@ -19,8 +19,8 @@ namespace Wataha.GameObjects.Static
                 float houseSize = colliderSize * 7.5f;
                 if (mesh.Name.Contains("House"))
                 {
-                    BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - (houseSize+1) , mesh.BoundingSphere.Center.Y - houseSize, mesh.BoundingSphere.Center.Z - houseSize ),
-              new Vector3(mesh.BoundingSphere.Center.X + (houseSize+1) , mesh.BoundingSphere.Center.Y + houseSize, mesh.BoundingSphere.Center.Z + houseSize ));
+                    BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - (houseSize+1) , mesh.BoundingSphere.Center.Y - houseSize, mesh.BoundingSphere.Center.Z - (houseSize+1) ),
+              new Vector3(mesh.BoundingSphere.Center.X + (houseSize+1) , mesh.BoundingSphere.Center.Y + houseSize, mesh.BoundingSphere.Center.Z + (houseSize+1) ));
                     colliders.Add(box);
                 }
                 else

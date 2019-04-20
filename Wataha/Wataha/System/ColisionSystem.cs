@@ -24,16 +24,34 @@ namespace Wataha.GameSystem
         }
 
 
-        public bool IsTreeCollision(BoundingBox player, List<BoundingBox> trees)
+        public bool IsEnvironmentCollision(Wolf player, Wataha.GameObjects.Static.Environment env)
         {
-            foreach(BoundingBox box in trees)
+            int i = 0;
+            foreach(ModelMesh mesh in env.model.Meshes)
             {
 
-                if (player.Intersects(box))
+                if (mesh.Name.Contains("House"))
                 {
-                 
-                    return true;
+                    if (player.collider.Intersects(env.colliders[i]))
+                    {
+                        player.ifColisionTerrain = true;
+                        player.ProccedCollisionBuilding();
+                       
+                        return true;
+                    }
                 }
+                else
+                {
+                    if (player.collider.Intersects(env.colliders[i]))
+                    {
+                       player.ifColisionTerrain = true;
+                        player.ProccedCollisionTree();
+                        
+                        return true;
+                    }
+                }
+                i++;
+                    
             }
             return false;
         }

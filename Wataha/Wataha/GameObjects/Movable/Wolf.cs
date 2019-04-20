@@ -88,6 +88,7 @@ namespace Wataha.GameObjects.Movable
                     {
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     }
+                   
                     if (Keyboard.GetState().IsKeyDown(Keys.A))
                     {
                         angle += 0.05f;
@@ -135,15 +136,21 @@ namespace Wataha.GameObjects.Movable
 
         }
 
-        public void ProccedCollision()
+        public void ProccedCollisionTree()
         {
             //  position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 5);
          
                 position -= new Vector3(dirX / speedFactor, 0, -dirZ / speedFactor);
-          
+            angle -= 0.02f;
 
            
             ifColisionTerrain = false;
+        }
+        public void ProccedCollisionBuilding()
+        {
+            position -= new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+            ifColisionTerrain = false;
+
         }
 
         public void KinectAllFramesReady(object sender, AllFramesReadyEventArgs e)
