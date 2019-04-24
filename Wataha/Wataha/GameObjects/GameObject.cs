@@ -11,9 +11,10 @@ namespace Wataha.GameObjects
         public Matrix world;
         public Model model;
         public Material material;
-        Vector3 lightPos = new Vector3(-10, 40, -2);
-        float lightPower = 1.0f;
-        float ambientPower = 0.2f;
+
+        Vector3 lightPos = new Vector3(-5, 60, 10);
+        float lightPower = 0.7f;
+        float ambientPower = 0.5f;
 
 
         public GameObject(Matrix world, Model model)

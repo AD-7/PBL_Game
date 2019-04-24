@@ -14,6 +14,8 @@ float3 xLightPos;
 float xLightPower;
 float xAmbient;
 Texture xTexture;
+float4 LightColor = float4 (1, 1, 1,1);
+
 
 sampler TextureSampler = sampler_state
 {
@@ -65,7 +67,7 @@ PixelToFrame MainPS(VertexShaderOutput PSIn)
 
 	PSIn.TexCoords.y--;
 	float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
-	output.Color = baseColor * (diffuseLightingFactor + xAmbient);
+	output.Color = baseColor * (diffuseLightingFactor + xAmbient) * LightColor;
 
 	return output;
 }
