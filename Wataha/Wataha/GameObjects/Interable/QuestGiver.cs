@@ -17,10 +17,9 @@ namespace Wataha.GameObjects.Interable
         public Quest actualQuest;
         // public GameObject reward;
 
-        public QuestGiver(Model model, Matrix world)
+        public QuestGiver(Model model, Matrix world) : base(world,model)
         {
-            base.model = model;
-            base.world = world;
+          
 
             questsList = new List<Quest>();
             questCompleted = new List<Quest>();

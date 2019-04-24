@@ -1,18 +1,16 @@
-﻿using System;
-
+﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
-
-using Wataha.GameObjects;
-using Wataha.GameObjects.Static;
 using Wataha.GameSystem;
 using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
 using System.Diagnostics;
-using SkinnedModel;
+using Wataha.GameObjects.Materials;
+using Wataha.System;
+using Wataha.GameObjects;
 
 namespace Wataha
 {
@@ -35,7 +33,8 @@ namespace Wataha
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
         private GameObjects.Static.Environment trees;
-
+        private Effect simpleEffect;
+        private PrelightingRenderer renderer;
         public Game1()
         {
 
@@ -52,7 +51,7 @@ namespace Wataha
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
             world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-
+        
 
         }
 
@@ -84,7 +83,9 @@ namespace Wataha
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            
+
+            simpleEffect = Content.Load<Effect>("Effects/Light");
+
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
@@ -105,6 +106,21 @@ namespace Wataha
             world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
             world2 *= Matrix.CreateScale(0.5f);
             wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.5f, camera);
+
+            wolf.SetModelEffect(simpleEffect, true);
+            trees.SetModelEffect(simpleEffect, true);
+            plane.SetModelEffect(simpleEffect, true);
+
+            PointLightMaterial mat = new PointLightMaterial();
+
+            wolf.material = mat;
+            trees.material = mat;
+            plane.material = mat;
+
+
+
+
+
 
         }
 
@@ -169,7 +185,9 @@ namespace Wataha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+          
+            graphics.GraphicsDevice.Clear(Color.Black);
+
 
 
             plane.Draw(camera);
@@ -177,14 +195,14 @@ namespace Wataha
             trees.Draw(camera);
             wolf.Draw(camera);
 
-             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
-             RasterizerState rasterizerState = new RasterizerState();
-             rasterizerState.CullMode = CullMode.None;
-             graphics.GraphicsDevice.RasterizerState = rasterizerState;
+            RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
-             skybox.Draw(camera);
+            // skybox.Draw(camera);
 
-             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+            graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
             base.Draw(gameTime);

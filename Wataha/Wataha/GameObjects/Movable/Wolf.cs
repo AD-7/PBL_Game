@@ -33,31 +33,31 @@ namespace Wataha.GameObjects.Movable
         Skeleton[] skeletonData;
 
 
-        public Wolf(String animationName,Game game ,Matrix world,float colliderSize,Camera cam)
+        //public Wolf(String animationName, Game game, Matrix world, float colliderSize, Camera cam) : base(world)
+        //{
+        //    //base.model = model;
+
+        //    animationPlayer = new AnimationPlayer(game, animationName);
+        //    kinectSensor = KinectSensor.KinectSensors[0];
+        //    kinectSensor.SkeletonStream.Enable();
+        //    kinectSensor.Start();
+
+        //    skeletonData = new Skeleton[kinectSensor.SkeletonStream.FrameSkeletonArrayLength];
+        //    kinectSensor.AllFramesReady += new EventHandler<AllFramesReadyEventArgs>(KinectAllFramesReady);
+
+         
+        //    this.cam = cam;
+        //    ifColisionTerrain = false;
+        //    position = world.Translation;
+        //    angle = 180;
+        //    collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize/2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
+        //                                new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
+        //    this.colliderSize = colliderSize;
+            
+        //}
+        public Wolf(Model model, Matrix world, float colliderSize, Camera cam) : base(world,model)
         {
-            //base.model = model;
-
-            animationPlayer = new AnimationPlayer(game, animationName);
-            kinectSensor = KinectSensor.KinectSensors[0];
-            kinectSensor.SkeletonStream.Enable();
-            kinectSensor.Start();
-
-            skeletonData = new Skeleton[kinectSensor.SkeletonStream.FrameSkeletonArrayLength];
-            kinectSensor.AllFramesReady += new EventHandler<AllFramesReadyEventArgs>(KinectAllFramesReady);
-
-            base.world = world;
-            this.cam = cam;
-            ifColisionTerrain = false;
-            position = world.Translation;
-            angle = 180;
-            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize/2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
-                                        new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
-            this.colliderSize = colliderSize;
-        }
-        public Wolf(Model model, Matrix world, float colliderSize, Camera cam)
-        {
-            base.model = model;
-            base.world = world;
+          
             this.cam = cam;
             ifColisionTerrain = false;
             position = world.Translation;

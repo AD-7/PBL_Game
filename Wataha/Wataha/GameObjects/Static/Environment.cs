@@ -8,10 +8,9 @@ namespace Wataha.GameObjects.Static
     {
        public List<BoundingBox> colliders;
 
-        public Environment(Model model,Matrix world, float colliderSize)
+        public Environment(Model model,Matrix world, float colliderSize) : base(world,model)
         {
-            base.model = model;
-            base.world = world;
+            
             colliders = new List<BoundingBox>();
 
             foreach(ModelMesh mesh in model.Meshes)
