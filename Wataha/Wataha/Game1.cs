@@ -120,16 +120,7 @@ namespace Wataha
             wolf.SetModelEffect(effect, true);
             plane.SetModelEffect(effect, true);
             trees.SetModelEffect(effect, true);
-             renderer.Models.Add(wolf);
-            renderer.Models.Add(plane);
-            renderer.Models.Add(trees);
-            renderer.camera = camera;
-            renderer.Lights = new List<PPPointLight>()
-            {
-                new PPPointLight(new Vector3(0,1000,0),  Color.Red.ToVector3() ,200),
-                new PPPointLight (new Vector3(-10,10,0), Color.Blue.ToVector3() ,2000),
-
-            };
+          
 
 
         }
