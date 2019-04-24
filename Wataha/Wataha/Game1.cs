@@ -82,7 +82,7 @@ namespace Wataha
             spriteBatch = new SpriteBatch(GraphicsDevice);
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
 
-            simpleEffect = Content.Load<Effect>("Effects/PointLightEffect");
+            simpleEffect = Content.Load<Effect>("Effects/Light");
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));

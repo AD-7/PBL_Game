@@ -112,15 +112,11 @@ namespace Wataha.GameObjects
 
                     if(tag.Texture != null)
                     {
-                        setEffectParameter(toSet, "BasicTexture", tag.Texture);
-                        setEffectParameter(toSet, "TextureEnabled", true);
+                        setEffectParameter(toSet, "xTexture", tag.Texture);
+                       
                     }
                     else
-                        setEffectParameter(toSet, "TextureEnabled", false);
-
-
-                        setEffectParameter(toSet, "DiffuseColor", tag.Color);
-                        setEffectParameter(toSet, "SpecularPower", tag.SpecularPower);
+                       
 
                         part.Effect = toSet;
                     
