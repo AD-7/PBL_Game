@@ -11,7 +11,11 @@ namespace Wataha.GameObjects
         public Matrix world;
         public Model model;
         public Material material;
-       
+        Vector3 lightPos = new Vector3(-10, 40, -2);
+        float lightPower = 1.0f;
+        float ambientPower = 0.2f;
+
+
         public GameObject(Matrix world, Model model)
         {
             this.world = world;
@@ -90,7 +94,9 @@ namespace Wataha.GameObjects
 
                         setEffectParameter(effect, "xWorldViewProjection", world * camera.View * camera.Projection);
                         setEffectParameter(effect, "xWorld", world);
-
+                        effect.Parameters["xLightPos"].SetValue(lightPos);
+                        effect.Parameters["xLightPower"].SetValue(lightPower);
+                        effect.Parameters["xAmbient"].SetValue(ambientPower);
 
                         //setEffectParameter(effect, "World", world);
                         //setEffectParameter(effect, "View", view);
@@ -122,11 +128,12 @@ namespace Wataha.GameObjects
                     if(tag.Texture != null)
                     {
                         setEffectParameter(toSet, "xTexture", tag.Texture);
-                        effect.Parameters["xLightPos"].SetValue(lightPos);
-                        effect.Parameters["xLightPower"].SetValue(lightPower);
-                        effect.Parameters["xAmbient"].SetValue(ambientPower);
+                       
                     }
                     else
+                    {
+
+                    }
                        
 
                         part.Effect = toSet;
