@@ -130,11 +130,15 @@ namespace Wataha.GameObjects.Movable
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
             new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
 
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                mesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(collider);
+               
+            }
 
 
 
-
-        }
+            }
 
         public void ProccedCollisionTree()
         {

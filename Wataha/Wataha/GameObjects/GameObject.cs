@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Wataha.GameSystem;
+using System;
 
 namespace Wataha.GameObjects
 {
@@ -19,7 +20,7 @@ namespace Wataha.GameObjects
 
         public virtual void Draw(Camera camera)
         {
-            DrawModel(model, camera.View, camera.Projection);
+            DrawModel(model, camera);
         }
 
         public virtual void Update()
@@ -53,7 +54,7 @@ namespace Wataha.GameObjects
           
         }
 
-        public void DrawModel(Model model,  Matrix view, Matrix projection)
+        public void DrawModel(Model model, Camera camera)
         {
           
             foreach (ModelMesh mesh in model.Meshes)
@@ -62,13 +63,14 @@ namespace Wataha.GameObjects
                 {
                 
                    effect.World = world;
-                    effect.View = view;
-                    effect.Projection = projection;
+                    effect.View = camera.View;
+                    effect.Projection = camera.Projection;
                 
                    
                 }
-              
-                mesh.Draw();
+
+                if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  || mesh.Name.Contains("Plane"))
+                     mesh.Draw();
             }
         }
     }
