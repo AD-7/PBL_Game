@@ -94,24 +94,14 @@ namespace Wataha.GameObjects
                     }
                     else
                     {
-                        //effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
-                        
-                        //effect.Parameters["xWorld"].SetValue(world);
-                       
-
-                        //setEffectParameter(effect, "xWorldViewProjection", world * camera.View * camera.Projection);
-                        //setEffectParameter(effect, "xWorld", world);
+                        effect.CurrentTechnique = effect.Techniques["BasicColorDrawing"];
                         effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
                         effect.Parameters["xWorld"].SetValue(world);
                         effect.Parameters["xLightPos"].SetValue(lightPos);
                         effect.Parameters["xLightPower"].SetValue(lightPower);
                         effect.Parameters["xAmbient"].SetValue(ambientPower);
 
-                        //setEffectParameter(effect, "World", world);
-                        //setEffectParameter(effect, "View", view);
-                        //setEffectParameter(effect, "Projection", projection);
-                        //material.SetEffectParameters(effect);
-                        //setEffectParameter(effect, "CameraPosition", cameraPosition);
+                      
 
                     }
 

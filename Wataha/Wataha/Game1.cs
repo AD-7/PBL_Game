@@ -41,8 +41,8 @@ namespace Wataha
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 760;
-            graphics.PreferredBackBufferWidth = 1020;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 1200;
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
