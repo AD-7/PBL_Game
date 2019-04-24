@@ -111,11 +111,7 @@ namespace Wataha
             trees.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
-            PointLightMaterial mat = new PointLightMaterial();
-
-            wolf.material = mat;
-            trees.material = mat;
-            plane.material = mat;
+            
 
 
 
@@ -188,19 +184,19 @@ namespace Wataha
           
             graphics.GraphicsDevice.Clear(Color.Black);
 
-
-
-            plane.Draw(camera);
-            //questGivers[0].Draw(camera);
-            trees.Draw(camera);
-            wolf.Draw(camera);
-
+        
             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
+   skybox.Draw(camera);
+            plane.Draw(camera);
+            //questGivers[0].Draw(camera);
+            trees.Draw(camera);
+            wolf.Draw(camera);
+            
 
-            // skybox.Draw(camera);
+          
 
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 

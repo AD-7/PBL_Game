@@ -20,7 +20,9 @@ float4 LightColor = float4 (1, 1, 1,1);
 sampler TextureSampler = sampler_state
 {
 	texture = <xTexture>;
-
+	magfilter = LINEAR; minfilter = LINEAR;
+	mipfilter = LINEAR; 
+	//AddressU = mirror; AddressV = mirror;
 };
 
 struct VertexShaderInput
