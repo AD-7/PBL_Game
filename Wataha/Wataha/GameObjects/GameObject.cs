@@ -92,8 +92,10 @@ namespace Wataha.GameObjects
                         //effect.Parameters["xWorld"].SetValue(world);
                        
 
-                        setEffectParameter(effect, "xWorldViewProjection", world * camera.View * camera.Projection);
-                        setEffectParameter(effect, "xWorld", world);
+                        //setEffectParameter(effect, "xWorldViewProjection", world * camera.View * camera.Projection);
+                        //setEffectParameter(effect, "xWorld", world);
+                        effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
+                        effect.Parameters["xWorld"].SetValue(world);
                         effect.Parameters["xLightPos"].SetValue(lightPos);
                         effect.Parameters["xLightPower"].SetValue(lightPower);
                         effect.Parameters["xAmbient"].SetValue(ambientPower);
