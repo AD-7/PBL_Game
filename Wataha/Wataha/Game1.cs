@@ -49,7 +49,7 @@ namespace Wataha
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
             world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            renderer = new PrelightingRenderer(graphics.GraphicsDevice,Content);
+        
 
         }
 
@@ -105,22 +105,19 @@ namespace Wataha
             world2 *= Matrix.CreateScale(0.5f);
             wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.5f, camera);
 
-            //wolf.SetModelEffect(simpleEffect, true);
-            //trees.SetModelEffect(simpleEffect, true);
-            //plane.SetModelEffect(simpleEffect, true);
+            wolf.SetModelEffect(simpleEffect, true);
+            trees.SetModelEffect(simpleEffect, true);
+            plane.SetModelEffect(simpleEffect, true);
 
-            //PointLightMaterial mat = new PointLightMaterial(); 
+            PointLightMaterial mat = new PointLightMaterial();
 
-            //wolf.material = mat;
-            //trees.material = mat;
-            //plane.material = mat;
+            wolf.material = mat;
+            trees.material = mat;
+            plane.material = mat;
 
-           
-            Effect effect = Content.Load<Effect>("Effects/DrawingWithLightMap");
-            wolf.SetModelEffect(effect, true);
-            plane.SetModelEffect(effect, true);
-            trees.SetModelEffect(effect, true);
-          
+
+
+
 
 
         }
@@ -186,25 +183,24 @@ namespace Wataha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            renderer.Draw();
+          
             graphics.GraphicsDevice.Clear(Color.Black);
 
-            foreach (GameObject ob in renderer.Models)
-                ob.Draw(camera);
-          
-            //plane.Draw(camera);
-            ////questGivers[0].Draw(camera);
-            //trees.Draw(camera);
-            //wolf.Draw(camera);
 
-            // RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
-            // RasterizerState rasterizerState = new RasterizerState();
-            // rasterizerState.CullMode = CullMode.None;
-            // graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
-            //// skybox.Draw(camera);
+            plane.Draw(camera);
+            //questGivers[0].Draw(camera);
+            trees.Draw(camera);
+            wolf.Draw(camera);
 
-            // graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+            RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            graphics.GraphicsDevice.RasterizerState = rasterizerState;
+
+            // skybox.Draw(camera);
+
+            graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
             base.Draw(gameTime);
