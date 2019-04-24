@@ -28,7 +28,7 @@ namespace Wataha.GameObjects
 
         public virtual void Draw(Camera camera)
         {
-            DrawModel( camera.View, camera.Projection, camera.CamPos);
+            DrawModel( camera.View, camera.Projection, camera);
         }
 
         public virtual void Update()
@@ -62,7 +62,7 @@ namespace Wataha.GameObjects
           
         }
 
-        public void DrawModel(Matrix view, Matrix projection, Vector3 cameraPosition)
+        public void DrawModel(Matrix view, Matrix projection, Camera camera)
         {
           
             foreach (ModelMesh mesh in model.Meshes)
@@ -83,11 +83,20 @@ namespace Wataha.GameObjects
                     }
                     else
                     {
-                        setEffectParameter(effect, "World", world);
-                        setEffectParameter(effect, "View", view);
-                        setEffectParameter(effect, "Projection", projection);
-                        material.SetEffectParameters(effect);
-                        setEffectParameter(effect, "CameraPosition", cameraPosition);
+                        //effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
+                        
+                        //effect.Parameters["xWorld"].SetValue(world);
+                       
+
+                        setEffectParameter(effect, "xWorldViewProjection", world * camera.View * camera.Projection);
+                        setEffectParameter(effect, "xWorld", world);
+
+
+                        //setEffectParameter(effect, "World", world);
+                        //setEffectParameter(effect, "View", view);
+                        //setEffectParameter(effect, "Projection", projection);
+                        //material.SetEffectParameters(effect);
+                        //setEffectParameter(effect, "CameraPosition", cameraPosition);
 
                     }
                 }
@@ -113,7 +122,9 @@ namespace Wataha.GameObjects
                     if(tag.Texture != null)
                     {
                         setEffectParameter(toSet, "xTexture", tag.Texture);
-                       
+                        effect.Parameters["xLightPos"].SetValue(lightPos);
+                        effect.Parameters["xLightPower"].SetValue(lightPower);
+                        effect.Parameters["xAmbient"].SetValue(ambientPower);
                     }
                     else
                        
