@@ -67,10 +67,10 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
         }
 
-        public void Draw(Camera camera)
+        public void Draw(Camera camera,string technique)
         {
          //   base.DrawModel(model, camera.View, camera.Projection)
-            base.Draw(camera);
+            base.Draw(camera,technique);
         }
 
         public override void Update()
@@ -137,7 +137,7 @@ namespace Wataha.GameObjects.Movable
             }
 
 
-
+            base.Update();
             }
 
         public void ProccedCollisionTree()

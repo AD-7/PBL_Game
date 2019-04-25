@@ -32,10 +32,10 @@ namespace Wataha.GameObjects.Interable
             base.Draw();
         }
 
-        public override void Draw(Camera camera)
+        public override void Draw(Camera camera,string technique)
         {
 
-            base.Draw(camera);
+            base.Draw(camera,technique);
         }
 
         // Update is called once per frame

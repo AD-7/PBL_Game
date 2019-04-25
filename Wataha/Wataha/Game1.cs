@@ -20,6 +20,7 @@ namespace Wataha
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
+        GraphicsDevice device;
         SpriteBatch spriteBatch;
 
         private GameObjects.Static.Plane plane;
@@ -35,6 +36,8 @@ namespace Wataha
         private GameObjects.Static.Environment trees;
         private Effect simpleEffect;
         private PrelightingRenderer renderer;
+        RenderTarget2D renderTarget;
+
         public Game1()
         {
 
@@ -79,6 +82,7 @@ namespace Wataha
         /// </summary>
         protected override void LoadContent()
         {
+            device = GraphicsDevice;
             Content = new ContentManager(this.Services, "Content");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -111,7 +115,8 @@ namespace Wataha
             trees.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
-            
+            PresentationParameters pp = device.PresentationParameters;
+            renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);
 
 
 
@@ -189,16 +194,34 @@ namespace Wataha
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
-   skybox.Draw(camera);
-            plane.Draw(camera);
+
+            device.SetRenderTarget(renderTarget);
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+
+
+         skybox.Draw(camera);
+            plane.Draw(camera,"ShadowMap");
             //questGivers[0].Draw(camera);
-            trees.Draw(camera);
-            wolf.Draw(camera);
-            
+            trees.Draw(camera,"ShadowMap");
+            wolf.Draw(camera,"ShadowMap");
 
-          
+            device.SetRenderTarget(null);
+            plane.shadowMap = (Texture2D)renderTarget;
+            wolf.shadowMap = (Texture2D)renderTarget;
+            trees.shadowMap = (Texture2D)renderTarget;
 
-            graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+           skybox.Draw(camera);
+            plane.Draw(camera, "ShadowedScene");
+            //questGivers[0].Draw(camera);
+            trees.Draw(camera, "ShadowedScene");
+            wolf.Draw(camera, "ShadowedScene");
+
+
+            plane.shadowMap = null;
+            wolf.shadowMap = null;
+            trees.shadowMap = null;
+           graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
             base.Draw(gameTime);

@@ -63,7 +63,7 @@ namespace Wataha.System
             {
                 model.CacheEffects();
            //     model.SetModelEffect(depthNormalEffect, false);
-                model.Draw(camera);
+                //model.Draw(camera);
                 model.RestoreEffects();
             }
 

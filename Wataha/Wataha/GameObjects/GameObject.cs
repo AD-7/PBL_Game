@@ -13,16 +13,21 @@ namespace Wataha.GameObjects
         public Model model;
         public Material material;
 
-        Vector3 lightPos = new Vector3(-5, 60, 10);
-        float lightPower = 0.7f;
+       Vector3 lightPos = new Vector3(-100, 60, 30);
+        float lightPower = 1.2f;
         float ambientPower = 0.5f;
-
+        Matrix lightsViewProjectionMatrix;
+        public Texture2D shadowMap;
 
         public GameObject(Matrix world, Model model)
         {
             this.world = world;
             this.model = model;
             this.material = new Material();
+            Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(80, 30, 0), new Vector3(0, 1, 0));
+            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(150), 1f, 10f, 200f);
+            lightsViewProjectionMatrix = lightsView * lightsProjection;
+
             generateTags();
         }
 
@@ -32,17 +37,17 @@ namespace Wataha.GameObjects
             
         }
 
-        public virtual void Draw(Camera camera)
+        public virtual void Draw(Camera camera,string technique)
         {
-
-            DrawModel( camera.View, camera.Projection, camera);
+           
+            DrawModel( camera.View, camera.Projection, camera,technique);
 
         }
 
         public virtual void Update()
         {
+        
 
-          
         }
 
         public void RotateY(float degrees)
@@ -71,7 +76,7 @@ namespace Wataha.GameObjects
         }
 
 
-        public void DrawModel(Matrix view, Matrix projection, Camera camera)
+        public void DrawModel(Matrix view, Matrix projection, Camera camera, string technique)
 
         {
           
@@ -94,14 +99,17 @@ namespace Wataha.GameObjects
                     }
                     else
                     {
-                        effect.CurrentTechnique = effect.Techniques["BasicColorDrawing"];
+                        //effect.CurrentTechnique = effect.Techniques["BasicColorDrawing"];
+                        effect.CurrentTechnique = effect.Techniques[technique];
                         effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
+                        effect.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
                         effect.Parameters["xWorld"].SetValue(world);
                         effect.Parameters["xLightPos"].SetValue(lightPos);
                         effect.Parameters["xLightPower"].SetValue(lightPower);
                         effect.Parameters["xAmbient"].SetValue(ambientPower);
+                        effect.Parameters["xShadowMap"].SetValue(shadowMap);
 
-                      
+
 
                     }
 
