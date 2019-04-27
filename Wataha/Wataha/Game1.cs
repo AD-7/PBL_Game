@@ -35,25 +35,25 @@ namespace Wataha
         private AudioSystem audioSystem;
         private GameObjects.Static.Environment trees;
         private Effect simpleEffect;
-        private PrelightingRenderer renderer;
         RenderTarget2D renderTarget;
-
+        HUDController hud;
         public Game1()
         {
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 800;
-            graphics.PreferredBackBufferWidth = 1200;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
             camera = new Camera();
-
+            hud = new HUDController(0, 0, 0);
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
-            world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+    
+           // world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
         
 
         }
@@ -70,9 +70,9 @@ namespace Wataha
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+           
             questGivers = new List<QuestGiver>();
-
+            
             base.Initialize();
         }
 
@@ -96,7 +96,11 @@ namespace Wataha
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
             skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
-
+            hud.font30 = Content.Load<SpriteFont>("Fonts/font1");
+            hud.pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
+            hud.pictures.Add(Content.Load<Texture2D>("Pictures/meat"));
+            hud.pictures.Add(Content.Load<Texture2D>("Pictures/goldFangs"));
+            hud.pictures.Add(Content.Load<Texture2D>("Pictures/whiteFang"));
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             //world = world * Matrix.CreateScale(1f);
@@ -188,8 +192,8 @@ namespace Wataha
         {
           
             graphics.GraphicsDevice.Clear(Color.Black);
+         
 
-        
             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
@@ -199,30 +203,34 @@ namespace Wataha
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
 
-         skybox.Draw(camera);
-            plane.Draw(camera,"ShadowMap");
+          
+
+            plane.Draw(camera, "ShadowMap");
             //questGivers[0].Draw(camera);
-            trees.Draw(camera,"ShadowMap");
-            wolf.Draw(camera,"ShadowMap");
+            trees.Draw(camera, "ShadowMap");
+            wolf.Draw(camera, "ShadowMap");
 
             device.SetRenderTarget(null);
             plane.shadowMap = (Texture2D)renderTarget;
             wolf.shadowMap = (Texture2D)renderTarget;
             trees.shadowMap = (Texture2D)renderTarget;
 
+
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-           skybox.Draw(camera);
+          
+           
             plane.Draw(camera, "ShadowedScene");
             //questGivers[0].Draw(camera);
             trees.Draw(camera, "ShadowedScene");
             wolf.Draw(camera, "ShadowedScene");
-
+            skybox.Draw(camera);
 
             plane.shadowMap = null;
             wolf.shadowMap = null;
             trees.shadowMap = null;
-           graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+            graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
+              hud.Draw(spriteBatch,device);
 
             base.Draw(gameTime);
         }

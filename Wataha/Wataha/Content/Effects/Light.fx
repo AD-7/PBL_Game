@@ -23,7 +23,7 @@ sampler TextureSampler = sampler_state
 	texture = <xTexture>;
 	magfilter = LINEAR; minfilter = LINEAR;
 	mipfilter = LINEAR; 
-	//AddressU = mirror; AddressV = mirror;
+	AddressU = mirror; AddressV = mirror;
 };
 
 Texture xShadowMap;
@@ -33,7 +33,7 @@ sampler ShadowMapSampler = sampler_state
 	magfilter = LINEAR;
 	minfilter = LINEAR; 
 	mipfilter = LINEAR; 
-	/*AddressU = clamp; AddressV = clamp;*/
+	AddressU = clamp; AddressV = clamp;
 };
 
 struct VertexShaderInput

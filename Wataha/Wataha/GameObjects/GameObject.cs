@@ -15,7 +15,7 @@ namespace Wataha.GameObjects
 
        Vector3 lightPos = new Vector3(-100, 60, 30);
         float lightPower = 1.2f;
-        float ambientPower = 0.5f;
+        float ambientPower = 0.4f;
         Matrix lightsViewProjectionMatrix;
         public Texture2D shadowMap;
 
