@@ -49,7 +49,7 @@ namespace Wataha
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
             camera = new Camera();
-            hud = new HUDController(0, 0, 0);
+            hud = new HUDController(100, 0, 0);
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
     
