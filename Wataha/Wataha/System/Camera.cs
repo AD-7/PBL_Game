@@ -34,7 +34,7 @@ namespace Wataha.GameSystem
         public void CameraUpdate(Matrix playerMatrix)
         {
             CamPos = playerMatrix.Translation + (playerMatrix.Up * 20) +
-                                    (playerMatrix.Backward * 5);
+                                    (playerMatrix.Backward * 3);
             CamTarget = playerMatrix.Translation;
 
             View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up); 

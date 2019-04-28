@@ -21,7 +21,7 @@ namespace Wataha.GameObjects.Movable
         public Vector3 LastMove;
         public Vector3 position;
         public float angle;
-        float dirX,dirZ, speedFactor;
+       public  float dirX,dirZ, speedFactor;
         
         public int strength = 10;
         public int resistance = 10;

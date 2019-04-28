@@ -115,7 +115,7 @@ namespace Wataha.GameObjects
 
                 }
 
-                if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  || mesh.Name.Contains("Plane"))
+                if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  || mesh.Name.Contains("Plane") )
                      mesh.Draw();
             }
         }

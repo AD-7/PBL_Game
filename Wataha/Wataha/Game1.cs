@@ -95,8 +95,7 @@ namespace Wataha
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
-            b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
+           
             skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
             hud.font30 = Content.Load<SpriteFont>("Fonts/font1");
             hud.pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
@@ -116,6 +115,8 @@ namespace Wataha
             world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
             world2 *= Matrix.CreateScale(0.5f);
             wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.5f, camera);
+            trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"),world3, 1);
+            b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
             wolf.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
@@ -178,7 +179,8 @@ namespace Wataha
           
 
              wolf.Update();
-
+        
+       
 
 
             
@@ -210,9 +212,11 @@ namespace Wataha
 
             plane.Draw(camera, "ShadowMap");
             //questGivers[0].Draw(camera);
+            wolf.Draw(camera, "ShadowMap");
+            
             trees.Draw(camera, "ShadowMap");
             b.Draw(camera, "ShadowMap");
-            wolf.Draw(camera, "ShadowMap");
+            
 
             device.SetRenderTarget(null);
             plane.shadowMap = (Texture2D)renderTarget;
