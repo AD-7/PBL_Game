@@ -34,6 +34,7 @@ namespace Wataha
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
         private GameObjects.Static.Environment trees;
+        private GameObjects.Static.Environment b;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
         HUDController hud;
@@ -95,6 +96,7 @@ namespace Wataha
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 1);
+            b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
             skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
             hud.font30 = Content.Load<SpriteFont>("Fonts/font1");
             hud.pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
@@ -117,6 +119,7 @@ namespace Wataha
 
             wolf.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
+            b.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
             PresentationParameters pp = device.PresentationParameters;
@@ -168,11 +171,11 @@ namespace Wataha
 
             ChceckNearestQuestGiver();
 
-           
-            if (colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider) || colisionSystem.IsEnvironmentCollision(wolf, trees))
-            {
-              
-            }
+
+            colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider);
+            colisionSystem.IsEnvironmentCollision(wolf, trees);
+            colisionSystem.IsEnvironmentCollision(wolf, b);
+          
 
              wolf.Update();
 
@@ -208,12 +211,14 @@ namespace Wataha
             plane.Draw(camera, "ShadowMap");
             //questGivers[0].Draw(camera);
             trees.Draw(camera, "ShadowMap");
+            b.Draw(camera, "ShadowMap");
             wolf.Draw(camera, "ShadowMap");
 
             device.SetRenderTarget(null);
             plane.shadowMap = (Texture2D)renderTarget;
             wolf.shadowMap = (Texture2D)renderTarget;
             trees.shadowMap = (Texture2D)renderTarget;
+            b.shadowMap = (Texture2D)renderTarget;
 
 
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
@@ -222,12 +227,14 @@ namespace Wataha
             plane.Draw(camera, "ShadowedScene");
             //questGivers[0].Draw(camera);
             trees.Draw(camera, "ShadowedScene");
+            b.Draw(camera, "ShadowedScene");
             wolf.Draw(camera, "ShadowedScene");
             skybox.Draw(camera);
 
             plane.shadowMap = null;
             wolf.shadowMap = null;
             trees.shadowMap = null;
+            b.shadowMap = null;
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
               hud.Draw(spriteBatch,device);

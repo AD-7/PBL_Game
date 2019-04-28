@@ -30,10 +30,11 @@ namespace Wataha.GameSystem
             foreach(ModelMesh mesh in env.model.Meshes)
             {
 
-                if (mesh.Name.Contains("House"))
+                if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject"))
                 {
                     if (player.collider.Intersects(env.colliders[i]))
                     {
+                       
                         player.ifColisionTerrain = true;
                         player.ProccedCollisionBuilding();
                        
@@ -41,7 +42,7 @@ namespace Wataha.GameSystem
                     }
                 }
                 else
-                {
+                { 
                     if (player.collider.Intersects(env.colliders[i]))
                     {
                        player.ifColisionTerrain = true;

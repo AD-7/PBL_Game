@@ -22,6 +22,13 @@ namespace Wataha.GameObjects.Static
               new Vector3(mesh.BoundingSphere.Center.X + (houseSize+1) , mesh.BoundingSphere.Center.Y + houseSize, mesh.BoundingSphere.Center.Z + (houseSize+1) ));
                     colliders.Add(box);
                 }
+                else if (mesh.Name.Contains("Tree"))
+                {
+                    
+                    BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize / 1.5f, mesh.BoundingSphere.Center.Y - colliderSize*3, mesh.BoundingSphere.Center.Z - colliderSize / 1.5f),
+                new Vector3(mesh.BoundingSphere.Center.X + colliderSize / 1.5f, mesh.BoundingSphere.Center.Y + colliderSize / 2, mesh.BoundingSphere.Center.Z + colliderSize / 1.5f));
+                    colliders.Add(box);
+                }
                 else
                 {
                 BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize / 2, mesh.BoundingSphere.Center.Y -colliderSize, mesh.BoundingSphere.Center.Z - colliderSize / 2),
