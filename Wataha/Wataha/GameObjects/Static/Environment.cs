@@ -9,7 +9,7 @@ namespace Wataha.GameObjects.Static
     public class Environment : GameObject
     {
        public List<BoundingBox> colliders;
-       
+        Wolf wolf;
     
 
         public Environment(Model model,Matrix world, float colliderSize) : base(world,model)
@@ -53,17 +53,18 @@ namespace Wataha.GameObjects.Static
 
         public override void Draw(Camera camera, string technique)
         {
-        //    foreach(ModelMesh mesh in model.Meshes)
-          //  {
+            //foreach(ModelMesh mesh in model.Meshes)
+            //{
+                
                     base.Draw(camera, technique);
                
-         //   }
+            //}
            
         }
 
         public void UpdateEnv(Wolf wolf)
         {
-        
+            this.wolf = wolf;
         }
     }
 }
