@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -205,6 +205,7 @@ namespace Wataha
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
             device.SetRenderTarget(renderTarget);
+            device.BlendState = BlendState.AlphaBlend;
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
 
@@ -229,10 +230,11 @@ namespace Wataha
           
            
             plane.Draw(camera, "ShadowedScene");
+            wolf.Draw(camera, "ShadowedScene");
+
             //questGivers[0].Draw(camera);
             trees.Draw(camera, "ShadowedScene");
             b.Draw(camera, "ShadowedScene");
-            wolf.Draw(camera, "ShadowedScene");
             skybox.Draw(camera);
 
             plane.shadowMap = null;

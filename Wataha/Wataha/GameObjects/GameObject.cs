@@ -17,7 +17,9 @@ namespace Wataha.GameObjects
         float lightPower = 1.2f;
         float ambientPower = 0.4f;
         Matrix lightsViewProjectionMatrix;
+        float alpha = 1.0f;
         public Texture2D shadowMap;
+
 
         public GameObject(Matrix world, Model model)
         {
@@ -86,6 +88,12 @@ namespace Wataha.GameObjects
                foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
 
+                    if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 20.0f) &&
+                       (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 20.0f))
+                        alpha = 0.2f;
+                    else
+                        alpha = 1.0f;
+
                     Effect effect = meshPart.Effect;
 
                     if(effect is BasicEffect)
@@ -95,6 +103,8 @@ namespace Wataha.GameObjects
                         ((BasicEffect)effect).Projection = projection;
                         material.SetEffectParameters(effect);
                         ((BasicEffect)effect).EnableDefaultLighting();
+
+                       
 
                     }
                     else
@@ -108,19 +118,15 @@ namespace Wataha.GameObjects
                         effect.Parameters["xLightPower"].SetValue(lightPower);
                         effect.Parameters["xAmbient"].SetValue(ambientPower);
                         effect.Parameters["xShadowMap"].SetValue(shadowMap);
-
-
-
+                        effect.Parameters["xAlpha"].SetValue(alpha);
                     }
 
                 }
 
-                if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  || mesh.Name.Contains("Plane") )
+                if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f || mesh.Name.Contains("Plane") )
                      mesh.Draw();
             }
         }
-
-
 
         public void SetModelEffect (Effect effect, bool CopyEffect)
         {
