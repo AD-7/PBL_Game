@@ -84,13 +84,17 @@ namespace Wataha.GameObjects
           
             foreach (ModelMesh mesh in model.Meshes)
             {
+             
+            
 
-               foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                
+                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
 
-                    if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 20.0f) &&
-                       (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 20.0f))
-                        alpha = 0.2f;
+                   
+
+                    if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
+                        alpha = 0.0f;
                     else
                         alpha = 1.0f;
 
@@ -109,7 +113,7 @@ namespace Wataha.GameObjects
                     }
                     else
                     {
-                        //effect.CurrentTechnique = effect.Techniques["BasicColorDrawing"];
+                       
                         effect.CurrentTechnique = effect.Techniques[technique];
                         effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
                         effect.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
@@ -125,6 +129,8 @@ namespace Wataha.GameObjects
 
                 if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f || mesh.Name.Contains("Plane") )
                      mesh.Draw();
+
+             
             }
         }
 
