@@ -235,6 +235,7 @@ namespace Wataha
             //questGivers[0].Draw(camera);
             trees.Draw(camera, "ShadowedScene");
             b.Draw(camera, "ShadowedScene");
+            device.BlendState = BlendState.Opaque;
             skybox.Draw(camera);
 
             plane.shadowMap = null;
