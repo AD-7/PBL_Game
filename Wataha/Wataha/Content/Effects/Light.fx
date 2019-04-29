@@ -82,7 +82,7 @@ PixelToFrame MainPS(VertexShaderOutput PSIn)
 	PSIn.TexCoords.y--;
 	float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
 	output.Color = baseColor * (diffuseLightingFactor + xAmbient) * LightColor;
-
+	output.Color.a = xAlpha;
 	return output;
 }
 
@@ -119,6 +119,7 @@ SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
 	SMapPixelToFrame Output = (SMapPixelToFrame)0;
 
 	Output.Color = PSIn.Position2D.z / PSIn.Position2D.w;
+	Output.Color.a = xAlpha;
 
 	return Output;
 }
