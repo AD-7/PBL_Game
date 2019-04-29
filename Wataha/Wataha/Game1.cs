@@ -205,7 +205,6 @@ namespace Wataha
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
             device.SetRenderTarget(renderTarget);
-            device.BlendState = BlendState.AlphaBlend;
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
 
@@ -227,8 +226,9 @@ namespace Wataha
 
 
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-          
-           
+
+            device.BlendState = BlendState.AlphaBlend;
+
             plane.Draw(camera, "ShadowedScene");
             wolf.Draw(camera, "ShadowedScene");
 
