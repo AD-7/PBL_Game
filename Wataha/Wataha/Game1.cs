@@ -8,9 +8,9 @@ using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Wataha.GameObjects.Materials;
 using Wataha.System;
-using Wataha.GameObjects;
+using Wataha.System.ParticleSystem;
+using System;
 
 namespace Wataha
 {
@@ -22,7 +22,7 @@ namespace Wataha
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         SpriteBatch spriteBatch;
-
+        Random rand = new Random();
         private GameObjects.Static.Plane plane;
         private Wolf wolf;
         private List<QuestGiver> questGivers;
@@ -33,11 +33,14 @@ namespace Wataha
         private Camera camera;
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
+
+        
         private GameObjects.Static.Environment trees;
         private GameObjects.Static.Environment b;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
         HUDController hud;
+
         public Game1()
         {
 
@@ -53,7 +56,7 @@ namespace Wataha
             hud = new HUDController(100, 0, 0);
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
-    
+            
            // world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
         
 
@@ -179,10 +182,9 @@ namespace Wataha
           
 
              wolf.Update();
-        
-       
 
 
+         
             
 
             base.Update(gameTime);
@@ -244,10 +246,29 @@ namespace Wataha
             b.shadowMap = null;
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
+            Vector3 forward = camera.CamTarget - camera.CamPos;
+            Vector3 side = Vector3.Cross(forward, Vector3.Up);
+            Vector3 up = Vector3.Cross(forward, side);
+            Vector3 right = Vector3.Cross(forward, up);
+        
               hud.Draw(spriteBatch,device);
+               
 
             base.Draw(gameTime);
         }
+
+        Vector3 randVec3(Vector3 min, Vector3 max)
+        {
+            return new Vector3
+                (min.X + (float)rand.NextDouble() * (max.X - min.X), 
+                min.Y + (float)rand.NextDouble() * (max.Y - min.Y), 
+                min.Z + (float)rand.NextDouble() * (max.Z - min.Z));
+        }
+
+
+
+
+
 
 
         public void ChceckNearestQuestGiver()

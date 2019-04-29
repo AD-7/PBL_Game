@@ -82,6 +82,8 @@
     <Compile Include="System\GameSystem.cs" />
     <Compile Include="System\HUDController.cs" />
     <Compile Include="System\HuntingSystem.cs" />
+    <Compile Include="System\ParticleSystem\ParticleSystem.cs" />
+    <Compile Include="System\ParticleSystem\ParticleVertex.cs" />
     <Compile Include="System\PrelightingRenderer.cs" />
     <Compile Include="System\QuestSystem.cs" />
     <Compile Include="System\ResoucersSystem.cs" />
