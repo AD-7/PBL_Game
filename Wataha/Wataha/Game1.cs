@@ -33,7 +33,7 @@ namespace Wataha
         private Camera camera;
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
-
+        private ParticleSystem ps;
         
         private GameObjects.Static.Environment trees;
         private GameObjects.Static.Environment b;
@@ -56,8 +56,8 @@ namespace Wataha
             hud = new HUDController(100, 0, 0);
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
-            
-           // world = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/meat"), 20, new Vector2(0.1f), 2, Vector3.Zero, 0.2f);
+ 
         
 
         }
