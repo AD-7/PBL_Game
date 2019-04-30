@@ -117,7 +117,7 @@ namespace Wataha
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
             world2 *= Matrix.CreateScale(0.5f);
-            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.5f, camera);
+            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera);
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"),world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 

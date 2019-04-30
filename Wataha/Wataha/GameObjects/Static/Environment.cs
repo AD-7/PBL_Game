@@ -40,6 +40,13 @@ namespace Wataha.GameObjects.Static
                 new Vector3(mesh.BoundingSphere.Center.X + colliderSize / 2.0f, mesh.BoundingSphere.Center.Y + colliderSize / 2, mesh.BoundingSphere.Center.Z + colliderSize / 2.0f));
                     colliders.Add(box);
                 }
+                else if (mesh.Name.Contains("well"))
+                {
+                    
+                    BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize/1.8f , mesh.BoundingSphere.Center.Y - colliderSize * 3, mesh.BoundingSphere.Center.Z - colliderSize/1.8f ),
+                new Vector3(mesh.BoundingSphere.Center.X + colliderSize /1.8f, mesh.BoundingSphere.Center.Y + colliderSize / 2, mesh.BoundingSphere.Center.Z + colliderSize/1.8f ));
+                    colliders.Add(box);
+                }
                 else
                 {
                 BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - colliderSize / 2, mesh.BoundingSphere.Center.Y -colliderSize, mesh.BoundingSphere.Center.Z - colliderSize / 2),

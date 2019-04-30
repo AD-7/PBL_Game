@@ -30,7 +30,7 @@ namespace Wataha.GameSystem
             foreach(ModelMesh mesh in env.model.Meshes)
             {
 
-                if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject"))
+                if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject") || mesh.Name.Contains("well"))
                 {
                     if (player.collider.Intersects(env.colliders[i]))
                     {

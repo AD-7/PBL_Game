@@ -86,52 +86,55 @@ namespace Wataha.GameObjects
             {
              
             
-
-                
-                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
+             if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f || mesh.Name.Contains("Plane"))
                 {
-
-                   
-
-                    if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
-                        alpha = 0.0f;
-                    else
-                        alpha = 1.0f;
-
-                    Effect effect = meshPart.Effect;
-
-                    if(effect is BasicEffect)
+                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     {
-                        ((BasicEffect)effect).World = world;
-                        ((BasicEffect)effect).View = view;
-                        ((BasicEffect)effect).Projection = projection;
-                        material.SetEffectParameters(effect);
-                        ((BasicEffect)effect).EnableDefaultLighting();
 
-                       
+
+
+                        if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
+                            alpha = 0.0f;
+                        else
+                            alpha = 1.0f;
+
+                        Effect effect = meshPart.Effect;
+
+                        if (effect is BasicEffect)
+                        {
+                            ((BasicEffect)effect).World = world;
+                            ((BasicEffect)effect).View = view;
+                            ((BasicEffect)effect).Projection = projection;
+                            material.SetEffectParameters(effect);
+                            ((BasicEffect)effect).EnableDefaultLighting();
+
+
+
+                        }
+                        else
+                        {
+
+                            effect.CurrentTechnique = effect.Techniques[technique];
+                            effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
+                            effect.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                            effect.Parameters["xWorld"].SetValue(world);
+                            effect.Parameters["xLightPos"].SetValue(lightPos);
+                            effect.Parameters["xLightPower"].SetValue(lightPower);
+                            effect.Parameters["xAmbient"].SetValue(ambientPower);
+                            effect.Parameters["xShadowMap"].SetValue(shadowMap);
+                            effect.Parameters["xAlpha"].SetValue(alpha);
+                        }
 
                     }
-                    else
-                    {
-                       
-                        effect.CurrentTechnique = effect.Techniques[technique];
-                        effect.Parameters["xWorldViewProjection"].SetValue(world * camera.View * camera.Projection);
-                        effect.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
-                        effect.Parameters["xWorld"].SetValue(world);
-                        effect.Parameters["xLightPos"].SetValue(lightPos);
-                        effect.Parameters["xLightPower"].SetValue(lightPower);
-                        effect.Parameters["xAmbient"].SetValue(ambientPower);
-                        effect.Parameters["xShadowMap"].SetValue(shadowMap);
-                        effect.Parameters["xAlpha"].SetValue(alpha);
-                    }
+
+
+                    mesh.Draw();
+
 
                 }
-
-                if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f || mesh.Name.Contains("Plane") )
-                     mesh.Draw();
-
-             
             }
+                
+               
         }
 
         public void SetModelEffect (Effect effect, bool CopyEffect)
