@@ -41,8 +41,9 @@ VertexShaderOutput MainVS(VertexShaderInput input)
 
 	float3 position = input.Position;
 
-	float2 offset = Size * float2((input.UV.x - 0.5f) * 2.0f, -(input.UV.y - 0.5f) * 2.0f);
-	position += offset.x * Side + offset.y * Up;
+	float2 offset = float2((input.UV.x - 0.5f) * 2.0f, -(input.UV.y - 0.5f) * 2.0f);
+	
+	position += offset.x * Size.x * Side + offset.y * Size.y * Up;
 
 	float relativeTime = (Time - input.StartTime);
 	output.RelativeTime = relativeTime;

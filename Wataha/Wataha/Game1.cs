@@ -56,7 +56,7 @@ namespace Wataha
             hud = new HUDController(100, 0, 0);
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
-            ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/meat"), 20, new Vector2(0.1f), 2, Vector3.Zero, 0.2f);
+            ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f,0.00001f), 0.3f, Vector3.Zero, 0.1f);
  
         
 
@@ -183,9 +183,15 @@ namespace Wataha
 
              wolf.Update();
 
+            Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
+            Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
+            Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
+            float randSpeed = (float)rand.NextDouble() * 2 + 10;
+            ps.AddParticle(randPosition, randAngle, randSpeed);
+            ps.Update();
 
-         
-            
+
+
 
             base.Update(gameTime);
 
@@ -246,13 +252,12 @@ namespace Wataha
             b.shadowMap = null;
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
-            Vector3 forward = camera.CamTarget - camera.CamPos;
-            Vector3 side = Vector3.Cross(forward, Vector3.Up);
-            Vector3 up = Vector3.Cross(forward, side);
-            Vector3 right = Vector3.Cross(forward, up);
-        
+         
+
+
               hud.Draw(spriteBatch,device);
-               
+              ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+
 
             base.Draw(gameTime);
         }

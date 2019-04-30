@@ -51,21 +51,30 @@ namespace Wataha.System.ParticleSystem
             particles = new ParticleVertex[nParticles * 4];
             indices = new int[nParticles * 6];
             Vector3 z = Vector3.Zero;
-
+           
             int x = 0;
 
             for (int i = 0; i < nParticles * 4; i += 4)
             {
-                particles[i + 0] = new ParticleVertex(z, new Vector2(0, 0), z, 0, -1);
+                particles[i + 0] = new ParticleVertex(z, new Vector2(1, 1), z, 0, -1);
                 particles[i + 1] = new ParticleVertex(z, new Vector2(0, 1), z, 0, -1);
-                particles[i + 2] = new ParticleVertex(z, new Vector2(1, 1), z, 0, -1);
-                particles[i + 3] = new ParticleVertex(z, new Vector2(1, 0), z, 0, -1);
-                indices[x++] = i + 0;
+                particles[i + 2] = new ParticleVertex(z, new Vector2(1, 0), z, 0, -1);
+                particles[i + 3] = new ParticleVertex(z, new Vector2(0, 0), z, 0, -1);
+                indices[x++] = i + 5;
+                indices[x++] = i + 4;
                 indices[x++] = i + 3;
-                indices[x++] = i + 2;
+
                 indices[x++] = i + 2;
                 indices[x++] = i + 1;
-                indices[x++] = i + 0;
+                indices[x++] = i + 3;
+
+                //indices[x++] = i + 0;
+                //indices[x++] = i + 3;
+                //indices[x++] = i + 1;
+                //indices[x++] = i + 2;
+                //indices[x++] = i + 2;
+              
+                //indices[x++] = i + 0; 
             }
         }
 
@@ -76,7 +85,7 @@ namespace Wataha.System.ParticleSystem
             int index = offsetIndex(activeStart, nActive);
             nActive += 4;
             float startTime = (float)(DateTime.Now - start).TotalSeconds;
-
+            Position += new Vector3(-3.3f, -0.5f, -18);
             for (int i = 0; i < 4; i++)
             {
                 particles[index + i].StartPosition = Position;
