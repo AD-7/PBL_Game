@@ -62,6 +62,7 @@
     <Compile Include="GameObjects\Interable\Quest.cs" />
     <Compile Include="GameObjects\Interable\QuestGiver.cs" />
     <Compile Include="GameObjects\Interable\QuestItem.cs" />
+    <Compile Include="GameObjects\MainMenu.cs" />
     <Compile Include="GameObjects\Material.cs" />
     <Compile Include="GameObjects\Materials\PointLightMaterial.cs" />
     <Compile Include="GameObjects\Materials\PPPointLight.cs" />
