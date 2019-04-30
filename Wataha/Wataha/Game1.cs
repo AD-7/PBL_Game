@@ -11,6 +11,7 @@ using System.Diagnostics;
 using Wataha.System;
 using Wataha.System.ParticleSystem;
 using System;
+using Wataha.GameObjects;
 
 namespace Wataha
 {
@@ -41,8 +42,14 @@ namespace Wataha
         RenderTarget2D renderTarget;
         HUDController hud;
 
+        private bool gamePaused = true;
+        private MainMenu mainMenu;
+
         public Game1()
         {
+
+            //IsMouseVisible = true;
+            Window.AllowUserResizing = true;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -56,9 +63,7 @@ namespace Wataha
             hud = new HUDController(100, 0, 0);
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
-            ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/meat"), 20, new Vector2(0.1f), 2, Vector3.Zero, 0.2f);
- 
-        
+            // ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/meat"), 20, new Vector2(0.1f), 2, Vector3.Zero, 0.2f);
 
         }
 
@@ -131,8 +136,7 @@ namespace Wataha
 
 
 
-
-
+            mainMenu = new MainMenu(spriteBatch, Content);
 
         }
 
@@ -156,36 +160,60 @@ namespace Wataha
         {
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (gamePaused)
             {
-                Exit();
-            }
+                IsMouseVisible = true;
+                mainMenu.ScreenWidth = GraphicsDevice.Viewport.Width;
+                mainMenu.ScreenHeight = GraphicsDevice.Viewport.Height;
+                mainMenu.Update();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.E))
+                if (mainMenu.ExitButtonsEvents())
+                    Exit();
+                if (mainMenu.PlayButtonsEvents())
+                {
+                    gamePaused = false;
+                    IsMouseVisible = false;
+                }
+            }
+            else
             {
-                audioSystem.playGrowl(2);
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                {
+                    gamePaused = true;
+                    return;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.LeftControl))
+                {
+                    IsMouseVisible = true;
+                }
+                else
+                {
+                    IsMouseVisible = false;
+                }
+
+                if (Keyboard.GetState().IsKeyDown(Keys.E))
+                {
+                    audioSystem.playGrowl(2);
+                }
+
+
+                if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null)
+                {
+                    Debug.WriteLine("test");
+                }
+
+                ChceckNearestQuestGiver();
+
+
+                colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider);
+                colisionSystem.IsEnvironmentCollision(wolf, trees);
+                colisionSystem.IsEnvironmentCollision(wolf, b);
+
+
+                wolf.Update();
+
             }
-
-
-            if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null)
-            {
-                Debug.WriteLine("test");
-            }
-
-            ChceckNearestQuestGiver();
-
-
-            colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider);
-            colisionSystem.IsEnvironmentCollision(wolf, trees);
-            colisionSystem.IsEnvironmentCollision(wolf, b);
-          
-
-             wolf.Update();
-
-
-         
-            
 
             base.Update(gameTime);
 
@@ -200,7 +228,14 @@ namespace Wataha
           
             graphics.GraphicsDevice.Clear(Color.Black);
          
+            if(gamePaused)
+            {
+                mainMenu.Draw();
+            }
+            else
+            {
 
+    
             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
@@ -252,8 +287,8 @@ namespace Wataha
             Vector3 right = Vector3.Cross(forward, up);
         
               hud.Draw(spriteBatch,device);
-               
 
+            }
             base.Draw(gameTime);
         }
 
