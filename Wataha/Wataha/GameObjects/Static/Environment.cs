@@ -19,7 +19,7 @@ namespace Wataha.GameObjects.Static
 
             foreach(ModelMesh mesh in model.Meshes)
             {
-                float houseSize = colliderSize * 7.5f;
+                float houseSize = colliderSize * 4.5f;
                 if (mesh.Name.Contains("House"))
                 {
                     BoundingBox box = new BoundingBox(new Vector3(mesh.BoundingSphere.Center.X - (houseSize+1) , mesh.BoundingSphere.Center.Y - houseSize, mesh.BoundingSphere.Center.Z - (houseSize+1) ),

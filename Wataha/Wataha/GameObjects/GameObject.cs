@@ -86,17 +86,17 @@ namespace Wataha.GameObjects
             {
              
             
-             if (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f || mesh.Name.Contains("Plane"))
+             if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  && (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) > 10.0f))   || mesh.Name.Contains("Plane"))
                 {
                     foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     {
 
 
 
-                        if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
-                            alpha = 0.0f;
-                        else
-                            alpha = 1.0f;
+                        //if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
+                        //    alpha = 0.0f;
+                        //else
+                        //    alpha = 1.0f;
 
                         Effect effect = meshPart.Effect;
 

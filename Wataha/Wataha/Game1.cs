@@ -42,31 +42,27 @@ namespace Wataha
         RenderTarget2D renderTarget;
         HUDController hud;
 
-        private bool gamePaused = true;
+        private bool gameInMainMenu = true;
         private MainMenu mainMenu;
 
         public Game1()
         {
-
+            graphics = new GraphicsDeviceManager(this);
             //IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1920;
-            //graphics.IsFullScreen = true;
+       //     graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
-            camera = new Camera();
-            hud = new HUDController(100, 0, 0);
-            colisionSystem = new ColisionSystem();
-            audioSystem = new AudioSystem(Content);
 
-            ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f,0.00001f), 0.3f, Vector3.Zero, 0.1f);
- 
-        
+
+
+
+
+
+
 
 
 
@@ -97,13 +93,27 @@ namespace Wataha
         /// </summary>
         protected override void LoadContent()
         {
+          
+            Content.RootDirectory = "Content";
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+       //   graphics.IsFullScreen = true;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.ApplyChanges();
+
             device = GraphicsDevice;
             Content = new ContentManager(this.Services, "Content");
+            camera = new Camera();
+            colisionSystem = new ColisionSystem();
+            audioSystem = new AudioSystem(Content);
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
 
             simpleEffect = Content.Load<Effect>("Effects/Light");
+            ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f, 0.00001f), 0.3f, Vector3.Zero, 0.1f);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -111,11 +121,7 @@ namespace Wataha
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
            
             skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
-            hud.font30 = Content.Load<SpriteFont>("Fonts/font1");
-            hud.pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
-            hud.pictures.Add(Content.Load<Texture2D>("Pictures/meat"));
-            hud.pictures.Add(Content.Load<Texture2D>("Pictures/goldFangs"));
-            hud.pictures.Add(Content.Load<Texture2D>("Pictures/whiteFang"));
+           
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             //world = world * Matrix.CreateScale(1f);
@@ -141,7 +147,7 @@ namespace Wataha
             renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);
 
 
-
+            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0);
             mainMenu = new MainMenu(spriteBatch, Content);
 
         }
@@ -164,9 +170,13 @@ namespace Wataha
 
         protected override void Update(GameTime gameTime)
         {
+            KeyboardState newState = Keyboard.GetState();
+            KeyboardState oldState = new KeyboardState(); 
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            hud.ScreenHeight = GraphicsDevice.Viewport.Height;
+            hud.ScreenWidth = GraphicsDevice.Viewport.Width;
 
-            if (gamePaused)
+            if (gameInMainMenu)
             {
                 IsMouseVisible = true;
                 mainMenu.ScreenWidth = GraphicsDevice.Viewport.Width;
@@ -177,62 +187,94 @@ namespace Wataha
                     Exit();
                 if (mainMenu.PlayButtonsEvents())
                 {
-                    gamePaused = false;
+                    gameInMainMenu = false;
                     IsMouseVisible = false;
+                    this.LoadContent();
                 }
             }
             else
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                {
-                    gamePaused = true;
-                    return;
-                }
-
-                if (Keyboard.GetState().IsKeyDown(Keys.LeftControl))
-                {
+               
+              
+                  if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
+                       {
                     IsMouseVisible = true;
+                           hud.ifPaused = true;
+                           return;
+                      }
+
+
+
+                if (!hud.ifPaused)
+                {
+                    if (newState.IsKeyDown(Keys.LeftControl))
+                    {
+                        IsMouseVisible = true;
+                    }
+                    else
+                    {
+                        IsMouseVisible = false;
+                    }
+
+                    if (newState.IsKeyDown(Keys.E))
+                    {
+                        audioSystem.playGrowl(2);
+                    }
+
+
+                    if (newState.IsKeyDown(Keys.F) && currentGiver != null)
+                    {
+                        Debug.WriteLine("test");
+                    }
+
+                    ChceckNearestQuestGiver();
+
+
+                    colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider);
+                    colisionSystem.IsEnvironmentCollision(wolf, trees);
+                    colisionSystem.IsEnvironmentCollision(wolf, b);
+
+                  
+
+
+
+                        wolf.Update();
+
+
                 }
                 else
                 {
-                    IsMouseVisible = false;
+
+                    if (hud.ResumeButtonEvent())
+                    {
+                        hud.ifPaused = false;
+                    }
+                    if (hud.BackToMainMenuButtonEvent())
+                    {
+                        hud.ifPaused = false;
+                        gameInMainMenu = true;
+                    }
+                    if (hud.ExitButtonEvent())
+                    {
+                        Exit();
+                    }
+
                 }
 
-                if (Keyboard.GetState().IsKeyDown(Keys.E))
-                {
-                    audioSystem.playGrowl(2);
-                }
+                Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
+                    Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
+                    Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
+                    float randSpeed = (float)rand.NextDouble() * 2 + 10;
+                    
+                ps.AddParticle(randPosition, randAngle, randSpeed);
+                ps.Update();
 
 
-                if (Keyboard.GetState().IsKeyDown(Keys.F) && currentGiver != null)
-                {
-                    Debug.WriteLine("test");
-                }
+                hud.Update();
+                oldState = newState;
+                base.Update(gameTime);
 
-                ChceckNearestQuestGiver();
-
-
-                colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider);
-                colisionSystem.IsEnvironmentCollision(wolf, trees);
-                colisionSystem.IsEnvironmentCollision(wolf, b);
-
-            Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
-            Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
-            Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
-            float randSpeed = (float)rand.NextDouble() * 2 + 10;
-            ps.AddParticle(randPosition, randAngle, randSpeed);
-            ps.Update();
-
-
-
-
-                wolf.Update();
-
-          
-
-
-            base.Update(gameTime);
-
+            }
         }
 
         /// <summary>
@@ -244,7 +286,7 @@ namespace Wataha
           
             graphics.GraphicsDevice.Clear(Color.Black);
          
-            if(gamePaused)
+            if(gameInMainMenu)
             {
                 mainMenu.Draw();
             }
@@ -300,7 +342,7 @@ namespace Wataha
          
 
 
-              hud.Draw(spriteBatch,device);
+              hud.Draw();
 
               ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
