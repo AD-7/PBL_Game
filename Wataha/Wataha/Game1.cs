@@ -25,7 +25,7 @@ namespace Wataha
         SpriteBatch spriteBatch;
         Random rand = new Random();
         private GameObjects.Static.Plane plane;
-        private Wolf wolf, wolf2;
+        private Wolf wolf, wolf2,wolf3;
         private Wataha.GameObjects.Movable.Wataha  wataha;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
@@ -132,16 +132,25 @@ namespace Wataha
             wataha = new GameObjects.Movable.Wataha(camera);
 
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world2 *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 10));
-            world2 *= Matrix.CreateScale(0.2f);
+            
+            world2 *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+           world2 *= Matrix.CreateScale(0.2f);
+
             Matrix worldw2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw2 *= Matrix.CreateTranslation(new Vector3(12, 15.0f, camera.CamPos.Z - 8));
+            worldw2 *= Matrix.CreateTranslation(new Vector3(14, 15.0f, camera.CamPos.Z - 12));
             worldw2 *= Matrix.CreateScale(0.2f);
+            Matrix worldw3 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldw3 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
+            worldw3 *= Matrix.CreateScale(0.2f);
 
             wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera);
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),worldw2 , 3.0f, camera); 
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),worldw2 , 3.0f, camera);
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera);
+
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"),world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
@@ -149,15 +158,18 @@ namespace Wataha
 
             wolf.SetModelEffect(simpleEffect, true);
             wolf2.SetModelEffect(simpleEffect, true);
+            wolf3.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
             b.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
             wolf2.texture = Content.Load<Texture2D>("textures/textureW");
             wolf2.SetTexture();
+            wolf3.texture = Content.Load<Texture2D>("textures/textureW2");
+            wolf3.SetTexture();
             wataha.wolves.Add(wolf);
             wataha.wolves.Add(wolf2);
-
+            wataha.wolves.Add(wolf3);
 
             PresentationParameters pp = device.PresentationParameters;
             renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);

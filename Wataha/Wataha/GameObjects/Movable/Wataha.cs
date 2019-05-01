@@ -42,8 +42,8 @@ namespace Wataha.GameObjects.Movable
                 avgAngle += wolf.angle;
                 avgPosition += wolf.position;
             }
-            avgAngle /= 2;
-            avgPosition /= 2;
+            avgAngle /=  wolves.Count;
+            avgPosition /= wolves.Count;
 
             pom *= Matrix.CreateRotationY(avgAngle) * Matrix.CreateTranslation(avgPosition);
 
