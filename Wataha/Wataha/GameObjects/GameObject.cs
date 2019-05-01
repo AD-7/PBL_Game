@@ -19,7 +19,7 @@ namespace Wataha.GameObjects
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
         public Texture2D shadowMap;
-
+        public Texture2D texture;
 
         public GameObject(Matrix world, Model model)
         {
@@ -91,7 +91,7 @@ namespace Wataha.GameObjects
                     foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     {
 
-
+                      
 
                         //if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
                         //    alpha = 0.0f;
@@ -123,6 +123,7 @@ namespace Wataha.GameObjects
                             effect.Parameters["xAmbient"].SetValue(ambientPower);
                             effect.Parameters["xShadowMap"].SetValue(shadowMap);
                             effect.Parameters["xAlpha"].SetValue(alpha);
+                           
                         }
 
                     }
@@ -136,6 +137,16 @@ namespace Wataha.GameObjects
                 
                
         }
+
+        public void SetTexture()
+        {
+            foreach (ModelMesh mesh in model.Meshes)
+                foreach (ModelMeshPart part in mesh.MeshParts)
+                {
+                    part.Effect.Parameters["xTexture"].SetValue(texture);
+                }
+        }
+
 
         public void SetModelEffect (Effect effect, bool CopyEffect)
         {

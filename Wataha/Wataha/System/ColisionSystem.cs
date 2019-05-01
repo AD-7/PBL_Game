@@ -13,6 +13,8 @@ namespace Wataha.GameSystem
    public  class ColisionSystem
     {
 
+      
+
         public bool IsCollisionTerrain(BoundingBox player, BoundingBox terrain )
         {
             
@@ -24,7 +26,7 @@ namespace Wataha.GameSystem
         }
 
 
-        public bool IsEnvironmentCollision(Wolf player, Wataha.GameObjects.Static.Environment env)
+        public bool IsEnvironmentCollision(Wolf player, Wataha.GameObjects.Static.Environment env,Wataha.GameObjects.Movable.Wataha wataha)
         {
             int i = 0;
             foreach(ModelMesh mesh in env.model.Meshes)
@@ -35,9 +37,12 @@ namespace Wataha.GameSystem
                     if (player.collider.Intersects(env.colliders[i]))
                     {
                        
-                        player.ifColisionTerrain = true;
-                        player.ProccedCollisionBuilding();
-                       
+                        foreach(Wolf w in wataha.wolves)
+                        {
+                         w.ifColisionTerrain = true;
+                         w.ProccedCollisionBuilding();
+                        }
+
                         return true;
                     }
                 }
@@ -45,9 +50,12 @@ namespace Wataha.GameSystem
                 { 
                     if (player.collider.Intersects(env.colliders[i]))
                     {
-                       player.ifColisionTerrain = true;
-                        player.ProccedCollisionTree();
-                        
+                        foreach (Wolf w in wataha.wolves)
+                        {
+                            w.ifColisionTerrain = true;
+                            w.ProccedCollisionTree();
+                        }
+
                         return true;
                     }
                 }
@@ -56,6 +64,8 @@ namespace Wataha.GameSystem
             }
             return false;
         }
+
+
 
 
 

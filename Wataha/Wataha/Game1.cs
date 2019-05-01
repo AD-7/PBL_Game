@@ -25,7 +25,8 @@ namespace Wataha
         SpriteBatch spriteBatch;
         Random rand = new Random();
         private GameObjects.Static.Plane plane;
-        private Wolf wolf;
+        private Wolf wolf, wolf2;
+        private Wataha.GameObjects.Movable.Wataha  wataha;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
         Skybox skybox;
@@ -121,30 +122,48 @@ namespace Wataha
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
            
             skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
-           
+
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             //world = world * Matrix.CreateScale(1f);
             //world = world * Matrix.CreateTranslation(new Vector3(10, 0, 0));
             //questGivers.Add(new QuestGiver(Content.Load<Model>("wolf"), world));
 
-
+            wataha = new GameObjects.Movable.Wataha(camera);
 
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world2 *= Matrix.CreateTranslation(new Vector3(0, 5.0f, camera.CamPos.Z - 10));
-            world2 *= Matrix.CreateScale(0.5f);
+            world2 *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 10));
+            world2 *= Matrix.CreateScale(0.2f);
+            Matrix worldw2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldw2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw2 *= Matrix.CreateTranslation(new Vector3(12, 15.0f, camera.CamPos.Z - 8));
+            worldw2 *= Matrix.CreateScale(0.2f);
+
             wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera);
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),worldw2 , 3.0f, camera); 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"),world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
+          
+
             wolf.SetModelEffect(simpleEffect, true);
+            wolf2.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
             b.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
+            wolf2.texture = Content.Load<Texture2D>("textures/textureW");
+            wolf2.SetTexture();
+            wataha.wolves.Add(wolf);
+            wataha.wolves.Add(wolf2);
+
+
             PresentationParameters pp = device.PresentationParameters;
             renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);
+
+
+
 
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0);
@@ -229,17 +248,19 @@ namespace Wataha
 
                     ChceckNearestQuestGiver();
 
+                    foreach(Wolf w in wataha.wolves)
+                    {
+                    colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
+                    colisionSystem.IsEnvironmentCollision(w, trees,wataha);
+                    colisionSystem.IsEnvironmentCollision(w, b,wataha);
+                 
+                            }
 
-                    colisionSystem.IsCollisionTerrain(wolf.collider, plane.collider);
-                    colisionSystem.IsEnvironmentCollision(wolf, trees);
-                    colisionSystem.IsEnvironmentCollision(wolf, b);
-
-                  
 
 
 
-                        wolf.Update();
 
+                    wataha.Update();
 
                 }
                 else
@@ -307,15 +328,22 @@ namespace Wataha
 
             plane.Draw(camera, "ShadowMap");
             //questGivers[0].Draw(camera);
-            wolf.Draw(camera, "ShadowMap");
-            
+            foreach(Wolf w in wataha.wolves)
+                {
+                w.Draw(camera, "ShadowMap");
+                }
+           
             trees.Draw(camera, "ShadowMap");
             b.Draw(camera, "ShadowMap");
             
 
             device.SetRenderTarget(null);
             plane.shadowMap = (Texture2D)renderTarget;
-            wolf.shadowMap = (Texture2D)renderTarget;
+                foreach(Wolf w in wataha.wolves)
+                {
+                    w.shadowMap = (Texture2D)renderTarget;
+                }
+            
             trees.shadowMap = (Texture2D)renderTarget;
             b.shadowMap = (Texture2D)renderTarget;
 
@@ -325,17 +353,24 @@ namespace Wataha
             device.BlendState = BlendState.AlphaBlend;
 
             plane.Draw(camera, "ShadowedScene");
-            wolf.Draw(camera, "ShadowedScene");
+                foreach (Wolf w in wataha.wolves)
+                {
+                    w.Draw(camera, "ShadowedScene");
+                }
 
-            //questGivers[0].Draw(camera);
-            trees.Draw(camera, "ShadowedScene");
+                //questGivers[0].Draw(camera);
+                trees.Draw(camera, "ShadowedScene");
             b.Draw(camera, "ShadowedScene");
             device.BlendState = BlendState.Opaque;
             skybox.Draw(camera);
 
             plane.shadowMap = null;
-            wolf.shadowMap = null;
-            trees.shadowMap = null;
+                foreach (Wolf w in wataha.wolves)
+                {
+                    w.shadowMap = null;
+                }
+             
+                trees.shadowMap = null;
             b.shadowMap = null;
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 

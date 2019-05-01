@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Wataha.GameObjects.Movable
 {
-    class MovableObject : GameObject
+    public class MovableObject : GameObject
     {
         public MovableObject(Matrix world, Model model) : base(world, model)
         {
