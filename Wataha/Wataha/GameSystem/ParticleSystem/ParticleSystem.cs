@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace Wataha.System.ParticleSystem
+namespace Wataha.GameSystem.ParticleSystem
 {
     public class ParticleSystem
     {

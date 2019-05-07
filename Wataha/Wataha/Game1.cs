@@ -4,12 +4,11 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Wataha.GameSystem;
+using Wataha.GameSystem.ParticleSystem;
 using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Wataha.System;
-using Wataha.System.ParticleSystem;
 using System;
 using Wataha.GameObjects;
 
@@ -52,22 +51,9 @@ namespace Wataha
             //IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
-       //     graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
-
-
-
-
-
-
-
-
-
-
-
         }
 
         /// <summary>
@@ -83,7 +69,7 @@ namespace Wataha
         protected override void Initialize()
         {
            
-            questGivers = new List<QuestGiver>();
+            //questGivers = new List<QuestGiver>();
             
             base.Initialize();
         }
@@ -94,16 +80,19 @@ namespace Wataha
         /// </summary>
         protected override void LoadContent()
         {
-          
+            device = GraphicsDevice;
+
+
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = 1080;
-            graphics.PreferredBackBufferWidth = 1920;
-       //   graphics.IsFullScreen = true;
+            //graphics.PreferredBackBufferHeight = 1080;
+            // graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
+            graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
+            //   graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
 
-            device = GraphicsDevice;
             Content = new ContentManager(this.Services, "Content");
             camera = new Camera();
             colisionSystem = new ColisionSystem();
@@ -257,7 +246,7 @@ namespace Wataha
                         Debug.WriteLine("test");
                     }
 
-                    ChceckNearestQuestGiver();
+                    //ChceckNearestQuestGiver();
 
                     foreach(Wolf w in wataha.wolves)
                     {
@@ -390,7 +379,7 @@ namespace Wataha
 
               hud.Draw();
 
-              ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+             ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
 
 

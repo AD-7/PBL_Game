@@ -75,22 +75,22 @@
     <Compile Include="GameObjects\Static\Plane.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="System\Animation\Animation.cs" />
-    <Compile Include="System\Animation\AnimationSystem.cs" />
-    <Compile Include="System\AudioSystem.cs" />
-    <Compile Include="System\Camera.cs" />
-    <Compile Include="System\ColisionSystem.cs" />
-    <Compile Include="System\GameSystem.cs" />
-    <Compile Include="System\HUDController.cs" />
-    <Compile Include="System\HuntingSystem.cs" />
-    <Compile Include="System\ParticleSystem\ParticleSystem.cs" />
-    <Compile Include="System\ParticleSystem\ParticleVertex.cs" />
-    <Compile Include="System\PrelightingRenderer.cs" />
-    <Compile Include="System\QuestSystem.cs" />
-    <Compile Include="System\ResoucersSystem.cs" />
-    <Compile Include="System\SceneManager.cs" />
-    <Compile Include="System\Skybox.cs" />
-    <Compile Include="System\UpgradeSystem.cs" />
+    <Compile Include="GameSystem\Animation\Animation.cs" />
+    <Compile Include="GameSystem\Animation\AnimationSystem.cs" />
+    <Compile Include="GameSystem\AudioSystem.cs" />
+    <Compile Include="GameSystem\Camera.cs" />
+    <Compile Include="GameSystem\ColisionSystem.cs" />
+    <Compile Include="GameSystem\GameSystem.cs" />
+    <Compile Include="GameSystem\HUDController.cs" />
+    <Compile Include="GameSystem\HuntingSystem.cs" />
+    <Compile Include="GameSystem\ParticleSystem\ParticleSystem.cs" />
+    <Compile Include="GameSystem\ParticleSystem\ParticleVertex.cs" />
+    <Compile Include="GameSystem\PrelightingRenderer.cs" />
+    <Compile Include="GameSystem\QuestSystem.cs" />
+    <Compile Include="GameSystem\ResoucersSystem.cs" />
+    <Compile Include="GameSystem\SceneManager.cs" />
+    <Compile Include="GameSystem\Skybox.cs" />
+    <Compile Include="GameSystem\UpgradeSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

@@ -6,7 +6,7 @@ using Wataha.GameObjects;
 using Wataha.GameObjects.Materials;
 using Wataha.GameSystem;
 
-namespace Wataha.System
+namespace Wataha.GameSystem
 {
     public class PrelightingRenderer
     {

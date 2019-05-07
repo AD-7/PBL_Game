@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Wataha.System.ParticleSystem
+namespace Wataha.GameSystem.ParticleSystem
 {
     struct  ParticleVertex : IVertexType
     {
