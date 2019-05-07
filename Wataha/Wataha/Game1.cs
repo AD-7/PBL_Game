@@ -204,8 +204,7 @@ namespace Wataha
             KeyboardState newState = Keyboard.GetState();
             KeyboardState oldState = new KeyboardState(); 
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-            hud.ScreenHeight = GraphicsDevice.Viewport.Height;
-            hud.ScreenWidth = GraphicsDevice.Viewport.Width;
+         
 
             if (gameInMainMenu)
             {

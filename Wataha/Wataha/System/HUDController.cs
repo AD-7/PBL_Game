@@ -15,8 +15,6 @@ namespace Wataha.System
         SpriteBatch spriteBatch;
         GraphicsDevice device;
         ContentManager Content;
-        public float ScreenWidth;
-        public float ScreenHeight;
         MouseState mouseState;
         Rectangle Cursor;
 
@@ -30,6 +28,8 @@ namespace Wataha.System
         Rectangle recResumeButton;
         Rectangle recBackToMainMenuButton;
         Rectangle recExitButton;
+        Rectangle recPausePanel;
+        Rectangle recResources, recMeal, recWhiteFang, recGoldFang;
         Color resumeButtonColor = Color.White;
         Color backToMainMenuButtonColor = Color.White;
         Color exitButtonColor = Color.White;
@@ -45,7 +45,7 @@ namespace Wataha.System
             this.white_fangs = white_fangs;
             this.gold_fangs = gold_fangs;
             pictures = new List<Texture2D>();
-
+           
             font30 = Content.Load<SpriteFont>("Fonts/font1");
             pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
             pictures.Add(Content.Load<Texture2D>("Pictures/meat"));
@@ -57,18 +57,44 @@ namespace Wataha.System
             pictures.Add(Content.Load<Texture2D>("Pictures/exitButton"));
 
 
-            recResumeButton.X = 770;
-            recResumeButton.Y = 280;
+            recResources.X = device.Viewport.X + 5;
+            recResources.Y = device.Viewport.Y + 7;
+            recResources.Height = device.Viewport.Height / 8;
+            recResources.Width = device.Viewport.Width / 2;
+
+            recMeal.X = recResources.X  +5 ;
+            recMeal.Y = recResources.Y  +27 ;
+            recMeal.Height = pictures[1].Height;
+            recMeal.Width = pictures[1].Width;
+
+            recWhiteFang.X = recResources.X + 250;
+            recWhiteFang.Y = recResources.Y + 20;
+            recWhiteFang.Height = pictures[3].Height;
+            recWhiteFang.Width = pictures[3].Width;
+
+            recGoldFang.X = recResources.X + 530;
+            recGoldFang.Y = recResources.Y + 20;
+            recGoldFang.Height = pictures[2].Height;
+            recGoldFang.Width = pictures[2].Width;
+
+            recPausePanel.X = device.Viewport.Width / 3;
+            recPausePanel.Y = 25;
+            recPausePanel.Height =  device.Viewport.Height - 80;
+            recPausePanel.Width =  device.Viewport.Width / 3;
+
+
+            recResumeButton.X = recPausePanel.X + recPausePanel.Width /4;
+            recResumeButton.Y = recPausePanel.Height/4;
             recResumeButton.Width = pictures[5].Width;
             recResumeButton.Height = pictures[5].Height;
 
-             recBackToMainMenuButton.X = 730;
-            recBackToMainMenuButton.Y = 380;
+             recBackToMainMenuButton.X = recPausePanel.X + recPausePanel.Width / 4 - recResumeButton.Width/8;
+            recBackToMainMenuButton.Y = recResumeButton.Y + 120;
             recBackToMainMenuButton.Width = pictures[6].Width;
             recBackToMainMenuButton.Height = pictures[6].Height;
 
-            recExitButton.X = 730;
-            recExitButton.Y = 780;
+            recExitButton.X = recPausePanel.X + recPausePanel.Width / 4 - recResumeButton.Width / 7;
+            recExitButton.Y = recPausePanel.Height - 100;
             recExitButton.Width = pictures[7].Width;
             recExitButton.Height = pictures[7].Height;
         }
@@ -86,21 +112,21 @@ namespace Wataha.System
             
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             
-            spriteBatch.Draw(pictures[0], new Vector2(10,5));   // rectangle to display resources
+            spriteBatch.Draw(pictures[0],recResources,Color.White);   // rectangle to display resources
+           
 
+            spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
+            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(recMeal.X+120, recMeal.Y - 2), Color.Red);
 
-            spriteBatch.Draw(pictures[1], new Vector2(15,35));   // meat picture
-            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(130, 33), Color.Red);
+            spriteBatch.Draw(pictures[3], recWhiteFang,Color.White);     //whitefangs picture
+            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X +150, recWhiteFang.Y +6), Color.White);
 
-            spriteBatch.Draw(pictures[3], new Vector2(250, 28));     //whitefangs picture
-            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(410, 33), Color.White);
-
-            spriteBatch.Draw(pictures[2], new Vector2(530, 28));     //goldfangs picture
-            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(680, 33), Color.Gold);
+            spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
+            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + 143, recGoldFang.Y +6 ), Color.Gold);
 
             if (ifPaused)
             {
-                 spriteBatch.Draw(pictures[4], new Vector2(700, 100));
+                 spriteBatch.Draw(pictures[4], recPausePanel, Color.White);
           
                 spriteBatch.Draw(pictures[5], recResumeButton, resumeButtonColor);
                 spriteBatch.Draw(pictures[6], recBackToMainMenuButton, backToMainMenuButtonColor);
