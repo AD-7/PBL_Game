@@ -20,7 +20,7 @@ namespace Wataha.GameSystem
         {
             skyBox = Content.Load<Model>("Skyboxes/cube");
             skyBoxTexture = Content.Load<TextureCube>(skyboxTexture);
-            skyBoxEffect = Content.Load<Effect>("Skyboxes/skybox");
+            skyBoxEffect = Content.Load<Effect>("Skyboxes/skyboxEffect");
         }
         public void Draw(Camera camera)
         {
