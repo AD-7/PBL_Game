@@ -37,7 +37,7 @@ namespace Wataha.GameSystem
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
-        int stringOffset;
+        int stringOffsetWidth, stringOffsetHeight;
       
 
         public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs)
@@ -72,25 +72,26 @@ namespace Wataha.GameSystem
         {
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
             {
-                recResources.X = 5;
-                recResources.Y =  7;
-                recResources.Height = screenHeight / 8;
+                recResources.X = 0;
+                recResources.Y =  0;
+                recResources.Height = screenHeight / 10;
                 recResources.Width = screenWidth / 2;
 
-                stringOffset = recResources.Width / 8;
+                stringOffsetWidth = (recResources.Width / 100);
+                stringOffsetHeight = (recResources.Height / 100); 
 
-                recMeal.X = recResources.X  + 5;
-                recMeal.Y = recResources.Y + recResources.Height / 4 - 3;
-                recMeal.Height = screenHeight / 2 / pictures[1].Height ;
-                recMeal.Width = screenWidth / pictures[1].Width;
+                recMeal.X = recResources.Width/60;
+                recMeal.Y = (recResources.Height / 5) * 2;
+                recMeal.Height =recResources.Height /4 ;
+                recMeal.Width = recResources.Width / 25;
 
-                recWhiteFang.X = recResources.X + recResources.Width / 4 ;
-                recWhiteFang.Y = recMeal.Y - 5;
+                recWhiteFang.X =  recResources.Width / 4 ;
+                recWhiteFang.Y = recMeal.Y ;
                 recWhiteFang.Height = recMeal.Width;
                 recWhiteFang.Width = recMeal.Height;
 
-                recGoldFang.X = recResources.X +  recResources.Width / 2 + 30;
-                recGoldFang.Y = recMeal.Y - 5;
+                recGoldFang.X = (recResources.Width / 100) * 58 ;
+                recGoldFang.Y = recMeal.Y ;
                 recGoldFang.Height = recMeal.Width;
                 recGoldFang.Width = recMeal.Height;
 
@@ -137,13 +138,13 @@ namespace Wataha.GameSystem
            
 
             spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
-            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(recMeal.X + stringOffset, recMeal.Y - 7), Color.Red);
+            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 13 , stringOffsetHeight * 33), Color.Red);
 
             spriteBatch.Draw(pictures[3], recWhiteFang,Color.White);     //whitefangs picture
-            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X + stringOffset + 30, recWhiteFang.Y), Color.White);
+            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth *19 , stringOffsetHeight * 33), Color.White);
 
             spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
-            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffset + 30, recGoldFang.Y ), Color.Gold);
+            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth *18 ,stringOffsetHeight * 33), Color.Gold);
 
             if (ifPaused)
             {
