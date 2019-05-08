@@ -110,7 +110,7 @@ namespace Wataha
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
            
-            skybox = new Skybox("Skyboxes/SkyBox/SkyBox", Content);
+            skybox = new Skybox("Skyboxes/skybox", Content);
 
 
             //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
