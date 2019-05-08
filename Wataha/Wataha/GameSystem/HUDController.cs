@@ -65,7 +65,8 @@ namespace Wataha.GameSystem
 
             screenWidthOld = 0;
             screenHeightOld = 0;
-
+            stringOffsetWidth = 0;
+            stringOffsetHeight = 0;
         }
 
         public void Update()
