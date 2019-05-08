@@ -18,30 +18,35 @@ namespace Wataha.GameSystem
         public Vector3 side;
         public Vector3 up;
         public Vector3 right;
+        public BoundingFrustum frustum;
+
 
         public Camera()
         {
              CamPos = new Vector3(2, 10, 30);
              CamTarget = new Vector3(0, 0, -10);
-            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(30), 800 / 480f, 0.1f, 220f);
+            Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(40), 800 / 480f, 0.1f, 220f);
             View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up);
           
              forward = CamTarget - CamPos;
              side = Vector3.Cross(forward, Vector3.Up);
              up = Vector3.Cross(forward, side);
              right = Vector3.Cross(forward, Vector3.Up);
+
+            frustum = new BoundingFrustum(View * Projection);
         }
 
         public void Update()
         {
             
             View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up);
+            frustum = new BoundingFrustum(View * Projection);
         }
 
         public void CameraUpdate(Matrix playerMatrix)
         {
             CamPos = playerMatrix.Translation + (playerMatrix.Up * 20) +
-                                    (playerMatrix.Backward * 3);
+                                    (playerMatrix.Backward * 4);
             CamTarget = playerMatrix.Translation;
 
             forward = CamTarget - CamPos;
@@ -49,7 +54,9 @@ namespace Wataha.GameSystem
             up = Vector3.Cross(forward, side);
             right = Vector3.Cross(forward, up);
 
-            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up); 
+            View = Matrix.CreateLookAt(CamPos, CamTarget, Vector3.Up);
+            frustum = new BoundingFrustum(View * Projection);
+
         }
 
         public void CamMoveLeft(float value)

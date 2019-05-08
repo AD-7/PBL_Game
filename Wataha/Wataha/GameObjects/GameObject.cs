@@ -1,9 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
 using Wataha.GameSystem;
 using System;
+using System.Linq;
 
 namespace Wataha.GameObjects
 {
@@ -81,12 +82,13 @@ namespace Wataha.GameObjects
         public void DrawModel(Matrix view, Matrix projection, Camera camera, string technique)
 
         {
-          
+            Console.WriteLine(camera.forward);
+                 
             foreach (ModelMesh mesh in model.Meshes)
-            {
-             
-            
-             if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  && (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) > 10.0f))   || mesh.Name.Contains("Plane"))
+            {             
+                if((camera.frustum.Contains(mesh.BoundingSphere) != ContainmentType.Disjoint) &&
+                   (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  &&
+                   (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) > 10.0f))   || mesh.Name.Contains("Plane"))
                 {
                     foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     {
@@ -107,9 +109,6 @@ namespace Wataha.GameObjects
                             ((BasicEffect)effect).Projection = projection;
                             material.SetEffectParameters(effect);
                             ((BasicEffect)effect).EnableDefaultLighting();
-
-
-
                         }
                         else
                         {
@@ -127,15 +126,9 @@ namespace Wataha.GameObjects
                         }
 
                     }
-
-
                     mesh.Draw();
-
-
                 }
-            }
-                
-               
+            }             
         }
 
         public void SetTexture()
