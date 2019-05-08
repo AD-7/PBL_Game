@@ -95,25 +95,25 @@ namespace Wataha.GameSystem
                 recGoldFang.Width = recMeal.Height;
 
                 recPausePanel.X = screenWidth / 3;
-                recPausePanel.Y = 25;
-                recPausePanel.Height = screenHeight - 80;
+                recPausePanel.Y = (screenHeight/100) * 5 ;
+                recPausePanel.Height =(screenHeight /10) * 9 ;
                 recPausePanel.Width = screenWidth / 3;
 
 
-                recResumeButton.X = recPausePanel.X + recPausePanel.Width / 7;
-                recResumeButton.Y = recPausePanel.Height / 4;
-                recResumeButton.Width = pictures[5].Width;
-                recResumeButton.Height = pictures[5].Height;
+                recResumeButton.X = recPausePanel.X +  recPausePanel.Width /4;
+                recResumeButton.Y = recPausePanel.Y + recPausePanel.Height / 4;
+                recResumeButton.Width = recPausePanel.Width / 2;
+                recResumeButton.Height = recPausePanel.Height / 10;
 
-                recBackToMainMenuButton.X = recResumeButton.X - 20;
-                recBackToMainMenuButton.Y = recResumeButton.Y  + 120;
-                recBackToMainMenuButton.Width = pictures[6].Width;
-                recBackToMainMenuButton.Height = pictures[6].Height;
+                recBackToMainMenuButton.X = recResumeButton.X;
+                recBackToMainMenuButton.Y = recResumeButton.Y + recPausePanel.Height / 6;
+                recBackToMainMenuButton.Width = recPausePanel.Width / 2;
+                recBackToMainMenuButton.Height = recPausePanel.Height / 10;
 
-                recExitButton.X = recResumeButton.X - 20;
-                recExitButton.Y = recPausePanel.Height - 100;
-                recExitButton.Width = pictures[7].Width;
-                recExitButton.Height = pictures[7].Height;
+                recExitButton.X = recResumeButton.X;
+                recExitButton.Y = recBackToMainMenuButton.Y + recPausePanel.Height / 4;
+                recExitButton.Width = recPausePanel.Width / 2;
+                recExitButton.Height = recPausePanel.Height / 10;
             }
 
             UpdateCursorPosition();
