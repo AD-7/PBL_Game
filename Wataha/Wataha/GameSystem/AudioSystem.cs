@@ -17,8 +17,11 @@ namespace Wataha.GameSystem
         Random rnd = new Random();
         int i = 0;
 
+        public static float songVolume = 0.4f;
+        public static float effectsVolume = 0.3f;
+
         ContentManager Content;
-  
+    
 
 
         public AudioSystem(ContentManager content)
@@ -32,8 +35,8 @@ namespace Wataha.GameSystem
             songList.Add(Content.Load<Song>("Songs/Forest3"));
             songList.Add(Content.Load<Song>("Songs/forest"));
          
-
-            MediaPlayer.Volume = 0.4f;
+                   
+            MediaPlayer.Volume = songVolume;
             MediaPlayer.Play(songList[i]);
             //  Uncomment the following line will also loop the song
             //MediaPlayer.IsRepeating = true;
@@ -47,7 +50,7 @@ namespace Wataha.GameSystem
             growl.Add(soundEffects[1].CreateInstance());
             growl.Add(soundEffects[2].CreateInstance());
 
-            SoundEffect.MasterVolume = 0.3f;
+            SoundEffect.MasterVolume = effectsVolume;
         }
 
         void MediaPlayer_MediaStateChanged(object sender, EventArgs e)

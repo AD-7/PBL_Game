@@ -8,68 +8,215 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+
+using Wataha.GameSystem;
 
 namespace Wataha.GameObjects
 {
     public class MainMenu
     {
         private SpriteBatch spriteBatch;
-        private Texture2D PlayButtonTexture;
-        private Texture2D CloseButtonTexture;
-        private Texture2D BGTexture;
+        private GraphicsDevice device;
 
-        public float ScreenWidth;
-        public float ScreenHeight;
+        private List<Texture2D> ButtonTextures = new List<Texture2D>();
 
+        public float ScreenWidth, ScreenWidthOld;
+        public float ScreenHeight, ScreenHeightOld;
 
-        Rectangle recPlayButton;
-        Rectangle recCloseButton;
         Rectangle BG;
+        Rectangle recPlayButton;
+        Rectangle recOptionButton;
+        Rectangle recCloseButton;
 
-        Color PlayButtonColor = Color.White;
-        Color CloseButtonColor = Color.White;
-        Color BGColor = Color.White;
+        Rectangle recAudioSliderBG;
+        Rectangle recAudioSlider;
+        Rectangle recEffectsSliderBG;
+        Rectangle recEffectsSlider;
+        Rectangle recBackMenuButton;
 
-        public MainMenu(SpriteBatch spriteBatch, ContentManager content)
+        MouseState state;
+        MouseState stateOld;
+
+        int alphaColor = 200;
+
+        Color PlayButtonColor;
+        Color OptionButtonColor;
+        Color CloseButtonColor;
+
+        Color BackMenuButtonColor;
+
+
+        SpriteFont font30;
+        bool inOptions = false;
+
+        float AudioVolume = 0.4f;
+        float EffectVolume = 0.3f;
+
+        public MainMenu(SpriteBatch spriteBatch, ContentManager content, GraphicsDevice device)
         {
             this.spriteBatch = spriteBatch;
 
-            PlayButtonTexture = content.Load<Texture2D>("MainMenu/start");
-            CloseButtonTexture = content.Load<Texture2D>("MainMenu/close");
-            BGTexture = content.Load<Texture2D>("MainMenu/bg");
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/bg"));
 
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/start"));
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/options"));
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/close"));
+
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider"));
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider2"));
+
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/backMenu"));
+            
+
+            this.device = device; 
+
+            PlayButtonColor = new Color(255, 255, 255, alphaColor);
+            CloseButtonColor = new Color(255, 255, 255, alphaColor);
+            OptionButtonColor = new Color(255, 255, 255, alphaColor);
+
+
+            font30 = content.Load<SpriteFont>("Fonts/font1");
+
+            ScreenHeightOld = 0;
+            ScreenWidthOld = 0;
+            ScreenWidth = device.Viewport.Width;
+            ScreenHeight = device.Viewport.Height;
         }
 
         public void Update()
         {
-            BG.X = 0;
-            BG.Y = 0;
+          //  if (ScreenWidth != ScreenWidthOld || ScreenHeight != ScreenHeightOld)
+            {
 
-            BG.Width = (int)ScreenWidth;
-            BG.Height = (int)ScreenHeight;
+                BG.X = 0;
+                BG.Y = 0;
+                BG.Width = (int)ScreenWidth;
+                BG.Height = (int)ScreenHeight;
 
-            recPlayButton.X = (int)ScreenWidth / 2 - recPlayButton.Size.X / 2;
-            recPlayButton.Y = (int)ScreenHeight / 4 - recPlayButton.Size.Y / 2;
+                if (!inOptions)
+                {
+                    recPlayButton.X = (int)ScreenWidth / 2 - recPlayButton.Size.X / 2;
+                    recPlayButton.Y = (int)ScreenHeight / 4 - recPlayButton.Size.Y / 2;
 
-            recPlayButton.Height = (int)ScreenHeight / 6;
-            recPlayButton.Width = (int)ScreenWidth / 2;
+                    recPlayButton.Height = (int)ScreenHeight / 6;
+                    recPlayButton.Width = (int)ScreenWidth / 2;
 
-            recCloseButton.X = (int)ScreenWidth / 2 - recCloseButton.Size.X / 2;
-            recCloseButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 +  recCloseButton.Size.Y / 2;
+                    recOptionButton.X = recPlayButton.X;
+                    recOptionButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 12 + recOptionButton.Size.Y / 2;
 
-            recCloseButton.Height = (int)ScreenHeight / 6;
-            recCloseButton.Width = (int)ScreenWidth / 2;
+                    recOptionButton.Height = recPlayButton.Height;
+                    recOptionButton.Width = recPlayButton.Width;
+
+                    recCloseButton.X = recPlayButton.X;
+                    recCloseButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recCloseButton.Size.Y / 2;
+
+                    recCloseButton.Height = recPlayButton.Height;
+                    recCloseButton.Width = recPlayButton.Width;
+
+                    if (OptionButtonsEvents())
+                    {
+                        inOptions = true;
+                        recCloseButton.Width = 0;
+                        recOptionButton.Width = 0;
+                        recPlayButton.Width = 0;
+                    };
+                }
+                else
+                {
+                    recBackMenuButton.X = (int)ScreenWidth / 2 - recBackMenuButton.Size.X / 2;
+                    recBackMenuButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recBackMenuButton.Size.Y / 2;
+
+                    recBackMenuButton.Height = (int)ScreenHeight / 6;
+                    recBackMenuButton.Width = (int)ScreenWidth / 2;
+
+                    recAudioSliderBG.X = recBackMenuButton.X;
+                    recAudioSliderBG.Y = (int)ScreenHeight / 10 + recBackMenuButton.Size.Y / 4;
+
+                    recAudioSliderBG.Height = recBackMenuButton.Height;
+                    recAudioSliderBG.Width = recBackMenuButton.Width;
+
+                    recAudioSlider.X = recBackMenuButton.X;
+                    recAudioSlider.Y = recAudioSliderBG.Y;
+
+                    recAudioSlider.Height = recBackMenuButton.Height;
+                    recAudioSlider.Width = (int)(recAudioSliderBG.Width * AudioVolume);
+                    ///////////////////////////////////////
+                    recEffectsSliderBG.X = recBackMenuButton.X;
+                    recEffectsSliderBG.Y = (int)ScreenHeight / 4 + recEffectsSliderBG.Size.Y / 2;
+
+                    recEffectsSliderBG.Height = recBackMenuButton.Height;
+                    recEffectsSliderBG.Width = recBackMenuButton.Width;
+
+                    recEffectsSlider.X = recBackMenuButton.X;
+                    recEffectsSlider.Y = recEffectsSliderBG.Y;
+
+                    recEffectsSlider.Height = recBackMenuButton.Height;
+                    recEffectsSlider.Width = (int)(recEffectsSliderBG.Width * EffectVolume);
+
+                    if (AudioSliderEvents())
+                    {
+                        recAudioSlider.Width = mouseState.Position.X - recAudioSliderBG.X;
+                        AudioVolume = 1.0f*recAudioSlider.Width / recAudioSliderBG.Width;
+                        MediaPlayer.Volume = AudioVolume;
+
+                    }
+
+                    if (EffectSliderEvents())
+                    {
+                        recEffectsSlider.Width = mouseState.Position.X - recEffectsSliderBG.X;
+                        EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
+                        SoundEffect.MasterVolume = EffectVolume;
+                    }
+
+                    if (BackMenuButtonsEvents())
+                    {
+                        inOptions = false;
+                    };
+                }
+
+            }
+
+            stateOld = mouseState;
 
             UpdateCursorPosition();
 
+            
+            ScreenHeightOld = ScreenHeight;
+            ScreenWidthOld = ScreenWidth;
+
+            ScreenWidth = device.Viewport.Width;
+            ScreenHeight = device.Viewport.Height;
         }
 
         public void Draw()
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(BGTexture, BG, Color.White);
-            spriteBatch.Draw(PlayButtonTexture, recPlayButton, PlayButtonColor);
-            spriteBatch.Draw(CloseButtonTexture, recCloseButton, CloseButtonColor);
+            spriteBatch.Draw(ButtonTextures[0], BG, Color.White);
+            if (!inOptions)
+            {
+                spriteBatch.Draw(ButtonTextures[1], recPlayButton, PlayButtonColor);
+                spriteBatch.Draw(ButtonTextures[2], recOptionButton, OptionButtonColor);
+                spriteBatch.Draw(ButtonTextures[3], recCloseButton, CloseButtonColor);
+            }
+            else
+            {
+                //Audio Slider
+                spriteBatch.DrawString(font30, "Audio Volume", new Vector2(100,100), Color.Fuchsia);
+                spriteBatch.DrawString(font30, "Effects Volume", new Vector2(100,300), Color.DarkKhaki);
+
+                spriteBatch.Draw(ButtonTextures[4], recAudioSliderBG, Color.White);  
+                spriteBatch.Draw(ButtonTextures[5], recAudioSlider, Color.White);
+
+                spriteBatch.Draw(ButtonTextures[4], recEffectsSliderBG, Color.White);
+                spriteBatch.Draw(ButtonTextures[5], recEffectsSlider, Color.White);
+
+                spriteBatch.Draw(ButtonTextures[6], recBackMenuButton, BackMenuButtonColor);
+            }
+
+
+
             spriteBatch.End();
         }
 
@@ -86,27 +233,94 @@ namespace Wataha.GameObjects
         {
             if ((recPlayButton.Intersects(Cursor)))
             {
-                PlayButtonColor = Color.Green;
-                if (mouseState.LeftButton == ButtonState.Pressed)
-                   return true;
+                PlayButtonColor = new Color(0, 128, 0, alphaColor);
+                if (mouseState.LeftButton == ButtonState.Pressed && mouseState != stateOld)
+                {
+                    return true;
+                }
                 return false;
             }
             else
-                PlayButtonColor = Color.White;
-           return false;
+                PlayButtonColor = new Color(255, 255, 255, alphaColor);
+            return false;
+        }
+
+        public bool OptionButtonsEvents()
+        {
+            if ((recOptionButton.Intersects(Cursor)))
+            {
+                OptionButtonColor = new Color(0, 128, 0, alphaColor);
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    state = mouseState;
+                    return true;
+                }
+                return false;
+            }
+            else
+                OptionButtonColor = new Color(255, 255, 255, alphaColor);
+            return false;
         }
 
         public bool ExitButtonsEvents()
         {
             if ((recCloseButton.Intersects(Cursor)))
             {
-                CloseButtonColor = Color.Green;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                CloseButtonColor = new Color(0, 128, 0, alphaColor);
+                if (mouseState.LeftButton == ButtonState.Pressed && mouseState != stateOld)
+                {
+                    state = mouseState;
                     return true;
+                }
                 return false;
             }
             else
-                CloseButtonColor = Color.White;
+                CloseButtonColor = new Color(255, 255, 255, alphaColor);
+            return false;
+        }
+
+        public bool BackMenuButtonsEvents()
+        {
+            if ((recBackMenuButton.Intersects(Cursor)))
+            {
+                BackMenuButtonColor = new Color(0, 128, 0, alphaColor);
+                if (mouseState.LeftButton == ButtonState.Pressed && mouseState!=stateOld)
+                {
+                    state = mouseState;
+                    return true;
+                }
+                return false;
+            }
+            else
+                BackMenuButtonColor = new Color(255, 255, 255, alphaColor);
+            return false;
+        }
+
+
+
+        public bool AudioSliderEvents()
+        {
+            if ((recAudioSliderBG.Intersects(Cursor)))
+            {
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public bool EffectSliderEvents()
+        {
+            if ((recEffectsSliderBG.Intersects(Cursor)))
+            {
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
+                return false;
+            }
             return false;
         }
 

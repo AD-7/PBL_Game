@@ -48,7 +48,6 @@ namespace Wataha
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            //IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
             //graphics.IsFullScreen = true;
@@ -63,9 +62,6 @@ namespace Wataha
         /// and initialize them as well.
         /// </summary>
         /// 
-
-
-
         protected override void Initialize()
         {
            
@@ -85,8 +81,6 @@ namespace Wataha
 
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = false;
-            //graphics.PreferredBackBufferHeight = 1080;
-            // graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
             //   graphics.IsFullScreen = true;
@@ -168,7 +162,7 @@ namespace Wataha
 
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0);
-            mainMenu = new MainMenu(spriteBatch, Content);
+            mainMenu = new MainMenu(spriteBatch, Content, device);
 
         }
 
@@ -198,8 +192,7 @@ namespace Wataha
             if (gameInMainMenu)
             {
                 IsMouseVisible = true;
-                mainMenu.ScreenWidth = GraphicsDevice.Viewport.Width;
-                mainMenu.ScreenHeight = GraphicsDevice.Viewport.Height;
+
                 mainMenu.Update();
 
                 if (mainMenu.ExitButtonsEvents())
@@ -358,8 +351,8 @@ namespace Wataha
                     w.Draw(camera, "ShadowedScene");
                 }
 
-                //questGivers[0].Draw(camera);
-                trees.Draw(camera, "ShadowedScene");
+            //questGivers[0].Draw(camera);
+            trees.Draw(camera, "ShadowedScene");
             b.Draw(camera, "ShadowedScene");
             device.BlendState = BlendState.Opaque;
             skybox.Draw(camera);
@@ -374,12 +367,10 @@ namespace Wataha
             b.shadowMap = null;
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
-         
 
+            hud.Draw();
 
-              hud.Draw();
-
-             ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+            ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
 
 
