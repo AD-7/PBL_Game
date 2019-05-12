@@ -130,9 +130,9 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera);
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),worldw2 , 3.0f, camera);
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera);
+            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera, 12, 10,10,"Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),worldw2 , 3.0f, camera, 10, 8,11,"Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera, 9, 9,8,"Hatsu");
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"),world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
@@ -161,7 +161,7 @@ namespace Wataha
 
 
 
-            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0);
+            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha);
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
         }
@@ -187,11 +187,11 @@ namespace Wataha
             KeyboardState newState = Keyboard.GetState();
             KeyboardState oldState = new KeyboardState(); 
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-         
+          IsMouseVisible = true;
 
             if (gameInMainMenu)
             {
-                IsMouseVisible = true;
+               
 
                 mainMenu.Update();
 
@@ -203,6 +203,8 @@ namespace Wataha
                     IsMouseVisible = false;
                     this.LoadContent();
                 }
+
+
             }
             else
             {
@@ -219,14 +221,7 @@ namespace Wataha
 
                 if (!hud.ifPaused)
                 {
-                    if (newState.IsKeyDown(Keys.LeftControl))
-                    {
-                        IsMouseVisible = true;
-                    }
-                    else
-                    {
-                        IsMouseVisible = false;
-                    }
+                   
 
                     if (newState.IsKeyDown(Keys.E))
                     {
@@ -265,6 +260,7 @@ namespace Wataha
                     }
                     if (hud.BackToMainMenuButtonEvent())
                     {
+                   
                         hud.ifPaused = false;
                         gameInMainMenu = true;
                     }

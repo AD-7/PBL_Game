@@ -12,36 +12,44 @@ namespace Wataha.GameSystem
 {
     public class HUDController
     {
+
+        GameObjects.Movable.Wataha wataha;
         SpriteBatch spriteBatch;
         GraphicsDevice device;
         ContentManager Content;
         MouseState mouseState;
         Rectangle Cursor;
-
+        WolfPanel wolfPanel;
 
         public int meat;
         public int white_fangs;
         public int gold_fangs;
 
-        public SpriteFont font30;
+
+
+        public SpriteFont font30, broadwayFont;
         public List<Texture2D> pictures;
         Rectangle recResumeButton;
         Rectangle recBackToMainMenuButton;
         Rectangle recExitButton;
-        Rectangle recPausePanel;
+        Rectangle recPausePanel, recButtonPanel;
         Rectangle recResources, recMeal, recWhiteFang, recGoldFang;
+        Rectangle recButtonWolf1Set, recButtonWolf2Set, recButtonWolf3Set;
         Color resumeButtonColor = Color.White;
         Color backToMainMenuButtonColor = Color.White;
         Color exitButtonColor = Color.White;
+        Color Wolf1ButtonSetColor = Color.White, Wolf3ButtonSetColor = Color.White, Wolf2ButtonSetColor = Color.White;
         public bool ifPaused = false;
+        public bool ifWolfPanel = false;
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
         int stringOffsetWidth, stringOffsetHeight;
       
 
-        public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs)
+        public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha)
         {
+            this.wataha = wataha;
             this.device = device;
             this.spriteBatch = batch;
             this.Content = manager;
@@ -51,14 +59,26 @@ namespace Wataha.GameSystem
             pictures = new List<Texture2D>();
            
             font30 = Content.Load<SpriteFont>("Fonts/font1");
+            broadwayFont = Content.Load<SpriteFont>("Fonts/Broadway");
+
             pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
             pictures.Add(Content.Load<Texture2D>("Pictures/meat"));
             pictures.Add(Content.Load<Texture2D>("Pictures/goldFangs"));
             pictures.Add(Content.Load<Texture2D>("Pictures/whiteFang"));
-            pictures.Add(Content.Load<Texture2D>("Pictures/pauseScreen"));
-            pictures.Add(Content.Load<Texture2D>("Pictures/resumeButton"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/pauseScreen"));   
+            pictures.Add(Content.Load<Texture2D>("Pictures/resumeButton")); // 5
             pictures.Add(Content.Load<Texture2D>("Pictures/backToMainMenu"));
             pictures.Add(Content.Load<Texture2D>("Pictures/exitButton"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/rectangleForButtons"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto2"));  //10
+            pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto3"));
+
+            wolfPanel = new WolfPanel(Content.Load<Texture2D>("Pictures/rectangleForWolfPanel"), broadwayFont);
+            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/exitPicture"));
+            wolfPanel.font21 = Content.Load<SpriteFont>("Fonts/broadway21");
+            wolfPanel.font18 = Content.Load<SpriteFont>("Fonts/broadway18");
+
 
             screenWidth = device.Viewport.Width;
             screenHeight = device.Viewport.Height;
@@ -116,6 +136,29 @@ namespace Wataha.GameSystem
                 recExitButton.Y = recBackToMainMenuButton.Y + recPausePanel.Height / 4;
                 recExitButton.Width = recPausePanel.Width / 2;
                 recExitButton.Height = recPausePanel.Height / 10;
+
+                recButtonPanel.X =(screenWidth/2) - (screenWidth/8) ;
+                recButtonPanel.Y = (screenHeight / 100) * 92;
+                recButtonPanel.Height = (screenHeight / 100) * 12;
+                recButtonPanel.Width = (screenWidth/4) ;
+
+                recButtonWolf1Set.X = (recButtonPanel.X) + (recButtonPanel.X /100 ) * 5;
+                recButtonWolf1Set.Y = (recButtonPanel.Y) + (recButtonPanel.Y /100) *3 ;
+                recButtonWolf1Set.Height = recButtonPanel.Height / 2 ;
+                recButtonWolf1Set.Width = recButtonPanel.Height / 2;
+
+                recButtonWolf2Set.X = recButtonPanel.X +  recButtonPanel.Width/2 - recButtonPanel.Width/12 ;
+                recButtonWolf2Set.Y = recButtonWolf1Set.Y;
+                recButtonWolf2Set.Height = recButtonWolf1Set.Height;
+                recButtonWolf2Set.Width = recButtonWolf1Set.Width;
+
+                recButtonWolf3Set.X =recButtonPanel.X +  recButtonPanel.Width - recButtonWolf1Set.Width - (recButtonPanel.X / 100) * 5;
+                recButtonWolf3Set.Y = recButtonWolf1Set.Y;
+                recButtonWolf3Set.Height = recButtonWolf1Set.Height;
+                recButtonWolf3Set.Width = recButtonWolf1Set.Width;
+
+
+                wolfPanel.Update(screenWidth, screenHeight);
             }
 
             UpdateCursorPosition();
@@ -126,8 +169,15 @@ namespace Wataha.GameSystem
             screenWidth = device.Viewport.Width;
             screenHeight = device.Viewport.Height;
 
-            
-
+            Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
+            if (ifWolfPanel)
+            {
+                if (wolfPanel.exitButtonEvent(Cursor, mouseState))
+                {
+                    ifWolfPanel = false;
+                }
+             
+            }
         }
 
         public void  Draw()
@@ -147,6 +197,26 @@ namespace Wataha.GameSystem
             spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
             spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth *18 ,stringOffsetHeight * 33), Color.Gold);
 
+            spriteBatch.Draw(pictures[8], recButtonPanel, Color.White);  //panel kontrolek wilków
+
+            spriteBatch.Draw(pictures[9], recButtonWolf1Set, Wolf1ButtonSetColor); // 
+            spriteBatch.DrawString(broadwayFont, "K i m i k o", new Vector2(recButtonWolf1Set.X , recButtonPanel.Y + recButtonPanel.Y/200), Color.Blue);
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Kimiko")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf1Set.X , recButtonWolf1Set.Y+recButtonWolf1Set.Height+recButtonWolf1Set.Height/10), Color.Green);
+
+            spriteBatch.Draw(pictures[10], recButtonWolf2Set, Wolf2ButtonSetColor);
+            spriteBatch.DrawString(broadwayFont, "Y u a", new Vector2(recButtonWolf2Set.X, recButtonPanel.Y + recButtonPanel.Y / 200), Color.Yellow);
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Yua")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf2Set.X, recButtonWolf2Set.Y + recButtonWolf2Set.Height + recButtonWolf2Set.Height / 10), Color.Green);
+
+            spriteBatch.Draw(pictures[11], recButtonWolf3Set, Wolf3ButtonSetColor);
+            spriteBatch.DrawString(broadwayFont, "H a t s u", new Vector2(recButtonWolf3Set.X, recButtonPanel.Y + recButtonPanel.Y / 200), Color.Orange);
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Hatsu")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf3Set.X, recButtonWolf3Set.Y + recButtonWolf3Set.Height + recButtonWolf3Set.Height / 10), Color.Green);
+
+            if (ifWolfPanel)
+            {
+                wolfPanel.Draw(spriteBatch);
+            }
+            
+
             if (ifPaused)
             {
                  spriteBatch.Draw(pictures[4], recPausePanel, Color.White);
@@ -154,6 +224,7 @@ namespace Wataha.GameSystem
                 spriteBatch.Draw(pictures[5], recResumeButton, resumeButtonColor);
                 spriteBatch.Draw(pictures[6], recBackToMainMenuButton, backToMainMenuButtonColor);
                 spriteBatch.Draw(pictures[7], recExitButton, exitButtonColor);
+
             }
             
             
@@ -165,11 +236,67 @@ namespace Wataha.GameSystem
         }
 
 
+        public bool Wolf1ButtonEvent()
+        {
+            if (recButtonWolf1Set.Intersects(Cursor))
+            {
+
+                Wolf1ButtonSetColor = Color.MediumBlue;
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0]);
+                    ifWolfPanel = true;
+                    return true;
+                }
+                   
+                return false;
+            }
+            else
+                Wolf1ButtonSetColor = Color.White;
+            return false;
+        }
+
+        public bool Wolf2ButtonEvent()
+        {
+            if (recButtonWolf2Set.Intersects(Cursor))
+            {
+                Wolf2ButtonSetColor = Color.Yellow;
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Yua").ToList()[0]);
+                    ifWolfPanel = true;
+                    return true;
+                }
+                return false;
+            }
+            else
+                Wolf2ButtonSetColor = Color.White;
+            return false;
+        }
+
+        public bool Wolf3ButtonEvent()
+        {
+            if (recButtonWolf3Set.Intersects(Cursor))
+            {
+                Wolf3ButtonSetColor = Color.MonoGameOrange;
+                if (mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0]);
+                    ifWolfPanel = true;
+                    return true;
+                }
+                return false;
+            }
+            else
+                Wolf3ButtonSetColor = Color.White;
+            return false;
+        }
+
         public bool ResumeButtonEvent()
         {
             if ((recResumeButton.Intersects(Cursor)))
             {
-                resumeButtonColor = Color.Red;
+                resumeButtonColor = Color.Yellow;
                 if (mouseState.LeftButton == ButtonState.Pressed)
                     return true;
                 return false;
@@ -183,7 +310,7 @@ namespace Wataha.GameSystem
         {
             if ((recBackToMainMenuButton.Intersects(Cursor)))
             {
-                backToMainMenuButtonColor= Color.Red;
+                backToMainMenuButtonColor = Color.Yellow ;
                 if (mouseState.LeftButton == ButtonState.Pressed)
                     return true;
                 return false;
@@ -197,7 +324,7 @@ namespace Wataha.GameSystem
         {
             if ((recExitButton.Intersects(Cursor)))
             {
-                exitButtonColor = Color.Red;
+                exitButtonColor = Color.Yellow;
                 if (mouseState.LeftButton == ButtonState.Pressed)
                     return true;
                 return false;

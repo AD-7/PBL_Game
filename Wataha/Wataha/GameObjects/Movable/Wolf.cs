@@ -22,10 +22,12 @@ namespace Wataha.GameObjects.Movable
         public Vector3 position;
         public float angle;
        public  float dirX,dirZ, speedFactor;
-        
-        public int strength = 10;
-        public int resistance = 10;
-        public int speed = 10;
+
+
+        public string Name;
+        public int strength;
+        public int resistance ;
+        public int speed;
         public int energy = 100;
         float energyRecoverTime = 5.0f;
         public AnimationPlayer animationPlayer;
@@ -55,9 +57,14 @@ namespace Wataha.GameObjects.Movable
         //    this.colliderSize = colliderSize;
             
         //}
-        public Wolf(Model model, Matrix world, float colliderSize, Camera cam) : base(world,model)
+        public Wolf(Model model, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
         {
-          
+            this.Name = name;
+            this.strength = strength;
+            this.resistance = resistance;
+            this.speed = speed;
+            
+
             this.cam = cam;
             ifColisionTerrain = false;
             position = world.Translation;

@@ -73,6 +73,7 @@
     <Compile Include="GameObjects\Movable\Wolf.cs" />
     <Compile Include="GameObjects\Static\Environment.cs" />
     <Compile Include="GameObjects\Static\Plane.cs" />
+    <Compile Include="GameSystem\WolfPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameSystem\Animation\Animation.cs" />

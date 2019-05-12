@@ -49,7 +49,7 @@ namespace Wataha.GameObjects
 
 
         SpriteFont font30;
-        bool inOptions = false;
+       public  bool inOptions = false;
 
         float AudioVolume = 0.4f;
         float EffectVolume = 0.3f;
@@ -117,7 +117,7 @@ namespace Wataha.GameObjects
 
                     if (OptionButtonsEvents())
                     {
-                        inOptions = true;
+                       inOptions = true;
                         recCloseButton.Width = 0;
                         recOptionButton.Width = 0;
                         recPlayButton.Width = 0;
