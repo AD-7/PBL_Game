@@ -24,8 +24,8 @@ namespace Wataha
         SpriteBatch spriteBatch;
         Random rand = new Random();
         private GameObjects.Static.Plane plane;
-        private Wolf wolf, wolf2,wolf3;
-        private Wataha.GameObjects.Movable.Wataha  wataha;
+        private Wolf wolf, wolf2, wolf3;
+        private Wataha.GameObjects.Movable.Wataha wataha;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
         Skybox skybox;
@@ -35,7 +35,7 @@ namespace Wataha
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
         private ParticleSystem ps;
-        
+
         private GameObjects.Static.Environment trees;
         private GameObjects.Static.Environment b;
         private Effect simpleEffect;
@@ -45,6 +45,8 @@ namespace Wataha
         private bool gameInMainMenu = true;
         private MainMenu mainMenu;
 
+        BillboardSystem billboardTest;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -53,6 +55,15 @@ namespace Wataha
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
+
+            Vector3[] positions = new Vector3[1];
+            positions[0] = new Vector3(100, 100, 0);
+
+
+            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Content/Pictures/questionMark"), new Vector2(800), positions);
+            
+
+
         }
 
         /// <summary>
@@ -64,9 +75,9 @@ namespace Wataha
         /// 
         protected override void Initialize()
         {
-           
+
             //questGivers = new List<QuestGiver>();
-            
+
             base.Initialize();
         }
 
@@ -103,7 +114,7 @@ namespace Wataha
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
             plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
-           
+
             skybox = new Skybox("Skyboxes/skybox", Content);
 
 
@@ -117,9 +128,9 @@ namespace Wataha
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
 
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            
+
             world2 *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
-           world2 *= Matrix.CreateScale(0.2f);
+            world2 *= Matrix.CreateScale(0.2f);
 
             Matrix worldw2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
@@ -130,14 +141,14 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera, 12, 10,10,"Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),worldw2 , 3.0f, camera, 10, 8,11,"Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera, 9, 9,8,"Hatsu");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera, 12, 10, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), worldw2, 3.0f, camera, 10, 8, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
 
-            trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"),world3, 2);
+            trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
-          
+
 
             wolf.SetModelEffect(simpleEffect, true);
             wolf2.SetModelEffect(simpleEffect, true);
@@ -185,13 +196,13 @@ namespace Wataha
         protected override void Update(GameTime gameTime)
         {
             KeyboardState newState = Keyboard.GetState();
-            KeyboardState oldState = new KeyboardState(); 
+            KeyboardState oldState = new KeyboardState();
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-          IsMouseVisible = true;
+            IsMouseVisible = true;
 
             if (gameInMainMenu)
             {
-               
+
 
                 mainMenu.Update();
 
@@ -208,20 +219,20 @@ namespace Wataha
             }
             else
             {
-               
-              
-                  if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
-                       {
+
+
+                if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
+                {
                     IsMouseVisible = true;
-                           hud.ifPaused = true;
-                           return;
-                      }
+                    hud.ifPaused = true;
+                    return;
+                }
 
 
 
                 if (!hud.ifPaused)
                 {
-                   
+
 
                     if (newState.IsKeyDown(Keys.E))
                     {
@@ -236,13 +247,13 @@ namespace Wataha
 
                     //ChceckNearestQuestGiver();
 
-                    foreach(Wolf w in wataha.wolves)
+                    foreach (Wolf w in wataha.wolves)
                     {
-                    colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
-                    colisionSystem.IsEnvironmentCollision(w, trees,wataha);
-                    colisionSystem.IsEnvironmentCollision(w, b,wataha);
-                 
-                            }
+                        colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
+                        colisionSystem.IsEnvironmentCollision(w, trees, wataha);
+                        colisionSystem.IsEnvironmentCollision(w, b, wataha);
+
+                    }
 
 
 
@@ -260,7 +271,7 @@ namespace Wataha
                     }
                     if (hud.BackToMainMenuButtonEvent())
                     {
-                   
+
                         hud.ifPaused = false;
                         gameInMainMenu = true;
                     }
@@ -272,10 +283,10 @@ namespace Wataha
                 }
 
                 Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
-                    Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
-                    Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
-                    float randSpeed = (float)rand.NextDouble() * 2 + 10;
-                    
+                Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
+                Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
+                float randSpeed = (float)rand.NextDouble() * 2 + 10;
+
                 ps.AddParticle(randPosition, randAngle, randSpeed);
                 ps.Update();
 
@@ -293,80 +304,82 @@ namespace Wataha
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-          
+
             graphics.GraphicsDevice.Clear(Color.Black);
-         
-            if(gameInMainMenu)
+
+            if (gameInMainMenu)
             {
                 mainMenu.Draw();
             }
             else
             {
 
-    
-            RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
-            RasterizerState rasterizerState = new RasterizerState();
-            rasterizerState.CullMode = CullMode.None;
-            graphics.GraphicsDevice.RasterizerState = rasterizerState;
 
-            device.SetRenderTarget(renderTarget);
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+                RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
+                RasterizerState rasterizerState = new RasterizerState();
+                rasterizerState.CullMode = CullMode.None;
+                graphics.GraphicsDevice.RasterizerState = rasterizerState;
+
+                device.SetRenderTarget(renderTarget);
+                device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
 
-          
 
-            plane.Draw(camera, "ShadowMap");
-            //questGivers[0].Draw(camera);
-            foreach(Wolf w in wataha.wolves)
+
+                plane.Draw(camera, "ShadowMap");
+                //questGivers[0].Draw(camera);
+                foreach (Wolf w in wataha.wolves)
                 {
-                w.Draw(camera, "ShadowMap");
+                    w.Draw(camera, "ShadowMap");
                 }
-           
-            trees.Draw(camera, "ShadowMap");
-            b.Draw(camera, "ShadowMap");
-            
 
-            device.SetRenderTarget(null);
-            plane.shadowMap = (Texture2D)renderTarget;
-                foreach(Wolf w in wataha.wolves)
+                trees.Draw(camera, "ShadowMap");
+                b.Draw(camera, "ShadowMap");
+
+
+                device.SetRenderTarget(null);
+                plane.shadowMap = (Texture2D)renderTarget;
+                foreach (Wolf w in wataha.wolves)
                 {
                     w.shadowMap = (Texture2D)renderTarget;
                 }
-            
-            trees.shadowMap = (Texture2D)renderTarget;
-            b.shadowMap = (Texture2D)renderTarget;
+
+                trees.shadowMap = (Texture2D)renderTarget;
+                b.shadowMap = (Texture2D)renderTarget;
 
 
-            device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+                device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
-            device.BlendState = BlendState.AlphaBlend;
+                device.BlendState = BlendState.AlphaBlend;
 
-            plane.Draw(camera, "ShadowedScene");
+                plane.Draw(camera, "ShadowedScene");
                 foreach (Wolf w in wataha.wolves)
                 {
                     w.Draw(camera, "ShadowedScene");
                 }
 
-            //questGivers[0].Draw(camera);
-            trees.Draw(camera, "ShadowedScene");
-            b.Draw(camera, "ShadowedScene");
-            device.BlendState = BlendState.Opaque;
-            skybox.Draw(camera);
+                //questGivers[0].Draw(camera);
+                trees.Draw(camera, "ShadowedScene");
+                b.Draw(camera, "ShadowedScene");
+                device.BlendState = BlendState.Opaque;
+                skybox.Draw(camera);
 
-            plane.shadowMap = null;
+                plane.shadowMap = null;
                 foreach (Wolf w in wataha.wolves)
                 {
                     w.shadowMap = null;
                 }
-             
+
                 trees.shadowMap = null;
-            b.shadowMap = null;
-            graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+                b.shadowMap = null;
+                graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
-            hud.Draw();
+                hud.Draw();
 
-            ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+                ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+
+                billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
 
 
@@ -377,8 +390,8 @@ namespace Wataha
         Vector3 randVec3(Vector3 min, Vector3 max)
         {
             return new Vector3
-                (min.X + (float)rand.NextDouble() * (max.X - min.X), 
-                min.Y + (float)rand.NextDouble() * (max.Y - min.Y), 
+                (min.X + (float)rand.NextDouble() * (max.X - min.X),
+                min.Y + (float)rand.NextDouble() * (max.Y - min.Y),
                 min.Z + (float)rand.NextDouble() * (max.Z - min.Z));
         }
 
