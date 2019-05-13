@@ -60,7 +60,7 @@ namespace Wataha
             positions[0] = new Vector3(100, 100, 0);
 
 
-            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Content/Pictures/questionMark"), new Vector2(800), positions);
+            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Content/Pictures/questionMark"), new Vector2(80), positions);
             
 
 

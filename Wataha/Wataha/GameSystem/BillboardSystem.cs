@@ -17,7 +17,7 @@ namespace Wataha.GameSystem
             this.billboardSize = billboardSize;
             this.graphicsDevice = graphicsDevice;
             this.texture = texture;
-            effect = content.Load<Effect>("Effects/BilboardEffect");
+            effect = content.Load<Effect>("Content/Effects/BilboardEffect");
 
             generateParticles(particlePositions);
         }
