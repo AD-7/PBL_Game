@@ -11,6 +11,7 @@
 #-------------------------------- References --------------------------------#
 
 /reference:..\..\SkinnedModelWatahaPipeline\bin\Debug\SkinnedModelWatahaPipeline.dll
+/reference:..\..\MGSkinnedAnimationPipeline\bin\Debug\MGSkinnedAnimationPipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -400,7 +401,7 @@
 
 #begin PiesAnim/piesv3.fbx
 /importer:FbxImporter
-/processor:ModelProcessor
+/processor:AnimationProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
 /processorParam:DefaultEffect=BasicEffect
