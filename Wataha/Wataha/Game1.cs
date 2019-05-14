@@ -108,7 +108,7 @@ namespace Wataha
             positions[0] = new Vector3(0, 2, 0);
 
 
-            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
+            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.01f), positions);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
