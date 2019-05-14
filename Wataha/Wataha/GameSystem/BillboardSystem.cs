@@ -17,7 +17,7 @@ namespace Wataha.GameSystem
             this.billboardSize = billboardSize;
             this.graphicsDevice = graphicsDevice;
             this.texture = texture;
-            effect = content.Load<Effect>("Content/Effects/BilboardEffect");
+            effect = content.Load<Effect>("Effects/BilboardEffect");
 
             generateParticles(particlePositions);
         }
@@ -54,6 +54,10 @@ namespace Wataha.GameSystem
                 particles[i + 3] = new VertexPositionTexture(pos, new Vector2(1, 0));
 
                 // Add 6 indices to form two triangles
+
+
+
+
                 indices[x++] = i + 0;
                 indices[x++] = i + 3;
                 indices[x++] = i + 2;
@@ -78,6 +82,7 @@ namespace Wataha.GameSystem
             effect.Parameters["Size"].SetValue(billboardSize / 2f);
             effect.Parameters["Up"].SetValue(Up);
             effect.Parameters["Side"].SetValue(Right);
+            effect.CurrentTechnique.Passes[0].Apply();
         }
 
         public void Draw(Matrix View, Matrix Projection, Vector3 Up, Vector3 Right)

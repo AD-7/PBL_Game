@@ -21,15 +21,15 @@ float3 Side; // Camera's 'side' vector
 
 struct VertexShaderInput
 {
-	float4 Position : SV_Position0;
-	//float4 Position : POSITION0;
+	//float4 Position : SV_Position0;
+	float4 Position : POSITION0;
 	float2 UV : TEXCOORD0;
 };
 
 struct VertexShaderOutput
 {
-	float4 Position : SV_Position0;
-	//float4 Position : POSITION0;
+	//float4 Position : SV_Position0;
+	float4 Position : POSITION0;
 	float2 UV : TEXCOORD0;
 };
 
