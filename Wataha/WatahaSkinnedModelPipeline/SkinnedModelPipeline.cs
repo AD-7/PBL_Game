@@ -1,32 +1,23 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// SkinnedModelProcessor.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
-using System;
-using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content.Pipeline;
 using Microsoft.Xna.Framework.Content.Pipeline.Graphics;
 using Microsoft.Xna.Framework.Content.Pipeline.Processors;
-using SkinnedModel;
-#endregion
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WatahaSkinnedModel;
 
-namespace SkinnedModelPipeline
+namespace WatahaSkinnedModelPipeline
 {
     /// <summary>
     /// Custom processor extends the builtin framework ModelProcessor class,
     /// adding animation support.
     /// </summary>
-    [ContentProcessor(DisplayName = "SkinedModelProcessor")]
+    [ContentProcessor(DisplayName = "AnimProc")]
     public class SkinnedModelProcessor : ModelProcessor
     {
         /// <summary>
@@ -109,7 +100,7 @@ namespace SkinnedModelPipeline
             foreach (KeyValuePair<string, AnimationContent> animation in animations)
             {
                 AnimationClip processed = ProcessAnimation(animation.Value, boneMap);
-                
+
                 animationClips.Add(animation.Key, processed);
             }
 

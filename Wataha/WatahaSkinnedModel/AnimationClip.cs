@@ -1,19 +1,11 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// AnimationClip.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
+﻿using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework.Content;
-#endregion
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SkinnedModel
+namespace WatahaSkinnedModel
 {
     /// <summary>
     /// An animation clip is the runtime equivalent of the

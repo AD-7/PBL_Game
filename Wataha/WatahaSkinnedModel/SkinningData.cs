@@ -1,19 +1,12 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// SkinningData.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
-using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-#endregion
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SkinnedModel
+namespace WatahaSkinnedModel
 {
     /// <summary>
     /// Combines all the data needed to render and animate a skinned object.

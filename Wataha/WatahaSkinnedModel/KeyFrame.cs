@@ -1,19 +1,12 @@
-#region File Description
-//-----------------------------------------------------------------------------
-// Keyframe.cs
-//
-// Microsoft XNA Community Game Platform
-// Copyright (C) Microsoft Corporation. All rights reserved.
-//-----------------------------------------------------------------------------
-#endregion
-
-#region Using Statements
-using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-#endregion
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SkinnedModel
+namespace WatahaSkinnedModel
 {
     /// <summary>
     /// Describes the position of a single bone at a single point in time.

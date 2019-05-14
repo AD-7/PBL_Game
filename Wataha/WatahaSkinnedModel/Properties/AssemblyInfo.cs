@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SkiningModelWataha")]
-[assembly: AssemblyProduct("SkiningModelWataha")]
+[assembly: AssemblyTitle("WatahaSkinnedModel")]
+[assembly: AssemblyProduct("WatahaSkinnedModel")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ec279858-2e50-466c-84f3-d73c34a8111e")]
+[assembly: Guid("55084e7b-739f-4cc7-8100-9f6513bdcaff")]
 
 // Version information for an assembly consists of the following four values:
 //

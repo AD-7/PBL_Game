@@ -10,7 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
-/reference:..\..\SkinnedModelWatahaPipeline\bin\Debug\SkinnedModelWatahaPipeline.dll
+/reference:..\..\WatahaSkinnedModelPipeline\bin\Debug\WatahaSkinnedModelPipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -57,6 +57,13 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/Broadway.spritefont
+
+#begin Fonts/broadway14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/broadway14.spritefont
 
 #begin Fonts/broadway18.spritefont
 /importer:FontDescriptionImporter
@@ -162,6 +169,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MainMenu/start.png
+
+#begin Pictures/actualQuestButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/actualQuestButton.png
 
 #begin Pictures/backToMainMenu.png
 /importer:TextureImporter
@@ -270,6 +289,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pictures/fire22.png
+
+#begin Pictures/GoHuntingButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/GoHuntingButton.png
 
 #begin Pictures/goldFangs.png
 /importer:TextureImporter
@@ -400,10 +431,10 @@
 
 #begin PiesAnim/piesv3.fbx
 /importer:FbxImporter
-/processor:ModelProcessor
+/processor:SkinnedModelProcessor
+/processorParam:DefaultEffect=SkinnedEffect
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
 /processorParam:GenerateMipmaps=True
 /processorParam:GenerateTangentFrames=False
 /processorParam:PremultiplyTextureAlpha=True
@@ -734,35 +765,4 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Wolf3.fbx
-
-#begin Pictures/GoHuntingButton.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/GoHuntingButton.png
-
-#begin Fonts/broadway14.spritefont
-/importer:FontDescriptionImporter
-/processor:FontDescriptionProcessor
-/processorParam:PremultiplyAlpha=True
-/processorParam:TextureFormat=Compressed
-/build:Fonts/broadway14.spritefont
-
-#begin Pictures/actualQuestButton.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/actualQuestButton.png
 

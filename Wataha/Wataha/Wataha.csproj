@@ -118,16 +118,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiningModelWataha\SkiningModelWataha.csproj">
-      <Project>{421174e4-c555-4227-bd5d-a280bc36441c}</Project>
-      <Name>SkiningModelWataha</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SkinnedModelWatahaPipeline\SkinnedModelWatahaPipeline.csproj">
-      <Project>{40100830-b553-4ebd-bc9b-0892dededd3e}</Project>
-      <Name>SkinnedModelWatahaPipeline</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
