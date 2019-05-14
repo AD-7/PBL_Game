@@ -91,8 +91,16 @@ namespace Wataha.GameSystem
             graphicsDevice.SetVertexBuffer(verts);
             graphicsDevice.Indices = ints;
             setEffectParameters(View, Projection, Up, Right);
+
+            // Enable alpha blending
+            graphicsDevice.BlendState = BlendState.AlphaBlend;
+
             // Draw the billboards
             graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4 * nBillboards, 0, nBillboards * 2);
+
+            // Reset render states
+            graphicsDevice.BlendState = BlendState.Opaque;
+
             // Un-set the vertex and index buffer
             graphicsDevice.SetVertexBuffer(null);
             graphicsDevice.Indices = null;
