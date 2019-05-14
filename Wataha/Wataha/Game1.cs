@@ -195,8 +195,8 @@ namespace Wataha
 
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState newState = Keyboard.GetState();
-            KeyboardState oldState = new KeyboardState();
+            InputSystem.oldKeybordState = InputSystem.newKeybordState;
+            InputSystem.newKeybordState = Keyboard.GetState();
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
 
@@ -221,7 +221,7 @@ namespace Wataha
             {
 
 
-                if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
+                if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
                 {
                     IsMouseVisible = true;
                     hud.ifPaused = true;
@@ -234,13 +234,13 @@ namespace Wataha
                 {
 
 
-                    if (newState.IsKeyDown(Keys.E))
+                    if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
                     {
                         audioSystem.playGrowl(2);
                     }
 
 
-                    if (newState.IsKeyDown(Keys.F) && currentGiver != null)
+                    if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && currentGiver != null)
                     {
                         Debug.WriteLine("test");
                     }
@@ -292,7 +292,6 @@ namespace Wataha
 
 
                 hud.Update();
-                oldState = newState;
                 base.Update(gameTime);
 
             }

@@ -10,5 +10,9 @@ namespace Wataha.GameSystem
     {
         public static MouseState mouseState;
         public static MouseState mouseStateOld;
+        public static KeyboardState newKeybordState ;
+        public static KeyboardState oldKeybordState ;
+
+    
     }
 }
