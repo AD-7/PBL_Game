@@ -105,10 +105,10 @@ namespace Wataha
             simpleEffect = Content.Load<Effect>("Effects/Light");
             ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f, 0.00001f), 0.3f, Vector3.Zero, 0.1f);
             Vector3[] positions = new Vector3[1];
-            positions[0] = new Vector3(0, 2, 0);
+            positions[0] = new Vector3(0, 3, 0);
+           
 
-
-            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.01f), positions);
+            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -376,7 +376,7 @@ namespace Wataha
 
 
                 hud.Draw();
-                billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+                billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
 
                 ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 

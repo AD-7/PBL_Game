@@ -32,6 +32,8 @@ namespace Wataha.GameSystem
         Rectangle recPausePanel, recButtonPanel;
         Rectangle recResources, recMeal, recWhiteFang, recGoldFang;
         Rectangle recButtonWolf1Set, recButtonWolf2Set, recButtonWolf3Set;
+        Rectangle recActualQuestButton;
+
         Color resumeButtonColor = Color.White;
         Color backToMainMenuButtonColor = Color.White;
         Color exitButtonColor = Color.White;
@@ -70,12 +72,16 @@ namespace Wataha.GameSystem
             pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto"));
             pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto2"));  //10
             pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto3"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/actualQuestButton"));
 
             wolfPanel = new WolfPanel(Content.Load<Texture2D>("Pictures/rectangleForWolfPanel"), broadwayFont);
             wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/exitPicture"));
+            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton"));
+           
+
             wolfPanel.font21 = Content.Load<SpriteFont>("Fonts/broadway21");
             wolfPanel.font18 = Content.Load<SpriteFont>("Fonts/broadway18");
-
+            wolfPanel.font14 = Content.Load<SpriteFont>("Fonts/broadway14");
 
             screenWidth = device.Viewport.Width;
             screenHeight = device.Viewport.Height;
@@ -98,7 +104,7 @@ namespace Wataha.GameSystem
                 stringOffsetWidth = (recResources.Width / 100);
                 stringOffsetHeight = (recResources.Height / 100); 
 
-                recMeal.X = recResources.Width/60;
+                recMeal.X = recResources.Width/80;
                 recMeal.Y = (recResources.Height / 5) * 2;
                 recMeal.Height =recResources.Height /4 ;
                 recMeal.Width = recResources.Width / 25;
@@ -154,6 +160,10 @@ namespace Wataha.GameSystem
                 recButtonWolf3Set.Height = recButtonWolf1Set.Height;
                 recButtonWolf3Set.Width = recButtonWolf1Set.Width;
 
+                recActualQuestButton.X =  screenWidth/100;
+                recActualQuestButton.Y = screenHeight - screenHeight / 6;
+                recActualQuestButton.Width = screenHeight / 8;
+                recActualQuestButton.Height = recActualQuestButton.Width;
 
                 wolfPanel.Update(screenWidth, screenHeight);
             }
@@ -166,7 +176,10 @@ namespace Wataha.GameSystem
             screenWidth = device.Viewport.Width;
             screenHeight = device.Viewport.Height;
 
-            Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
+
+            if (!ifPaused)
+            {
+                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
             if (ifWolfPanel)
             {
                 if (wolfPanel.exitButtonEvent(Cursor))
@@ -175,6 +188,8 @@ namespace Wataha.GameSystem
                 }
              
             }
+            }
+           
         }
 
         public void  Draw()
@@ -207,6 +222,10 @@ namespace Wataha.GameSystem
             spriteBatch.Draw(pictures[11], recButtonWolf3Set, Wolf3ButtonSetColor);
             spriteBatch.DrawString(broadwayFont, "H a t s u", new Vector2(recButtonWolf3Set.X, recButtonPanel.Y + recButtonPanel.Y / 200), Color.Orange);
             spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Hatsu")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf3Set.X, recButtonWolf3Set.Y + recButtonWolf3Set.Height + recButtonWolf3Set.Height / 10), Color.Green);
+
+            spriteBatch.Draw(pictures[12], recActualQuestButton, Color.White);
+
+
 
             if (ifWolfPanel)
             {

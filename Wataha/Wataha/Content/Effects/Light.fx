@@ -22,18 +22,20 @@ Texture xTexture;
 sampler TextureSampler = sampler_state
 {
 	texture = <xTexture>;
-	magfilter = LINEAR; minfilter = LINEAR;
+	magfilter = LINEAR; 
+	minfilter = Anisotropic;
 	mipfilter = LINEAR; 
-	AddressU = mirror; AddressV = mirror;
+	MaxAnisotropy = 16;
+	//AddressU = mirror; AddressV = mirror;
 };
 
 Texture xShadowMap;
 sampler ShadowMapSampler = sampler_state
 { 
 	texture = <xShadowMap>; 
-	magfilter = LINEAR;
-	minfilter = LINEAR; 
-	mipfilter = LINEAR; 
+	magfilter = Point;
+	minfilter = Point; 
+	mipfilter = None; 
 	AddressU = clamp; AddressV = clamp;
 };
 
@@ -60,7 +62,7 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 	VertexShaderOutput output;
 	output.Position = mul(input.inPos, xWorldViewProjection);
 	output.TexCoords = input.inTexCoords;
-	output.Normal = normalize(mul(input.inNormal, (float3x3)xWorld));
+	output.Normal = mul(input.inNormal, (float3x3)xWorld);
 	output.Position3D = mul(input.inPos, xWorld);
 
 	return output;
@@ -69,7 +71,7 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 
 float DotProduct(float3 lightPos, float3 pos3D, float3 normal) {
 	float3 lightDir = normalize(pos3D - lightPos);
-	return dot(-lightDir, normal);
+	return saturate(dot(-lightDir, normal));
 }
 
 PixelToFrame MainPS(VertexShaderOutput PSIn) 
@@ -117,9 +119,9 @@ SMapVertexToPixel ShadowMapVertexShader(float4 inPos : POSITION)
 SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
 {
 	SMapPixelToFrame Output = (SMapPixelToFrame)0;
-
-	Output.Color = PSIn.Position2D.z / PSIn.Position2D.w;
-	Output.Color.a = xAlpha;
+Output.Color.a = xAlpha;
+	Output.Color =float4( PSIn.Position2D.z / PSIn.Position2D.w, 0.0f, 0.0f, 1.0f);
+	
 
 	return Output;
 }
@@ -153,7 +155,7 @@ SSceneVertexToPixel ShadowedSceneVertexShader(float4 inPos : POSITION, float2 in
 
 	Output.Position = mul(inPos, xWorldViewProjection);
 	Output.Pos2DAsSeenByLight = mul(inPos, xLightsWorldViewProjection);
-	Output.Normal = normalize(mul(inNormal, (float3x3)xWorld));
+	Output.Normal =normalize( mul(inNormal, (float3x3)xWorld));
 	Output.TexCoords = inTexCoords;
 	Output.Position3D = mul(inPos, xWorld);
 	return Output;
@@ -171,7 +173,7 @@ SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
 	{
 		float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
 		float realDistance = PSIn.Pos2DAsSeenByLight.z / PSIn.Pos2DAsSeenByLight.w;
-		if ((realDistance - 1.0f / 100.0f) <= depthStoredInShadowMap)
+		if ((realDistance - 1.0f / 350.0f) <= depthStoredInShadowMap)
 		{
 			diffuseLightingFactor = DotProduct(xLightPos, PSIn.Position3D, PSIn.Normal);
 			diffuseLightingFactor = saturate(diffuseLightingFactor);
@@ -180,7 +182,8 @@ SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
 	}
 
 	float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
-	Output.Color = baseColor * (diffuseLightingFactor + xAmbient);
+
+	Output.Color = (diffuseLightingFactor + xAmbient)* baseColor  ;
 	Output.Color.a = xAlpha;
 
 
