@@ -17,15 +17,12 @@ namespace Wataha.GameSystem
         SpriteBatch spriteBatch;
         GraphicsDevice device;
         ContentManager Content;
-        MouseState mouseState;
         Rectangle Cursor;
         WolfPanel wolfPanel;
 
         public int meat;
         public int white_fangs;
         public int gold_fangs;
-
-
 
         public SpriteFont font30, broadwayFont;
         public List<Texture2D> pictures;
@@ -172,7 +169,7 @@ namespace Wataha.GameSystem
             Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
             if (ifWolfPanel)
             {
-                if (wolfPanel.exitButtonEvent(Cursor, mouseState))
+                if (wolfPanel.exitButtonEvent(Cursor))
                 {
                     ifWolfPanel = false;
                 }
@@ -242,7 +239,7 @@ namespace Wataha.GameSystem
             {
 
                 Wolf1ButtonSetColor = Color.MediumBlue;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0]);
                     ifWolfPanel = true;
@@ -261,7 +258,7 @@ namespace Wataha.GameSystem
             if (recButtonWolf2Set.Intersects(Cursor))
             {
                 Wolf2ButtonSetColor = Color.Yellow;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Yua").ToList()[0]);
                     ifWolfPanel = true;
@@ -279,7 +276,7 @@ namespace Wataha.GameSystem
             if (recButtonWolf3Set.Intersects(Cursor))
             {
                 Wolf3ButtonSetColor = Color.MonoGameOrange;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0]);
                     ifWolfPanel = true;
@@ -297,7 +294,7 @@ namespace Wataha.GameSystem
             if ((recResumeButton.Intersects(Cursor)))
             {
                 resumeButtonColor = Color.Yellow;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                     return true;
                 return false;
             }
@@ -311,7 +308,7 @@ namespace Wataha.GameSystem
             if ((recBackToMainMenuButton.Intersects(Cursor)))
             {
                 backToMainMenuButtonColor = Color.Yellow ;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                     return true;
                 return false;
             }
@@ -325,7 +322,7 @@ namespace Wataha.GameSystem
             if ((recExitButton.Intersects(Cursor)))
             {
                 exitButtonColor = Color.Yellow;
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                     return true;
                 return false;
             }
@@ -336,9 +333,12 @@ namespace Wataha.GameSystem
 
         private void UpdateCursorPosition()
         {
+            InputSystem.mouseStateOld = InputSystem.mouseState;
+
             /* Update Cursor position by Mouse */
-            mouseState = Mouse.GetState();
-            Cursor.X = mouseState.X; Cursor.Y = mouseState.Y;
+            InputSystem.mouseState = Mouse.GetState();
+            
+            Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
         }
     }
 }

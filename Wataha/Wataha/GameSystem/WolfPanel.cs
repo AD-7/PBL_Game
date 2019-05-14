@@ -78,11 +78,11 @@ namespace Wataha.GameSystem
             spriteBatch.DrawString(font18, wolfEnergy.ToString(), new Vector2(ParametersX + recWolfPanel.Width / 2 + (recWolfPanel.Width / 100) * 20, ParametersY + recWolfPanel.Height / 10), Color.LightGreen);
         }
 
-        public bool exitButtonEvent(Rectangle cursor, MouseState mouse)
+        public bool exitButtonEvent(Rectangle cursor)
         {
             if (recExit.Intersects(cursor))
             {
-                if (mouse.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed)
                 {
                     return true;
                 }

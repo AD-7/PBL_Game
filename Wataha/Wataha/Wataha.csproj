@@ -74,6 +74,7 @@
     <Compile Include="GameObjects\Static\Environment.cs" />
     <Compile Include="GameObjects\Static\Plane.cs" />
     <Compile Include="GameSystem\BillboardSystem.cs" />
+    <Compile Include="GameSystem\InputSystem.cs" />
     <Compile Include="GameSystem\WolfPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

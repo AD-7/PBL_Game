@@ -19,6 +19,7 @@ namespace Wataha.GameObjects
     {
         private SpriteBatch spriteBatch;
         private GraphicsDevice device;
+        private Rectangle Cursor;
 
         private List<Texture2D> ButtonTextures = new List<Texture2D>();
 
@@ -36,8 +37,6 @@ namespace Wataha.GameObjects
         Rectangle recEffectsSlider;
         Rectangle recBackMenuButton;
 
-        MouseState state;
-        MouseState stateOld;
 
         int alphaColor = 200;
 
@@ -87,8 +86,6 @@ namespace Wataha.GameObjects
 
         public void Update()
         {
-          //  if (ScreenWidth != ScreenWidthOld || ScreenHeight != ScreenHeightOld)
-            {
 
                 BG.X = 0;
                 BG.Y = 0;
@@ -157,7 +154,7 @@ namespace Wataha.GameObjects
 
                     if (AudioSliderEvents())
                     {
-                        recAudioSlider.Width = mouseState.Position.X - recAudioSliderBG.X;
+                        recAudioSlider.Width = InputSystem.mouseState.Position.X - recAudioSliderBG.X;
                         AudioVolume = 1.0f*recAudioSlider.Width / recAudioSliderBG.Width;
                         MediaPlayer.Volume = AudioVolume;
 
@@ -165,7 +162,7 @@ namespace Wataha.GameObjects
 
                     if (EffectSliderEvents())
                     {
-                        recEffectsSlider.Width = mouseState.Position.X - recEffectsSliderBG.X;
+                        recEffectsSlider.Width = InputSystem.mouseState.Position.X - recEffectsSliderBG.X;
                         EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
                         SoundEffect.MasterVolume = EffectVolume;
                     }
@@ -176,13 +173,10 @@ namespace Wataha.GameObjects
                     };
                 }
 
-            }
-
-            stateOld = mouseState;
 
             UpdateCursorPosition();
 
-            
+
             ScreenHeightOld = ScreenHeight;
             ScreenWidthOld = ScreenWidth;
 
@@ -220,13 +214,13 @@ namespace Wataha.GameObjects
             spriteBatch.End();
         }
 
-        MouseState mouseState;
-        Rectangle Cursor;
         private void UpdateCursorPosition()
         {
+            InputSystem.mouseStateOld = InputSystem.mouseState;
+
             /* Update Cursor position by Mouse */
-            mouseState = Mouse.GetState();
-            Cursor.X = mouseState.X; Cursor.Y = mouseState.Y;
+            InputSystem.mouseState = Mouse.GetState();
+            Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
         }
 
         public bool PlayButtonsEvents()
@@ -234,7 +228,7 @@ namespace Wataha.GameObjects
             if ((recPlayButton.Intersects(Cursor)))
             {
                 PlayButtonColor = new Color(0, 128, 0, alphaColor);
-                if (mouseState.LeftButton == ButtonState.Pressed && mouseState != stateOld)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     return true;
                 }
@@ -250,9 +244,8 @@ namespace Wataha.GameObjects
             if ((recOptionButton.Intersects(Cursor)))
             {
                 OptionButtonColor = new Color(0, 128, 0, alphaColor);
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    state = mouseState;
                     return true;
                 }
                 return false;
@@ -267,9 +260,8 @@ namespace Wataha.GameObjects
             if ((recCloseButton.Intersects(Cursor)))
             {
                 CloseButtonColor = new Color(0, 128, 0, alphaColor);
-                if (mouseState.LeftButton == ButtonState.Pressed && mouseState != stateOld)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    state = mouseState;
                     return true;
                 }
                 return false;
@@ -284,9 +276,8 @@ namespace Wataha.GameObjects
             if ((recBackMenuButton.Intersects(Cursor)))
             {
                 BackMenuButtonColor = new Color(0, 128, 0, alphaColor);
-                if (mouseState.LeftButton == ButtonState.Pressed && mouseState!=stateOld)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    state = mouseState;
                     return true;
                 }
                 return false;
@@ -302,7 +293,7 @@ namespace Wataha.GameObjects
         {
             if ((recAudioSliderBG.Intersects(Cursor)))
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     return true;
                 }
@@ -315,7 +306,7 @@ namespace Wataha.GameObjects
         {
             if ((recEffectsSliderBG.Intersects(Cursor)))
             {
-                if (mouseState.LeftButton == ButtonState.Pressed)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     return true;
                 }
