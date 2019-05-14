@@ -40,8 +40,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimatedModel.cs" />
+    <Compile Include="AnimatedModelShader.cs" />
     <Compile Include="AnimationClip.cs" />
     <Compile Include="AnimationClipReader.cs" />
+    <Compile Include="AnimationPlayer.cs" />
     <Compile Include="Bone.cs" />
     <Compile Include="ModelExtra.cs" />
     <Compile Include="ModelExtraReader.cs" />
