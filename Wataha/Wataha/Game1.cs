@@ -374,10 +374,11 @@ namespace Wataha
                 graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
-                hud.Draw();
                 billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
-
                 ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+
+                hud.Draw();
+     
 
 
 
