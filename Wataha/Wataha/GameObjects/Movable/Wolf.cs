@@ -1,14 +1,16 @@
 ﻿using Microsoft.Kinect;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using SkinnedModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameSystem;
+using Wataha.GameSystem.Animation;
+using WatahaSkinnedModel;
 
 namespace Wataha.GameObjects.Movable
 {
@@ -31,32 +33,29 @@ namespace Wataha.GameObjects.Movable
         public int energy = 100;
         float energyRecoverTime = 5.0f;
         public AnimationPlayer animationPlayer;
+        public AnimationSystem animationSystem;
         public KinectSensor kinectSensor;
         Skeleton[] skeletonData;
 
 
-        //public Wolf(String animationName, Game game, Matrix world, float colliderSize, Camera cam) : base(world)
-        //{
-        //    //base.model = model;
+        public Wolf(Model model,String ModelName,ContentManager contentManager, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
+        {
+            this.Name = name;
+            this.strength = strength;
+            this.resistance = resistance;
+            this.speed = speed;
+            Animation animation = new Animation(contentManager,ModelName);
+            animationSystem = new AnimationSystem(animation,this);
 
-        //    animationPlayer = new AnimationPlayer(game, animationName);
-        //    kinectSensor = KinectSensor.KinectSensors[0];
-        //    kinectSensor.SkeletonStream.Enable();
-        //    kinectSensor.Start();
+            this.cam = cam;
+            ifColisionTerrain = false;
+            position = world.Translation;
+            angle = 180;
+            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
+                                        new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
+            this.colliderSize = colliderSize;
 
-        //    skeletonData = new Skeleton[kinectSensor.SkeletonStream.FrameSkeletonArrayLength];
-        //    kinectSensor.AllFramesReady += new EventHandler<AllFramesReadyEventArgs>(KinectAllFramesReady);
-
-         
-        //    this.cam = cam;
-        //    ifColisionTerrain = false;
-        //    position = world.Translation;
-        //    angle = 180;
-        //    collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize/2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
-        //                                new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
-        //    this.colliderSize = colliderSize;
-            
-        //}
+        }
         public Wolf(Model model, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
         {
             this.Name = name;
@@ -164,23 +163,6 @@ namespace Wataha.GameObjects.Movable
             position -= new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
             ifColisionTerrain = false;
 
-        }
-
-        public void KinectAllFramesReady(object sender, AllFramesReadyEventArgs e)
-        {
-            using (SkeletonFrame skeletonFrame = e.OpenSkeletonFrame())
-            {
-                if (skeletonFrame != null)
-                {
-                    skeletonFrame.CopySkeletonDataTo(skeletonData);
-                    if (skeletonData[0] != null && skeletonData[0].TrackingState == SkeletonTrackingState.Tracked)
-                    {
-                        animationPlayer.Update(skeletonData[0], Matrix.Identity);
-                        //animationPlayer.Draw(cameraArc, cameraDistance, cameraRotation);
-
-                    }
-                }
-            }
         }
     }
     

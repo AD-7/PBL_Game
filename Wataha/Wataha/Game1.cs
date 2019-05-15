@@ -141,7 +141,7 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"), world2, 3.0f, camera, 12, 10, 10, "Kimiko");
+            wolf = new Wolf(Content.Load<Model>("Wolf"),"kostka",Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
             wolf2 = new Wolf(Content.Load<Model>("Wolf2"), worldw2, 3.0f, camera, 10, 8, 11, "Yua");
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
 

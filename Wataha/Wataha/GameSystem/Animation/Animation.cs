@@ -37,7 +37,7 @@ namespace Wataha.GameSystem.Animation
             int pom = path.IndexOf("Wataha");
             path = path.Substring(0,pom+6);
             path = path + "\\Wataha\\Content\\"+animationFolder;
-            String[] fileList = Directory.GetFiles(path, "*.fbx");
+            String[] fileList = Directory.GetFiles(path, "*.obj");
             foreach (String file in fileList)
             {
                 objList.Add(Path.GetFileNameWithoutExtension(file));
@@ -45,7 +45,8 @@ namespace Wataha.GameSystem.Animation
             foreach(String obj in objList)
             {
                 int i =  0;
-                animation.Add(i, content.Load<Model>(obj));
+                String modelPath = animationFolder + "\\" + obj;
+                animation.Add(i, content.Load<Model>(modelPath));
             }
             NumberOfFrames = animation.Count;
             
