@@ -22,9 +22,9 @@ namespace Wataha.GameObjects.Static
             base.Draw();
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
-            base.Update();
+            base.Update(gameTime);
         }
     }
 }

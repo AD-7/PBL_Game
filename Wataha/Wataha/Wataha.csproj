@@ -114,21 +114,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SkiningModelWataha\SkiningModelWataha.csproj">
-      <Project>{421174e4-c555-4227-bd5d-a280bc36441c}</Project>
-      <Name>SkiningModelWataha</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SkinnedModelWatahaPipeline\SkinnedModelWatahaPipeline.csproj">
-      <Project>{40100830-b553-4ebd-bc9b-0892dededd3e}</Project>
-      <Name>SkinnedModelWatahaPipeline</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WatahaSkinnedModelPipeline\WatahaSkinnedModelPipeline.csproj">
+      <Project>{4220c77d-7a5a-41d8-bcf8-d7ebea5df1be}</Project>
+      <Name>WatahaSkinnedModelPipeline</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WatahaSkinnedModel\WatahaSkinnedModel.csproj">
+      <Project>{d23396e0-4210-4a36-b1ec-259b8519d661}</Project>
+      <Name>WatahaSkinnedModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
