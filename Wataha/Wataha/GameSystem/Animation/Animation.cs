@@ -22,6 +22,7 @@ namespace Wataha.GameSystem.Animation
 
         public Animation(ContentManager content,String animationfolder)
         {
+            animation = new Dictionary<int, Model>();
             this.content = content;
             loadContent(animationfolder);
             frameSpeed = 0.2f;
@@ -42,11 +43,13 @@ namespace Wataha.GameSystem.Animation
             {
                 objList.Add(Path.GetFileNameWithoutExtension(file));
             }
-            foreach(String obj in objList)
+            int i = 0;
+            foreach (String obj in objList)
             {
-                int i =  0;
+                
                 String modelPath = animationFolder + "\\" + obj;
                 animation.Add(i, content.Load<Model>(modelPath));
+                i++;
             }
             NumberOfFrames = animation.Count;
             

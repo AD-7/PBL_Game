@@ -39,7 +39,7 @@ namespace Wataha.GameObjects.Interable
         }
 
         // Update is called once per frame
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
 
             if (actualQuest != null)

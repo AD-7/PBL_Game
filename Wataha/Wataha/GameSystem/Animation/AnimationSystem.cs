@@ -47,6 +47,7 @@ namespace Wataha.GameSystem.Animation
                     animation.CurrentFrame = 0;
                 }
             }
+            Draw();
 
         }
         public void Draw()

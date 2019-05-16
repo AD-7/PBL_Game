@@ -2989,8 +2989,8 @@
 /processorParam:TextureFormat=Compressed
 /build:tres.obj
 
-#begin wilk/piesblendtex_000001.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000001.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3006,10 +3006,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000001.obj
+/build:wilk2/piesblend_000001.obj
 
-#begin wilk/piesblendtex_000002.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000002.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3025,10 +3025,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000002.obj
+/build:wilk2/piesblend_000002.obj
 
-#begin wilk/piesblendtex_000003.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000003.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3044,10 +3044,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000003.obj
+/build:wilk2/piesblend_000003.obj
 
-#begin wilk/piesblendtex_000004.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000004.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3063,10 +3063,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000004.obj
+/build:wilk2/piesblend_000004.obj
 
-#begin wilk/piesblendtex_000005.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000005.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3082,10 +3082,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000005.obj
+/build:wilk2/piesblend_000005.obj
 
-#begin wilk/piesblendtex_000006.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000006.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3101,10 +3101,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000006.obj
+/build:wilk2/piesblend_000006.obj
 
-#begin wilk/piesblendtex_000007.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000007.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3120,10 +3120,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000007.obj
+/build:wilk2/piesblend_000007.obj
 
-#begin wilk/piesblendtex_000008.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000008.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3139,10 +3139,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000008.obj
+/build:wilk2/piesblend_000008.obj
 
-#begin wilk/piesblendtex_000009.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000009.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3158,10 +3158,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000009.obj
+/build:wilk2/piesblend_000009.obj
 
-#begin wilk/piesblendtex_000010.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000010.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3177,10 +3177,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000010.obj
+/build:wilk2/piesblend_000010.obj
 
-#begin wilk/piesblendtex_000011.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000011.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3196,10 +3196,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000011.obj
+/build:wilk2/piesblend_000011.obj
 
-#begin wilk/piesblendtex_000012.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000012.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3215,10 +3215,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000012.obj
+/build:wilk2/piesblend_000012.obj
 
-#begin wilk/piesblendtex_000013.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000013.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3234,10 +3234,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000013.obj
+/build:wilk2/piesblend_000013.obj
 
-#begin wilk/piesblendtex_000014.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000014.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3253,10 +3253,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000014.obj
+/build:wilk2/piesblend_000014.obj
 
-#begin wilk/piesblendtex_000015.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000015.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3272,10 +3272,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000015.obj
+/build:wilk2/piesblend_000015.obj
 
-#begin wilk/piesblendtex_000016.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000016.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3291,10 +3291,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000016.obj
+/build:wilk2/piesblend_000016.obj
 
-#begin wilk/piesblendtex_000017.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000017.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3310,10 +3310,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000017.obj
+/build:wilk2/piesblend_000017.obj
 
-#begin wilk/piesblendtex_000018.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000018.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3329,10 +3329,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000018.obj
+/build:wilk2/piesblend_000018.obj
 
-#begin wilk/piesblendtex_000019.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000019.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3348,10 +3348,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000019.obj
+/build:wilk2/piesblend_000019.obj
 
-#begin wilk/piesblendtex_000020.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000020.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3367,10 +3367,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000020.obj
+/build:wilk2/piesblend_000020.obj
 
-#begin wilk/piesblendtex_000021.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000021.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3386,10 +3386,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000021.obj
+/build:wilk2/piesblend_000021.obj
 
-#begin wilk/piesblendtex_000022.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000022.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3405,10 +3405,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000022.obj
+/build:wilk2/piesblend_000022.obj
 
-#begin wilk/piesblendtex_000023.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000023.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3424,10 +3424,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000023.obj
+/build:wilk2/piesblend_000023.obj
 
-#begin wilk/piesblendtex_000024.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000024.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3443,10 +3443,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000024.obj
+/build:wilk2/piesblend_000024.obj
 
-#begin wilk/piesblendtex_000025.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000025.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3462,10 +3462,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000025.obj
+/build:wilk2/piesblend_000025.obj
 
-#begin wilk/piesblendtex_000026.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000026.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3481,10 +3481,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000026.obj
+/build:wilk2/piesblend_000026.obj
 
-#begin wilk/piesblendtex_000027.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000027.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3500,10 +3500,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000027.obj
+/build:wilk2/piesblend_000027.obj
 
-#begin wilk/piesblendtex_000028.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000028.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3519,10 +3519,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000028.obj
+/build:wilk2/piesblend_000028.obj
 
-#begin wilk/piesblendtex_000029.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000029.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3538,10 +3538,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000029.obj
+/build:wilk2/piesblend_000029.obj
 
-#begin wilk/piesblendtex_000030.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000030.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3557,10 +3557,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000030.obj
+/build:wilk2/piesblend_000030.obj
 
-#begin wilk/piesblendtex_000031.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000031.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3576,10 +3576,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000031.obj
+/build:wilk2/piesblend_000031.obj
 
-#begin wilk/piesblendtex_000032.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000032.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3595,10 +3595,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000032.obj
+/build:wilk2/piesblend_000032.obj
 
-#begin wilk/piesblendtex_000033.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000033.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3614,10 +3614,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000033.obj
+/build:wilk2/piesblend_000033.obj
 
-#begin wilk/piesblendtex_000034.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000034.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3633,10 +3633,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000034.obj
+/build:wilk2/piesblend_000034.obj
 
-#begin wilk/piesblendtex_000035.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000035.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3652,10 +3652,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000035.obj
+/build:wilk2/piesblend_000035.obj
 
-#begin wilk/piesblendtex_000036.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000036.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3671,10 +3671,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000036.obj
+/build:wilk2/piesblend_000036.obj
 
-#begin wilk/piesblendtex_000037.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000037.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3690,10 +3690,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000037.obj
+/build:wilk2/piesblend_000037.obj
 
-#begin wilk/piesblendtex_000038.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000038.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3709,10 +3709,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000038.obj
+/build:wilk2/piesblend_000038.obj
 
-#begin wilk/piesblendtex_000039.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000039.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3728,10 +3728,10 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000039.obj
+/build:wilk2/piesblend_000039.obj
 
-#begin wilk/piesblendtex_000040.obj
-/importer:OpenAssetImporter
+#begin wilk2/piesblend_000040.obj
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -3747,7 +3747,7 @@
 /processorParam:Scale=1
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
-/build:wilk/piesblendtex_000040.obj
+/build:wilk2/piesblend_000040.obj
 
 #begin Wolf.fbx
 /importer:FbxImporter

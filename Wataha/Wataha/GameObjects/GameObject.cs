@@ -47,7 +47,7 @@ namespace Wataha.GameObjects
 
         }
 
-        public virtual void Update()
+        public virtual void Update(GameTime gameTime)
         {
         
 

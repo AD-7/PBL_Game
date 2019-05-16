@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,11 +22,11 @@ namespace Wataha.GameSystem
             }
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             foreach (GameObject gameObject in objects)
             {
-                gameObject.Update();
+                gameObject.Update(gameTime);
             }
         }
 

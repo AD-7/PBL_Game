@@ -22,12 +22,12 @@ namespace Wataha.GameObjects.Movable
             this.cam = cam;
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             foreach(Wolf wolf in wolves)
             {
                 
-                wolf.Update();
+                wolf.Update(gameTime);
 
 
             }

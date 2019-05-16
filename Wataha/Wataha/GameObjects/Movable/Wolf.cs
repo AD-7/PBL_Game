@@ -34,7 +34,6 @@ namespace Wataha.GameObjects.Movable
         float energyRecoverTime = 5.0f;
         public AnimationPlayer animationPlayer;
         public AnimationSystem animationSystem;
-        public KinectSensor kinectSensor;
         Skeleton[] skeletonData;
 
 
@@ -46,7 +45,6 @@ namespace Wataha.GameObjects.Movable
             this.speed = speed;
             Animation animation = new Animation(contentManager,ModelName);
             animationSystem = new AnimationSystem(animation,this);
-
             this.cam = cam;
             ifColisionTerrain = false;
             position = world.Translation;
@@ -79,12 +77,16 @@ namespace Wataha.GameObjects.Movable
             base.Draw(camera,technique);
         }
 
-        public override void Update()
+        public override void Update(GameTime gameTime)
         {
+
             dirX = (float)Math.Sin(angle);
             dirZ = (float)Math.Cos(angle);
-          
 
+            if (animationSystem != null)
+            {
+                animationSystem.Update(gameTime);
+            }
            if (!ifColisionTerrain)
            {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
@@ -143,7 +145,7 @@ namespace Wataha.GameObjects.Movable
             }
 
 
-            base.Update();
+            base.Update(gameTime);
             }
 
         public void ProccedCollisionTree()
