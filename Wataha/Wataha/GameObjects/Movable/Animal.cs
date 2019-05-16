@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Wataha.GameObjects.Movable
 {
-    class Animal : GameObject
+    public class Animal : GameObject
     {
         public int meat = 10;
         public float walkSpeed = 10;

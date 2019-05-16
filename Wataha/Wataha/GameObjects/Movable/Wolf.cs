@@ -124,14 +124,10 @@ namespace Wataha.GameObjects.Movable
                 }
                
             }
-            //else
-            //{
-               
-            //}
-            // *
+           
             world =  Matrix.CreateRotationX(MathHelper.ToRadians(-90)) *Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);// * Matrix.CreateFromAxisAngle(Vector3.UnitY, MathHelper.ToRadians(-90)); ;
 
-         //   cam.CameraUpdate(world);
+       
 
           
 
@@ -150,7 +146,7 @@ namespace Wataha.GameObjects.Movable
 
         public void ProccedCollisionTree()
         {
-            //  position = Vector3.Lerp(position, position - new Vector3(dirX / 4, 0, dirZ / 4), 5);
+           
          
                 position -= new Vector3(dirX / speedFactor, 0, -dirZ / speedFactor);
             angle -= 0.02f;

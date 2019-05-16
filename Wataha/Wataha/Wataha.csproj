@@ -73,6 +73,7 @@
     <Compile Include="GameObjects\Movable\Wolf.cs" />
     <Compile Include="GameObjects\Static\Environment.cs" />
     <Compile Include="GameObjects\Static\Plane.cs" />
+    <Compile Include="GameSystem\ActualQuestPanel.cs" />
     <Compile Include="GameSystem\BillboardSystem.cs" />
     <Compile Include="GameSystem\InputSystem.cs" />
     <Compile Include="GameSystem\WolfPanel.cs" />
@@ -88,9 +89,7 @@
     <Compile Include="GameSystem\HuntingSystem.cs" />
     <Compile Include="GameSystem\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="GameSystem\ParticleSystem\ParticleVertex.cs" />
-    <Compile Include="GameSystem\PrelightingRenderer.cs" />
     <Compile Include="GameSystem\QuestSystem.cs" />
-    <Compile Include="GameSystem\ResoucersSystem.cs" />
     <Compile Include="GameSystem\SceneManager.cs" />
     <Compile Include="GameSystem\Skybox.cs" />
     <Compile Include="GameSystem\UpgradeSystem.cs" />
@@ -102,9 +101,6 @@
     </Reference>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
-    </Reference>
-    <Reference Include="MonoGame.UI.Forms, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MonoGame.UI.Forms.1.0.1\lib\MonoGame.UI.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

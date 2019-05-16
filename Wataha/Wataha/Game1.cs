@@ -36,7 +36,7 @@ namespace Wataha
         private AudioSystem audioSystem;
         private ParticleSystem ps;
 
-        private GameObjects.Static.Environment trees;
+        private GameObjects.Static.Environment trees, huntingTrees;
         private GameObjects.Static.Environment b;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
@@ -106,7 +106,7 @@ namespace Wataha
             ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f, 0.00001f), 0.3f, Vector3.Zero, 0.1f);
             Vector3[] positions = new Vector3[1];
             positions[0] = new Vector3(0, 3, 0);
-           
+
 
             billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
 
@@ -118,10 +118,7 @@ namespace Wataha
             skybox = new Skybox("Skyboxes/skybox", Content);
 
 
-            //world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            //world = world * Matrix.CreateScale(1f);
-            //world = world * Matrix.CreateTranslation(new Vector3(10, 0, 0));
-            //questGivers.Add(new QuestGiver(Content.Load<Model>("wolf"), world));
+
 
             wataha = new GameObjects.Movable.Wataha(camera);
 
@@ -146,6 +143,7 @@ namespace Wataha
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
+            huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
 
@@ -154,6 +152,7 @@ namespace Wataha
             wolf2.SetModelEffect(simpleEffect, true);
             wolf3.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
+            huntingTrees.SetModelEffect(simpleEffect, true);
             b.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
@@ -171,8 +170,11 @@ namespace Wataha
 
 
 
+            HuntingSystem tmp = new HuntingSystem(camera, device, renderTarget, plane, huntingTrees, skybox);
+            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
-            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha);
+
+
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
         }
@@ -200,101 +202,110 @@ namespace Wataha
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
 
-            if (gameInMainMenu)
+            if (!hud.huntingSystem.active)
             {
 
 
-                mainMenu.Update();
-
-                if (mainMenu.ExitButtonsEvents())
-                    Exit();
-                if (mainMenu.PlayButtonsEvents())
-                {
-                    gameInMainMenu = false;
-                    IsMouseVisible = false;
-                    this.LoadContent();
-                }
-
-
-            }
-            else
-            {
-
-
-                if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
-                {
-                    IsMouseVisible = true;
-                    hud.ifPaused = true;
-                    return;
-                }
-
-
-
-                if (!hud.ifPaused)
+                if (gameInMainMenu)
                 {
 
 
-                    if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
+                    mainMenu.Update();
+
+                    if (mainMenu.ExitButtonsEvents())
+                        Exit();
+                    if (mainMenu.PlayButtonsEvents())
                     {
-                        audioSystem.playGrowl(2);
+                        gameInMainMenu = false;
+                        IsMouseVisible = false;
+                        this.LoadContent();
                     }
 
-
-                    if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && currentGiver != null)
-                    {
-                        Debug.WriteLine("test");
-                    }
-
-                    //ChceckNearestQuestGiver();
-
-                    foreach (Wolf w in wataha.wolves)
-                    {
-                        colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
-                        colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                        colisionSystem.IsEnvironmentCollision(w, b, wataha);
-
-                    }
-
-
-
-
-
-                    wataha.Update(gameTime);
 
                 }
                 else
                 {
 
-                    if (hud.ResumeButtonEvent())
+
+                    if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
                     {
-                        hud.ifPaused = false;
+                        IsMouseVisible = true;
+                        hud.ifPaused = true;
+                        return;
                     }
-                    if (hud.BackToMainMenuButtonEvent())
+
+
+
+                    if (!hud.ifPaused)
                     {
 
-                        hud.ifPaused = false;
-                        gameInMainMenu = true;
+
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
+                        {
+                            audioSystem.playGrowl(2);
+                        }
+
+
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && currentGiver != null)
+                        {
+                            Debug.WriteLine("test");
+                        }
+
+                        //ChceckNearestQuestGiver();
+
+                        foreach (Wolf w in wataha.wolves)
+                        {
+                            colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
+                            colisionSystem.IsEnvironmentCollision(w, trees, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, b, wataha);
+
+                        }
+
+                    wataha.Update(gameTime);
+
                     }
-                    if (hud.ExitButtonEvent())
+                    else
                     {
-                        Exit();
+
+                        if (hud.ResumeButtonEvent())
+                        {
+                            hud.ifPaused = false;
+                        }
+                        if (hud.BackToMainMenuButtonEvent())
+                        {
+
+                            hud.ifPaused = false;
+                            gameInMainMenu = true;
+                        }
+                        if (hud.ExitButtonEvent())
+                        {
+                            Exit();
+                        }
+
                     }
+
+                    Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
+                    Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
+                    Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
+                    float randSpeed = (float)rand.NextDouble() * 2 + 10;
+
+                    ps.AddParticle(randPosition, randAngle, randSpeed);
+                    ps.Update();
+
+
+                    hud.Update();
 
                 }
-
-                Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
-                Vector3 randAngle = Vector3.Up + randVec3(-offset, offset);
-                Vector3 randPosition = randVec3(new Vector3(-1.5f), new Vector3(1.5f));
-                float randSpeed = (float)rand.NextDouble() * 2 + 10;
-
-                ps.AddParticle(randPosition, randAngle, randSpeed);
-                ps.Update();
-
-
-                hud.Update();
-                base.Update(gameTime);
+                
+               
 
             }
+            else
+            {
+                hud.huntingSystem.Update();
+            }
+
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -306,82 +317,92 @@ namespace Wataha
 
             graphics.GraphicsDevice.Clear(Color.Black);
 
-            if (gameInMainMenu)
+            if (!hud.huntingSystem.active)
             {
-                mainMenu.Draw();
+
+
+                if (gameInMainMenu)
+                {
+                    mainMenu.Draw();
+                }
+                else
+                {
+
+
+                    RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
+                    RasterizerState rasterizerState = new RasterizerState();
+                    rasterizerState.CullMode = CullMode.None;
+                    graphics.GraphicsDevice.RasterizerState = rasterizerState;
+
+                    device.SetRenderTarget(renderTarget);
+                    device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+
+
+
+
+                    plane.Draw(camera, "ShadowMap");
+                    //questGivers[0].Draw(camera);
+                    foreach (Wolf w in wataha.wolves)
+                    {
+                        w.Draw(camera, "ShadowMap");
+                    }
+
+                    trees.Draw(camera, "ShadowMap");
+                    b.Draw(camera, "ShadowMap");
+
+
+                    device.SetRenderTarget(null);
+                    plane.shadowMap = (Texture2D)renderTarget;
+                    foreach (Wolf w in wataha.wolves)
+                    {
+                        w.shadowMap = (Texture2D)renderTarget;
+                    }
+
+                    trees.shadowMap = (Texture2D)renderTarget;
+                    b.shadowMap = (Texture2D)renderTarget;
+
+
+                    device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
+
+                    device.BlendState = BlendState.AlphaBlend;
+
+                    plane.Draw(camera, "ShadowedScene");
+                    foreach (Wolf w in wataha.wolves)
+                    {
+                        w.Draw(camera, "ShadowedScene");
+                    }
+
+                    //questGivers[0].Draw(camera);
+                    trees.Draw(camera, "ShadowedScene");
+                    b.Draw(camera, "ShadowedScene");
+                    device.BlendState = BlendState.Opaque;
+                    skybox.Draw(camera);
+
+                    plane.shadowMap = null;
+                    foreach (Wolf w in wataha.wolves)
+                    {
+                        w.shadowMap = null;
+                    }
+
+                    trees.shadowMap = null;
+                    b.shadowMap = null;
+                    graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
+
+
+                    billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
+                    ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
+
+                    hud.Draw();
+
+
+
+
+
+                }
             }
             else
             {
-
-
-                RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
-                RasterizerState rasterizerState = new RasterizerState();
-                rasterizerState.CullMode = CullMode.None;
-                graphics.GraphicsDevice.RasterizerState = rasterizerState;
-
-                device.SetRenderTarget(renderTarget);
-                device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-
-
-
-
-                plane.Draw(camera, "ShadowMap");
-                //questGivers[0].Draw(camera);
-                foreach (Wolf w in wataha.wolves)
-                {
-                    w.Draw(camera, "ShadowMap");
-                }
-
-                trees.Draw(camera, "ShadowMap");
-                b.Draw(camera, "ShadowMap");
-
-
-                device.SetRenderTarget(null);
-                plane.shadowMap = (Texture2D)renderTarget;
-                foreach (Wolf w in wataha.wolves)
-                {
-                    w.shadowMap = (Texture2D)renderTarget;
-                }
-
-                trees.shadowMap = (Texture2D)renderTarget;
-                b.shadowMap = (Texture2D)renderTarget;
-
-
-                device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
-
-                device.BlendState = BlendState.AlphaBlend;
-
-                plane.Draw(camera, "ShadowedScene");
-                foreach (Wolf w in wataha.wolves)
-                {
-                    w.Draw(camera, "ShadowedScene");
-                }
-
-                //questGivers[0].Draw(camera);
-                trees.Draw(camera, "ShadowedScene");
-                b.Draw(camera, "ShadowedScene");
-                device.BlendState = BlendState.Opaque;
-                skybox.Draw(camera);
-
-                plane.shadowMap = null;
-                foreach (Wolf w in wataha.wolves)
-                {
-                    w.shadowMap = null;
-                }
-
-                trees.shadowMap = null;
-                b.shadowMap = null;
-                graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
-
-
-                hud.Draw();
-                billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
-
-                ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
-
-
-
-
+                hud.huntingSystem.Draw();
             }
             base.Draw(gameTime);
         }
