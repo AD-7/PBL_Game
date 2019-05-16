@@ -12,12 +12,13 @@ namespace Wataha.GameSystem
 {
     public class WolfPanel
     {
-        private Texture2D wolfPanelScreen;
+        private Texture2D panel;
         private SpriteFont font;
         private Rectangle recWolfPanel;
         private Rectangle recExit;
         private Rectangle recGoHuntingButton;
-     
+        private Color goHuntingButtonColor = Color.Gray;
+
 
         public SpriteFont font21, font18, font14;
         public List<Texture2D> elements;
@@ -27,10 +28,10 @@ namespace Wataha.GameSystem
         public int wolfSpeed;
         public int wolfEnergy;
 
-        public WolfPanel(Texture2D screen, SpriteFont font)
+        public WolfPanel(Texture2D panel, SpriteFont font)
         {
             this.font = font;
-            this.wolfPanelScreen = screen;
+            this.panel = panel;
             elements = new List<Texture2D>();
         }
 
@@ -59,7 +60,7 @@ namespace Wataha.GameSystem
             recGoHuntingButton.X = recWolfPanel.X + recWolfPanel.Width / 4;
             recGoHuntingButton.Y = recWolfPanel.Y + recWolfPanel.Height - recWolfPanel.Height / 6;
             recGoHuntingButton.Width = recWolfPanel.Width / 2;
-            recGoHuntingButton.Height = recWolfPanel.Height / 14;
+            recGoHuntingButton.Height = recWolfPanel.Height / 16;
 
             
         }
@@ -68,10 +69,10 @@ namespace Wataha.GameSystem
         {
 
 
-            spriteBatch.Draw(wolfPanelScreen, recWolfPanel, Color.White);
+            spriteBatch.Draw(panel, recWolfPanel, Color.White);
             spriteBatch.Draw(elements[0], recExit, Color.White);
 
-            spriteBatch.DrawString(font21, wolfName, new Vector2(recWolfPanel.X + recWolfPanel.Width / 3 + recWolfPanel.Width / 12, recWolfPanel.Y + recWolfPanel.Height / 30), Color.White);
+            spriteBatch.DrawString(font21, wolfName, new Vector2(recWolfPanel.X + recWolfPanel.Width / 3 + recWolfPanel.Width / 12, recWolfPanel.Y + recWolfPanel.Height / 30), Color.OrangeRed);
             int ParametersX = recWolfPanel.X + recWolfPanel.Width / 9;
             int ParametersY = recWolfPanel.Y + recWolfPanel.Height / 6;
             spriteBatch.DrawString(font18, "strength : ", new Vector2(ParametersX, ParametersY), Color.Red);
@@ -91,8 +92,19 @@ namespace Wataha.GameSystem
 
             spriteBatch.DrawString(font14, "::: Evolution :::", new Vector2(ParametersX2, ParametersY2), Color.OrangeRed);
 
-          
-            spriteBatch.Draw(elements[1], recGoHuntingButton, Color.White);
+
+            spriteBatch.Draw(elements[1], recGoHuntingButton, goHuntingButtonColor);
+        }
+
+        public bool goHuntingButtonEvent(Rectangle cursor)
+        {
+            if (recGoHuntingButton.Intersects(cursor))
+            {
+                goHuntingButtonColor = Color.White;
+                return true;
+            }
+            goHuntingButtonColor = Color.Gray;
+            return false;
         }
 
         public bool exitButtonEvent(Rectangle cursor)
