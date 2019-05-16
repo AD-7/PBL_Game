@@ -25,7 +25,7 @@ namespace Wataha.GameSystem.Animation
             animation = new Dictionary<int, Model>();
             this.content = content;
             loadContent(animationfolder);
-            frameSpeed = 0.2f;
+            frameSpeed = 0.02f;
         }
         public Animation()
         {
