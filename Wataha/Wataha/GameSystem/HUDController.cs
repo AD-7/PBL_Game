@@ -12,6 +12,7 @@ namespace Wataha.GameSystem
 {
     public class HUDController
     {
+        public HuntingSystem huntingSystem;
 
         GameObjects.Movable.Wataha wataha;
         SpriteBatch spriteBatch;
@@ -49,8 +50,10 @@ namespace Wataha.GameSystem
         int stringOffsetWidth, stringOffsetHeight;
 
 
-        public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha)
+        public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
         {
+
+            this.huntingSystem = hs;
             this.wataha = wataha;
             this.device = device;
             this.spriteBatch = batch;
@@ -59,6 +62,8 @@ namespace Wataha.GameSystem
             this.white_fangs = white_fangs;
             this.gold_fangs = gold_fangs;
             pictures = new List<Texture2D>();
+            
+          
 
             font30 = Content.Load<SpriteFont>("Fonts/font1");
             broadwayFont = Content.Load<SpriteFont>("Fonts/Broadway");

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Wataha.GameObjects.Static
 {
-    class Plane :GameObject
+    public class Plane :GameObject
     {
         public BoundingBox collider;
         public float colliderSize;

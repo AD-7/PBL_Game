@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace Wataha.GameSystem
 {
-    class Skybox
+    public class Skybox
     {
         private Model skyBox;
         private TextureCube skyBoxTexture;
