@@ -52,7 +52,7 @@ namespace Wataha.GameObjects.Movable
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
                                         new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
             this.colliderSize = colliderSize;
-
+            speedFactor = 100;
         }
         public Wolf(Model model, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
         {
@@ -69,6 +69,7 @@ namespace Wataha.GameObjects.Movable
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
                                         new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
             this.colliderSize = colliderSize;
+            speedFactor = 100;
         }
 
         public void Draw(Camera camera,string technique)
@@ -77,24 +78,31 @@ namespace Wataha.GameObjects.Movable
             base.Draw(camera,technique);
         }
 
+
         public override void Update(GameTime gameTime)
         {
+            float animationFactor = 0f;
 
             dirX = (float)Math.Sin(angle);
             dirZ = (float)Math.Cos(angle);
 
-            if (animationSystem != null)
-            {
-                animationSystem.Update(gameTime);
-            }
+            Boolean shouldAnimate = true;
            if (!ifColisionTerrain)
            {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
-                    speedFactor = 2.5f;
+                    
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
+                        speedFactor = 2f;
+                        animationFactor = 20f;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+                    } else
+                    {
+                        speedFactor *= 1 + (float)gameTime.ElapsedGameTime.TotalSeconds*6;
+                        if (speedFactor < 50)
+                            position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+                        shouldAnimate = false;
                     }
                    
                     if (Keyboard.GetState().IsKeyDown(Keys.A))
@@ -108,10 +116,18 @@ namespace Wataha.GameObjects.Movable
                 }
                 else
                 {
-                    speedFactor = 4;
+                    
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
+                        speedFactor = 4;
+                        animationFactor = 10f;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+                    } else
+                    {
+                        shouldAnimate = false;
+                        speedFactor *= 1f + (float)gameTime.ElapsedGameTime.TotalSeconds*6;
+                        if (speedFactor < 50)
+                            position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     }
                     if (Keyboard.GetState().IsKeyDown(Keys.A))
                     {
@@ -124,7 +140,19 @@ namespace Wataha.GameObjects.Movable
                 }
                
             }
-           
+            if (animationSystem != null && !shouldAnimate)
+            {
+                animationSystem.animation.frameSpeed = 0.02f * (1f + animationSystem.animation.CurrentFrame*2f/ animationSystem.animation.NumberOfFrames);
+                if (animationSystem.animation.CurrentFrame == 0) animationSystem.Stop();
+                animationSystem.Update(gameTime);
+            }
+
+            if (animationSystem != null && shouldAnimate)
+            {
+                animationSystem.animation.frameSpeed = 0.2f / animationFactor;
+                animationSystem.Update(gameTime);
+            }
+
             world =  Matrix.CreateRotationX(MathHelper.ToRadians(-90)) *Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);// * Matrix.CreateFromAxisAngle(Vector3.UnitY, MathHelper.ToRadians(-90)); ;
 
        

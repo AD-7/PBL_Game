@@ -11,7 +11,7 @@ namespace Wataha.GameSystem.Animation
 {
     public class AnimationSystem
     {
-        private Animation animation;
+        public Animation animation;
         private GameObject WhoAmI; 
         private float timer;
         public Vector3 position { get; set; }
@@ -40,7 +40,7 @@ namespace Wataha.GameSystem.Animation
             timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if(timer > animation.frameSpeed)
             {
-                timer = 0;
+                timer -= animation.frameSpeed;
                 animation.CurrentFrame++;
                 if(animation.CurrentFrame >= animation.NumberOfFrames)
                 {
