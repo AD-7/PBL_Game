@@ -1,5 +1,4 @@
-﻿using Microsoft.Kinect;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -34,7 +33,6 @@ namespace Wataha.GameObjects.Movable
         float energyRecoverTime = 5.0f;
         public AnimationPlayer animationPlayer;
         public AnimationSystem animationSystem;
-        Skeleton[] skeletonData;
 
 
         public Wolf(Model model,String ModelName,ContentManager contentManager, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
