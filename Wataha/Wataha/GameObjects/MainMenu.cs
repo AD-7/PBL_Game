@@ -37,6 +37,9 @@ namespace Wataha.GameObjects
         Rectangle recEffectsSlider;
         Rectangle recBackMenuButton;
 
+        Rectangle recAudioMute;
+        Rectangle recEffectMute;
+
 
         int alphaColor = 200;
 
@@ -45,6 +48,9 @@ namespace Wataha.GameObjects
         Color CloseButtonColor;
 
         Color BackMenuButtonColor;
+
+        Color AudioColor;
+        Color EffectColor;
 
 
         SpriteFont font30;
@@ -67,6 +73,9 @@ namespace Wataha.GameObjects
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider2"));
 
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/backMenu"));
+
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/Mute"));
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/notMute"));
             
 
             this.device = device; 
@@ -75,6 +84,8 @@ namespace Wataha.GameObjects
             CloseButtonColor = new Color(255, 255, 255, alphaColor);
             OptionButtonColor = new Color(255, 255, 255, alphaColor);
 
+            AudioColor = new Color(255, 255, 255, alphaColor);
+            EffectColor = new Color(255, 255, 255, alphaColor);
 
             font30 = content.Load<SpriteFont>("Fonts/font1");
 
@@ -87,91 +98,120 @@ namespace Wataha.GameObjects
         public void Update()
         {
 
-                BG.X = 0;
-                BG.Y = 0;
-                BG.Width = (int)ScreenWidth;
-                BG.Height = (int)ScreenHeight;
+            BG.X = 0;
+            BG.Y = 0;
+            BG.Width = (int)ScreenWidth;
+            BG.Height = (int)ScreenHeight;
 
-                if (!inOptions)
+            if (!inOptions)
+            {
+                recPlayButton.X = (int)ScreenWidth / 2 - recPlayButton.Size.X / 2;
+                recPlayButton.Y = (int)ScreenHeight / 4 - recPlayButton.Size.Y / 2;
+
+                recPlayButton.Height = (int)ScreenHeight / 6;
+                recPlayButton.Width = (int)ScreenWidth / 2;
+
+                recOptionButton.X = recPlayButton.X;
+                recOptionButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 12 + recOptionButton.Size.Y / 2;
+
+                recOptionButton.Height = recPlayButton.Height;
+                recOptionButton.Width = recPlayButton.Width;
+
+                recCloseButton.X = recPlayButton.X;
+                recCloseButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recCloseButton.Size.Y / 2;
+
+                recCloseButton.Height = recPlayButton.Height;
+                recCloseButton.Width = recPlayButton.Width;
+
+                if (OptionButtonsEvents())
                 {
-                    recPlayButton.X = (int)ScreenWidth / 2 - recPlayButton.Size.X / 2;
-                    recPlayButton.Y = (int)ScreenHeight / 4 - recPlayButton.Size.Y / 2;
+                    inOptions = true;
+                    recCloseButton.Width = 0;
+                    recOptionButton.Width = 0;
+                    recPlayButton.Width = 0;
+                };
+            }
+            else
+            {
+                recBackMenuButton.X = (int)ScreenWidth / 2 - recBackMenuButton.Size.X / 2;
+                recBackMenuButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recBackMenuButton.Size.Y / 2;
 
-                    recPlayButton.Height = (int)ScreenHeight / 6;
-                    recPlayButton.Width = (int)ScreenWidth / 2;
+                recBackMenuButton.Height = (int)ScreenHeight / 6;
+                recBackMenuButton.Width = (int)ScreenWidth / 2;
 
-                    recOptionButton.X = recPlayButton.X;
-                    recOptionButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 12 + recOptionButton.Size.Y / 2;
+                recAudioSliderBG.X = recBackMenuButton.X;
+                recAudioSliderBG.Y = (int)ScreenHeight / 10 + recBackMenuButton.Size.Y / 4;
 
-                    recOptionButton.Height = recPlayButton.Height;
-                    recOptionButton.Width = recPlayButton.Width;
+                recAudioSliderBG.Height = recBackMenuButton.Height;
+                recAudioSliderBG.Width = recBackMenuButton.Width;
 
-                    recCloseButton.X = recPlayButton.X;
-                    recCloseButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recCloseButton.Size.Y / 2;
+                recAudioSlider.X = recBackMenuButton.X;
+                recAudioSlider.Y = recAudioSliderBG.Y;
 
-                    recCloseButton.Height = recPlayButton.Height;
-                    recCloseButton.Width = recPlayButton.Width;
+                recAudioSlider.Height = recBackMenuButton.Height;
+                recAudioSlider.Width = (int)(recAudioSliderBG.Width * AudioVolume);
 
-                    if (OptionButtonsEvents())
-                    {
-                       inOptions = true;
-                        recCloseButton.Width = 0;
-                        recOptionButton.Width = 0;
-                        recPlayButton.Width = 0;
-                    };
-                }
-                else
+                recAudioMute.X = recAudioSliderBG.X + recAudioSliderBG.Width;
+                recAudioMute.Y = recAudioSliderBG.Y;
+
+                recAudioMute.Height = recAudioSlider.Height;
+                recAudioMute.Width = recAudioMute.Height;
+                ///////////////////////////////////////
+                recEffectsSliderBG.X = recBackMenuButton.X;
+                recEffectsSliderBG.Y = (int)ScreenHeight / 4 + recEffectsSliderBG.Size.Y / 2;
+
+                recEffectsSliderBG.Height = recBackMenuButton.Height;
+                recEffectsSliderBG.Width = recBackMenuButton.Width;
+
+                recEffectsSlider.X = recBackMenuButton.X;
+                recEffectsSlider.Y = recEffectsSliderBG.Y;
+
+                recEffectsSlider.Height = recBackMenuButton.Height;
+                recEffectsSlider.Width = (int)(recEffectsSliderBG.Width * EffectVolume);
+
+                   
+
+                recEffectMute.X = recEffectsSliderBG.X + recEffectsSliderBG.Width;
+                recEffectMute.Y = recEffectsSliderBG.Y;
+
+                recEffectMute.Height = recEffectsSliderBG.Height;
+                recEffectMute.Width = recEffectMute.Height;
+
+                if (AudioSliderEvents())
                 {
-                    recBackMenuButton.X = (int)ScreenWidth / 2 - recBackMenuButton.Size.X / 2;
-                    recBackMenuButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recBackMenuButton.Size.Y / 2;
-
-                    recBackMenuButton.Height = (int)ScreenHeight / 6;
-                    recBackMenuButton.Width = (int)ScreenWidth / 2;
-
-                    recAudioSliderBG.X = recBackMenuButton.X;
-                    recAudioSliderBG.Y = (int)ScreenHeight / 10 + recBackMenuButton.Size.Y / 4;
-
-                    recAudioSliderBG.Height = recBackMenuButton.Height;
-                    recAudioSliderBG.Width = recBackMenuButton.Width;
-
-                    recAudioSlider.X = recBackMenuButton.X;
-                    recAudioSlider.Y = recAudioSliderBG.Y;
-
-                    recAudioSlider.Height = recBackMenuButton.Height;
-                    recAudioSlider.Width = (int)(recAudioSliderBG.Width * AudioVolume);
-                    ///////////////////////////////////////
-                    recEffectsSliderBG.X = recBackMenuButton.X;
-                    recEffectsSliderBG.Y = (int)ScreenHeight / 4 + recEffectsSliderBG.Size.Y / 2;
-
-                    recEffectsSliderBG.Height = recBackMenuButton.Height;
-                    recEffectsSliderBG.Width = recBackMenuButton.Width;
-
-                    recEffectsSlider.X = recBackMenuButton.X;
-                    recEffectsSlider.Y = recEffectsSliderBG.Y;
-
-                    recEffectsSlider.Height = recBackMenuButton.Height;
-                    recEffectsSlider.Width = (int)(recEffectsSliderBG.Width * EffectVolume);
-
-                    if (AudioSliderEvents())
-                    {
                         recAudioSlider.Width = InputSystem.mouseState.Position.X - recAudioSliderBG.X;
                         AudioVolume = 1.0f*recAudioSlider.Width / recAudioSliderBG.Width;
                         MediaPlayer.Volume = AudioVolume;
-
-                    }
-
-                    if (EffectSliderEvents())
-                    {
-                        recEffectsSlider.Width = InputSystem.mouseState.Position.X - recEffectsSliderBG.X;
-                        EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
-                        SoundEffect.MasterVolume = EffectVolume;
-                    }
-
-                    if (BackMenuButtonsEvents())
-                    {
-                        inOptions = false;
-                    };
                 }
+
+                if (EffectSliderEvents())
+                {
+                    recEffectsSlider.Width = InputSystem.mouseState.Position.X - recEffectsSliderBG.X;
+                    EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
+                    if (AudioSystem.effectEnable)
+                        SoundEffect.MasterVolume = EffectVolume;
+                }
+
+                if (AudioCheckboxEvents())
+                {
+                    AudioSystem.audioEnable = !AudioSystem.audioEnable;
+                    MediaPlayer.IsMuted = AudioSystem.audioEnable;
+                }
+
+                if (EffectCheckboxEvents())
+                {
+                    AudioSystem.effectEnable = !AudioSystem.effectEnable;
+                    if (AudioSystem.effectEnable)
+                        SoundEffect.MasterVolume = EffectVolume;
+                    else
+                        SoundEffect.MasterVolume = 0;
+                }
+
+                if (BackMenuButtonsEvents())
+                {
+                    inOptions = false;
+                }       
+            }
 
 
             UpdateCursorPosition();
@@ -205,6 +245,16 @@ namespace Wataha.GameObjects
 
                 spriteBatch.Draw(ButtonTextures[4], recEffectsSliderBG, Color.White);
                 spriteBatch.Draw(ButtonTextures[5], recEffectsSlider, Color.White);
+
+                if(AudioSystem.audioEnable)
+                     spriteBatch.Draw(ButtonTextures[7], recAudioMute, Color.White);
+                else
+                    spriteBatch.Draw(ButtonTextures[8], recAudioMute, Color.White);
+
+                if (AudioSystem.effectEnable)
+                    spriteBatch.Draw(ButtonTextures[7], recEffectMute, Color.White);
+                else
+                    spriteBatch.Draw(ButtonTextures[8], recEffectMute, Color.White);
 
                 spriteBatch.Draw(ButtonTextures[6], recBackMenuButton, BackMenuButtonColor);
             }
@@ -305,6 +355,34 @@ namespace Wataha.GameObjects
         public bool EffectSliderEvents()
         {
             if ((recEffectsSliderBG.Intersects(Cursor)))
+            {
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public bool AudioCheckboxEvents()
+        {
+            if ((recAudioMute.Intersects(Cursor)))
+            {
+                AudioColor = new Color(0, 128, 0, alphaColor);
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    return true;
+                }
+                return false;
+            }
+            AudioColor = new Color(255, 255, 255, alphaColor);
+            return false;
+        }
+
+        public bool EffectCheckboxEvents()
+        {
+            if ((recEffectMute.Intersects(Cursor)))
             {
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {

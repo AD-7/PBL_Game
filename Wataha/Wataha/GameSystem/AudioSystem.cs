@@ -19,9 +19,11 @@ namespace Wataha.GameSystem
 
         public static float songVolume = 0.4f;
         public static float effectsVolume = 0.3f;
+        public static bool effectEnable = true;
+        public static bool audioEnable = true;
 
         ContentManager Content;
-    
+        
 
 
         public AudioSystem(ContentManager content)
@@ -63,7 +65,6 @@ namespace Wataha.GameSystem
                 if (i == songList.Count-1)
                     i = 0;
                 MediaPlayer.Play(songList[i]);
-
             }
         }
 
