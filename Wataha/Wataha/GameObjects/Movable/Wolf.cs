@@ -35,10 +35,12 @@ namespace Wataha.GameObjects.Movable
         public AnimationPlayer animationPlayer;
         public AnimationSystem animationSystem;
         Skeleton[] skeletonData;
-
+        float animationOffset = 0;
+        Random rand;
 
         public Wolf(Model model,String ModelName,ContentManager contentManager, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
         {
+            rand = new Random(strength);
             this.Name = name;
             this.strength = strength;
             this.resistance = resistance;
@@ -48,14 +50,18 @@ namespace Wataha.GameObjects.Movable
             this.cam = cam;
             ifColisionTerrain = false;
             position = world.Translation;
+            position = position + new Vector3(0, -1f, 0);
             angle = 180;
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
                                         new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
             this.colliderSize = colliderSize;
             speedFactor = 100;
+            animationOffset = (float)rand.NextDouble()*10;
+
         }
         public Wolf(Model model, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world,model)
         {
+            rand = new Random();
             this.Name = name;
             this.strength = strength;
             this.resistance = resistance;
@@ -78,10 +84,12 @@ namespace Wataha.GameObjects.Movable
             base.Draw(camera,technique);
         }
 
-
+        float time = 0;
         public override void Update(GameTime gameTime)
         {
+            time += (float)gameTime.ElapsedGameTime.TotalSeconds + (float)rand.NextDouble()*0.01f;
             float animationFactor = 0f;
+            float animationFactor2 = (float)(0.5f + Math.Sin(time + animationOffset))*5;
 
             dirX = (float)Math.Sin(angle);
             dirZ = (float)Math.Cos(angle);
@@ -95,7 +103,7 @@ namespace Wataha.GameObjects.Movable
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
                         speedFactor = 2f;
-                        animationFactor = 20f;
+                        animationFactor = 20f + animationFactor2;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     } else
                     {
@@ -120,7 +128,7 @@ namespace Wataha.GameObjects.Movable
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
                         speedFactor = 4;
-                        animationFactor = 10f;
+                        animationFactor = 10f + animationFactor2;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     } else
                     {

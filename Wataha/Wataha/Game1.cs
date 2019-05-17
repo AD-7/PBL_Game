@@ -25,6 +25,7 @@ namespace Wataha
         Random rand = new Random();
         private GameObjects.Static.Plane plane;
         private Wolf wolf, wolf2, wolf3;
+        private Animal rabit;
         private Wataha.GameObjects.Movable.Wataha wataha;
         private List<QuestGiver> questGivers;
         private QuestGiver currentGiver;
@@ -139,8 +140,11 @@ namespace Wataha
             worldw3 *= Matrix.CreateScale(0.2f);
 
             wolf = new Wolf(Content.Load<Model>("Wolf"),"wilk2",Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), worldw2, 3.0f, camera, 10, 8, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),"wilk2",Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2",Content,worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
+            rabit = new Animal(wolf, Content.Load<Model>("Wolf"),world2,3.0f,camera,1,1,1,"krol");
+            rabit.SetModelEffect(simpleEffect, true);
+
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
@@ -258,10 +262,12 @@ namespace Wataha
                             colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
                             colisionSystem.IsEnvironmentCollision(w, b, wataha);
-
+                            
                         }
-
+                        colisionSystem.IsCollisionTerrain(rabit.collider, plane.collider);
                     wataha.Update(gameTime);
+
+                    rabit.Update(gameTime);
 
                     }
                     else
@@ -346,6 +352,7 @@ namespace Wataha
                     {
                         w.Draw(camera, "ShadowMap");
                     }
+                    rabit.Draw(camera,"ShadowMap");
 
                     trees.Draw(camera, "ShadowMap");
                     b.Draw(camera, "ShadowMap");
@@ -371,6 +378,7 @@ namespace Wataha
                     {
                         w.Draw(camera, "ShadowedScene");
                     }
+                    rabit.Draw(camera, "ShadowedScene");
 
                     //questGivers[0].Draw(camera);
                     trees.Draw(camera, "ShadowedScene");

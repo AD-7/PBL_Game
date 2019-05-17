@@ -2505,18 +2505,6 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/actualQuestButton.png
 
-#begin Pictures/actualQuestButton.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/actualQuestButton.png
-
 #begin Pictures/actualQuestPanel.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -3830,7 +3818,7 @@
 /processorParam:RotationX=0
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=0.3
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Wolf.fbx
