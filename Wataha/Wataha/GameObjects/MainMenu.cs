@@ -189,7 +189,10 @@ namespace Wataha.GameObjects
                     recEffectsSlider.Width = InputSystem.mouseState.Position.X - recEffectsSliderBG.X;
                     EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
                     if (AudioSystem.effectEnable)
+                    {
                         SoundEffect.MasterVolume = EffectVolume;
+                        AudioSystem.growl[0].Play();
+                    }
                 }
 
                 if (AudioCheckboxEvents())
@@ -213,9 +216,7 @@ namespace Wataha.GameObjects
                 }       
             }
 
-
             UpdateCursorPosition();
-
 
             ScreenHeightOld = ScreenHeight;
             ScreenWidthOld = ScreenWidth;
@@ -258,9 +259,6 @@ namespace Wataha.GameObjects
 
                 spriteBatch.Draw(ButtonTextures[6], recBackMenuButton, BackMenuButtonColor);
             }
-
-
-
             spriteBatch.End();
         }
 
@@ -369,14 +367,12 @@ namespace Wataha.GameObjects
         {
             if ((recAudioMute.Intersects(Cursor)))
             {
-                AudioColor = new Color(0, 128, 0, alphaColor);
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
                     return true;
                 }
                 return false;
             }
-            AudioColor = new Color(255, 255, 255, alphaColor);
             return false;
         }
 

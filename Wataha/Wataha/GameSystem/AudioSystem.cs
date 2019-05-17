@@ -13,7 +13,7 @@ namespace Wataha.GameSystem
     {
         public List<Song> songList;
         public List<SoundEffect> soundEffects;
-        public List<SoundEffectInstance> growl;
+        public static List<SoundEffectInstance> growl;
         Random rnd = new Random();
         int i = 0;
 
