@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Wataha.GameSystem
+namespace Wataha.GameSystem.Interfejs
 {
     public class ActualQuestPanel
     {

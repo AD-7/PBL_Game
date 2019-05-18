@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using Wataha.GameObjects;
+using Wataha.GameSystem.Interfejs;
 
 namespace Wataha
 {
@@ -174,7 +175,8 @@ namespace Wataha
 
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, renderTarget, plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device,graphics, renderTarget, plane, huntingTrees, skybox);
+           // tmp.huntingWataha.wolves.Add(wolf);
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
 
@@ -265,6 +267,7 @@ namespace Wataha
                             
                         }
                         colisionSystem.IsCollisionTerrain(rabit.collider, plane.collider);
+
                     wataha.Update(gameTime);
 
                     rabit.Update(gameTime);
@@ -308,7 +311,7 @@ namespace Wataha
             }
             else
             {
-                hud.huntingSystem.Update();
+                hud.huntingSystem.Update(gameTime);
             }
 
             base.Update(gameTime);

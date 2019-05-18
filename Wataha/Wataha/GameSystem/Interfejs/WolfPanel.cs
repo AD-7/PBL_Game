@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameObjects.Movable;
 
-namespace Wataha.GameSystem
+namespace Wataha.GameSystem.Interfejs
 {
     public class WolfPanel
     {
