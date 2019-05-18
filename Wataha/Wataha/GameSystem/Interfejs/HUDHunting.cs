@@ -21,7 +21,7 @@ namespace Wataha.GameSystem.Interfejs
 
         Texture2D infoHuntingWindow;
         Texture2D yesButton;
-
+        SpriteFont timerFont;
 
         Rectangle recInfoHuntingWindow;
         Rectangle recYesButton;
@@ -29,7 +29,11 @@ namespace Wataha.GameSystem.Interfejs
 
         Color yesButtonColor = Color.Gray;
 
+        public double seconds=20;
+
         public bool ifInfoHuntingWindow = true;
+
+
 
         public HUDHunting(SpriteBatch spriteBatch, GraphicsDevice device, ContentManager content, Rectangle cursor)
         {
@@ -44,11 +48,11 @@ namespace Wataha.GameSystem.Interfejs
 
             infoHuntingWindow = Content.Load<Texture2D>("Pictures/Hunting/infoHuntingWindow");
             yesButton = Content.Load<Texture2D>("Pictures/Hunting/yesButton");
-
+            timerFont = Content.Load<SpriteFont>("Fonts/timerFont");
 
         }
 
-        public void Update()
+        public void Update(GameTime gameTime)
         {
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
             {
@@ -57,7 +61,7 @@ namespace Wataha.GameSystem.Interfejs
                 recInfoHuntingWindow.Width = screenWidth / 2;
                 recInfoHuntingWindow.Height = screenHeight / 2;
 
-                recYesButton.X = recInfoHuntingWindow.X + (recInfoHuntingWindow.Width / 100) * 45;
+                recYesButton.X = recInfoHuntingWindow.X + (recInfoHuntingWindow.Width / 100) * 48;
                 recYesButton.Y = recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height / 8;
                 recYesButton.Width = recInfoHuntingWindow.Width / 10;
                 recYesButton.Height = recInfoHuntingWindow.Height / 12;
@@ -70,6 +74,22 @@ namespace Wataha.GameSystem.Interfejs
 
             yesButtonEvent();
 
+            if (!ifInfoHuntingWindow)
+            {
+                if(seconds <= 0)
+                {
+                    seconds = 0;
+                    
+                }
+                else
+                {
+                seconds -= gameTime.ElapsedGameTime.TotalMilliseconds /1000;
+                }
+               
+
+
+            }
+
         }
 
         public void Draw()
@@ -81,7 +101,12 @@ namespace Wataha.GameSystem.Interfejs
                 spriteBatch.Draw(infoHuntingWindow, recInfoHuntingWindow, Color.White);
                 spriteBatch.Draw(yesButton, recYesButton, yesButtonColor);
             }
+            else
+            {
+              
+                spriteBatch.DrawString(timerFont, seconds.ToString("Time left:  0.# s"), new Vector2((screenWidth/100)*43, (screenHeight/100) * 85), Color.Red);
 
+            }
 
             spriteBatch.End();
             device.BlendState = BlendState.Opaque;

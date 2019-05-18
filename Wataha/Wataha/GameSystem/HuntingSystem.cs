@@ -58,6 +58,9 @@ namespace Wataha.GameSystem
 
             huntingWataha.wolves.Add(huntingWolf);
 
+            hudHunting.seconds = 20;
+            
+
 
         }
 
@@ -81,6 +84,10 @@ namespace Wataha.GameSystem
             huntingWolf.energy = 0;
 
             huntingWataha.wolves.Clear();
+
+
+            hudHunting.ifInfoHuntingWindow = true;
+
         }
 
         public void Update(GameTime gameTime)
@@ -103,7 +110,7 @@ namespace Wataha.GameSystem
                 huntingWataha.Update(gameTime);
             }
 
-            hudHunting.Update();
+            hudHunting.Update(gameTime);
 
         }
 

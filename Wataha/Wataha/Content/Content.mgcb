@@ -3885,3 +3885,10 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/Hunting/yesButton.png
 
+#begin Fonts/timerFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/timerFont.spritefont
+
