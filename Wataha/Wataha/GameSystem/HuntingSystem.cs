@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameObjects.Movable;
 using Wataha.GameObjects.Static;
+using Wataha.GameSystem.Interfejs;
 
 namespace Wataha.GameSystem
 {
 
     public class HuntingSystem
     {
-
 
         Camera camera;
         GraphicsDeviceManager graphics;
@@ -24,8 +25,10 @@ namespace Wataha.GameSystem
         Skybox skybox;
         ColisionSystem colisionSystem;
 
+        public HUDHunting hudHunting;
         public bool active = false;
         public List<Animal> animals;
+        public Wolf huntingWolf;
         public Wataha.GameObjects.Movable.Wataha huntingWataha; // składa się z jednego wilka
 
 
@@ -40,25 +43,74 @@ namespace Wataha.GameSystem
             this.renderTarget = rt;
             colisionSystem = new ColisionSystem();
             huntingWataha = new GameObjects.Movable.Wataha(camera);
+
+
         }
 
 
+        public void InitializeHunting(Wolf wolf)
+        {
+            huntingWolf.Name = wolf.Name;
+            huntingWolf.strength = wolf.strength;
+            huntingWolf.speed = wolf.speed;
+            huntingWolf.resistance = wolf.resistance;
+            huntingWolf.energy = wolf.energy;
+
+            huntingWataha.wolves.Add(huntingWolf);
+
+
+        }
+
+        public void ClearWataha()
+        {
+
+            Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            worldH *= Matrix.CreateScale(0.2f);
+
+            huntingWolf.position = worldH.Translation;
+            huntingWolf.position += new Vector3(0, -1f, 0); ;
+            huntingWolf.angle = 180;
+
+
+
+            huntingWolf.strength = 0;
+            huntingWolf.speed = 0;
+            huntingWolf.resistance = 0;
+            huntingWolf.energy = 0;
+
+            huntingWataha.wolves.Clear();
+        }
+
         public void Update(GameTime gameTime)
         {
-            foreach (Wolf w in huntingWataha.wolves)
+
+            if (InputSystem.newKeybordState.IsKeyDown(Keys.P))
             {
-                colisionSystem.IsEnvironmentCollision(w, trees, huntingWataha);
+                ClearWataha();
+                active = false;
             }
+
+            if (!hudHunting.ifInfoHuntingWindow)
+            {
+                foreach (Wolf w in huntingWataha.wolves)
+                {
+                    colisionSystem.IsEnvironmentCollision(w, trees, huntingWataha);
+                }
 
 
                 huntingWataha.Update(gameTime);
+            }
 
+            hudHunting.Update();
 
         }
 
         public void Draw()
         {
 
+            graphics.GraphicsDevice.Clear(Color.Black);
             RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
@@ -69,12 +121,12 @@ namespace Wataha.GameSystem
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
             plane.Draw(camera, "ShadowMap");
-            trees.Draw(camera, "ShadowMap");
+
             foreach (Wolf w in huntingWataha.wolves)
             {
                 w.Draw(camera, "ShadowMap");
             }
-
+            trees.Draw(camera, "ShadowMap");
 
             device.SetRenderTarget(null);
 
@@ -90,12 +142,12 @@ namespace Wataha.GameSystem
             device.BlendState = BlendState.AlphaBlend;
 
             plane.Draw(camera, "ShadowedScene");
-            trees.Draw(camera, "ShadowedScene");
+
             foreach (Wolf w in huntingWataha.wolves)
             {
                 w.Draw(camera, "ShadowedScene");
             }
-
+            trees.Draw(camera, "ShadowedScene");
 
             device.BlendState = BlendState.Opaque;
 
@@ -108,12 +160,14 @@ namespace Wataha.GameSystem
                 w.shadowMap = null;
             }
 
-
+            hudHunting.Draw();
 
             graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
         }
+
+
 
 
 

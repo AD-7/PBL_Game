@@ -140,10 +140,10 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"),"wilk2",Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),"wilk2",Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2",Content,worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
-            rabit = new Animal(wolf, Content.Load<Model>("Wolf"),world2,3.0f,camera,1,1,1,"krol");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
+            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 3.0f, camera, 1, 1, 1, "krol");
             rabit.SetModelEffect(simpleEffect, true);
 
 
@@ -173,10 +173,18 @@ namespace Wataha
             renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);
 
 
+            Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+
+            worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+
+            worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device,graphics, renderTarget, plane, huntingTrees, skybox);
-           // tmp.huntingWataha.wolves.Add(wolf);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, plane, huntingTrees, skybox);
+            tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
+            tmp.huntingWolf.SetModelEffect(simpleEffect, true);
+      
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
 
@@ -208,10 +216,9 @@ namespace Wataha
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
 
+
             if (!hud.huntingSystem.active)
             {
-
-
                 if (gameInMainMenu)
                 {
 
@@ -231,6 +238,7 @@ namespace Wataha
                 }
                 else
                 {
+
 
 
                     if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
@@ -264,13 +272,13 @@ namespace Wataha
                             colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
                             colisionSystem.IsEnvironmentCollision(w, b, wataha);
-                            
+
                         }
                         colisionSystem.IsCollisionTerrain(rabit.collider, plane.collider);
 
-                    wataha.Update(gameTime);
+                        wataha.Update(gameTime);
 
-                    rabit.Update(gameTime);
+                        rabit.Update(gameTime);
 
                     }
                     else
@@ -305,14 +313,15 @@ namespace Wataha
                     hud.Update();
 
                 }
-                
-               
+
 
             }
             else
             {
                 hud.huntingSystem.Update(gameTime);
             }
+
+
 
             base.Update(gameTime);
         }
@@ -326,10 +335,10 @@ namespace Wataha
 
             graphics.GraphicsDevice.Clear(Color.Black);
 
+
+
             if (!hud.huntingSystem.active)
             {
-
-
                 if (gameInMainMenu)
                 {
                     mainMenu.Draw();
@@ -355,7 +364,7 @@ namespace Wataha
                     {
                         w.Draw(camera, "ShadowMap");
                     }
-                    rabit.Draw(camera,"ShadowMap");
+                    rabit.Draw(camera, "ShadowMap");
 
                     trees.Draw(camera, "ShadowMap");
                     b.Draw(camera, "ShadowMap");
@@ -410,6 +419,7 @@ namespace Wataha
 
 
                 }
+
             }
             else
             {

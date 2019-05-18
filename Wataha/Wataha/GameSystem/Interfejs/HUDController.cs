@@ -50,6 +50,7 @@ namespace Wataha.GameSystem.Interfejs
         int screenHeight, screenHeightOld;
         int stringOffsetWidth, stringOffsetHeight;
 
+        string actualNameOfWolfPanel = "";
 
         public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
         {
@@ -63,8 +64,7 @@ namespace Wataha.GameSystem.Interfejs
             this.white_fangs = white_fangs;
             this.gold_fangs = gold_fangs;
             pictures = new List<Texture2D>();
-            
-          
+
 
             font30 = Content.Load<SpriteFont>("Fonts/font1");
             broadwayFont = Content.Load<SpriteFont>("Fonts/Broadway");
@@ -102,6 +102,9 @@ namespace Wataha.GameSystem.Interfejs
             screenHeightOld = 0;
             stringOffsetWidth = 0;
             stringOffsetHeight = 0;
+
+            huntingSystem.hudHunting = new HUDHunting(spriteBatch, device, Content, Cursor);
+
         }
 
         public void Update()
@@ -186,6 +189,7 @@ namespace Wataha.GameSystem.Interfejs
             screenHeightOld = screenHeight;
             screenWidthOld = screenWidth;
 
+
             screenWidth = device.Viewport.Width;
             screenHeight = device.Viewport.Height;
 
@@ -193,20 +197,28 @@ namespace Wataha.GameSystem.Interfejs
             if (!ifPaused)
             {
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
-              
-                    ActualQuestButtonEvent();
-                
+
+                ActualQuestButtonEvent();
+
 
                 if (ifWolfPanel)
                 {
 
-                    wolfPanel.goHuntingButtonEvent(Cursor);
+                    if (wolfPanel.goHuntingButtonEvent(Cursor))
+                    {
+                        huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
+                        huntingSystem.active = true;
+                    }
 
                     if (wolfPanel.exitButtonEvent(Cursor))
                     {
                         ifWolfPanel = false;
                     }
 
+                }
+                else
+                {
+                    actualNameOfWolfPanel = "";
                 }
             }
 
@@ -301,7 +313,7 @@ namespace Wataha.GameSystem.Interfejs
                 else
                 {
                     actualQuestButtonColor = Color.White;
-                    if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released )
+                    if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
                     {
                         recActualQuestButton.X = screenWidth / 100;
                         recActualQuestButton.Y = screenHeight - screenHeight / 6;
@@ -330,7 +342,8 @@ namespace Wataha.GameSystem.Interfejs
                 Wolf1ButtonSetColor = Color.MediumBlue;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0]);
+                    actualNameOfWolfPanel = "Kimiko";
+                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
                     ifWolfPanel = true;
                     return true;
                 }
@@ -349,7 +362,8 @@ namespace Wataha.GameSystem.Interfejs
                 Wolf2ButtonSetColor = Color.Yellow;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Yua").ToList()[0]);
+                    actualNameOfWolfPanel = "Yua";
+                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
                     ifWolfPanel = true;
                     return true;
                 }
@@ -367,7 +381,8 @@ namespace Wataha.GameSystem.Interfejs
                 Wolf3ButtonSetColor = Color.MonoGameOrange;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0]);
+                    actualNameOfWolfPanel = "Hatsu";
+                    wolfPanel.SetPanel(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
                     ifWolfPanel = true;
                     return true;
                 }
@@ -426,6 +441,7 @@ namespace Wataha.GameSystem.Interfejs
 
             /* Update Cursor position by Mouse */
             InputSystem.mouseState = Mouse.GetState();
+
 
             Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
         }

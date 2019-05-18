@@ -76,6 +76,7 @@
     <Compile Include="GameSystem\Interfejs\ActualQuestPanel.cs" />
     <Compile Include="GameSystem\BillboardSystem.cs" />
     <Compile Include="GameSystem\InputSystem.cs" />
+    <Compile Include="GameSystem\Interfejs\HUDHunting.cs" />
     <Compile Include="GameSystem\Interfejs\WolfPanel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

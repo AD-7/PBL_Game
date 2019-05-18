@@ -62,7 +62,7 @@ namespace Wataha.GameSystem.Interfejs
             recGoHuntingButton.Width = recWolfPanel.Width / 2;
             recGoHuntingButton.Height = recWolfPanel.Height / 16;
 
-            
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -101,7 +101,12 @@ namespace Wataha.GameSystem.Interfejs
             if (recGoHuntingButton.Intersects(cursor))
             {
                 goHuntingButtonColor = Color.White;
-                return true;
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed)
+                {
+
+                    return true;
+                }
+                return false;
             }
             goHuntingButtonColor = Color.Gray;
             return false;
