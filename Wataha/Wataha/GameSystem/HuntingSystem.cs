@@ -58,11 +58,40 @@ namespace Wataha.GameSystem
 
             huntingWataha.wolves.Add(huntingWolf);
 
-            hudHunting.seconds = 20;
-            
+            if (wolf.resistance <= 8)
+                hudHunting.seconds = 10;
+            else if (wolf.resistance >= 9 && wolf.resistance <= 10)
+                hudHunting.seconds = 15;
+            else if (wolf.resistance >= 11 && wolf.resistance <= 15)
+                hudHunting.seconds = 20;
+            else if (wolf.resistance >= 16 && wolf.resistance <= 18)
+                hudHunting.seconds = 25;
+            else if (wolf.resistance >= 19 && wolf.resistance <= 20)
+                hudHunting.seconds = 30;
+
+            if (wolf.energy > 90)
+                hudHunting.seconds += 5;
+            else if (wolf.energy <= 90 && wolf.energy >= 80)
+                hudHunting.seconds += 2;
+            else if (wolf.energy < 70 && wolf.energy >= 60)
+                hudHunting.seconds -= 4;
+            else if (wolf.energy < 60)
+                hudHunting.seconds -= 7;
+
+            if (wolf.strength < 8)
+                hudHunting.maxMeat = 10;
+            else if (wolf.strength >= 8 && wolf.strength <= 12)
+                hudHunting.maxMeat = 30;
+            else if (wolf.strength <= 15)
+                hudHunting.maxMeat = 50;
+            else if (wolf.strength <= 18)
+                hudHunting.maxMeat = 80;
+            else if (wolf.strength <= 20)
+                hudHunting.maxMeat = 100;
 
 
         }
+
 
         public void ClearWataha()
         {
@@ -85,7 +114,7 @@ namespace Wataha.GameSystem
 
             huntingWataha.wolves.Clear();
 
-
+            hudHunting.huntedMeat = 0;
             hudHunting.ifInfoHuntingWindow = true;
 
         }

@@ -29,7 +29,11 @@ namespace Wataha.GameSystem.Interfejs
 
         Color yesButtonColor = Color.Gray;
 
-        public double seconds=20;
+        public double seconds=0;
+        public int maxMeat=0;
+        public int huntedMeat=0;
+        public int energyLoss=0;
+
 
         public bool ifInfoHuntingWindow = true;
 

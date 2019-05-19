@@ -10,44 +10,74 @@ using Wataha.GameObjects.Movable;
 
 namespace Wataha.GameSystem
 {
-   public  class ColisionSystem
+    public class ColisionSystem
     {
 
-      
 
-        public bool IsCollisionTerrain(BoundingBox player, BoundingBox terrain )
+
+        public bool IsCollisionTerrain(BoundingBox player, BoundingBox terrain)
         {
-            
-               if (player.Intersects(terrain))
+
+            if (player.Intersects(terrain))
+                return true;
+            else
+
+                return false;
+        }
+
+        public bool IsEnvironmentCollision(Animal animal, Wataha.GameObjects.Static.Environment env)
+        {
+            int i = 0;
+            foreach (ModelMesh mesh in env.model.Meshes)
+            {
+
+                if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject") || mesh.Name.Contains("well"))
+                {
+                    if (animal.collider.Intersects(env.colliders[i]))
+                    {
+                        animal.ifColisionTerrain = true;
+                        animal.ProccedCollisionBuilding();
                         return true;
-               else
-             
-                        return false;
+                    }
+                }
+                else
+                {
+                    if (animal.collider.Intersects(env.colliders[i]))
+                    {
+                        animal.ifColisionTerrain = true;
+                        animal.ProccedCollisionTree();
+                        return true;
+                    }
+                }
+                i++;
+            }
+            return false;
         }
 
 
-        public bool IsEnvironmentCollision(Wolf player, Wataha.GameObjects.Static.Environment env,Wataha.GameObjects.Movable.Wataha wataha)
+
+        public bool IsEnvironmentCollision(Wolf player, Wataha.GameObjects.Static.Environment env, Wataha.GameObjects.Movable.Wataha wataha)
         {
             int i = 0;
-            foreach(ModelMesh mesh in env.model.Meshes)
+            foreach (ModelMesh mesh in env.model.Meshes)
             {
 
                 if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject") || mesh.Name.Contains("well"))
                 {
                     if (player.collider.Intersects(env.colliders[i]))
                     {
-                       
-                        foreach(Wolf w in wataha.wolves)
+
+                        foreach (Wolf w in wataha.wolves)
                         {
-                         w.ifColisionTerrain = true;
-                         w.ProccedCollisionBuilding();
+                            w.ifColisionTerrain = true;
+                            w.ProccedCollisionBuilding();
                         }
 
                         return true;
                     }
                 }
                 else
-                { 
+                {
                     if (player.collider.Intersects(env.colliders[i]))
                     {
                         foreach (Wolf w in wataha.wolves)
@@ -60,7 +90,7 @@ namespace Wataha.GameSystem
                     }
                 }
                 i++;
-                    
+
             }
             return false;
         }

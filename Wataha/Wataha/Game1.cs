@@ -140,10 +140,10 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
-            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 3.0f, camera, 1, 1, 1, "krol");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f,5);
             rabit.SetModelEffect(simpleEffect, true);
 
 
@@ -274,7 +274,7 @@ namespace Wataha
                             colisionSystem.IsEnvironmentCollision(w, b, wataha);
 
                         }
-                        colisionSystem.IsCollisionTerrain(rabit.collider, plane.collider);
+                        colisionSystem.IsEnvironmentCollision(rabit, trees);
 
                         wataha.Update(gameTime);
 
