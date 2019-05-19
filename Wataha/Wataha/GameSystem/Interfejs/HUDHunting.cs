@@ -21,22 +21,29 @@ namespace Wataha.GameSystem.Interfejs
 
         Texture2D infoHuntingWindow;
         Texture2D yesButton;
-        SpriteFont timerFont;
+        Texture2D okButton;
+        Texture2D endHuntingWindow;
+        Texture2D endWindow;
+        SpriteFont timerFont, infoHuntingFont;
 
         Rectangle recInfoHuntingWindow;
         Rectangle recYesButton;
-
+        Rectangle recOkButton;
+        Rectangle recInfoWindow;
+        
 
         Color yesButtonColor = Color.Gray;
+        Color okButtonColor = Color.Gray;
 
-        public double seconds=0;
-        public int maxMeat=0;
-        public int huntedMeat=0;
-        public int energyLoss=0;
+        public double seconds = 0;
+        public int maxMeat = 0;
+        public int huntedMeat = 0;
+        public int energyLoss = 0;
 
 
         public bool ifInfoHuntingWindow = true;
-
+        public bool ifEndHuntingWindow = false;
+        
 
 
         public HUDHunting(SpriteBatch spriteBatch, GraphicsDevice device, ContentManager content, Rectangle cursor)
@@ -52,7 +59,14 @@ namespace Wataha.GameSystem.Interfejs
 
             infoHuntingWindow = Content.Load<Texture2D>("Pictures/Hunting/infoHuntingWindow");
             yesButton = Content.Load<Texture2D>("Pictures/Hunting/yesButton");
+            okButton = Content.Load<Texture2D>("Pictures/Hunting/okButton");
+            endHuntingWindow = Content.Load<Texture2D>("Pictures/Hunting/endHuntingWindow");
+            endWindow = Content.Load<Texture2D>("Pictures/Hunting/endWindow");
+
             timerFont = Content.Load<SpriteFont>("Fonts/timerFont");
+            infoHuntingFont = Content.Load<SpriteFont>("Fonts/infoHuntingFont");
+
+
 
         }
 
@@ -69,6 +83,16 @@ namespace Wataha.GameSystem.Interfejs
                 recYesButton.Y = recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height / 8;
                 recYesButton.Width = recInfoHuntingWindow.Width / 10;
                 recYesButton.Height = recInfoHuntingWindow.Height / 12;
+
+                recOkButton.X = recInfoHuntingWindow.X + (recInfoHuntingWindow.Width / 100) * 48;
+                recOkButton.Y = recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height / 8;
+                recOkButton.Width = recInfoHuntingWindow.Width / 10;
+                recOkButton.Height = recInfoHuntingWindow.Height / 12;
+
+                recInfoWindow.X = (screenWidth / 12) * 5;
+                recInfoWindow.Y = (screenHeight / 20);
+                recInfoWindow.Width = (screenWidth / 12) * 2;
+                recInfoWindow.Height = screenHeight / 10;
             }
             UpdateCursorPosition();
             screenHeightOld = screenHeight;
@@ -80,16 +104,17 @@ namespace Wataha.GameSystem.Interfejs
 
             if (!ifInfoHuntingWindow)
             {
-                if(seconds <= 0)
+                if (seconds <= 0)
                 {
                     seconds = 0;
-                    
+                    ifEndHuntingWindow = true;
+
                 }
                 else
                 {
-                seconds -= gameTime.ElapsedGameTime.TotalMilliseconds /1000;
+                    seconds -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
                 }
-               
+
 
 
             }
@@ -105,11 +130,20 @@ namespace Wataha.GameSystem.Interfejs
                 spriteBatch.Draw(infoHuntingWindow, recInfoHuntingWindow, Color.White);
                 spriteBatch.Draw(yesButton, recYesButton, yesButtonColor);
             }
+            
             else
             {
-              
-                spriteBatch.DrawString(timerFont, seconds.ToString("Time left:  0.# s"), new Vector2((screenWidth/100)*43, (screenHeight/100) * 85), Color.Red);
+                if (ifEndHuntingWindow)
+                {
+                    spriteBatch.Draw(endWindow, recInfoHuntingWindow, Color.White);
+                    spriteBatch.Draw(okButton, recOkButton, okButtonColor);
+                    
+                }
 
+                spriteBatch.DrawString(timerFont, seconds.ToString("Time left:  0.# s"), new Vector2((screenWidth / 100) * 43, (screenHeight / 100) * 85), Color.Red);
+                spriteBatch.Draw(endHuntingWindow, recInfoWindow, Color.White);
+                spriteBatch.DrawString(infoHuntingFont, "Max meat: " + maxMeat.ToString(), new Vector2(recInfoWindow.X + recInfoWindow.Width / 12, recInfoWindow.Y + recInfoWindow.Height / 24), Color.Orange);
+                spriteBatch.DrawString(infoHuntingFont, "Meat hunted: " + huntedMeat.ToString(), new Vector2(recInfoWindow.X + recInfoWindow.Width / 12, recInfoWindow.Y + recInfoWindow.Height / 2 + recInfoWindow.Height / 24), Color.Orange);
             }
 
             spriteBatch.End();
@@ -135,6 +169,24 @@ namespace Wataha.GameSystem.Interfejs
             yesButtonColor = Color.Gray;
             return false;
         }
+
+        public bool okButtonEvent()
+        {
+            if (recOkButton.Intersects(Cursor))
+            {
+                okButtonColor = Color.White;
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                {
+                 
+                    return true;
+
+                }
+                return false;
+            }
+            okButtonColor = Color.Gray;
+            return false;
+        }
+
 
 
 

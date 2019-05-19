@@ -116,6 +116,7 @@ namespace Wataha.GameSystem
 
             hudHunting.huntedMeat = 0;
             hudHunting.ifInfoHuntingWindow = true;
+            hudHunting.ifEndHuntingWindow = false;
 
         }
 
@@ -127,8 +128,14 @@ namespace Wataha.GameSystem
                 ClearWataha();
                 active = false;
             }
+           if (hudHunting.okButtonEvent() && hudHunting.ifEndHuntingWindow)
+            {
+                ClearWataha();
+                active = false;
+            }
 
-            if (!hudHunting.ifInfoHuntingWindow)
+
+            if (!hudHunting.ifInfoHuntingWindow && !hudHunting.ifEndHuntingWindow)
             {
                 foreach (Wolf w in huntingWataha.wolves)
                 {
@@ -140,7 +147,7 @@ namespace Wataha.GameSystem
             }
 
             hudHunting.Update(gameTime);
-
+            
         }
 
         public void Draw()
