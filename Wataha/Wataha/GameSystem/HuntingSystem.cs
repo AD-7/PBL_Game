@@ -89,11 +89,14 @@ namespace Wataha.GameSystem
             else if (wolf.strength <= 20)
                 hudHunting.maxMeat = 100;
 
+            
+            hudHunting.energyLoss = (wolf.strength *3 + wolf.resistance*2 + wolf.speed)/ 2;
+            wolf.energy -= hudHunting.energyLoss;
 
         }
 
 
-        public void ClearWataha()
+        public void ClearHunting()
         {
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -115,6 +118,7 @@ namespace Wataha.GameSystem
             huntingWataha.wolves.Clear();
 
             hudHunting.huntedMeat = 0;
+            hudHunting.energyLoss = 0;
             hudHunting.ifInfoHuntingWindow = true;
             hudHunting.ifEndHuntingWindow = false;
 
@@ -125,12 +129,12 @@ namespace Wataha.GameSystem
 
             if (InputSystem.newKeybordState.IsKeyDown(Keys.P))
             {
-                ClearWataha();
+                ClearHunting();
                 active = false;
             }
            if (hudHunting.okButtonEvent() && hudHunting.ifEndHuntingWindow)
             {
-                ClearWataha();
+                ClearHunting();
                 active = false;
             }
 

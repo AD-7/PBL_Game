@@ -24,7 +24,7 @@ namespace Wataha.GameSystem.Interfejs
         Texture2D okButton;
         Texture2D endHuntingWindow;
         Texture2D endWindow;
-        SpriteFont timerFont, infoHuntingFont;
+        SpriteFont timerFont, infoHuntingFont, infoHuntingFontSmall;
 
         Rectangle recInfoHuntingWindow;
         Rectangle recYesButton;
@@ -65,7 +65,7 @@ namespace Wataha.GameSystem.Interfejs
 
             timerFont = Content.Load<SpriteFont>("Fonts/timerFont");
             infoHuntingFont = Content.Load<SpriteFont>("Fonts/infoHuntingFont");
-
+            infoHuntingFontSmall = Content.Load<SpriteFont>("Fonts/infoHuntingFontSmall");
 
 
         }
@@ -138,6 +138,8 @@ namespace Wataha.GameSystem.Interfejs
                     spriteBatch.Draw(endWindow, recInfoHuntingWindow, Color.White);
                     spriteBatch.Draw(okButton, recOkButton, okButtonColor);
                     
+                    spriteBatch.DrawString(infoHuntingFontSmall,"meat hunted : "+huntedMeat.ToString(),new Vector2(recInfoHuntingWindow.X + (recInfoHuntingWindow.Width/100)*45,recInfoHuntingWindow.Y + recInfoHuntingWindow.Height/4),Color.White);
+                    spriteBatch.DrawString(infoHuntingFontSmall, "energy loss : " + energyLoss.ToString(), new Vector2(recInfoHuntingWindow.X + (recInfoHuntingWindow.Width / 100) * 45, recInfoHuntingWindow.Y + recInfoHuntingWindow.Height / 4 + recInfoHuntingWindow.Height/8), Color.White);
                 }
 
                 spriteBatch.DrawString(timerFont, seconds.ToString("Time left:  0.# s"), new Vector2((screenWidth / 100) * 43, (screenHeight / 100) * 85), Color.Red);

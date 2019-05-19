@@ -3935,3 +3935,10 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/Hunting/endWindow.png
 
+#begin Fonts/infoHuntingFontSmall.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/infoHuntingFontSmall.spritefont
+

@@ -206,6 +206,7 @@ namespace Wataha.GameSystem.Interfejs
 
                     if (wolfPanel.goHuntingButtonEvent(Cursor))
                     {
+                        ifWolfPanel = false;
                         huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
                         huntingSystem.active = true;
                     }
