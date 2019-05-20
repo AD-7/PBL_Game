@@ -28,6 +28,8 @@ namespace Wataha.GameSystem.Interfejs
         public int wolfSpeed;
         public int wolfEnergy;
 
+        public bool ifEnoughEnergy = true;
+
         public WolfPanel(Texture2D panel, SpriteFont font)
         {
             this.font = font;
@@ -94,6 +96,8 @@ namespace Wataha.GameSystem.Interfejs
 
 
             spriteBatch.Draw(elements[1], recGoHuntingButton, goHuntingButtonColor);
+            if(!ifEnoughEnergy)
+            spriteBatch.DrawString(font14, "Not enaugh energy", new Vector2(recGoHuntingButton.X, recGoHuntingButton.Y + recGoHuntingButton.Height + recGoHuntingButton.Height/4), Color.Red);
         }
 
         public bool goHuntingButtonEvent(Rectangle cursor)
@@ -103,7 +107,6 @@ namespace Wataha.GameSystem.Interfejs
                 goHuntingButtonColor = Color.White;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed)
                 {
-
                     return true;
                 }
                 return false;

@@ -91,7 +91,6 @@
     <Compile Include="GameSystem\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="GameSystem\ParticleSystem\ParticleVertex.cs" />
     <Compile Include="GameSystem\QuestSystem.cs" />
-    <Compile Include="GameSystem\SceneManager.cs" />
     <Compile Include="GameSystem\Skybox.cs" />
     <Compile Include="GameSystem\UpgradeSystem.cs" />
   </ItemGroup>

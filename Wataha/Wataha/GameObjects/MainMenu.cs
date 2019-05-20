@@ -198,7 +198,7 @@ namespace Wataha.GameObjects
                 if (AudioCheckboxEvents())
                 {
                     AudioSystem.audioEnable = !AudioSystem.audioEnable;
-                    MediaPlayer.IsMuted = AudioSystem.audioEnable;
+                    MediaPlayer.IsMuted = !AudioSystem.audioEnable;
                 }
 
                 if (EffectCheckboxEvents())

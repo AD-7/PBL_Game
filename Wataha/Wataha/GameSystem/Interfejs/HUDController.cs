@@ -45,6 +45,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifPaused = false;
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
+       
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
@@ -206,9 +207,20 @@ namespace Wataha.GameSystem.Interfejs
 
                     if (wolfPanel.goHuntingButtonEvent(Cursor))
                     {
-                        ifWolfPanel = false;
-                        huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
-                        huntingSystem.active = true;
+                        if (wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0].energy >= 50)
+                        {
+                            
+                            ifWolfPanel = false;
+                            wolfPanel.ifEnoughEnergy = true;
+                            huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
+                            huntingSystem.active = true;
+                        }
+                        else
+                        {
+                            wolfPanel.ifEnoughEnergy = false;
+
+                        }
+
                     }
 
                     if (wolfPanel.exitButtonEvent(Cursor))

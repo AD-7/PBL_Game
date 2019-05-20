@@ -29,7 +29,7 @@ namespace Wataha.GameObjects.Movable
         public int strength;
         public int resistance;
         public int speed;
-        public int energy = 100;
+        public int energy = 99;
 
         float energyRecoverTime = 5.0f;
         public AnimationPlayer animationPlayer;

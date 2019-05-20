@@ -91,8 +91,10 @@ namespace Wataha
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            //   graphics.IsFullScreen = true;
+               graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //IsFixedTimeStep = false;
             graphics.ApplyChanges();
 
             Content = new ContentManager(this.Services, "Content");

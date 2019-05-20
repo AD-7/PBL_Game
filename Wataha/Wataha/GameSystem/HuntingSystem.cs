@@ -25,9 +25,14 @@ namespace Wataha.GameSystem
         Skybox skybox;
         ColisionSystem colisionSystem;
 
+
+        public List<Animal> rabits;
+        public List<Animal> ship;
+        public List<Animal> boars;
+        public List<Vector3> spawnPoints;
         public HUDHunting hudHunting;
         public bool active = false;
-        public List<Animal> animals;
+       
         public Wolf huntingWolf;
         public Wataha.GameObjects.Movable.Wataha huntingWataha; // składa się z jednego wilka
 
@@ -59,9 +64,9 @@ namespace Wataha.GameSystem
             huntingWataha.wolves.Add(huntingWolf);
 
             if (wolf.resistance <= 8)
-                hudHunting.seconds = 10;
+                hudHunting.seconds = 12;
             else if (wolf.resistance >= 9 && wolf.resistance <= 10)
-                hudHunting.seconds = 15;
+                hudHunting.seconds = 16;
             else if (wolf.resistance >= 11 && wolf.resistance <= 15)
                 hudHunting.seconds = 20;
             else if (wolf.resistance >= 16 && wolf.resistance <= 18)
@@ -70,13 +75,13 @@ namespace Wataha.GameSystem
                 hudHunting.seconds = 30;
 
             if (wolf.energy > 90)
-                hudHunting.seconds += 5;
+                hudHunting.seconds += 4;
             else if (wolf.energy <= 90 && wolf.energy >= 80)
                 hudHunting.seconds += 2;
             else if (wolf.energy < 70 && wolf.energy >= 60)
-                hudHunting.seconds -= 4;
+                hudHunting.seconds -= 2;
             else if (wolf.energy < 60)
-                hudHunting.seconds -= 7;
+                hudHunting.seconds -= 4;
 
             if (wolf.strength < 8)
                 hudHunting.maxMeat = 10;
