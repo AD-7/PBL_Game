@@ -13,7 +13,7 @@ using Microsoft.Xna.Framework.Media;
 
 using Wataha.GameSystem;
 
-namespace Wataha.GameObjects
+namespace Wataha.GameSystem.Interfejs
 {
     public class MainMenu
     {
