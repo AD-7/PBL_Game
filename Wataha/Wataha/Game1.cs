@@ -27,9 +27,8 @@ namespace Wataha
         private GameObjects.Static.Plane plane;
         private Wolf wolf, wolf2, wolf3;
         private Animal rabit;
-        private Wataha.GameObjects.Movable.Wataha wataha;
-        private List<QuestGiver> questGivers;
-        private QuestGiver currentGiver;
+        private GameObjects.Movable.Wataha wataha;
+
         Skybox skybox;
 
         private Matrix world;
@@ -37,6 +36,7 @@ namespace Wataha
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
         private ParticleSystem ps;
+        private QuestSystem questSystem;
 
         private GameObjects.Static.Environment trees, huntingTrees;
         private GameObjects.Static.Environment b;
@@ -57,10 +57,6 @@ namespace Wataha
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
-
-
-
-
         }
 
         /// <summary>
@@ -72,9 +68,6 @@ namespace Wataha
         /// 
         protected override void Initialize()
         {
-
-            //questGivers = new List<QuestGiver>();
-
             base.Initialize();
         }
 
@@ -88,10 +81,10 @@ namespace Wataha
 
 
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
-            graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            //   graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = false;
+            //graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
+            //graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
+            graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -101,6 +94,7 @@ namespace Wataha
             camera = new Camera();
             colisionSystem = new ColisionSystem();
             audioSystem = new AudioSystem(Content);
+            questSystem = new QuestSystem();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -120,9 +114,6 @@ namespace Wataha
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
             skybox = new Skybox("Skyboxes/skybox", Content);
-
-
-
 
             wataha = new GameObjects.Movable.Wataha(camera);
 
@@ -153,6 +144,9 @@ namespace Wataha
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
+
+
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf"), Matrix.CreateTranslation(3, 3, 3)));
 
 
             wolf.SetModelEffect(simpleEffect, true);
@@ -187,6 +181,7 @@ namespace Wataha
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
       
+
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
 
@@ -266,12 +261,13 @@ namespace Wataha
                         }
 
 
-                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && currentGiver != null)
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && questSystem.currentGiver != null)
                         {
-                            Debug.WriteLine("test");
+                            hud.ifQuestPanel =  true;
                         }
 
-                        //ChceckNearestQuestGiver();
+
+                        questSystem.ChceckNearestQuestGiver(wolf);
 
                         foreach (Wolf w in wataha.wolves)
                         {
@@ -365,7 +361,10 @@ namespace Wataha
 
 
                     plane.Draw(camera, "ShadowMap");
-                    //questGivers[0].Draw(camera);
+
+                    foreach (QuestGiver q in questSystem.questGivers)
+                        q.Draw(camera, "ShadowMap");
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowMap");
@@ -378,6 +377,11 @@ namespace Wataha
 
                     device.SetRenderTarget(null);
                     plane.shadowMap = (Texture2D)renderTarget;
+
+                    foreach (QuestGiver q in questSystem.questGivers)
+                        q.shadowMap = (Texture2D)renderTarget;
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
@@ -392,19 +396,28 @@ namespace Wataha
                     device.BlendState = BlendState.AlphaBlend;
 
                     plane.Draw(camera, "ShadowedScene");
+
+                    foreach (QuestGiver q in questSystem.questGivers)
+                        q.Draw(camera, "ShadowedScene");
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowedScene");
                     }
                     rabit.Draw(camera, "ShadowedScene");
 
-                    //questGivers[0].Draw(camera);
+   
                     trees.Draw(camera, "ShadowedScene");
                     b.Draw(camera, "ShadowedScene");
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
 
                     plane.shadowMap = null;
+
+                    foreach (QuestGiver q in questSystem.questGivers)
+                        q.shadowMap = null;
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = null;
@@ -442,27 +455,5 @@ namespace Wataha
                 min.Z + (float)rand.NextDouble() * (max.Z - min.Z));
         }
 
-
-
-
-
-
-
-        public void ChceckNearestQuestGiver()
-        {
-            foreach (QuestGiver giver in questGivers)
-            {
-                if (Vector3.Distance(wolf.world.Translation, giver.world.Translation) < 3.0f)
-                {
-                    currentGiver = giver;
-                    return;
-                }
-                else
-                {
-                    currentGiver = null;
-                }
-
-            }
-        }
     }
 }

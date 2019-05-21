@@ -21,7 +21,8 @@ namespace Wataha.GameSystem.Interfejs
         ContentManager Content;
         Rectangle Cursor;
         WolfPanel wolfPanel;
-        ActualQuestPanel actualQuestPanel;
+        public ActualQuestPanel actualQuestPanel;
+        public QuestPanel QuestPanel;
 
         public int meat;
         public int white_fangs;
@@ -45,6 +46,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifPaused = false;
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
+        public bool ifQuestPanel = false;
        
 
         int screenWidth, screenWidthOld;
@@ -94,6 +96,7 @@ namespace Wataha.GameSystem.Interfejs
             wolfPanel.font14 = Content.Load<SpriteFont>("Fonts/broadway14");
 
             actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), wolfPanel.font14);
+            QuestPanel = new QuestPanel(Content, wolfPanel.font14);
 
 
             screenWidth = device.Viewport.Width;
@@ -280,6 +283,11 @@ namespace Wataha.GameSystem.Interfejs
             if (ifActualQuestPanel)
             {
                 actualQuestPanel.Draw(spriteBatch);
+            }
+
+            if (ifQuestPanel)
+            {
+                QuestPanel.Draw(spriteBatch);
             }
 
             if (ifPaused)

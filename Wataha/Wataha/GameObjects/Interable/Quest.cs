@@ -9,7 +9,7 @@ using Wataha.GameObjects;
 namespace Wataha.GameObjects.Interable
 {
 
-    public abstract class Quest
+    public class Quest
     {
         public enum status : int { INACTIVE, ACTIVE, FAILD, SUCCED };
 
@@ -22,19 +22,18 @@ namespace Wataha.GameObjects.Interable
         public int questFinalStage;
         public int questCollectedItems;
 
-       // public GameObject questDestination;
+        public GameObject questDestination;
 
         public int NeedStrenght;
         public int NeedResistance;
         public int NeedSpeed;
-        public int MaxAgresion;
 
         public int MeatReward;
         public int WhiteFangReward;
         public int GoldFangReward;
         public GameObject[] questItems;
 
-        void Initialized()
+        public Quest()
         {
             questStage = 0;
             questCollectedItems = 0;
@@ -47,22 +46,22 @@ namespace Wataha.GameObjects.Interable
 
         }
 
-        public void questActive()
+        public void QuestActive()
         {
             this.questStatus = status.ACTIVE;
         }
 
-        public void questFaild()
+        public void QuestFaild()
         {
             this.questStatus = status.FAILD;
         }
 
-        public void questSucced()
+        public void QuestSucced()
         {
             this.questStatus = status.SUCCED;
         }
 
-        public void itemCollected()
+        public void ItemCollected()
         {
             questCollectedItems++;
         }
