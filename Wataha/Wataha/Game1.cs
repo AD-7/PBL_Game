@@ -52,7 +52,7 @@ namespace Wataha
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            Window.AllowUserResizing = true;
+          //  Window.AllowUserResizing = true;
 
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -91,7 +91,7 @@ namespace Wataha
             graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-               graphics.IsFullScreen = true;
+            //   graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -227,13 +227,17 @@ namespace Wataha
 
                     mainMenu.Update();
 
-                    if (mainMenu.ExitButtonsEvents())
+                    if (mainMenu.ExitButtonEvent())
                         Exit();
-                    if (mainMenu.PlayButtonsEvents())
+                    if (mainMenu.NewGameButtonEvent())
                     {
                         gameInMainMenu = false;
                         IsMouseVisible = false;
                         this.LoadContent();
+                    }
+                    if (mainMenu.LoadButtonEvent())
+                    {
+
                     }
 
 
