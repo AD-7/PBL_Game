@@ -23,18 +23,21 @@ namespace Wataha.GameSystem.Interfejs
 
         private List<Texture2D> ButtonTextures = new List<Texture2D>();
         private Texture2D title;
-        private Texture2D newGameActual, loadActual, optionsActual, exitActual, authorsActual;
+        private Texture2D story;
+        private Texture2D newGameActual, loadActual, optionsActual, exitActual, authorsActual,aboutActual;
 
         public int ScreenWidth, ScreenWidthOld;
         public int ScreenHeight, ScreenHeightOld;
 
         Rectangle BG;
         Rectangle recButtonsBkg;
+        Rectangle recStory;
         Rectangle recNewGameButton;
         Rectangle recOptionButton;
         Rectangle recExitButton;
         Rectangle recAuthorsButton;
         Rectangle recLoadButton;
+        Rectangle recAboutButton;
 
         Rectangle recAudioSliderBG;
         Rectangle recAudioSlider;
@@ -57,7 +60,7 @@ namespace Wataha.GameSystem.Interfejs
 
         SpriteFont font30;
         public bool inOptions = false;
-
+        public bool ifStory = false;
         float AudioVolume = 0.4f;
         float EffectVolume = 0.3f;
 
@@ -78,6 +81,8 @@ namespace Wataha.GameSystem.Interfejs
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/authors2"));  //9
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/load"));  //10
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/load2"));  //11
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/about")); //12
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/about2")); //13
 
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider"));
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider2"));
@@ -87,7 +92,7 @@ namespace Wataha.GameSystem.Interfejs
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/Mute"));
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/notMute"));
             title = content.Load<Texture2D>("MainMenu/title");
-
+            story = content.Load<Texture2D>("MainMenu/story");
             this.device = device;
 
             newGameActual = ButtonTextures[2];
@@ -95,6 +100,7 @@ namespace Wataha.GameSystem.Interfejs
             exitActual = ButtonTextures[6];
             authorsActual = ButtonTextures[8];
             loadActual = ButtonTextures[10];
+            aboutActual = ButtonTextures[12];
 
             AudioColor = new Color(255, 255, 255, alphaColor);
             EffectColor = new Color(255, 255, 255, alphaColor);
@@ -125,7 +131,7 @@ namespace Wataha.GameSystem.Interfejs
             recButtonsBkg.Height = (ScreenHeight / 100) * 60;
 
             recNewGameButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
-            recNewGameButton.Y = recButtonsBkg.Y + recButtonsBkg.Height / 5;
+            recNewGameButton.Y = recButtonsBkg.Y + recButtonsBkg.Height / 6;
             recNewGameButton.Width = recButtonsBkg.Width / 8;
             recNewGameButton.Height = recButtonsBkg.Height / 9;
 
@@ -139,8 +145,13 @@ namespace Wataha.GameSystem.Interfejs
             recOptionButton.Width = recButtonsBkg.Width / 9;
             recOptionButton.Height = recButtonsBkg.Height / 9;
 
+            recAboutButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
+            recAboutButton.Y = recOptionButton.Y + recButtonsBkg.Height / 8;
+            recAboutButton.Width = recButtonsBkg.Width / 8;
+            recAboutButton.Height = recButtonsBkg.Height / 9;
+
             recAuthorsButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
-            recAuthorsButton.Y = recOptionButton.Y + recButtonsBkg.Height / 8;
+            recAuthorsButton.Y = recAboutButton.Y + recButtonsBkg.Height / 8;
             recAuthorsButton.Width = recButtonsBkg.Width / 9;
             recAuthorsButton.Height = recButtonsBkg.Height / 9;
 
@@ -149,9 +160,14 @@ namespace Wataha.GameSystem.Interfejs
             recExitButton.Width = recButtonsBkg.Width / 12;
             recExitButton.Height = recButtonsBkg.Height / 9;
 
+            recStory.X = recButtonsBkg.X + (recButtonsBkg.Width / 100)*43;
+            recStory.Y = recNewGameButton.Y - recButtonsBkg.Height / 16 ;
+            recStory.Width = recButtonsBkg.Width / 2;
+            recStory.Height = (recButtonsBkg.Height / 100) * 80;
 
             OptionButtonEvent();
             AuthorsButtonEvent();
+            AboutButtonEvent();
             
             //if (!inOptions)
             //{
@@ -287,6 +303,12 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(optionsActual, recOptionButton, Color.White);
             spriteBatch.Draw(authorsActual, recAuthorsButton, Color.White);
             spriteBatch.Draw(exitActual, recExitButton, Color.White);
+            spriteBatch.Draw(aboutActual, recAboutButton, Color.White);
+
+            if (ifStory)
+            {
+                spriteBatch.Draw(story, recStory, Color.White);
+            }
 
             spriteBatch.Draw(title, recTitle, Color.White);
             //if (!inOptions)
@@ -352,7 +374,7 @@ namespace Wataha.GameSystem.Interfejs
             {
                 newGameActual = ButtonTextures[2];
                 recNewGameButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
-                recNewGameButton.Y = recButtonsBkg.Y + recButtonsBkg.Height / 5;
+                recNewGameButton.Y = recButtonsBkg.Y + recButtonsBkg.Height / 6;
                 recNewGameButton.Width = recButtonsBkg.Width / 8;
                 recNewGameButton.Height = recButtonsBkg.Height / 9;
             }
@@ -395,6 +417,7 @@ namespace Wataha.GameSystem.Interfejs
                 recOptionButton.X = recButtonsBkg.X + recButtonsBkg.Width / 13;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
+                   
                     return true;
                 }
                 return false;
@@ -410,6 +433,34 @@ namespace Wataha.GameSystem.Interfejs
 
             return false;
         }
+       
+             public bool AboutButtonEvent()
+        {
+            if ((recAboutButton.Intersects(Cursor)))
+            {
+                aboutActual = ButtonTextures[13];
+                recAboutButton.Width = (int)(recAboutButton.Width * 1.2);
+                recAboutButton.Height = (int)(recAboutButton.Height * 1.2);
+                recAboutButton.X = recButtonsBkg.X + recButtonsBkg.Width / 16;
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    if (!ifStory)
+                        ifStory = true;
+                    return true;
+                }
+                return false;
+            }
+            else
+            {
+                aboutActual = ButtonTextures[12];
+                recAboutButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
+                recAboutButton.Y = recOptionButton.Y + recButtonsBkg.Height / 8;
+                recAboutButton.Width = recButtonsBkg.Width / 8;
+                recAboutButton.Height = recButtonsBkg.Height / 9;
+            }
+            return false;
+        }
+
         public bool AuthorsButtonEvent()
         {
             if ((recAuthorsButton.Intersects(Cursor)))
@@ -428,7 +479,7 @@ namespace Wataha.GameSystem.Interfejs
             {
                 authorsActual = ButtonTextures[8];
                 recAuthorsButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
-                recAuthorsButton.Y = recOptionButton.Y + recButtonsBkg.Height / 8;
+                recAuthorsButton.Y = recAboutButton.Y + recButtonsBkg.Height / 8;
                 recAuthorsButton.Width = recButtonsBkg.Width / 9;
                 recAuthorsButton.Height = recButtonsBkg.Height / 9;
             }
