@@ -24,7 +24,7 @@ namespace Wataha.GameSystem.Interfejs
         private List<Texture2D> ButtonTextures = new List<Texture2D>();
         private Texture2D title;
         private Texture2D story;
-        private Texture2D newGameActual, loadActual, optionsActual, exitActual, authorsActual,aboutActual;
+        private Texture2D newGameActual, loadActual, optionsActual, exitActual, authorsActual, aboutActual;
 
         public int ScreenWidth, ScreenWidthOld;
         public int ScreenHeight, ScreenHeightOld;
@@ -43,11 +43,12 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recAudioSlider;
         Rectangle recEffectsSliderBG;
         Rectangle recEffectsSlider;
-        Rectangle recBackMenuButton;
-
         Rectangle recAudioMute;
         Rectangle recEffectMute;
+        Rectangle recAudioVolume;
+        Rectangle recEffectsVolume;
         Rectangle recTitle;
+        Rectangle recAuthors;
 
         int alphaColor = 200;
 
@@ -61,8 +62,10 @@ namespace Wataha.GameSystem.Interfejs
         SpriteFont font30;
         public bool inOptions = false;
         public bool ifStory = false;
+
         float AudioVolume = 0.4f;
         float EffectVolume = 0.3f;
+        private bool ifAuthors;
 
         public MainMenu(SpriteBatch spriteBatch, ContentManager content, GraphicsDevice device)
         {
@@ -84,13 +87,16 @@ namespace Wataha.GameSystem.Interfejs
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/about")); //12
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/about2")); //13
 
-            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider"));
-            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider2"));
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider"));  //14
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/slider2"));  //15
 
 
 
-            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/Mute"));
-            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/notMute"));
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/Mute")); //16
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/notMute")); //17
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/audioVolume")); //18
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/effectVolume")); //19
+            ButtonTextures.Add(content.Load<Texture2D>("MainMenu/authorsss")); //20
             title = content.Load<Texture2D>("MainMenu/title");
             story = content.Load<Texture2D>("MainMenu/story");
             this.device = device;
@@ -111,6 +117,7 @@ namespace Wataha.GameSystem.Interfejs
             ScreenWidthOld = 0;
             ScreenWidth = device.Viewport.Width;
             ScreenHeight = device.Viewport.Height;
+         
         }
 
         public void Update()
@@ -156,133 +163,118 @@ namespace Wataha.GameSystem.Interfejs
             recAuthorsButton.Height = recButtonsBkg.Height / 9;
 
             recExitButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
-            recExitButton.Y = recAuthorsButton.Y + recButtonsBkg.Height / 8; 
+            recExitButton.Y = recAuthorsButton.Y + recButtonsBkg.Height / 8;
             recExitButton.Width = recButtonsBkg.Width / 12;
             recExitButton.Height = recButtonsBkg.Height / 9;
 
-            recStory.X = recButtonsBkg.X + (recButtonsBkg.Width / 100)*43;
-            recStory.Y = recNewGameButton.Y - recButtonsBkg.Height / 16 ;
+            recStory.X = recButtonsBkg.X + (recButtonsBkg.Width / 100) * 43;
+            recStory.Y = recNewGameButton.Y - recButtonsBkg.Height / 16;
             recStory.Width = recButtonsBkg.Width / 2;
             recStory.Height = (recButtonsBkg.Height / 100) * 80;
 
-            OptionButtonEvent();
-            AuthorsButtonEvent();
-            AboutButtonEvent();
-            
-            //if (!inOptions)
-            //{
-            //    recPlayButton.X = (int)ScreenWidth / 2 - recPlayButton.Size.X / 2;
-            //    recPlayButton.Y = (int)ScreenHeight / 4 - recPlayButton.Size.Y / 2;
+            recAudioSliderBG.X = recStory.X + recStory.Width / 10;
+            recAudioSliderBG.Y = recStory.Y + recStory.Height / 18;
+            recAudioSliderBG.Height = recButtonsBkg.Height / 14;
+            recAudioSliderBG.Width = recButtonsBkg.Width / 2;
 
-            //    recPlayButton.Height = (int)ScreenHeight / 6;
-            //    recPlayButton.Width = (int)ScreenWidth / 2;
-
-            //    recOptionButton.X = recPlayButton.X;
-            //    recOptionButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 12 + recOptionButton.Size.Y / 2;
-
-            //    recOptionButton.Height = recPlayButton.Height;
-            //    recOptionButton.Width = recPlayButton.Width;
-
-            //    recCloseButton.X = recPlayButton.X;
-            //    recCloseButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recCloseButton.Size.Y / 2;
-
-            //    recCloseButton.Height = recPlayButton.Height;
-            //    recCloseButton.Width = recPlayButton.Width;
-
-            //    if (OptionButtonsEvents())
-            //    {
-            //        inOptions = true;
-            //        recCloseButton.Width = 0;
-            //        recOptionButton.Width = 0;
-            //        recPlayButton.Width = 0;
-            //    };
-            //}
-            //else
-            //{
-
-
-            //    recBackMenuButton.X = (int)ScreenWidth / 2 - recBackMenuButton.Size.X / 2;
-            //    recBackMenuButton.Y = (int)ScreenHeight / 4 + (int)ScreenHeight / 3 + recBackMenuButton.Size.Y / 2;
-
-            //    recBackMenuButton.Height = (int)ScreenHeight / 6;
-            //    recBackMenuButton.Width = (int)ScreenWidth / 2;
-
-            //    recAudioSliderBG.X = recBackMenuButton.X;
-            //    recAudioSliderBG.Y = (int)ScreenHeight / 10 + recBackMenuButton.Size.Y / 4;
-
-            //    recAudioSliderBG.Height = recBackMenuButton.Height;
-            //    recAudioSliderBG.Width = recBackMenuButton.Width;
-
-            //    recAudioSlider.X = recBackMenuButton.X;
-            //    recAudioSlider.Y = recAudioSliderBG.Y;
-
-            //    recAudioSlider.Height = recBackMenuButton.Height;
-            //    recAudioSlider.Width = (int)(recAudioSliderBG.Width * AudioVolume);
-
-            //    recAudioMute.X = recAudioSliderBG.X + recAudioSliderBG.Width;
-            //    recAudioMute.Y = recAudioSliderBG.Y;
-
-            //    recAudioMute.Height = recAudioSlider.Height;
-            //    recAudioMute.Width = recAudioMute.Height;
-            //    ///////////////////////////////////////
-            //    recEffectsSliderBG.X = recBackMenuButton.X;
-            //    recEffectsSliderBG.Y = (int)ScreenHeight / 4 + recEffectsSliderBG.Size.Y / 2;
-
-            //    recEffectsSliderBG.Height = recBackMenuButton.Height;
-            //    recEffectsSliderBG.Width = recBackMenuButton.Width;
-
-            //    recEffectsSlider.X = recBackMenuButton.X;
-            //    recEffectsSlider.Y = recEffectsSliderBG.Y;
-
-            //    recEffectsSlider.Height = recBackMenuButton.Height;
-            //    recEffectsSlider.Width = (int)(recEffectsSliderBG.Width * EffectVolume);
+            recAudioSlider.X = recAudioSliderBG.X;
+            recAudioSlider.Y = recAudioSliderBG.Y;
+            recAudioSlider.Height = recButtonsBkg.Height / 14;
+            recAudioSlider.Width = (int)(recAudioSliderBG.Width * AudioVolume);
 
 
 
-            //    recEffectMute.X = recEffectsSliderBG.X + recEffectsSliderBG.Width;
-            //    recEffectMute.Y = recEffectsSliderBG.Y;
+            recEffectsSliderBG.X = recAudioSliderBG.X;
+            recEffectsSliderBG.Y = recAudioSliderBG.Y + recStory.Height / 5;
+            recEffectsSliderBG.Height = recAudioSliderBG.Height;
+            recEffectsSliderBG.Width = recAudioSliderBG.Width;
 
-            //    recEffectMute.Height = recEffectsSliderBG.Height;
-            //    recEffectMute.Width = recEffectMute.Height;
+            recEffectsSlider.X = recEffectsSliderBG.X;
+            recEffectsSlider.Y = recEffectsSliderBG.Y;
+            recEffectsSlider.Height = recEffectsSliderBG.Height;
+            recEffectsSlider.Width = (int)(recEffectsSliderBG.Width * EffectVolume);
 
-            //    if (AudioSliderEvents())
-            //    {
-            //            recAudioSlider.Width = InputSystem.mouseState.Position.X - recAudioSliderBG.X;
-            //            AudioVolume = 1.0f*recAudioSlider.Width / recAudioSliderBG.Width;
-            //            MediaPlayer.Volume = AudioVolume;
-            //    }
 
-            //    if (EffectSliderEvents())
-            //    {
-            //        recEffectsSlider.Width = InputSystem.mouseState.Position.X - recEffectsSliderBG.X;
-            //        EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
-            //        if (AudioSystem.effectEnable)
-            //        {
-            //            SoundEffect.MasterVolume = EffectVolume;
-            //            AudioSystem.growl[0].Play();
-            //        }
-            //    }
+            recAudioMute.X = recAudioSliderBG.X - recAudioSliderBG.Width / 16;
+            recAudioMute.Y = recAudioSliderBG.Y;
+            recAudioMute.Height = recAudioSlider.Height;
+            recAudioMute.Width = recAudioMute.Height;
 
-            //    if (AudioCheckboxEvents())
-            //    {
-            //        AudioSystem.audioEnable = !AudioSystem.audioEnable;
-            //        MediaPlayer.IsMuted = !AudioSystem.audioEnable;
-            //    }
+            recEffectMute.X = recEffectsSliderBG.X - recEffectsSliderBG.Width / 16;
+            recEffectMute.Y = recEffectsSliderBG.Y;
+            recEffectMute.Height = recEffectsSliderBG.Height;
+            recEffectMute.Width = recEffectMute.Height;
 
-            //    if (EffectCheckboxEvents())
-            //    {
-            //        AudioSystem.effectEnable = !AudioSystem.effectEnable;
-            //        if (AudioSystem.effectEnable)
-            //            SoundEffect.MasterVolume = EffectVolume;
-            //        else
-            //            SoundEffect.MasterVolume = 0;
-            //    }
+            recAudioVolume.X = recAudioMute.X - recAudioMute.Width * 5;
+            recAudioVolume.Y = recAudioMute.Y + recAudioMute.Height / 4;
+            recAudioVolume.Width = recAudioSliderBG.Width / 5;
+            recAudioVolume.Height = recAudioSliderBG.Height / 2;
 
-            //    if (BackMenuButtonsEvents())
-            //    {
-            //        inOptions = false;
-            //    }       
-            //}
+            recEffectsVolume.X = recEffectMute.X - recEffectMute.Width * 5;
+            recEffectsVolume.Y = recEffectMute.Y + recEffectMute.Height / 4;
+            recEffectsVolume.Width = recEffectsSliderBG.Width / 5;
+            recEffectsVolume.Height = recEffectsSliderBG.Height / 2;
+
+            recAuthors.X = recButtonsBkg.X + (recButtonsBkg.Width/10)*4;
+            recAuthors.Y = recButtonsBkg.Y+ recButtonsBkg.Height/7;
+            recAuthors.Width = recButtonsBkg.Width / 2;
+            recAuthors.Height = recButtonsBkg.Height / 2;
+
+
+            if (AuthorsButtonEvent() && !ifAuthors)
+            {
+                inOptions = false;
+                ifStory = false;
+                ifAuthors = true;
+            }
+
+
+            if (AboutButtonEvent() && !ifStory)
+            {
+                ifAuthors = false;
+                inOptions = false;
+                ifStory = true;
+            }
+            if (OptionButtonEvent() && !inOptions)
+            {
+                ifAuthors = false;
+                ifStory = false;
+                inOptions = true;
+            }
+
+            if (inOptions)
+            {
+                if (AudioSliderEvents())
+                {
+                    recAudioSlider.Width = InputSystem.mouseState.Position.X - recAudioSliderBG.X;
+                    AudioVolume = 1.0f * recAudioSlider.Width / recAudioSliderBG.Width;
+                    MediaPlayer.Volume = AudioVolume;
+                }
+                if (EffectSliderEvents())
+                {
+                    recEffectsSlider.Width = InputSystem.mouseState.Position.X - recEffectsSliderBG.X;
+                    EffectVolume = 1.0f * recEffectsSlider.Width / recEffectsSliderBG.Width;
+                    if (AudioSystem.effectEnable)
+                    {
+                        SoundEffect.MasterVolume = EffectVolume;
+                        AudioSystem.growl[0].Play();
+                    }
+                }
+                if (AudioCheckboxEvents())
+                {
+                    AudioSystem.audioEnable = !AudioSystem.audioEnable;
+                    MediaPlayer.IsMuted = !AudioSystem.audioEnable;
+                }
+
+                if (EffectCheckboxEvents())
+                {
+                    AudioSystem.effectEnable = !AudioSystem.effectEnable;
+                    if (AudioSystem.effectEnable)
+                        SoundEffect.MasterVolume = EffectVolume;
+                    else
+                        SoundEffect.MasterVolume = 0;
+                }
+            }
 
             UpdateCursorPosition();
 
@@ -296,7 +288,7 @@ namespace Wataha.GameSystem.Interfejs
         public void Draw()
         {
             spriteBatch.Begin();
-           
+
             spriteBatch.Draw(ButtonTextures[1], recButtonsBkg, Color.White);
             spriteBatch.Draw(newGameActual, recNewGameButton, Color.White);
             spriteBatch.Draw(loadActual, recLoadButton, Color.White);
@@ -305,42 +297,42 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(exitActual, recExitButton, Color.White);
             spriteBatch.Draw(aboutActual, recAboutButton, Color.White);
 
+            if (inOptions)
+            {
+                spriteBatch.Draw(ButtonTextures[14], recAudioSliderBG, Color.White);
+                spriteBatch.Draw(ButtonTextures[15], recAudioSlider, Color.White);
+
+                spriteBatch.Draw(ButtonTextures[14], recEffectsSliderBG, Color.White);
+                spriteBatch.Draw(ButtonTextures[15], recEffectsSlider, Color.White);
+                spriteBatch.Draw(ButtonTextures[18], recAudioVolume, Color.White);
+                spriteBatch.Draw(ButtonTextures[19], recEffectsVolume, Color.White);
+                if (AudioSystem.audioEnable)
+                    spriteBatch.Draw(ButtonTextures[16], recAudioMute, Color.White);
+                else
+                    spriteBatch.Draw(ButtonTextures[17], recAudioMute, Color.White);
+
+                if (AudioSystem.effectEnable)
+                    spriteBatch.Draw(ButtonTextures[16], recEffectMute, Color.White);
+                else
+                    spriteBatch.Draw(ButtonTextures[17], recEffectMute, Color.White);
+            }
+
+
+
+
             if (ifStory)
             {
                 spriteBatch.Draw(story, recStory, Color.White);
             }
 
             spriteBatch.Draw(title, recTitle, Color.White);
-            //if (!inOptions)
-            //{
-            //    spriteBatch.Draw(ButtonTextures[1], recPlayButton, PlayButtonColor);
-            //    spriteBatch.Draw(ButtonTextures[2], recOptionButton, OptionButtonColor);
-            //    spriteBatch.Draw(ButtonTextures[3], recCloseButton, CloseButtonColor);
-            //}
-            //else
-            //{
-            //    //Audio Slider
-            //    spriteBatch.DrawString(font30, "Audio Volume", new Vector2(100,100), Color.Fuchsia);
-            //    spriteBatch.DrawString(font30, "Effects Volume", new Vector2(100,300), Color.DarkKhaki);
 
-            //    spriteBatch.Draw(ButtonTextures[4], recAudioSliderBG, Color.White);  
-            //    spriteBatch.Draw(ButtonTextures[5], recAudioSlider, Color.White);
+            if (ifAuthors)
+            {
+                spriteBatch.Draw(ButtonTextures[20], recAuthors, Color.White);
+            }
 
-            //    spriteBatch.Draw(ButtonTextures[4], recEffectsSliderBG, Color.White);
-            //    spriteBatch.Draw(ButtonTextures[5], recEffectsSlider, Color.White);
 
-            //    if(AudioSystem.audioEnable)
-            //         spriteBatch.Draw(ButtonTextures[7], recAudioMute, Color.White);
-            //    else
-            //        spriteBatch.Draw(ButtonTextures[8], recAudioMute, Color.White);
-
-            //    if (AudioSystem.effectEnable)
-            //        spriteBatch.Draw(ButtonTextures[7], recEffectMute, Color.White);
-            //    else
-            //        spriteBatch.Draw(ButtonTextures[8], recEffectMute, Color.White);
-
-            //    spriteBatch.Draw(ButtonTextures[6], recBackMenuButton, BackMenuButtonColor);
-            //}
             spriteBatch.End();
         }
 
@@ -417,7 +409,7 @@ namespace Wataha.GameSystem.Interfejs
                 recOptionButton.X = recButtonsBkg.X + recButtonsBkg.Width / 13;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                   
+
                     return true;
                 }
                 return false;
@@ -433,8 +425,8 @@ namespace Wataha.GameSystem.Interfejs
 
             return false;
         }
-       
-             public bool AboutButtonEvent()
+
+        public bool AboutButtonEvent()
         {
             if ((recAboutButton.Intersects(Cursor)))
             {
@@ -444,8 +436,8 @@ namespace Wataha.GameSystem.Interfejs
                 recAboutButton.X = recButtonsBkg.X + recButtonsBkg.Width / 16;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
-                    if (!ifStory)
-                        ifStory = true;
+
+
                     return true;
                 }
                 return false;
@@ -511,7 +503,7 @@ namespace Wataha.GameSystem.Interfejs
             return false;
         }
 
-  
+
 
 
         public bool AudioSliderEvents()
