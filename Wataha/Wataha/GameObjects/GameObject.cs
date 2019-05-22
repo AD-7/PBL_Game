@@ -81,9 +81,7 @@ namespace Wataha.GameObjects
 
         public void DrawModel(Matrix view, Matrix projection, Camera camera, string technique)
 
-        {
-            Console.WriteLine(camera.forward);
-                 
+        {                 
             foreach (ModelMesh mesh in model.Meshes)
             {             
                 if((camera.frustum.Contains(mesh.BoundingSphere) != ContainmentType.Disjoint) &&

@@ -274,6 +274,11 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(pictures[12], recActualQuestButton, actualQuestButtonColor);
 
 
+            if (QuestSystem.currentQuest != null)
+            {
+                spriteBatch.DrawString(broadwayFont, "Press F to interact", new Vector2((screenWidth / 2), (screenHeight / 2)), Color.Orange);
+            }
+
 
             if (ifWolfPanel)
             {
@@ -284,6 +289,7 @@ namespace Wataha.GameSystem.Interfejs
             {
                 actualQuestPanel.Draw(spriteBatch);
             }
+
 
             if (ifQuestPanel)
             {

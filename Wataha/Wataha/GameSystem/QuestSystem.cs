@@ -36,21 +36,24 @@ namespace Wataha.GameSystem
             
         }
 
-        public void ChceckNearestQuestGiver(Wolf wolf)
+        public bool ChceckNearestQuestGiver(Wolf wolf)
         {
             foreach (QuestGiver giver in questGivers)
             {
+                System.Console.WriteLine("test + ", giver);
                 if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 10.0f)
                 {
                     currentGiver = giver;
-                    return;
+                    return true;
                 }
                 else
                 {
                     currentGiver = null;
+                    return false;
                 }
 
             }
+            return false;
         }
     }
 }

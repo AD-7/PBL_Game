@@ -8,9 +8,8 @@ namespace Wataha.GameObjects.Interable
 {
     class TestQuest : Quest
     {
-        public TestQuest(int id, string title, string desc) : base()
+        public TestQuest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward) : base(questId, questTitle, questDescription, needStrenght, needResistance, needSpeed, meatReward, whiteFangReward, goldFangReward)
         {
-
         }
     }
 }

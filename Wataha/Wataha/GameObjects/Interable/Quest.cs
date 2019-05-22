@@ -40,6 +40,22 @@ namespace Wataha.GameObjects.Interable
             questStatus = status.INACTIVE;
         }
 
+        public Quest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward)
+        {
+            questStage = 0;
+            questCollectedItems = 0;
+            questStatus = status.INACTIVE;
+            this.questId = questId;
+            this.questTitle = questTitle;
+            this.questDescription = questDescription;
+            NeedStrenght = needStrenght;
+            NeedResistance = needResistance;
+            NeedSpeed = needSpeed;
+            MeatReward = meatReward;
+            WhiteFangReward = whiteFangReward;
+            GoldFangReward = goldFangReward;
+        }
+
         // Update is called once per frame
         public void Update()
         {

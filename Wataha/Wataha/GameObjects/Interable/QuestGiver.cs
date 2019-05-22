@@ -9,12 +9,12 @@ using Wataha.GameSystem;
 
 namespace Wataha.GameObjects.Interable
 {
-    class QuestGiver : InterableObject
+    class QuestGiver : GameObject
     {
-        public QuestGiver questsGiverNeedToStart;
+        public QuestGiver questsGiverNeedToStart = null;
         public List<Quest> questsList;
         public List<Quest> questCompleted;
-        public Quest actualQuest;
+        public Quest actualQuest = null;
         // public GameObject reward;
 
         public QuestGiver(Model model, Matrix world) : base(world,model)

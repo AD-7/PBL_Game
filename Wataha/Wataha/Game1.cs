@@ -140,13 +140,24 @@ namespace Wataha
             rabit.SetModelEffect(simpleEffect, true);
 
 
+            Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(0.0f, 0.0f, 0.0f));
+
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf"), worldw4));
+            
+            foreach(QuestGiver q in questSystem.questGivers)
+            {
+                q.SetModelEffect(simpleEffect, true);
+            }
+
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
             b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
 
 
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf"), Matrix.CreateTranslation(3, 3, 3)));
+
 
 
             wolf.SetModelEffect(simpleEffect, true);
@@ -267,7 +278,7 @@ namespace Wataha
                         }
 
 
-                        questSystem.ChceckNearestQuestGiver(wolf);
+                        questSystem.ChceckNearestQuestGiver(wataha.wolves[0]);
 
                         foreach (Wolf w in wataha.wolves)
                         {
@@ -362,8 +373,7 @@ namespace Wataha
 
                     plane.Draw(camera, "ShadowMap");
 
-                    foreach (QuestGiver q in questSystem.questGivers)
-                        q.Draw(camera, "ShadowMap");
+                    
 
                     foreach (Wolf w in wataha.wolves)
                     {
@@ -371,6 +381,10 @@ namespace Wataha
                     }
                     rabit.Draw(camera, "ShadowMap");
 
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.Draw(camera, "ShadowMap");
+                    }
                     trees.Draw(camera, "ShadowMap");
                     b.Draw(camera, "ShadowMap");
 
@@ -378,15 +392,15 @@ namespace Wataha
                     device.SetRenderTarget(null);
                     plane.shadowMap = (Texture2D)renderTarget;
 
-                    foreach (QuestGiver q in questSystem.questGivers)
-                        q.shadowMap = (Texture2D)renderTarget;
-
-
+                    
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
                     }
-
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.shadowMap = (Texture2D)renderTarget;
+                    }
                     trees.shadowMap = (Texture2D)renderTarget;
                     b.shadowMap = (Texture2D)renderTarget;
 
@@ -397,17 +411,17 @@ namespace Wataha
 
                     plane.Draw(camera, "ShadowedScene");
 
-                    foreach (QuestGiver q in questSystem.questGivers)
-                        q.Draw(camera, "ShadowedScene");
-
-
+                    
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowedScene");
                     }
                     rabit.Draw(camera, "ShadowedScene");
 
-   
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.Draw(camera, "ShadowedScene");
+                    }
                     trees.Draw(camera, "ShadowedScene");
                     b.Draw(camera, "ShadowedScene");
                     device.BlendState = BlendState.Opaque;
@@ -416,7 +430,9 @@ namespace Wataha
                     plane.shadowMap = null;
 
                     foreach (QuestGiver q in questSystem.questGivers)
+                    {
                         q.shadowMap = null;
+                    }
 
                     foreach (Wolf w in wataha.wolves)
                     {
