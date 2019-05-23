@@ -142,14 +142,14 @@ namespace Wataha
 
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(0.0f, 0.0f, 0.0f));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf"), worldw4));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf2"), worldw4));
             
-            foreach(QuestGiver q in questSystem.questGivers)
-            {
-                q.SetModelEffect(simpleEffect, true);
-            }
+            //foreach(QuestGiver q in questSystem.questGivers)
+            //{
+            //    q.SetModelEffect(simpleEffect, true);
+            //}
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
@@ -383,10 +383,10 @@ namespace Wataha
                     }
                     rabit.Draw(camera, "ShadowMap");
 
-                    foreach (QuestGiver q in questSystem.questGivers)
-                    {
-                        q.Draw(camera, "ShadowMap");
-                    }
+                    //foreach (QuestGiver q in questSystem.questGivers)
+                    //{
+                    //    q.Draw(camera, "ShadowMap");
+                    //}
                     trees.Draw(camera, "ShadowMap");
                     blockade.Draw(camera, "ShadowMap");
                     blockade2.Draw(camera, "ShadowMap");
@@ -399,10 +399,10 @@ namespace Wataha
                     {
                         w.shadowMap = (Texture2D)renderTarget;
                     }
-                    foreach (QuestGiver q in questSystem.questGivers)
-                    {
-                        q.shadowMap = (Texture2D)renderTarget;
-                    }
+                    //foreach (QuestGiver q in questSystem.questGivers)
+                    //{
+                    //    q.shadowMap = (Texture2D)renderTarget;
+                    //}
                     trees.shadowMap = (Texture2D)renderTarget;
                     blockade.shadowMap = (Texture2D)renderTarget;
                     blockade2.shadowMap = (Texture2D)renderTarget;
@@ -432,10 +432,10 @@ namespace Wataha
 
                     plane.shadowMap = null;
 
-                    foreach (QuestGiver q in questSystem.questGivers)
-                    {
-                        q.shadowMap = null;
-                    }
+                    //foreach (QuestGiver q in questSystem.questGivers)
+                    //{
+                    //    q.shadowMap = null;
+                    //}
 
                     foreach (Wolf w in wataha.wolves)
                     {
