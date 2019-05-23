@@ -186,6 +186,7 @@ namespace Wataha.GameSystem.Interfejs
 
                 wolfPanel.Update(screenWidth, screenHeight);
                 actualQuestPanel.Update(screenWidth, screenHeight);
+                QuestPanel.Update(screenWidth, screenHeight);
             }
 
             UpdateCursorPosition();
