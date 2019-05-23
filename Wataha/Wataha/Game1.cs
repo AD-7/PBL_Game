@@ -39,7 +39,7 @@ namespace Wataha
         private QuestSystem questSystem;
 
         private GameObjects.Static.Environment trees, huntingTrees;
-        private GameObjects.Static.Environment b;
+        private GameObjects.Static.Environment blockade, blockade2;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
         HUDController hud;
@@ -82,8 +82,8 @@ namespace Wataha
 
             Content.RootDirectory = "Content";
             //graphics.IsFullScreen = false;
-            //graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
-            //graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
+            graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
+            graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
             graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
@@ -153,8 +153,9 @@ namespace Wataha
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
-            b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
-
+            blockade = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
+            Matrix worldb2 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            blockade2 = new GameObjects.Static.Environment(Content.Load<Model>("B2"), worldb2, 10);
 
 
 
@@ -165,7 +166,8 @@ namespace Wataha
             wolf3.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
             huntingTrees.SetModelEffect(simpleEffect, true);
-            b.SetModelEffect(simpleEffect, true);
+            blockade.SetModelEffect(simpleEffect, true);
+            blockade2.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
             wolf2.texture = Content.Load<Texture2D>("textures/textureW");
@@ -284,8 +286,8 @@ namespace Wataha
                         {
                             colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            colisionSystem.IsEnvironmentCollision(w, b, wataha);
-
+                            //colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                         }
                         colisionSystem.IsEnvironmentCollision(rabit, trees);
 
@@ -386,8 +388,8 @@ namespace Wataha
                         q.Draw(camera, "ShadowMap");
                     }
                     trees.Draw(camera, "ShadowMap");
-                    b.Draw(camera, "ShadowMap");
-
+                    blockade.Draw(camera, "ShadowMap");
+                    blockade2.Draw(camera, "ShadowMap");
 
                     device.SetRenderTarget(null);
                     plane.shadowMap = (Texture2D)renderTarget;
@@ -402,8 +404,8 @@ namespace Wataha
                         q.shadowMap = (Texture2D)renderTarget;
                     }
                     trees.shadowMap = (Texture2D)renderTarget;
-                    b.shadowMap = (Texture2D)renderTarget;
-
+                    blockade.shadowMap = (Texture2D)renderTarget;
+                    blockade2.shadowMap = (Texture2D)renderTarget;
 
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
@@ -423,7 +425,8 @@ namespace Wataha
                         q.Draw(camera, "ShadowedScene");
                     }
                     trees.Draw(camera, "ShadowedScene");
-                    b.Draw(camera, "ShadowedScene");
+                    blockade.Draw(camera, "ShadowedScene");
+                    blockade2.Draw(camera, "ShadowedScene");
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
 
@@ -440,7 +443,8 @@ namespace Wataha
                     }
 
                     trees.shadowMap = null;
-                    b.shadowMap = null;
+                    blockade.shadowMap = null;
+                    blockade2.shadowMap = null;
                     graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 

@@ -14,9 +14,9 @@ namespace Wataha.GameObjects
         public Model model;
         public Material material;
 
-       Vector3 lightPos = new Vector3(-100, 60, 30);
+       Vector3 lightPos = new Vector3(-150, 65, 30);
         float lightPower = 1.2f;
-        float ambientPower = 0.4f;
+        float ambientPower = 0.6f;
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
         public Texture2D shadowMap;
@@ -27,7 +27,7 @@ namespace Wataha.GameObjects
             this.world = world;
             this.model = model;
             this.material = new Material();
-            Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(80, 30, 0), new Vector3(0, 1, 0));
+            Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(150, 20, -10), new Vector3(0, 1, 0));
             Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(150), 1f, 10f, 200f);
             lightsViewProjectionMatrix = lightsView * lightsProjection;
 

@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 30.04.2019 19:02:09
+# File Created: 23.05.2019 17:40:08
 
 newmtl Material__27
 	Ns 10.0000
@@ -12,8 +12,8 @@ newmtl Material__27
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka textures\drzewo.png
-	map_Kd textures\drzewo.png
+	map_Ka C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\drzewo.png
+	map_Kd C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\drzewo.png
 
 newmtl Material__74
 	Ns 10.0000
@@ -26,8 +26,8 @@ newmtl Material__74
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka textures\domek_tex.jpg
-	map_Kd textures\domek_tex.jpg
+	map_Ka C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\domek_tex.jpg
+	map_Kd C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\domek_tex.jpg
 
 newmtl Material__82
 	Ns 10.0000
@@ -40,8 +40,8 @@ newmtl Material__82
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka textures\treesTexture.png
-	map_Kd textures\treesTexture.png
+	map_Ka C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\treesTexture.png
+	map_Kd C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\treesTexture.png
 
 newmtl Material__89
 	Ns 10.0000
@@ -54,8 +54,8 @@ newmtl Material__89
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka textures\RockTexture2.png
-	map_Kd textures\RockTexture2.png
+	map_Ka C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\RockTexture2.png
+	map_Kd C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\RockTexture2.png
 
 newmtl Material__128
 	Ns 10.0000
@@ -68,5 +68,19 @@ newmtl Material__128
 	Kd 0.5880 0.5880 0.5880
 	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
-	map_Ka textures\wellTexture.png
-	map_Kd textures\wellTexture.png
+	map_Ka C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\wellTexture.png
+	map_Kd C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\wellTexture.png
+
+newmtl Material__90
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.5880 0.5880 0.5880
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.0000 0.0000 0.0000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\rockTexture1.png
+	map_Kd C:\Users\olek1\Desktop\PBL\PBL_Game\PBL_Game\Wataha\Wataha\Content\textures\rockTexture1.png
