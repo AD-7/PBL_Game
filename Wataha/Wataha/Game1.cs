@@ -84,7 +84,7 @@ namespace Wataha
             //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            graphics.IsFullScreen = true;
+       //     graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -286,7 +286,7 @@ namespace Wataha
                         {
                             colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            //colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                         }
                         colisionSystem.IsEnvironmentCollision(rabit, trees);

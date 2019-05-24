@@ -289,6 +289,7 @@ namespace Wataha.GameSystem.Interfejs
         {
             spriteBatch.Begin();
 
+            spriteBatch.Draw(ButtonTextures[0], BG, Color.White);
             spriteBatch.Draw(ButtonTextures[1], recButtonsBkg, Color.White);
             spriteBatch.Draw(newGameActual, recNewGameButton, Color.White);
             spriteBatch.Draw(loadActual, recLoadButton, Color.White);

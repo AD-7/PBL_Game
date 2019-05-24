@@ -43,10 +43,10 @@ namespace Wataha.GameSystem
                 System.Console.WriteLine("wolf "+wolf.model.Meshes[0].BoundingSphere.Center);
                 System.Console.WriteLine("giver "+giver.model.Meshes[0].BoundingSphere.Center);
 
-                System.Console.WriteLine("wolf " + wolf.world.Translation);
-                System.Console.WriteLine("giver " + giver.world.Translation);
+                System.Console.WriteLine("wolft " + wolf.world.Translation);
+                System.Console.WriteLine("givert " + giver.world.Translation);
 
-                if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 10.0f)
+                if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f)
                 {
                     currentGiver = giver;
                     return true;
