@@ -274,13 +274,20 @@ namespace Wataha
                         }
 
 
-                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && questSystem.currentGiver != null)
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null)
                         {
                             hud.ifQuestPanel =  true;
                         }
 
 
-                        questSystem.ChceckNearestQuestGiver(wataha.wolves[0]);
+                        if(questSystem.ChceckNearestQuestGiver(wataha.wolves[0]))
+                        {
+
+                        }
+                        else
+                        {
+                            hud.ifQuestPanel = false;
+                        }
 
                         foreach (Wolf w in wataha.wolves)
                         {

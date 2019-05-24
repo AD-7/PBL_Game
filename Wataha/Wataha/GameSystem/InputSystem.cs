@@ -10,9 +10,16 @@ namespace Wataha.GameSystem
     {
         public static MouseState mouseState;
         public static MouseState mouseStateOld;
-        public static KeyboardState newKeybordState ;
-        public static KeyboardState oldKeybordState ;
+        public static KeyboardState newKeybordState;
+        public static KeyboardState oldKeybordState;
+        public static Rectangle Cursor;
 
-    
+        public static void UpdateCursorPosition()
+        {
+            InputSystem.mouseStateOld = InputSystem.mouseState;
+            InputSystem.mouseState = Mouse.GetState();
+            
+            Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
+        }
     }
 }

@@ -49,10 +49,10 @@ namespace Wataha.GameSystem.Interfejs
 
         public void Update(int width, int height)
         {
-            recWolfPanel.X = (width / 100) * 70;
-            recWolfPanel.Y = (height / 100) * 15;
-            recWolfPanel.Width = (width / 100) * 30;
-            recWolfPanel.Height = (height / 100) * 80;
+            recWolfPanel.X = (int)(width  * 0.70);
+            recWolfPanel.Y = (int)(height  * 0.15);
+            recWolfPanel.Width = (int)(width * 0.30);
+            recWolfPanel.Height = (int)(height * 0.80);
 
             recExit.X = recWolfPanel.X + recWolfPanel.Width - recWolfPanel.Width / 11;
             recExit.Y = recWolfPanel.Y + recWolfPanel.Width / 30;

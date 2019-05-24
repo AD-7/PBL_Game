@@ -15,20 +15,20 @@ namespace Wataha.GameSystem
     class QuestSystem
     {
         public List<QuestGiver> questGivers;
-        public QuestGiver currentGiver;
-        public static Quest currentQuest;
-        public QuestPanel questPanel;
+        public static QuestGiver currentGiver = null;
+        public static Quest currentQuest = null;
 
         public QuestSystem()
         {
             this.questGivers = new List<QuestGiver>();
-            this.currentGiver = null;
         }
 
         public void Update(GameTime gameTime)
         {
             foreach (QuestGiver q in questGivers)
                 q.Update(gameTime);
+
+
         }
 
         public void Draw(Camera camera)

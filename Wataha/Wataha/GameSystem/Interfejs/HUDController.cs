@@ -19,14 +19,13 @@ namespace Wataha.GameSystem.Interfejs
         SpriteBatch spriteBatch;
         GraphicsDevice device;
         ContentManager Content;
-        Rectangle Cursor;
         WolfPanel wolfPanel;
-        public ActualQuestPanel actualQuestPanel;
-        public QuestPanel QuestPanel;
+        public static ActualQuestPanel actualQuestPanel;
+        public static QuestPanel QuestPanel;
 
-        public int meat;
-        public int white_fangs;
-        public int gold_fangs;
+        public static int meat = 0;
+        public static int white_fangs = 0;
+        public static int gold_fangs = 0;
 
         public SpriteFont font30, broadwayFont;
         public List<Texture2D> pictures;
@@ -63,9 +62,9 @@ namespace Wataha.GameSystem.Interfejs
             this.device = device;
             this.spriteBatch = batch;
             this.Content = manager;
-            this.meat = meat;
-            this.white_fangs = white_fangs;
-            this.gold_fangs = gold_fangs;
+            HUDController.meat = meat;
+            HUDController.white_fangs = white_fangs;
+            HUDController.gold_fangs = gold_fangs;
             pictures = new List<Texture2D>();
 
 
@@ -107,7 +106,7 @@ namespace Wataha.GameSystem.Interfejs
             stringOffsetWidth = 0;
             stringOffsetHeight = 0;
 
-            huntingSystem.hudHunting = new HUDHunting(spriteBatch, device, Content, Cursor);
+            huntingSystem.hudHunting = new HUDHunting(spriteBatch, device, Content);
 
         }
 
@@ -189,7 +188,7 @@ namespace Wataha.GameSystem.Interfejs
                 QuestPanel.Update(screenWidth, screenHeight);
             }
 
-            UpdateCursorPosition();
+            InputSystem.UpdateCursorPosition();
 
             screenHeightOld = screenHeight;
             screenWidthOld = screenWidth;
@@ -204,12 +203,20 @@ namespace Wataha.GameSystem.Interfejs
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
 
                 ActualQuestButtonEvent();
-
+                
+                if(ifQuestPanel)
+                {
+                    QuestPanel.AcceptButtonEvent();
+                    if(QuestPanel.CancelButtonEvent())
+                    {
+                        ifQuestPanel = false;
+                    }
+                }
 
                 if (ifWolfPanel)
                 {
 
-                    if (wolfPanel.goHuntingButtonEvent(Cursor))
+                    if (wolfPanel.goHuntingButtonEvent(InputSystem.Cursor))
                     {
                         if (wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0].energy >= 50)
                         {
@@ -227,7 +234,7 @@ namespace Wataha.GameSystem.Interfejs
 
                     }
 
-                    if (wolfPanel.exitButtonEvent(Cursor))
+                    if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
                     {
                         ifWolfPanel = false;
                     }
@@ -275,10 +282,7 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(pictures[12], recActualQuestButton, actualQuestButtonColor);
 
 
-            if (QuestSystem.currentQuest != null)
-            {
-                spriteBatch.DrawString(broadwayFont, "Press F to interact", new Vector2((screenWidth / 2), (screenHeight / 2)), Color.Orange);
-            }
+          
 
 
             if (ifWolfPanel)
@@ -291,6 +295,10 @@ namespace Wataha.GameSystem.Interfejs
                 actualQuestPanel.Draw(spriteBatch);
             }
 
+            if (QuestSystem.currentGiver != null && !ifQuestPanel)
+            {
+                QuestPanel.DrawInfo(spriteBatch);
+            }
 
             if (ifQuestPanel)
             {
@@ -321,7 +329,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool ActualQuestButtonEvent()
         {
-            if (recActualQuestButton.Intersects(Cursor))
+            if (recActualQuestButton.Intersects(InputSystem.Cursor))
             {
                 if (!ifActualQuestPanel)
                 {
@@ -364,7 +372,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool Wolf1ButtonEvent()
         {
-            if (recButtonWolf1Set.Intersects(Cursor))
+            if (recButtonWolf1Set.Intersects(InputSystem.Cursor))
             {
 
                 Wolf1ButtonSetColor = Color.MediumBlue;
@@ -385,7 +393,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool Wolf2ButtonEvent()
         {
-            if (recButtonWolf2Set.Intersects(Cursor))
+            if (recButtonWolf2Set.Intersects(InputSystem.Cursor))
             {
                 Wolf2ButtonSetColor = Color.Yellow;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
@@ -404,7 +412,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool Wolf3ButtonEvent()
         {
-            if (recButtonWolf3Set.Intersects(Cursor))
+            if (recButtonWolf3Set.Intersects(InputSystem.Cursor))
             {
                 Wolf3ButtonSetColor = Color.MonoGameOrange;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
@@ -423,7 +431,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool ResumeButtonEvent()
         {
-            if ((recResumeButton.Intersects(Cursor)))
+            if ((recResumeButton.Intersects(InputSystem.Cursor)))
             {
                 resumeButtonColor = Color.Yellow;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
@@ -437,7 +445,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool BackToMainMenuButtonEvent()
         {
-            if ((recBackToMainMenuButton.Intersects(Cursor)))
+            if ((recBackToMainMenuButton.Intersects(InputSystem.Cursor)))
             {
                 backToMainMenuButtonColor = Color.Yellow;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
@@ -451,7 +459,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool ExitButtonEvent()
         {
-            if ((recExitButton.Intersects(Cursor)))
+            if ((recExitButton.Intersects(InputSystem.Cursor)))
             {
                 exitButtonColor = Color.Yellow;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
@@ -463,15 +471,6 @@ namespace Wataha.GameSystem.Interfejs
             return false;
         }
 
-        private void UpdateCursorPosition()
-        {
-            InputSystem.mouseStateOld = InputSystem.mouseState;
-
-            /* Update Cursor position by Mouse */
-            InputSystem.mouseState = Mouse.GetState();
-
-
-            Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
-        }
+        
     }
 }

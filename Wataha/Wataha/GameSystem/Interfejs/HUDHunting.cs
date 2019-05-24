@@ -16,7 +16,6 @@ namespace Wataha.GameSystem.Interfejs
         SpriteBatch spriteBatch;
         GraphicsDevice device;
         ContentManager Content;
-        public Rectangle Cursor;
         public int screenWidth, screenHeight, screenWidthOld, screenHeightOld;
 
         Texture2D infoHuntingWindow;
@@ -46,12 +45,11 @@ namespace Wataha.GameSystem.Interfejs
         
 
 
-        public HUDHunting(SpriteBatch spriteBatch, GraphicsDevice device, ContentManager content, Rectangle cursor)
+        public HUDHunting(SpriteBatch spriteBatch, GraphicsDevice device, ContentManager content)
         {
             this.spriteBatch = spriteBatch;
             this.device = device;
             Content = content;
-            Cursor = cursor;
             screenHeight = device.Viewport.Height;
             screenWidth = device.Viewport.Width;
             screenWidthOld = 0;
@@ -94,7 +92,7 @@ namespace Wataha.GameSystem.Interfejs
                 recInfoWindow.Width = (screenWidth / 12) * 2;
                 recInfoWindow.Height = screenHeight / 10;
             }
-            UpdateCursorPosition();
+            InputSystem.UpdateCursorPosition();
             screenHeightOld = screenHeight;
             screenWidthOld = screenWidth;
             screenWidth = device.Viewport.Width;
@@ -157,7 +155,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool yesButtonEvent()
         {
-            if (recYesButton.Intersects(Cursor))
+            if (recYesButton.Intersects(InputSystem.Cursor))
             {
                 yesButtonColor = Color.White;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
@@ -174,7 +172,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool okButtonEvent()
         {
-            if (recOkButton.Intersects(Cursor))
+            if (recOkButton.Intersects(InputSystem.Cursor))
             {
                 okButtonColor = Color.White;
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
@@ -188,22 +186,5 @@ namespace Wataha.GameSystem.Interfejs
             okButtonColor = Color.Gray;
             return false;
         }
-
-
-
-
-
-
-        private void UpdateCursorPosition()
-        {
-            InputSystem.mouseStateOld = InputSystem.mouseState;
-
-            /* Update Cursor position by Mouse */
-            InputSystem.mouseState = Mouse.GetState();
-
-
-            Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
-        }
-
     }
 }

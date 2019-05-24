@@ -19,7 +19,6 @@ namespace Wataha.GameSystem.Interfejs
     {
         private SpriteBatch spriteBatch;
         private GraphicsDevice device;
-        private Rectangle Cursor;
 
         private List<Texture2D> ButtonTextures = new List<Texture2D>();
         private Texture2D title;
@@ -276,7 +275,7 @@ namespace Wataha.GameSystem.Interfejs
                 }
             }
 
-            UpdateCursorPosition();
+            InputSystem.UpdateCursorPosition();
 
             ScreenHeightOld = ScreenHeight;
             ScreenWidthOld = ScreenWidth;
@@ -337,20 +336,9 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.End();
         }
 
-        private void UpdateCursorPosition()
-        {
-            InputSystem.mouseStateOld = InputSystem.mouseState;
-
-            /* Update Cursor position by Mouse */
-            InputSystem.mouseState = Mouse.GetState();
-            Cursor.X = InputSystem.mouseState.X; Cursor.Y = InputSystem.mouseState.Y;
-        }
-
-
-
         public bool NewGameButtonEvent()
         {
-            if ((recNewGameButton.Intersects(Cursor)))
+            if ((recNewGameButton.Intersects(InputSystem.Cursor)))
             {
 
                 newGameActual = ButtonTextures[3];
@@ -376,7 +364,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool LoadButtonEvent()
         {
-            if (recLoadButton.Intersects(Cursor))
+            if (recLoadButton.Intersects(InputSystem.Cursor))
             {
                 loadActual = ButtonTextures[11];
                 recLoadButton.Width = (int)(recLoadButton.Width * 1.2);
@@ -402,7 +390,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool OptionButtonEvent()
         {
-            if ((recOptionButton.Intersects(Cursor)))
+            if ((recOptionButton.Intersects(InputSystem.Cursor)))
             {
                 optionsActual = ButtonTextures[5];
                 recOptionButton.Width = (int)(recOptionButton.Width * 1.2);
@@ -429,7 +417,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool AboutButtonEvent()
         {
-            if ((recAboutButton.Intersects(Cursor)))
+            if ((recAboutButton.Intersects(InputSystem.Cursor)))
             {
                 aboutActual = ButtonTextures[13];
                 recAboutButton.Width = (int)(recAboutButton.Width * 1.2);
@@ -456,7 +444,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool AuthorsButtonEvent()
         {
-            if ((recAuthorsButton.Intersects(Cursor)))
+            if ((recAuthorsButton.Intersects(InputSystem.Cursor)))
             {
                 authorsActual = ButtonTextures[9];
                 recAuthorsButton.Width = (int)(recAuthorsButton.Width * 1.2);
@@ -481,7 +469,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool ExitButtonEvent()
         {
-            if ((recExitButton.Intersects(Cursor)))
+            if ((recExitButton.Intersects(InputSystem.Cursor)))
             {
                 exitActual = ButtonTextures[7];
                 recExitButton.Width = (int)(recExitButton.Width * 1.2);
@@ -509,7 +497,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool AudioSliderEvents()
         {
-            if ((recAudioSliderBG.Intersects(Cursor)))
+            if ((recAudioSliderBG.Intersects(InputSystem.Cursor)))
             {
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
@@ -522,7 +510,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool EffectSliderEvents()
         {
-            if ((recEffectsSliderBG.Intersects(Cursor)))
+            if ((recEffectsSliderBG.Intersects(InputSystem.Cursor)))
             {
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
@@ -535,7 +523,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool AudioCheckboxEvents()
         {
-            if ((recAudioMute.Intersects(Cursor)))
+            if ((recAudioMute.Intersects(InputSystem.Cursor)))
             {
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
@@ -548,7 +536,7 @@ namespace Wataha.GameSystem.Interfejs
 
         public bool EffectCheckboxEvents()
         {
-            if ((recEffectMute.Intersects(Cursor)))
+            if ((recEffectMute.Intersects(InputSystem.Cursor)))
             {
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
                 {
