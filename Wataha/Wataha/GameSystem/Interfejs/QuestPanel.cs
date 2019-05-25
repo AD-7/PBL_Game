@@ -52,22 +52,22 @@ namespace Wataha.GameSystem.Interfejs
         public void Update(int width, int height)
         {
             recQuestPanel.X = (int)(width * 0.2);
-            recQuestPanel.Y = (int)(height  * 0.20);
-            recQuestPanel.Width = (int)(width * 0.5);
-            recQuestPanel.Height = (int)(height * 0.5);
+            recQuestPanel.Y = (int)(height  * 0.15);
+            recQuestPanel.Width = (int)(width * 0.6);
+            recQuestPanel.Height = (int)(height * 0.7);
 
-            recAcceptQuest.X = (int)(recQuestPanel.X + 0.1 * recQuestPanel.Width);
-            recAcceptQuest.Y = (int)(recQuestPanel.Y + 0.8 * recQuestPanel.Height);
-            recAcceptQuest.Width = (int)(recQuestPanel.Width * 0.3);
-            recAcceptQuest.Height = (int)(recQuestPanel.Height * 0.15);
+            recAcceptQuest.X = (int)(recQuestPanel.X + 0.2 * recQuestPanel.Width);
+            recAcceptQuest.Y = (int)(recQuestPanel.Y + 0.9 * recQuestPanel.Height);
+            recAcceptQuest.Width = (int)(recQuestPanel.Width * 0.1);
+            recAcceptQuest.Height = (int)(recQuestPanel.Height * 0.05);
 
-            recCancelQuest.X = (int)(recQuestPanel.X + 0.6 * recQuestPanel.Width);
+            recCancelQuest.X = (int)(recQuestPanel.X + 0.7 * recQuestPanel.Width);
             recCancelQuest.Y = (int)(recAcceptQuest.Y);
             recCancelQuest.Width = (int)(recAcceptQuest.Width);
             recCancelQuest.Height = (int)(recAcceptQuest.Height);
 
-            recInteract.X = (int)(width * 0.5) - (int)(width * 0.125);
-            recInteract.Y = (int)(height * 0.75);
+            recInteract.X = (int)(width * 0.5) - (int)(width * 0.1);
+            recInteract.Y = (int)(height * 0.20);
             recInteract.Width = (int)(width * 0.2);
             recInteract.Height = (int)(height  * 0.1);
 

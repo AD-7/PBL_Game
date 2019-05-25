@@ -85,7 +85,7 @@ namespace Wataha.GameObjects
             foreach (ModelMesh mesh in model.Meshes)
             {             
                 if((camera.frustum.Contains(mesh.BoundingSphere) != ContainmentType.Disjoint) &&
-                   (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 100.0f  &&
+                   (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 120.0f  &&
                    (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) > 10.0f))   || mesh.Name.Contains("Plane"))
                 {
                     foreach (ModelMeshPart meshPart in mesh.MeshParts)

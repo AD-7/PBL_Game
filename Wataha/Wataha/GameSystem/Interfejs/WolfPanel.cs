@@ -75,7 +75,7 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(elements[0], recExit, Color.White);
 
             spriteBatch.DrawString(font21, wolfName, new Vector2(recWolfPanel.X + recWolfPanel.Width / 3 + recWolfPanel.Width / 12, recWolfPanel.Y + recWolfPanel.Height / 30), Color.OrangeRed);
-            int ParametersX = recWolfPanel.X + recWolfPanel.Width / 9;
+            int ParametersX = recWolfPanel.X + recWolfPanel.Width / 5;
             int ParametersY = recWolfPanel.Y + recWolfPanel.Height / 6;
             spriteBatch.DrawString(font18, "strength : ", new Vector2(ParametersX, ParametersY), Color.Red);
             spriteBatch.DrawString(font18, wolfStrength.ToString(), new Vector2(ParametersX + (recWolfPanel.Width / 100) * 25, ParametersY), Color.Red);
@@ -90,7 +90,7 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.DrawString(font18, wolfEnergy.ToString(), new Vector2(ParametersX + recWolfPanel.Width / 2 + (recWolfPanel.Width / 100) * 20, ParametersY + recWolfPanel.Height / 10), Color.LightGreen);
 
             int ParametersX2 = recWolfPanel.X + (recWolfPanel.Width / 100) * 43;
-            int ParametersY2 = recWolfPanel.Y + (recWolfPanel.Height / 100) * 38;
+            int ParametersY2 = recWolfPanel.Y + (recWolfPanel.Height / 100) * 42;
 
             spriteBatch.DrawString(font14, "::: Evolution :::", new Vector2(ParametersX2, ParametersY2), Color.OrangeRed);
 

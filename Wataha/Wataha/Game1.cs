@@ -39,7 +39,7 @@ namespace Wataha
         private QuestSystem questSystem;
 
         private GameObjects.Static.Environment trees, huntingTrees;
-        private GameObjects.Static.Environment blockade, blockade2;
+        private GameObjects.Static.Environment blockade, blockade2, croft,barrell;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
         HUDController hud;
@@ -52,7 +52,7 @@ namespace Wataha
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-          //  Window.AllowUserResizing = true;
+            //  Window.AllowUserResizing = true;
 
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
@@ -84,7 +84,7 @@ namespace Wataha
             //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-       //     graphics.IsFullScreen = true;
+            //     graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -136,7 +136,7 @@ namespace Wataha
             wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
             wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
-            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f,5);
+            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f, 5);
             rabit.SetModelEffect(simpleEffect, true);
 
 
@@ -145,7 +145,7 @@ namespace Wataha
             worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
 
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf2"), worldw4));
-            
+
             //foreach(QuestGiver q in questSystem.questGivers)
             //{
             //    q.SetModelEffect(simpleEffect, true);
@@ -156,8 +156,8 @@ namespace Wataha
             blockade = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
             Matrix worldb2 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             blockade2 = new GameObjects.Static.Environment(Content.Load<Model>("B2"), worldb2, 10);
-
-
+            croft = new GameObjects.Static.Environment(Content.Load<Model>("croft"), worldb2, 35);
+            barrell = new GameObjects.Static.Environment(Content.Load<Model>("barrell"), worldb2, 5);
 
 
 
@@ -168,6 +168,8 @@ namespace Wataha
             huntingTrees.SetModelEffect(simpleEffect, true);
             blockade.SetModelEffect(simpleEffect, true);
             blockade2.SetModelEffect(simpleEffect, true);
+            croft.SetModelEffect(simpleEffect, true);
+            barrell.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
             wolf2.texture = Content.Load<Texture2D>("textures/textureW");
@@ -193,7 +195,7 @@ namespace Wataha
             HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, plane, huntingTrees, skybox);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
-      
+
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
@@ -276,11 +278,11 @@ namespace Wataha
 
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null)
                         {
-                            hud.ifQuestPanel =  true;
+                            hud.ifQuestPanel = true;
                         }
 
 
-                        if(questSystem.ChceckNearestQuestGiver(wataha.wolves[0]))
+                        if (questSystem.ChceckNearestQuestGiver(wataha.wolves[0]))
                         {
 
                         }
@@ -291,10 +293,12 @@ namespace Wataha
 
                         foreach (Wolf w in wataha.wolves)
                         {
-                            colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
+
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            //  colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, croft, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
                         }
                         colisionSystem.IsEnvironmentCollision(rabit, trees);
 
@@ -380,9 +384,9 @@ namespace Wataha
 
 
 
-                    plane.Draw(camera, "ShadowMap");
+                    //  plane.Draw(camera, "ShadowMap");
 
-                    
+
 
                     foreach (Wolf w in wataha.wolves)
                     {
@@ -397,11 +401,12 @@ namespace Wataha
                     trees.Draw(camera, "ShadowMap");
                     blockade.Draw(camera, "ShadowMap");
                     blockade2.Draw(camera, "ShadowMap");
-
+                    croft.Draw(camera, "ShadowMap");
+                    barrell.Draw(camera, "ShadowMap");
                     device.SetRenderTarget(null);
-                    plane.shadowMap = (Texture2D)renderTarget;
 
-                    
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
@@ -413,14 +418,15 @@ namespace Wataha
                     trees.shadowMap = (Texture2D)renderTarget;
                     blockade.shadowMap = (Texture2D)renderTarget;
                     blockade2.shadowMap = (Texture2D)renderTarget;
-
+                    croft.shadowMap = (Texture2D)renderTarget;
+                    barrell.shadowMap = (Texture2D)renderTarget;
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
                     device.BlendState = BlendState.AlphaBlend;
 
-                    plane.Draw(camera, "ShadowedScene");
 
-                    
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowedScene");
@@ -434,10 +440,12 @@ namespace Wataha
                     trees.Draw(camera, "ShadowedScene");
                     blockade.Draw(camera, "ShadowedScene");
                     blockade2.Draw(camera, "ShadowedScene");
+                    croft.Draw(camera, "ShadowedScene");
+                    barrell.Draw(camera, "ShadowedScene");
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
 
-                    plane.shadowMap = null;
+
 
                     //foreach (QuestGiver q in questSystem.questGivers)
                     //{
@@ -452,6 +460,8 @@ namespace Wataha
                     trees.shadowMap = null;
                     blockade.shadowMap = null;
                     blockade2.shadowMap = null;
+                    croft.shadowMap = null;
+                    barrell.shadowMap = null;
                     graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 

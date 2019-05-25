@@ -61,36 +61,39 @@ namespace Wataha.GameSystem
             int i = 0;
             foreach (ModelMesh mesh in env.model.Meshes)
             {
-
-                if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject") || mesh.Name.Contains("well"))
+                if (!mesh.Name.Contains("Plane"))
                 {
-                    if (player.collider.Intersects(env.colliders[i]))
+
+
+                    if (mesh.Name.Contains("House") || mesh.Name.Contains("Bound") || mesh.Name.Contains("Blockade") || mesh.Name.Contains("defaultobject") || mesh.Name.Contains("well") || mesh.Name.Contains("Plotek") || mesh.Name.Contains("Barell"))
                     {
-
-                        foreach (Wolf w in wataha.wolves)
+                        if (player.collider.Intersects(env.colliders[i]))
                         {
-                            w.ifColisionTerrain = true;
-                            w.ProccedCollisionBuilding();
-                        }
 
-                        return true;
+                            foreach (Wolf w in wataha.wolves)
+                            {
+                                w.ifColisionTerrain = true;
+                                w.ProccedCollisionBuilding();
+                            }
+
+                            return true;
+                        }
                     }
-                }
-                else
-                {
-                    if (player.collider.Intersects(env.colliders[i]))
+                    else
                     {
-                        foreach (Wolf w in wataha.wolves)
+                        if (player.collider.Intersects(env.colliders[i]))
                         {
-                            w.ifColisionTerrain = true;
-                            w.ProccedCollisionTree();
+                            foreach (Wolf w in wataha.wolves)
+                            {
+                                w.ifColisionTerrain = true;
+                                w.ProccedCollisionTree();
+                            }
+
+                            return true;
                         }
-
-                        return true;
                     }
+                    i++;
                 }
-                i++;
-
             }
             return false;
         }
