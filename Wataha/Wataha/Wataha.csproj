@@ -63,6 +63,7 @@
     <Compile Include="GameObjects\Interable\QuestGiver.cs" />
     <Compile Include="GameObjects\Interable\QuestItem.cs" />
     <Compile Include="GameObjects\Interable\TestQuest.cs" />
+    <Compile Include="GameSystem\Interfejs\MarketPanel.cs" />
     <Compile Include="GameSystem\Interfejs\QuestPanel.cs" />
     <Compile Include="GameSystem\Interfejs\MainMenu.cs" />
     <Compile Include="GameObjects\Material.cs" />

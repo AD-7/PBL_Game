@@ -22,6 +22,7 @@ namespace Wataha.GameSystem.Interfejs
         WolfPanel wolfPanel;
         public static ActualQuestPanel actualQuestPanel;
         public static QuestPanel QuestPanel;
+        public MarketPanel marketPanel;
 
         public static int meat = 0;
         public static int white_fangs = 0;
@@ -46,7 +47,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
         public bool ifQuestPanel = false;
-       
+
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
@@ -96,7 +97,7 @@ namespace Wataha.GameSystem.Interfejs
 
             actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), wolfPanel.font14);
             QuestPanel = new QuestPanel(Content, wolfPanel.font14);
-
+            marketPanel = new MarketPanel(Content);
 
             screenWidth = device.Viewport.Width;
             screenHeight = device.Viewport.Height;
@@ -186,6 +187,7 @@ namespace Wataha.GameSystem.Interfejs
                 wolfPanel.Update(screenWidth, screenHeight);
                 actualQuestPanel.Update(screenWidth, screenHeight);
                 QuestPanel.Update(screenWidth, screenHeight);
+                marketPanel.Update(screenWidth, screenHeight);
             }
 
             InputSystem.UpdateCursorPosition();
@@ -203,11 +205,42 @@ namespace Wataha.GameSystem.Interfejs
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
 
                 ActualQuestButtonEvent();
-                
-                if(ifQuestPanel)
+
+                if (marketPanel.active)
+                {
+
+                 
+                    if (marketPanel.Buy1ButtonEvent())
+                    {
+                        if (meat >= 5)
+                        {
+                            meat -= 5;
+                            white_fangs += 1;
+                        }
+
+
+                    }
+                    if (marketPanel.Buy2ButtonEvent())
+                    {
+                        if (meat >= 15)
+                        {
+                            meat -= 15;
+                            gold_fangs += 1;
+                        }
+
+                    }
+                    if (marketPanel.ExitButtonEvent())
+                    {
+                        marketPanel.active = false;
+                    }
+
+                }
+
+
+                if (ifQuestPanel)
                 {
                     QuestPanel.AcceptButtonEvent();
-                    if(QuestPanel.CancelButtonEvent())
+                    if (QuestPanel.CancelButtonEvent())
                     {
                         ifQuestPanel = false;
                     }
@@ -220,7 +253,7 @@ namespace Wataha.GameSystem.Interfejs
                     {
                         if (wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0].energy >= 50)
                         {
-                            
+
                             ifWolfPanel = false;
                             wolfPanel.ifEnoughEnergy = true;
                             huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
@@ -244,6 +277,9 @@ namespace Wataha.GameSystem.Interfejs
                 {
                     actualNameOfWolfPanel = "";
                 }
+
+
+
             }
 
         }
@@ -282,7 +318,7 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(pictures[12], recActualQuestButton, actualQuestButtonColor);
 
 
-          
+
 
 
             if (ifWolfPanel)
@@ -304,6 +340,14 @@ namespace Wataha.GameSystem.Interfejs
             {
                 QuestPanel.Draw(spriteBatch);
             }
+            if (marketPanel.infoActive)
+            {
+                marketPanel.DrawInfo(spriteBatch);
+            }
+            if (marketPanel.active)
+            {
+                marketPanel.Draw(spriteBatch);
+            }
 
             if (ifPaused)
             {
@@ -314,6 +358,7 @@ namespace Wataha.GameSystem.Interfejs
                 spriteBatch.Draw(pictures[7], recExitButton, exitButtonColor);
 
             }
+
 
 
             spriteBatch.End();
@@ -471,6 +516,6 @@ namespace Wataha.GameSystem.Interfejs
             return false;
         }
 
-        
+
     }
 }

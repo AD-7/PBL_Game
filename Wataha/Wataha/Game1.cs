@@ -290,6 +290,21 @@ namespace Wataha
                         {
                             hud.ifQuestPanel = false;
                         }
+                        if (hud.marketPanel.CheckIfWolfIsClose(wataha.wolves[0], barrell))
+                        {
+                            hud.marketPanel.infoActive = true;
+                        }
+                        else
+                        {
+                            hud.marketPanel.infoActive = false;
+                            hud.marketPanel.active = false;
+                        }
+                        if (hud.marketPanel.infoActive && InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F))
+                        {
+                            hud.marketPanel.active = true;
+                        }
+
+
 
                         foreach (Wolf w in wataha.wolves)
                         {
