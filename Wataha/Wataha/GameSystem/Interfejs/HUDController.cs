@@ -116,16 +116,16 @@ namespace Wataha.GameSystem.Interfejs
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
             {
                 recResources.X = 0;
-                recResources.Y = 0;
-                recResources.Height = screenHeight / 10;
+                recResources.Y = (int)(screenHeight * 0.02);
+                recResources.Height = screenHeight / 11;
                 recResources.Width = screenWidth / 2;
 
                 stringOffsetWidth = (recResources.Width / 100);
                 stringOffsetHeight = (recResources.Height / 100);
 
-                recMeal.X = recResources.Width / 80;
-                recMeal.Y = (recResources.Height / 5) * 2;
-                recMeal.Height = recResources.Height / 4;
+                recMeal.X = (int)(recResources.Width * 0.02);
+                recMeal.Y = (int)(recResources.Height * 0.5);
+                recMeal.Height = (int)(recResources.Height * 0.25);
                 recMeal.Width = recResources.Width / 25;
 
                 recWhiteFang.X = recResources.Width / 4;
@@ -209,7 +209,7 @@ namespace Wataha.GameSystem.Interfejs
                 if (marketPanel.active)
                 {
 
-                 
+
                     if (marketPanel.Buy1ButtonEvent())
                     {
                         if (meat >= 5)
@@ -293,13 +293,13 @@ namespace Wataha.GameSystem.Interfejs
 
 
             spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
-            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 13, stringOffsetHeight * 33), Color.Red);
+            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 14, recMeal.Y + stringOffsetHeight * 32), Color.Red);
 
             spriteBatch.Draw(pictures[3], recWhiteFang, Color.White);     //whitefangs picture
-            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, stringOffsetHeight * 33), Color.White);
+            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);
 
             spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
-            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 18, stringOffsetHeight * 33), Color.Gold);
+            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 16, recGoldFang.Y + stringOffsetHeight * 32), Color.Gold);
 
             spriteBatch.Draw(pictures[8], recButtonPanel, Color.White);  //panel kontrolek wilków
 
