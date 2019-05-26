@@ -62,7 +62,7 @@ namespace Wataha.GameSystem
             MediaPlayer.Volume = 0.4f;
             if (MediaPlayer.State != MediaState.Playing && MediaPlayer.PlayPosition.TotalSeconds == 0.0f)
             {
-                if (i == songList.Count-1)
+                if (i <= songList.Count-1)
                     i = 0;
                 MediaPlayer.Play(songList[i]);
             }
