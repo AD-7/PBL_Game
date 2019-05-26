@@ -299,7 +299,7 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);
 
             spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
-            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 16, recGoldFang.Y + stringOffsetHeight * 32), Color.Gold);
+            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 16, recGoldFang.Y + stringOffsetHeight * 32 ), Color.Gold);
 
             spriteBatch.Draw(pictures[8], recButtonPanel, Color.White);  //panel kontrolek wilków
 

@@ -136,6 +136,9 @@ namespace Wataha
             wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
             wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+
+            
+
             rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f, 5);
             rabit.SetModelEffect(simpleEffect, true);
 
@@ -192,9 +195,10 @@ namespace Wataha
             worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget,Content.Load<Model>("Wolf"), plane, huntingTrees, skybox);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
+            
 
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
