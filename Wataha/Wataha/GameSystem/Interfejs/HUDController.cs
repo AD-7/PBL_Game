@@ -333,6 +333,7 @@ namespace Wataha.GameSystem.Interfejs
 
             if (ifQuestPanel)
             {
+                QuestPanel.SetPanel(QuestSystem.currentGiver.actualQuest);
                 QuestPanel.Draw(spriteBatch);
             }
             if (marketPanel.infoActive)

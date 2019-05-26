@@ -23,7 +23,12 @@ namespace Wataha.GameSystem.Interfejs
 
 
         private Texture2D currentAccept; 
-        private Texture2D currentCancel; 
+        private Texture2D currentCancel;
+
+        private string description = "";
+        private string reward = "";
+        private string title = "";
+        private string requirements = "";
 
         public QuestPanel(ContentManager manager, SpriteFont font)
         {
@@ -46,6 +51,15 @@ namespace Wataha.GameSystem.Interfejs
 
         public void SetPanel(Quest quest)   
         {
+            title = quest.questTitle;
+            description = quest.questDescription;
+            reward = "Meat: " + quest.MeatReward + "\n" +
+                     "White Fang: " + quest.WhiteFangReward + "\n" +
+                     "Gold Fang: " + quest.GoldFangReward;
+            requirements = "Meat: " + quest.MeatReward + "\n" +
+                           "White Fang: " + quest.WhiteFangReward + "\n" +
+                           "Gold Fang: " + quest.GoldFangReward;
+
 
         }
 
@@ -70,7 +84,6 @@ namespace Wataha.GameSystem.Interfejs
             recInteract.Y = (int)(height * 0.20);
             recInteract.Width = (int)(width * 0.2);
             recInteract.Height = (int)(height  * 0.1);
-
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -78,6 +91,11 @@ namespace Wataha.GameSystem.Interfejs
            spriteBatch.Draw(panelTextures[0], recQuestPanel, Color.White);
            spriteBatch.Draw(currentAccept, recAcceptQuest, Color.White);
            spriteBatch.Draw(currentCancel, recCancelQuest, Color.White);
+
+            spriteBatch.DrawString(font, title, new Vector2((int)(recQuestPanel.X + recQuestPanel.Width * 0.5), recQuestPanel.Y + (int)(recQuestPanel.Height * 0.1)), Color.Yellow);
+            spriteBatch.DrawString(font, description, new Vector2((int)(recQuestPanel.X + recQuestPanel.Width * 0.2), recQuestPanel.Y + (int)(recQuestPanel.Height * 0.5)), Color.Yellow);
+            spriteBatch.DrawString(font, reward, new Vector2((int)(recQuestPanel.X + recQuestPanel.Width * 0.7), recQuestPanel.Y + (int)(recQuestPanel.Height * 0.5)), Color.Yellow);
+            spriteBatch.DrawString(font, requirements, new Vector2((int)(recQuestPanel.X + recQuestPanel.Width * 0.5), recQuestPanel.Y + (int)(recQuestPanel.Height * 0.7)), Color.Yellow);
         }
 
         public void DrawInfo(SpriteBatch spriteBatch)
