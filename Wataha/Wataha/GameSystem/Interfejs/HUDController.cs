@@ -23,11 +23,6 @@ namespace Wataha.GameSystem.Interfejs
         public static ActualQuestPanel actualQuestPanel;
         public static QuestPanel QuestPanel;
         public MarketPanel marketPanel;
-
-        public static int meat = 0;
-        public static int white_fangs = 0;
-        public static int gold_fangs = 0;
-
         public SpriteFont font30, broadwayFont;
         public List<Texture2D> pictures;
         Rectangle recResumeButton;
@@ -63,9 +58,9 @@ namespace Wataha.GameSystem.Interfejs
             this.device = device;
             this.spriteBatch = batch;
             this.Content = manager;
-            HUDController.meat = meat;
-            HUDController.white_fangs = white_fangs;
-            HUDController.gold_fangs = gold_fangs;
+            Resources.Meat = meat;
+            Resources.Whitefangs = white_fangs;
+            Resources.Goldfangs = gold_fangs;
             pictures = new List<Texture2D>();
 
 
@@ -108,7 +103,7 @@ namespace Wataha.GameSystem.Interfejs
             stringOffsetHeight = 0;
 
             huntingSystem.hudHunting = new HUDHunting(spriteBatch, device, Content);
-
+            huntingSystem.audio = new AudioSystem(Content);
         }
 
         public void Update()
@@ -212,20 +207,20 @@ namespace Wataha.GameSystem.Interfejs
 
                     if (marketPanel.Buy1ButtonEvent())
                     {
-                        if (meat >= 5)
+                        if (Resources.Meat >= 5)
                         {
-                            meat -= 5;
-                            white_fangs += 1;
+                            Resources.Meat -= 5;
+                            Resources.Whitefangs += 1;
                         }
 
 
                     }
                     if (marketPanel.Buy2ButtonEvent())
                     {
-                        if (meat >= 15)
+                        if (Resources.Meat >= 15)
                         {
-                            meat -= 15;
-                            gold_fangs += 1;
+                            Resources.Meat -= 15;
+                           Resources.Goldfangs += 1;
                         }
 
                     }
@@ -293,13 +288,13 @@ namespace Wataha.GameSystem.Interfejs
 
 
             spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
-            spriteBatch.DrawString(font30, meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 14, recMeal.Y + stringOffsetHeight * 32), Color.Red);
+            spriteBatch.DrawString(font30, Resources.Meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 14, recMeal.Y + stringOffsetHeight * 32), Color.Red);
 
             spriteBatch.Draw(pictures[3], recWhiteFang, Color.White);     //whitefangs picture
-            spriteBatch.DrawString(font30, white_fangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);
+            spriteBatch.DrawString(font30, Resources.Whitefangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);
 
             spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
-            spriteBatch.DrawString(font30, gold_fangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 16, recGoldFang.Y + stringOffsetHeight * 32 ), Color.Gold);
+            spriteBatch.DrawString(font30, Resources.Goldfangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 16, recGoldFang.Y + stringOffsetHeight * 32), Color.Gold);
 
             spriteBatch.Draw(pictures[8], recButtonPanel, Color.White);  //panel kontrolek wilków
 

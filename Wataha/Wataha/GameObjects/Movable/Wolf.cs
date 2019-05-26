@@ -17,7 +17,7 @@ namespace Wataha.GameObjects.Movable
     {
         public Camera cam;
         public bool ifColisionTerrain;
-        public BoundingBox collider;
+       
         public float colliderSize;
         public Vector3 LastMove;
         public Vector3 position;

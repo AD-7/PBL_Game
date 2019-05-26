@@ -12,12 +12,12 @@ namespace Wataha.GameObjects.Movable
 {
     public class Animal : GameObject
     {
-        public int meat ;
+        public int meat;
         float dirX, dirZ, angle;
 
-
+        public bool active = true;
         public bool ifColisionTerrain;
-        public BoundingBox collider;
+        bool ifInTrouble = false;
         public float colliderSize;
         public Vector3 position;
         public float speedFactor;
@@ -38,8 +38,8 @@ namespace Wataha.GameObjects.Movable
         //    animationOffset = (float)rand.NextDouble() * 10;
         //}
 
-            //ten kontruktor jest ok
-        public Animal(Wolf wolf, Model model, Matrix world, float colliderSize,int meat) : base(world, model)
+        //ten kontruktor jest ok
+        public Animal(Wolf wolf, Model model, Matrix world, float colliderSize, int meat) : base(world, model)
         {
             this.wolf = wolf;
             this.meat = meat;
@@ -49,6 +49,12 @@ namespace Wataha.GameObjects.Movable
             angle = 108;
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
                                         new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
+
+            foreach (ModelMesh mesh in model.Meshes)
+            {
+                mesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(collider);
+
+            }
             this.colliderSize = colliderSize;
             speedFactor = 6;
         }
@@ -65,9 +71,10 @@ namespace Wataha.GameObjects.Movable
             time += (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             //float animationFactor = 0f;
             //float animationFactor2 = (float)Math.Sin(time + animationOffset) * 5;
+
             if (time >= 3)
             {
-                angle += 35;
+                angle += rand.Next(10, 90);
                 time = 0;
             }
 
@@ -79,21 +86,20 @@ namespace Wataha.GameObjects.Movable
                 position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
             }
 
-
             CheckSecurity();
+
 
 
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90)) * Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);// * Matrix.CreateFromAxisAngle(Vector3.UnitY, MathHelper.ToRadians(-90)); ;
 
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
             new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
-
-
             foreach (ModelMesh mesh in model.Meshes)
             {
                 mesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(collider);
 
             }
+            sphere = BoundingSphere.CreateFromBoundingBox(collider);
 
 
             base.Update(gameTime);
@@ -110,28 +116,38 @@ namespace Wataha.GameObjects.Movable
 
         public void ProccedCollisionBuilding()
         {
+
             position -= new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
-            angle += 100;
+            angle -= 90;
             ifColisionTerrain = false;
 
         }
 
-
+        float oldDistance;
         public void CheckSecurity()
         {
             float distance = Vector3.Distance(this.position, wolf.position);
-           
-            if(distance < 25)
+
+            if (distance < 15 && oldDistance >= 15)
             {
-                angle = -wolf.angle + (float)Math.Sin(time);
+                if (!ifColisionTerrain)
+                    angle = -wolf.angle;
+                else
+                    angle =- wolf.angle / 2;
+
+                speedFactor = 4;
+            }
+            else if (distance < 15 && oldDistance < 15)
+            {
                 speedFactor = 5;
             }
-
-            else
+            else 
             {
                 speedFactor = 12;
             }
-           
+
+
+            oldDistance = distance;
         }
 
 

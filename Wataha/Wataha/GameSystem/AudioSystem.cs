@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Audio;
 
 namespace Wataha.GameSystem
 {
-    class AudioSystem
+    public class AudioSystem
     {
         public List<Song> songList;
         public List<SoundEffect> soundEffects;

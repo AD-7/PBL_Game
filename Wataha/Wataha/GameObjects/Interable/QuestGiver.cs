@@ -14,7 +14,6 @@ namespace Wataha.GameObjects.Interable
     class QuestGiver : GameObject
     {
         public bool ifColisionTerrain;
-        public BoundingBox collider;
         public float colliderSize;
         public Vector3 LastMove;
         public Vector3 position;
@@ -42,7 +41,7 @@ namespace Wataha.GameObjects.Interable
             collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
                                         new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90)) * Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);
-
+           
             foreach (ModelMesh mesh in model.Meshes)
             {
                 mesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(collider);

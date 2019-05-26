@@ -81,6 +81,7 @@
     <Compile Include="GameSystem\InputSystem.cs" />
     <Compile Include="GameSystem\Interfejs\HUDHunting.cs" />
     <Compile Include="GameSystem\Interfejs\WolfPanel.cs" />
+    <Compile Include="GameSystem\Resources.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameSystem\Animation\Animation.cs" />
