@@ -15,7 +15,7 @@ namespace Wataha.GameSystem
 
     public class HuntingSystem
     {
-
+        Random rand = new Random();
         Camera camera;
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
@@ -30,7 +30,8 @@ namespace Wataha.GameSystem
         public List<Animal> rabits;
         public List<Animal> ship;
         public List<Animal> boars;
-        public List<Matrix> spawnPoints;
+        public Matrix spawnPoint;
+        public List<Vector3> spawns;
         public HUDHunting hudHunting;
         public bool active = false;
 
@@ -51,10 +52,11 @@ namespace Wataha.GameSystem
            
             colisionSystem = new ColisionSystem();
             huntingWataha = new GameObjects.Movable.Wataha(camera);
-            this.rabitModel = rabitModel;
-            spawnPoints = new List<Matrix>();
+            this.rabitModel = rabitModel;   
+            spawns = new List<Vector3>();
             rabits = new List<Animal>();
-            GenerateSpawns();
+            GenerateVectors();
+        
 
         }
 
@@ -157,7 +159,7 @@ namespace Wataha.GameSystem
            
 
 
-            if (time >= 5)
+            if (time >= 2.5)
             {
                 GenerateRabits(huntingWataha.wolves[0], rabitModel);
                 time = 0;
@@ -282,25 +284,37 @@ namespace Wataha.GameSystem
 
         }
 
-        private void GenerateSpawns()
+        void GenerateVectors()
         {
+            spawns.Add(new Vector3(-60f, 3.0f, 20f));
+            spawns.Add(new Vector3(60f, 3.0f, -40f)); 
+            spawns.Add(new Vector3(-30f, 3.0f, -50f));
+            spawns.Add(new Vector3(55f, 3.0f, -90f));
+            spawns.Add(new Vector3(45f, 3.0f, -100f));
+            spawns.Add(new Vector3(0f, 3.0f, -150f));
+          
+            spawns.Add(new Vector3(-35f, 3.0f, -220f));
+        }
+        private void GenerateSpawn()
+        {
+
 
 
             Matrix world = new Matrix();
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world *= Matrix.CreateTranslation(new Vector3(0, 3.0f, 5f));
+            world *= Matrix.CreateTranslation(spawns[rand.Next(0,6)]);
 
-            spawnPoints.Add(world);
+            spawnPoint = world;
 
 
         }
 
         public void GenerateRabits(Wolf wolf, Model model)
         {
-            GenerateSpawns();
-            Animal rabit = new Animal(wolf, model, spawnPoints[spawnPoints.Count - 1], 8, 5);
-
+            GenerateSpawn();
+            Animal rabit = new Animal(wolf, model, spawnPoint, 8, 5);
+            spawnPoint = new Matrix();
             rabits.Add(rabit);
 
         }
