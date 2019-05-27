@@ -151,7 +151,7 @@ namespace Wataha
 
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf2"), worldw4));
             questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1));
-            questSystem.questGivers[0].Start();
+            questSystem.questGivers[0].Init();
 
             //foreach(QuestGiver q in questSystem.questGivers)
             //{
@@ -284,7 +284,7 @@ namespace Wataha
                         }
 
 
-                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null)
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null && QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest)
                         {
                             hud.ifQuestPanel = true;
                         }

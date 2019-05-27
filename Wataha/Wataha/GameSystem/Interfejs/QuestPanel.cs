@@ -59,8 +59,6 @@ namespace Wataha.GameSystem.Interfejs
             requirements = "Meat: " + quest.MeatReward + "\n" +
                            "White Fang: " + quest.WhiteFangReward + "\n" +
                            "Gold Fang: " + quest.GoldFangReward;
-
-
         }
 
         public void Update(int width, int height)

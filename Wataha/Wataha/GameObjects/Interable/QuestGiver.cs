@@ -68,7 +68,7 @@ namespace Wataha.GameObjects.Interable
                     CompletedQuest();
         }
 
-       public void Start()
+       public void Init()
         {
             if (questsList.Count > 0)
                 actualQuest = questsList[0];
