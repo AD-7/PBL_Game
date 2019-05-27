@@ -239,6 +239,12 @@ namespace Wataha.GameSystem.Interfejs
                     {
                         ifQuestPanel = false;
                     }
+
+                    if(QuestPanel.AcceptButtonEvent())
+                    {
+                        QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
+                        ifQuestPanel = false;
+                    }
                 }
 
                 if (ifWolfPanel)
@@ -323,16 +329,18 @@ namespace Wataha.GameSystem.Interfejs
 
             if (ifActualQuestPanel)
             {
+                actualQuestPanel.SetPanel(QuestSystem.currentQuest);
                 actualQuestPanel.Draw(spriteBatch);
             }
 
-            if (QuestSystem.currentGiver != null && !ifQuestPanel)
+            if (QuestSystem.currentGiver != null &&  QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest && !ifQuestPanel)
             {
                 QuestPanel.DrawInfo(spriteBatch);
             }
 
             if (ifQuestPanel)
             {
+                QuestPanel.SetPanel(QuestSystem.currentGiver.actualQuest);
                 QuestPanel.Draw(spriteBatch);
             }
             if (marketPanel.infoActive)

@@ -9,7 +9,7 @@ using Wataha.GameObjects;
 namespace Wataha.GameObjects.Interable
 {
 
-    public class Quest
+    public abstract class Quest
     {
         public enum status : int { INACTIVE, ACTIVE, FAILD, SUCCED };
 
@@ -77,6 +77,8 @@ namespace Wataha.GameObjects.Interable
             this.questStatus = status.SUCCED;
         }
 
+        public abstract bool IfCompleted();
+        
         public void ItemCollected()
         {
             questCollectedItems++;

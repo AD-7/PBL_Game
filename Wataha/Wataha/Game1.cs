@@ -57,6 +57,10 @@ namespace Wataha
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
+
+            Content = new ContentManager(this.Services, "Content");
+            audioSystem = new AudioSystem(Content);
+
         }
 
         /// <summary>
@@ -90,10 +94,8 @@ namespace Wataha
             //IsFixedTimeStep = false;
             graphics.ApplyChanges();
 
-            Content = new ContentManager(this.Services, "Content");
             camera = new Camera();
             colisionSystem = new ColisionSystem();
-            audioSystem = new AudioSystem(Content);
             questSystem = new QuestSystem();
 
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -148,6 +150,8 @@ namespace Wataha
             worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
 
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf2"), worldw4));
+            questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1));
+            questSystem.questGivers[0].Init();
 
             //foreach(QuestGiver q in questSystem.questGivers)
             //{
@@ -280,7 +284,7 @@ namespace Wataha
                         }
 
 
-                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null)
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null && QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest)
                         {
                             hud.ifQuestPanel = true;
                         }

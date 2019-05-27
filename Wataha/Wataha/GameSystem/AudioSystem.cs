@@ -36,13 +36,7 @@ namespace Wataha.GameSystem
             songList.Add(Content.Load<Song>("Songs/forest (1)"));
             songList.Add(Content.Load<Song>("Songs/Forest3"));
             songList.Add(Content.Load<Song>("Songs/forest"));
-         
-                   
-            MediaPlayer.Volume = songVolume;
-            MediaPlayer.Play(songList[i]);
-            //  Uncomment the following line will also loop the song
-            //MediaPlayer.IsRepeating = true;
-            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
+
 
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl6"));
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/growl5"));
@@ -53,6 +47,12 @@ namespace Wataha.GameSystem
             growl.Add(soundEffects[2].CreateInstance());
 
             SoundEffect.MasterVolume = effectsVolume;
+
+            MediaPlayer.Volume = songVolume;
+            MediaPlayer.Play(songList[i]);
+            //  Uncomment the following line will also loop the song
+            //MediaPlayer.IsRepeating = true;
+            MediaPlayer.MediaStateChanged += MediaPlayer_MediaStateChanged;
         }
 
         void MediaPlayer_MediaStateChanged(object sender, EventArgs e)

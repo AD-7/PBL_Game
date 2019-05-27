@@ -23,7 +23,7 @@ namespace Wataha.GameObjects.Interable
         public List<Quest> questsList;
         public List<Quest> questCompleted;
         public Quest actualQuest = null;
-        // public GameObject reward;
+        public GameObject reward;
 
 
         public AnimationPlayer animationPlayer;
@@ -46,7 +46,6 @@ namespace Wataha.GameObjects.Interable
             {
                 mesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(collider);
             }
-
         }
 
         public override void Draw()
@@ -64,10 +63,15 @@ namespace Wataha.GameObjects.Interable
         // Update is called once per frame
         public override void Update(GameTime gameTime)
         {
-
             if (actualQuest != null)
                 if (actualQuest.questStatus.Equals(Quest.status.SUCCED))
                     CompletedQuest();
+        }
+
+       public void Init()
+        {
+            if (questsList.Count > 0)
+                actualQuest = questsList[0];
         }
 
         public void CompletedQuest()

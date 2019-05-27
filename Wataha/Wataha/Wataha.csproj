@@ -89,7 +89,6 @@
     <Compile Include="GameSystem\AudioSystem.cs" />
     <Compile Include="GameSystem\Camera.cs" />
     <Compile Include="GameSystem\ColisionSystem.cs" />
-    <Compile Include="GameSystem\GameSystem.cs" />
     <Compile Include="GameSystem\Interfejs\HUDController.cs" />
     <Compile Include="GameSystem\HuntingSystem.cs" />
     <Compile Include="GameSystem\ParticleSystem\ParticleSystem.cs" />
