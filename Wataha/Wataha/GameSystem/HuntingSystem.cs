@@ -291,9 +291,9 @@ namespace Wataha.GameSystem
             spawns.Add(new Vector3(-30f, 3.0f, -50f));
             spawns.Add(new Vector3(55f, 3.0f, -90f));
             spawns.Add(new Vector3(45f, 3.0f, -100f));
-            spawns.Add(new Vector3(0f, 3.0f, -150f));
+            spawns.Add(new Vector3(0f, 3.0f, -90f));
           
-            spawns.Add(new Vector3(-35f, 3.0f, -220f));
+            spawns.Add(new Vector3(-35f, 3.0f, -20f));
         }
         private void GenerateSpawn()
         {
@@ -324,7 +324,7 @@ namespace Wataha.GameSystem
             List<Animal> tmp = new List<Animal>();
             foreach (Animal a in rabits)
             {
-                if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 8 && InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 7 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
                 {
                     audio.playGrowl(0);
                     a.active = false;

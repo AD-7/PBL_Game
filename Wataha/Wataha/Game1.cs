@@ -195,7 +195,7 @@ namespace Wataha
             worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget,Content.Load<Model>("Wolf"), plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget,Content.Load<Model>("Rabbit/Rabbit"), plane, huntingTrees, skybox);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
             
