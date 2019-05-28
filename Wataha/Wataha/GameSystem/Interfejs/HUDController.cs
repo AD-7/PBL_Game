@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
-
+using Wataha.GameObjects.Interable;
 
 namespace Wataha.GameSystem.Interfejs
 {
@@ -317,6 +317,7 @@ namespace Wataha.GameSystem.Interfejs
                     if(QuestPanel.AcceptButtonEvent())
                     {
                         QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
+                        QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
                         ifQuestPanel = false;
                     }
                 }

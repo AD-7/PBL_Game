@@ -15,6 +15,7 @@ namespace Wataha.GameSystem
     class QuestSystem
     {
         public List<QuestGiver> questGivers;
+        public static QuestGiver currentQuestGivers;
         public static QuestGiver currentGiver = null;
         public static Quest currentQuest = null;
 
@@ -30,10 +31,12 @@ namespace Wataha.GameSystem
 
             if(currentQuest != null && currentQuest.IfCompleted(wolf))
             {
+                currentQuestGivers.CompletedQuest();
                 Resources.Meat += currentQuest.MeatReward;
                 Resources.Whitefangs += currentQuest.WhiteFangReward;
                 Resources.Goldfangs += currentQuest.GoldFangReward;
                 currentQuest = null;
+                currentQuestGivers = null;
             }
 
 
@@ -51,6 +54,7 @@ namespace Wataha.GameSystem
                 if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f)
                 {
                     currentGiver = giver;
+                    currentQuestGivers = currentGiver;
                     return true;
                 }
                 else
