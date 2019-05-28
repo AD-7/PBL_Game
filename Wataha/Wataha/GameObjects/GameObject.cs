@@ -137,15 +137,15 @@ namespace Wataha.GameObjects
                 else
                 {
                     if ((camera.frustum.Contains(sphere) != ContainmentType.Disjoint) &&
-                                    (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamTarget) < 120.0f &&
-                                    (Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) > 10.0f)) || mesh.Name.Contains("Plane"))
+                                    (Vector3.Distance(sphere.Center, camera.CamTarget) < 120.0f &&
+                                    (Vector3.Distance(sphere.Center, camera.CamPos) > 10.0f)) || mesh.Name.Contains("Plane"))
                     {
                         foreach (ModelMeshPart meshPart in mesh.MeshParts)
                         {
 
 
 
-                            //if ((Vector3.Distance(mesh.BoundingSphere.Center, camera.CamPos) < 15.0f))
+                            //if ((Vector3.Distance(sphere.Center, camera.CamPos) < 15.0f))
                             //    alpha = 0.0f;
                             //else
                             //    alpha = 1.0f;

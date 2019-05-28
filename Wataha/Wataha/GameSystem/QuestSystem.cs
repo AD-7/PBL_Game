@@ -15,6 +15,7 @@ namespace Wataha.GameSystem
     class QuestSystem
     {
         public List<QuestGiver> questGivers;
+        public static QuestGiver currentQuestGivers;
         public static QuestGiver currentGiver = null;
         public static Quest currentQuest = null;
 
@@ -23,10 +24,20 @@ namespace Wataha.GameSystem
             this.questGivers = new List<QuestGiver>();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Wolf wolf)
         {
             foreach (QuestGiver q in questGivers)
                 q.Update(gameTime);
+
+            if(currentQuest != null && currentQuest.IfCompleted(wolf))
+            {
+                currentQuestGivers.CompletedQuest();
+                Resources.Meat += currentQuest.MeatReward;
+                Resources.Whitefangs += currentQuest.WhiteFangReward;
+                Resources.Goldfangs += currentQuest.GoldFangReward;
+                currentQuest = null;
+                currentQuestGivers = null;
+            }
 
 
         }
@@ -40,15 +51,10 @@ namespace Wataha.GameSystem
         {
             foreach (QuestGiver giver in questGivers)
             {
-                System.Console.WriteLine("wolf "+wolf.model.Meshes[0].BoundingSphere.Center);
-                System.Console.WriteLine("giver "+giver.model.Meshes[0].BoundingSphere.Center);
-
-                System.Console.WriteLine("wolft " + wolf.world.Translation);
-                System.Console.WriteLine("givert " + giver.world.Translation);
-
                 if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f)
                 {
                     currentGiver = giver;
+                    currentQuestGivers = currentGiver;
                     return true;
                 }
                 else

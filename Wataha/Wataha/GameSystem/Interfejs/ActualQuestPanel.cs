@@ -28,12 +28,22 @@ namespace Wataha.GameSystem.Interfejs
 
         public void SetPanel(Quest quest)
         {
-            title = quest.questTitle;
-            description = quest.questDescription;
-            reward = "Meat: " + quest.MeatReward + "    " +
-                     "White Fang: " + quest.WhiteFangReward + "    " +
-                     "Gold Fang: " + quest.GoldFangReward;
+            if (quest != null)
+            {
+                title = quest.questTitle;
+                description = quest.questDescription;
+                reward = "Meat: " + quest.MeatReward + "    " +
+                         "White Fang: " + quest.WhiteFangReward + "    " +
+                         "Gold Fang: " + quest.GoldFangReward;
+            }
          }
+
+        public void ClearPanel()
+        {
+            description = "";
+            reward = "";
+            title = "";
+        }
 
         public void Update(int width, int height)
         {

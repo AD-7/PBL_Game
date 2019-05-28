@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Wataha.GameObjects;
+using Wataha.GameObjects.Movable;
 
 namespace Wataha.GameObjects.Interable
 {
@@ -40,7 +41,7 @@ namespace Wataha.GameObjects.Interable
             questStatus = status.INACTIVE;
         }
 
-        public Quest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward)
+        public Quest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward, GameObject game)
         {
             questStage = 0;
             questCollectedItems = 0;
@@ -54,6 +55,7 @@ namespace Wataha.GameObjects.Interable
             MeatReward = meatReward;
             WhiteFangReward = whiteFangReward;
             GoldFangReward = goldFangReward;
+            questDestination = game;
         }
 
         // Update is called once per frame
@@ -77,7 +79,7 @@ namespace Wataha.GameObjects.Interable
             this.questStatus = status.SUCCED;
         }
 
-        public abstract bool IfCompleted();
+        public abstract bool IfCompleted(Wolf wolf);
         
         public void ItemCollected()
         {

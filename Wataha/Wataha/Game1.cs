@@ -12,6 +12,10 @@ using System.Diagnostics;
 using System;
 using Wataha.GameObjects;
 using Wataha.GameSystem.Interfejs;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using static Wataha.GameSystem.Interfejs.HUDController;
 
 namespace Wataha
 {
@@ -61,6 +65,33 @@ namespace Wataha
             Content = new ContentManager(this.Services, "Content");
             audioSystem = new AudioSystem(Content);
 
+        }
+
+        public void LoadGame()
+        {
+            string fileName = "save.txt";
+            SaveGameInfo saveGameInfo = new SaveGameInfo();
+
+
+            FileStream fs = new FileStream(fileName, FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                saveGameInfo = (SaveGameInfo)formatter.Deserialize(fs);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            finally { fs.Close(); }
+
+            wolf.position = new Vector3(saveGameInfo.Wolf1PositionX, saveGameInfo.Wolf1PositionY, saveGameInfo.Wolf1PositionZ);
+            wolf2.position = new Vector3(saveGameInfo.Wolf2PositionX, saveGameInfo.Wolf2PositionY, saveGameInfo.Wolf2PositionZ);
+            wolf3.position = new Vector3(saveGameInfo.Wolf3PositionX, saveGameInfo.Wolf3PositionY, saveGameInfo.Wolf3PositionZ);
+            Resources.Meat = saveGameInfo.Meat;
+            Resources.Goldfangs = saveGameInfo.GoldFang;
+            Resources.Whitefangs = saveGameInfo.WhiteFang;
         }
 
         /// <summary>
@@ -149,8 +180,15 @@ namespace Wataha
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf2"), worldw4));
-            questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1));
+
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("courier/c"), worldw4));
+
+            worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 0.0f, -100.0f));
+
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("courier/c2"), worldw4));
+            questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1, questSystem.questGivers[1]));
             questSystem.questGivers[0].Init();
 
             //foreach(QuestGiver q in questSystem.questGivers)
@@ -255,9 +293,11 @@ namespace Wataha
                     }
                     if (mainMenu.LoadButtonEvent())
                     {
-
+                        gameInMainMenu = false;
+                        IsMouseVisible = false;
+                        LoadContent();
+                        LoadGame();
                     }
-
 
                 }
                 else
@@ -326,6 +366,7 @@ namespace Wataha
                         colisionSystem.IsEnvironmentCollision(rabit, trees);
 
                         wataha.Update(gameTime);
+                        questSystem.Update(gameTime, wataha.wolves[0]);
 
                         rabit.Update(gameTime);
 
@@ -336,6 +377,10 @@ namespace Wataha
                         if (hud.ResumeButtonEvent())
                         {
                             hud.ifPaused = false;
+                        }
+                        if (hud.SaveButtonEvent())
+                        {
+                            hud.SaveGame();
                         }
                         if (hud.BackToMainMenuButtonEvent())
                         {
