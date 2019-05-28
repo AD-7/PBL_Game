@@ -12,6 +12,10 @@ using System.Diagnostics;
 using System;
 using Wataha.GameObjects;
 using Wataha.GameSystem.Interfejs;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
+using static Wataha.GameSystem.Interfejs.HUDController;
 
 namespace Wataha
 {
@@ -61,6 +65,30 @@ namespace Wataha
             Content = new ContentManager(this.Services, "Content");
             audioSystem = new AudioSystem(Content);
 
+        }
+
+        public void LoadGame()
+        {
+            string fileName = "save.txt";
+            SaveGameInfo saveGameInfo = new SaveGameInfo();
+
+
+            FileStream fs = new FileStream(fileName, FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                saveGameInfo = (SaveGameInfo)formatter.Deserialize(fs);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            finally { fs.Close(); }
+
+            wolf.position = new Vector3(saveGameInfo.Wolf1PositionX, saveGameInfo.Wolf1PositionY, saveGameInfo.Wolf1PositionZ);
+            wolf2.position = new Vector3(saveGameInfo.Wolf2PositionX, saveGameInfo.Wolf2PositionY, saveGameInfo.Wolf2PositionZ);
+            wolf3.position = new Vector3(saveGameInfo.Wolf3PositionX, saveGameInfo.Wolf3PositionY, saveGameInfo.Wolf3PositionZ);
         }
 
         /// <summary>
@@ -255,9 +283,11 @@ namespace Wataha
                     }
                     if (mainMenu.LoadButtonEvent())
                     {
-
+                        gameInMainMenu = false;
+                        IsMouseVisible = false;
+                        LoadContent();
+                        LoadGame();
                     }
-
 
                 }
                 else
@@ -336,6 +366,10 @@ namespace Wataha
                         if (hud.ResumeButtonEvent())
                         {
                             hud.ifPaused = false;
+                        }
+                        if (hud.SaveButtonEvent())
+                        {
+                            hud.SaveGame();
                         }
                         if (hud.BackToMainMenuButtonEvent())
                         {
