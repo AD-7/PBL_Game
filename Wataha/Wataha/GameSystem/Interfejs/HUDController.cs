@@ -403,7 +403,10 @@ namespace Wataha.GameSystem.Interfejs
 
             if (ifActualQuestPanel)
             {
-                actualQuestPanel.SetPanel(QuestSystem.currentQuest);
+                if (QuestSystem.currentQuest != null)
+                    actualQuestPanel.SetPanel(QuestSystem.currentQuest);
+                else
+                    actualQuestPanel.ClearPanel();
                 actualQuestPanel.Draw(spriteBatch);
             }
 

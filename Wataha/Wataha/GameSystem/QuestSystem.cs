@@ -23,12 +23,12 @@ namespace Wataha.GameSystem
             this.questGivers = new List<QuestGiver>();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Wolf wolf)
         {
             foreach (QuestGiver q in questGivers)
                 q.Update(gameTime);
 
-            if(currentQuest.IfCompleted())
+            if(currentQuest != null && currentQuest.IfCompleted(wolf))
             {
                 Resources.Meat += currentQuest.MeatReward;
                 Resources.Whitefangs += currentQuest.WhiteFangReward;
