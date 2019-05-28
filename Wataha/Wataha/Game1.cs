@@ -11,6 +11,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using Wataha.GameObjects;
+using static Wataha.GameSystem.HUDController;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 
 namespace Wataha
 {
@@ -56,11 +60,35 @@ namespace Wataha
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
-
-
-
-
         }
+
+
+        public void LoadGame()
+        {
+
+            string fileName = "save.txt";
+            SaveGameInfo saveGameInfo = new SaveGameInfo();
+
+
+            FileStream fs = new FileStream(fileName, FileMode.Open);
+            try
+            {
+                BinaryFormatter formatter = new BinaryFormatter();
+                saveGameInfo = (SaveGameInfo)formatter.Deserialize(fs);
+            }
+            catch (SerializationException e)
+            {
+                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                throw;
+            }
+            finally { fs.Close(); }
+
+            wolf.position = new Vector3(saveGameInfo.Wolf1PositionX, saveGameInfo.Wolf1PositionY, saveGameInfo.Wolf1PositionZ);
+            wolf2.position = new Vector3(saveGameInfo.Wolf2PositionX, saveGameInfo.Wolf2PositionY, saveGameInfo.Wolf2PositionZ);
+            wolf3.position = new Vector3(saveGameInfo.Wolf3PositionX, saveGameInfo.Wolf3PositionY, saveGameInfo.Wolf3PositionZ);
+        }
+
+
 
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
@@ -139,10 +167,10 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"),"wilk2",Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),"wilk2",Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2",Content,worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
-            rabit = new Animal(wolf, Content.Load<Model>("Wolf"),world2,3.0f,camera,1,1,1,"krol");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
+            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 3.0f, camera, 1, 1, 1, "krol");
             rabit.SetModelEffect(simpleEffect, true);
 
 
@@ -208,12 +236,8 @@ namespace Wataha
 
             if (!hud.huntingSystem.active)
             {
-
-
                 if (gameInMainMenu)
                 {
-
-
                     mainMenu.Update();
 
                     if (mainMenu.ExitButtonsEvents())
@@ -223,14 +247,12 @@ namespace Wataha
                         gameInMainMenu = false;
                         IsMouseVisible = false;
                         this.LoadContent();
+                        LoadGame();
+
                     }
-
-
                 }
                 else
                 {
-
-
                     if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
                     {
                         IsMouseVisible = true;
@@ -238,17 +260,12 @@ namespace Wataha
                         return;
                     }
 
-
-
                     if (!hud.ifPaused)
                     {
-
-
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
                         {
                             audioSystem.playGrowl(2);
                         }
-
 
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && currentGiver != null)
                         {
@@ -262,12 +279,12 @@ namespace Wataha
                             colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
                             colisionSystem.IsEnvironmentCollision(w, b, wataha);
-                            
+
                         }
                         colisionSystem.IsCollisionTerrain(rabit.collider, plane.collider);
-                    wataha.Update(gameTime);
+                        wataha.Update(gameTime);
 
-                    rabit.Update(gameTime);
+                        rabit.Update(gameTime);
 
                     }
                     else
@@ -275,6 +292,11 @@ namespace Wataha
 
                         if (hud.ResumeButtonEvent())
                         {
+                            hud.ifPaused = false;
+                        }
+                        if (hud.SaveButtonEvent())
+                        {
+                            hud.SaveGame();
                             hud.ifPaused = false;
                         }
                         if (hud.BackToMainMenuButtonEvent())
@@ -298,13 +320,8 @@ namespace Wataha
                     ps.AddParticle(randPosition, randAngle, randSpeed);
                     ps.Update();
 
-
                     hud.Update();
-
-                }
-                
-               
-
+                }                               
             }
             else
             {
@@ -352,7 +369,7 @@ namespace Wataha
                     {
                         w.Draw(camera, "ShadowMap");
                     }
-                    rabit.Draw(camera,"ShadowMap");
+                    rabit.Draw(camera, "ShadowMap");
 
                     trees.Draw(camera, "ShadowMap");
                     b.Draw(camera, "ShadowMap");

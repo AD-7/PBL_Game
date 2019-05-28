@@ -13,6 +13,7 @@ using WatahaSkinnedModel;
 
 namespace Wataha.GameObjects.Movable
 {
+
     public class Wolf : GameObject
     {
         public Camera cam;
