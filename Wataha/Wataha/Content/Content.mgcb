@@ -33,6 +33,63 @@
 /processorParam:TextureFormat=Compressed
 /build:B1.obj
 
+#begin B2.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:B2.obj
+
+#begin barrell.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:barrell.obj
+
+#begin croft.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=1
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:croft.obj
+
 #begin Effects/BilboardEffect.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -85,6 +142,27 @@
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
 /build:Fonts/font1.spritefont
+
+#begin Fonts/infoHuntingFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/infoHuntingFont.spritefont
+
+#begin Fonts/infoHuntingFontSmall.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/infoHuntingFontSmall.spritefont
+
+#begin Fonts/timerFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/timerFont.spritefont
 
 #begin huntingTrees.obj
 /importer:FbxImporter
@@ -2385,7 +2463,7 @@
 /processorParam:TextureFormat=Compressed
 /build:kostka/kostka_000120.obj
 
-#begin MainMenu/backMenu.png
+#begin MainMenu/about.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2395,7 +2473,67 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MainMenu/backMenu.png
+/build:MainMenu/about.png
+
+#begin MainMenu/about2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/about2.png
+
+#begin MainMenu/audioVolume.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/audioVolume.png
+
+#begin MainMenu/authors.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/authors.png
+
+#begin MainMenu/authors2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/authors2.png
+
+#begin MainMenu/authorsss.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/authorsss.png
 
 #begin MainMenu/bg.jpg
 /importer:TextureImporter
@@ -2409,7 +2547,7 @@
 /processorParam:TextureFormat=Color
 /build:MainMenu/bg.jpg
 
-#begin MainMenu/close.png
+#begin MainMenu/buttonsBkg.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2419,7 +2557,67 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MainMenu/close.png
+/build:MainMenu/buttonsBkg.png
+
+#begin MainMenu/effectVolume.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/effectVolume.png
+
+#begin MainMenu/exit.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/exit.png
+
+#begin MainMenu/exit2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/exit2.png
+
+#begin MainMenu/load.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/load.png
+
+#begin MainMenu/load2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/load2.png
 
 #begin MainMenu/Mute.png
 /importer:TextureImporter
@@ -2432,6 +2630,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:MainMenu/Mute.png
+
+#begin MainMenu/newGame.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/newGame.png
+
+#begin MainMenu/newGame2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/newGame2.png
 
 #begin MainMenu/notMute.png
 /importer:TextureImporter
@@ -2457,6 +2679,18 @@
 /processorParam:TextureFormat=Color
 /build:MainMenu/options.png
 
+#begin MainMenu/options2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/options2.png
+
 #begin MainMenu/slider.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2481,7 +2715,7 @@
 /processorParam:TextureFormat=Color
 /build:MainMenu/slider2.png
 
-#begin MainMenu/start.png
+#begin MainMenu/story.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -2491,7 +2725,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:MainMenu/start.png
+/build:MainMenu/story.png
+
+#begin MainMenu/title.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:MainMenu/title.png
 
 #begin Pictures/actualQuestButton.png
 /importer:TextureImporter
@@ -2565,6 +2811,30 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/buttonPhoto3.jpg
 
+#begin Pictures/buyButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/buyButton.png
+
+#begin Pictures/buyButton2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/buyButton2.png
+
 #begin Pictures/exitButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2576,6 +2846,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pictures/exitButton.png
+
+#begin Pictures/exitMarketButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/exitMarketButton.png
+
+#begin Pictures/exitMarketButton2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/exitMarketButton2.png
 
 #begin Pictures/exitPicture.png
 /importer:TextureImporter
@@ -2649,6 +2943,78 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/goldFangs.png
 
+#begin Pictures/Hunting/endHuntingWindow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/Hunting/endHuntingWindow.png
+
+#begin Pictures/Hunting/endWindow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/Hunting/endWindow.png
+
+#begin Pictures/Hunting/infoHuntingWindow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/Hunting/infoHuntingWindow.png
+
+#begin Pictures/Hunting/okButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/Hunting/okButton.png
+
+#begin Pictures/Hunting/yesButton.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/Hunting/yesButton.png
+
+#begin Pictures/market.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/market.png
+
 #begin Pictures/meat.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2697,6 +3063,78 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/questionMark.png
 
+#begin Pictures/QuestPanel/accept.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/QuestPanel/accept.png
+
+#begin Pictures/QuestPanel/accept2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/QuestPanel/accept2.png
+
+#begin Pictures/QuestPanel/cancel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/QuestPanel/cancel.png
+
+#begin Pictures/QuestPanel/cancel2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/QuestPanel/cancel2.png
+
+#begin Pictures/QuestPanel/pressFInfo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/QuestPanel/pressFInfo.png
+
+#begin Pictures/QuestPanel/QuestPanel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/QuestPanel/QuestPanel.png
+
 #begin Pictures/rectangleForButtons.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2744,6 +3182,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pictures/whiteFang.png
+
+#begin Pictures/zegar.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/zegar.png
 
 #begin PiesAnim/piesanim.fbx
 /importer:FbxImporter
@@ -3058,7 +3508,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000001.obj
@@ -3077,7 +3527,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000002.obj
@@ -3096,7 +3546,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000003.obj
@@ -3115,7 +3565,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000004.obj
@@ -3134,7 +3584,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000005.obj
@@ -3153,7 +3603,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000006.obj
@@ -3172,7 +3622,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000007.obj
@@ -3191,7 +3641,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000008.obj
@@ -3210,7 +3660,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000009.obj
@@ -3229,7 +3679,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000010.obj
@@ -3248,7 +3698,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000011.obj
@@ -3267,7 +3717,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000012.obj
@@ -3286,7 +3736,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000013.obj
@@ -3305,7 +3755,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000014.obj
@@ -3324,7 +3774,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000015.obj
@@ -3343,7 +3793,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000016.obj
@@ -3362,7 +3812,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000017.obj
@@ -3381,7 +3831,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000018.obj
@@ -3400,7 +3850,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000019.obj
@@ -3419,7 +3869,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000020.obj
@@ -3438,7 +3888,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000021.obj
@@ -3457,7 +3907,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000022.obj
@@ -3476,7 +3926,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000023.obj
@@ -3495,7 +3945,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000024.obj
@@ -3514,7 +3964,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000025.obj
@@ -3533,7 +3983,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000026.obj
@@ -3552,7 +4002,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000027.obj
@@ -3571,7 +4021,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000028.obj
@@ -3590,7 +4040,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000029.obj
@@ -3609,7 +4059,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000030.obj
@@ -3628,7 +4078,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000031.obj
@@ -3647,7 +4097,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000032.obj
@@ -3666,7 +4116,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000033.obj
@@ -3685,7 +4135,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000034.obj
@@ -3704,7 +4154,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000035.obj
@@ -3723,7 +4173,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000036.obj
@@ -3742,7 +4192,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000037.obj
@@ -3761,7 +4211,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000038.obj
@@ -3780,7 +4230,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000039.obj
@@ -3799,7 +4249,7 @@
 /processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=0.7
+/processorParam:Scale=0.5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:wilk2/piesblend_000040.obj
@@ -3860,4 +4310,23 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Wolf3.fbx
+
+#begin Rabbit/Rabbit.fbx
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=3
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:Rabbit/Rabbit.fbx
 

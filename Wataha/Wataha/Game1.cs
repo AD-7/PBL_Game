@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System;
 using Wataha.GameObjects;
+using Wataha.GameSystem.Interfejs;
 
 namespace Wataha
 {
@@ -26,9 +27,8 @@ namespace Wataha
         private GameObjects.Static.Plane plane;
         private Wolf wolf, wolf2, wolf3;
         private Animal rabit;
-        private Wataha.GameObjects.Movable.Wataha wataha;
-        private List<QuestGiver> questGivers;
-        private QuestGiver currentGiver;
+        private GameObjects.Movable.Wataha wataha;
+
         Skybox skybox;
 
         private Matrix world;
@@ -36,9 +36,10 @@ namespace Wataha
         private ColisionSystem colisionSystem;
         private AudioSystem audioSystem;
         private ParticleSystem ps;
+        private QuestSystem questSystem;
 
         private GameObjects.Static.Environment trees, huntingTrees;
-        private GameObjects.Static.Environment b;
+        private GameObjects.Static.Environment blockade, blockade2, croft,barrell;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
         HUDController hud;
@@ -51,14 +52,14 @@ namespace Wataha
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
-            Window.AllowUserResizing = true;
+            //  Window.AllowUserResizing = true;
 
             //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
 
-
-
+            Content = new ContentManager(this.Services, "Content");
+            audioSystem = new AudioSystem(Content);
 
         }
 
@@ -71,9 +72,6 @@ namespace Wataha
         /// 
         protected override void Initialize()
         {
-
-            //questGivers = new List<QuestGiver>();
-
             base.Initialize();
         }
 
@@ -87,17 +85,18 @@ namespace Wataha
 
 
             Content.RootDirectory = "Content";
-            graphics.IsFullScreen = false;
+            //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            //   graphics.IsFullScreen = true;
+            //     graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            //graphics.SynchronizeWithVerticalRetrace = false;
+            //IsFixedTimeStep = false;
             graphics.ApplyChanges();
 
-            Content = new ContentManager(this.Services, "Content");
             camera = new Camera();
             colisionSystem = new ColisionSystem();
-            audioSystem = new AudioSystem(Content);
+            questSystem = new QuestSystem();
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -118,9 +117,6 @@ namespace Wataha
 
             skybox = new Skybox("Skyboxes/skybox", Content);
 
-
-
-
             wataha = new GameObjects.Movable.Wataha(camera);
 
             Matrix world2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -139,16 +135,36 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"),"wilk2",Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"),"wilk2",Content, worldw2, 3.0f, camera, 10, 8, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2",Content,worldw3, 3.0f, camera, 9, 9, 8, "Hatsu");
-            rabit = new Animal(wolf, Content.Load<Model>("Wolf"),world2,3.0f,camera,1,1,1,"krol");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+
+            
+
+            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f, 5);
             rabit.SetModelEffect(simpleEffect, true);
 
 
+            Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
+
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("Wolf2"), worldw4));
+            questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1));
+            questSystem.questGivers[0].Init();
+
+            //foreach(QuestGiver q in questSystem.questGivers)
+            //{
+            //    q.SetModelEffect(simpleEffect, true);
+            //}
+
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
-            b = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
+            blockade = new GameObjects.Static.Environment(Content.Load<Model>("B1"), world3, 8);
+            Matrix worldb2 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
+            blockade2 = new GameObjects.Static.Environment(Content.Load<Model>("B2"), worldb2, 10);
+            croft = new GameObjects.Static.Environment(Content.Load<Model>("croft"), worldb2, 35);
+            barrell = new GameObjects.Static.Environment(Content.Load<Model>("barrell"), worldb2, 5);
 
 
 
@@ -157,7 +173,10 @@ namespace Wataha
             wolf3.SetModelEffect(simpleEffect, true);
             trees.SetModelEffect(simpleEffect, true);
             huntingTrees.SetModelEffect(simpleEffect, true);
-            b.SetModelEffect(simpleEffect, true);
+            blockade.SetModelEffect(simpleEffect, true);
+            blockade2.SetModelEffect(simpleEffect, true);
+            croft.SetModelEffect(simpleEffect, true);
+            barrell.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
             wolf2.texture = Content.Load<Texture2D>("textures/textureW");
@@ -172,9 +191,20 @@ namespace Wataha
             renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);
 
 
+            Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+
+            worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+
+            worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, renderTarget, plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget,Content.Load<Model>("Rabbit/Rabbit"), plane, huntingTrees, skybox);
+            tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
+            tmp.huntingWolf.SetModelEffect(simpleEffect, true);
+            
+
+
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
 
@@ -206,29 +236,33 @@ namespace Wataha
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
 
+
             if (!hud.huntingSystem.active)
             {
-
-
                 if (gameInMainMenu)
                 {
 
 
                     mainMenu.Update();
 
-                    if (mainMenu.ExitButtonsEvents())
+                    if (mainMenu.ExitButtonEvent())
                         Exit();
-                    if (mainMenu.PlayButtonsEvents())
+                    if (mainMenu.NewGameButtonEvent())
                     {
                         gameInMainMenu = false;
                         IsMouseVisible = false;
                         this.LoadContent();
+                    }
+                    if (mainMenu.LoadButtonEvent())
+                    {
+
                     }
 
 
                 }
                 else
                 {
+
 
 
                     if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
@@ -250,24 +284,50 @@ namespace Wataha
                         }
 
 
-                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && currentGiver != null)
+                        if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null && QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest)
                         {
-                            Debug.WriteLine("test");
+                            hud.ifQuestPanel = true;
                         }
 
-                        //ChceckNearestQuestGiver();
+
+                        if (questSystem.ChceckNearestQuestGiver(wataha.wolves[0]))
+                        {
+
+                        }
+                        else
+                        {
+                            hud.ifQuestPanel = false;
+                        }
+                        if (hud.marketPanel.CheckIfWolfIsClose(wataha.wolves[0], barrell))
+                        {
+                            hud.marketPanel.infoActive = true;
+                        }
+                        else
+                        {
+                            hud.marketPanel.infoActive = false;
+                            hud.marketPanel.active = false;
+                        }
+                        if (hud.marketPanel.infoActive && InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F))
+                        {
+                            hud.marketPanel.active = true;
+                        }
+
+
 
                         foreach (Wolf w in wataha.wolves)
                         {
-                            colisionSystem.IsCollisionTerrain(w.collider, plane.collider);
-                            colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            colisionSystem.IsEnvironmentCollision(w, b, wataha);
-                            
-                        }
-                        colisionSystem.IsCollisionTerrain(rabit.collider, plane.collider);
-                    wataha.Update(gameTime);
 
-                    rabit.Update(gameTime);
+                            colisionSystem.IsEnvironmentCollision(w, trees, wataha);
+                            //  colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, croft, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
+                        }
+                        colisionSystem.IsEnvironmentCollision(rabit, trees);
+
+                        wataha.Update(gameTime);
+
+                        rabit.Update(gameTime);
 
                     }
                     else
@@ -302,14 +362,15 @@ namespace Wataha
                     hud.Update();
 
                 }
-                
-               
+
 
             }
             else
             {
-                hud.huntingSystem.Update();
+                hud.huntingSystem.Update(gameTime);
             }
+
+
 
             base.Update(gameTime);
         }
@@ -323,10 +384,10 @@ namespace Wataha
 
             graphics.GraphicsDevice.Clear(Color.Black);
 
+
+
             if (!hud.huntingSystem.active)
             {
-
-
                 if (gameInMainMenu)
                 {
                     mainMenu.Draw();
@@ -346,54 +407,84 @@ namespace Wataha
 
 
 
-                    plane.Draw(camera, "ShadowMap");
-                    //questGivers[0].Draw(camera);
+                    //  plane.Draw(camera, "ShadowMap");
+
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowMap");
                     }
-                    rabit.Draw(camera,"ShadowMap");
+                    rabit.Draw(camera, "ShadowMap");
 
+                    //foreach (QuestGiver q in questSystem.questGivers)
+                    //{
+                    //    q.Draw(camera, "ShadowMap");
+                    //}
                     trees.Draw(camera, "ShadowMap");
-                    b.Draw(camera, "ShadowMap");
-
-
+                    blockade.Draw(camera, "ShadowMap");
+                    blockade2.Draw(camera, "ShadowMap");
+                    croft.Draw(camera, "ShadowMap");
+                    barrell.Draw(camera, "ShadowMap");
                     device.SetRenderTarget(null);
-                    plane.shadowMap = (Texture2D)renderTarget;
+
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
                     }
-
+                    //foreach (QuestGiver q in questSystem.questGivers)
+                    //{
+                    //    q.shadowMap = (Texture2D)renderTarget;
+                    //}
                     trees.shadowMap = (Texture2D)renderTarget;
-                    b.shadowMap = (Texture2D)renderTarget;
-
-
+                    blockade.shadowMap = (Texture2D)renderTarget;
+                    blockade2.shadowMap = (Texture2D)renderTarget;
+                    croft.shadowMap = (Texture2D)renderTarget;
+                    barrell.shadowMap = (Texture2D)renderTarget;
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
                     device.BlendState = BlendState.AlphaBlend;
 
-                    plane.Draw(camera, "ShadowedScene");
+
+
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowedScene");
                     }
                     rabit.Draw(camera, "ShadowedScene");
 
-                    //questGivers[0].Draw(camera);
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.Draw(camera, "ShadowedScene");
+                    }
                     trees.Draw(camera, "ShadowedScene");
-                    b.Draw(camera, "ShadowedScene");
+                    blockade.Draw(camera, "ShadowedScene");
+                    blockade2.Draw(camera, "ShadowedScene");
+                    croft.Draw(camera, "ShadowedScene");
+                    barrell.Draw(camera, "ShadowedScene");
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
 
-                    plane.shadowMap = null;
+
+
+                    //foreach (QuestGiver q in questSystem.questGivers)
+                    //{
+                    //    q.shadowMap = null;
+                    //}
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = null;
                     }
 
                     trees.shadowMap = null;
-                    b.shadowMap = null;
+                    blockade.shadowMap = null;
+                    blockade2.shadowMap = null;
+                    croft.shadowMap = null;
+                    barrell.shadowMap = null;
                     graphics.GraphicsDevice.RasterizerState = originalRasterizerState;
 
 
@@ -407,6 +498,7 @@ namespace Wataha
 
 
                 }
+
             }
             else
             {
@@ -423,27 +515,5 @@ namespace Wataha
                 min.Z + (float)rand.NextDouble() * (max.Z - min.Z));
         }
 
-
-
-
-
-
-
-        public void ChceckNearestQuestGiver()
-        {
-            foreach (QuestGiver giver in questGivers)
-            {
-                if (Vector3.Distance(wolf.world.Translation, giver.world.Translation) < 3.0f)
-                {
-                    currentGiver = giver;
-                    return;
-                }
-                else
-                {
-                    currentGiver = null;
-                }
-
-            }
-        }
     }
 }

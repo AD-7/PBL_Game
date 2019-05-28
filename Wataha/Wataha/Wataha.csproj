@@ -14,6 +14,7 @@
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>Windows</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,7 +27,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -50,7 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>wolf.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -62,7 +62,10 @@
     <Compile Include="GameObjects\Interable\Quest.cs" />
     <Compile Include="GameObjects\Interable\QuestGiver.cs" />
     <Compile Include="GameObjects\Interable\QuestItem.cs" />
-    <Compile Include="GameObjects\MainMenu.cs" />
+    <Compile Include="GameObjects\Interable\TestQuest.cs" />
+    <Compile Include="GameSystem\Interfejs\MarketPanel.cs" />
+    <Compile Include="GameSystem\Interfejs\QuestPanel.cs" />
+    <Compile Include="GameSystem\Interfejs\MainMenu.cs" />
     <Compile Include="GameObjects\Material.cs" />
     <Compile Include="GameObjects\Materials\PointLightMaterial.cs" />
     <Compile Include="GameObjects\Materials\PPPointLight.cs" />
@@ -73,10 +76,12 @@
     <Compile Include="GameObjects\Movable\Wolf.cs" />
     <Compile Include="GameObjects\Static\Environment.cs" />
     <Compile Include="GameObjects\Static\Plane.cs" />
-    <Compile Include="GameSystem\ActualQuestPanel.cs" />
+    <Compile Include="GameSystem\Interfejs\ActualQuestPanel.cs" />
     <Compile Include="GameSystem\BillboardSystem.cs" />
     <Compile Include="GameSystem\InputSystem.cs" />
-    <Compile Include="GameSystem\WolfPanel.cs" />
+    <Compile Include="GameSystem\Interfejs\HUDHunting.cs" />
+    <Compile Include="GameSystem\Interfejs\WolfPanel.cs" />
+    <Compile Include="GameSystem\Resources.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GameSystem\Animation\Animation.cs" />
@@ -84,13 +89,11 @@
     <Compile Include="GameSystem\AudioSystem.cs" />
     <Compile Include="GameSystem\Camera.cs" />
     <Compile Include="GameSystem\ColisionSystem.cs" />
-    <Compile Include="GameSystem\GameSystem.cs" />
-    <Compile Include="GameSystem\HUDController.cs" />
+    <Compile Include="GameSystem\Interfejs\HUDController.cs" />
     <Compile Include="GameSystem\HuntingSystem.cs" />
     <Compile Include="GameSystem\ParticleSystem\ParticleSystem.cs" />
     <Compile Include="GameSystem\ParticleSystem\ParticleVertex.cs" />
     <Compile Include="GameSystem\QuestSystem.cs" />
-    <Compile Include="GameSystem\SceneManager.cs" />
     <Compile Include="GameSystem\Skybox.cs" />
     <Compile Include="GameSystem\UpgradeSystem.cs" />
   </ItemGroup>
@@ -102,7 +105,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
+    <Content Include="wolf.ico" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />

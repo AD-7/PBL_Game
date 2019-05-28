@@ -1,5 +1,5 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 16.05.2019 18:53:26
+# File Created: 23.05.2019 15:18:47
 
 newmtl Material__27
 	Ns 10.0000
@@ -42,17 +42,3 @@ newmtl Material__82
 	Ke 0.0000 0.0000 0.0000
 	map_Ka .\textures\treesTexture.png
 	map_Kd .\textures\treesTexture.png
-
-newmtl Material__128
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.5880 0.5880 0.5880
-	Kd 0.5880 0.5880 0.5880
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-	map_Ka .\textures\wellTexture.png
-	map_Kd .\textures\wellTexture.png

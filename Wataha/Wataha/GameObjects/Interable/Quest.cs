@@ -22,23 +22,38 @@ namespace Wataha.GameObjects.Interable
         public int questFinalStage;
         public int questCollectedItems;
 
-       // public GameObject questDestination;
+        public GameObject questDestination;
 
         public int NeedStrenght;
         public int NeedResistance;
         public int NeedSpeed;
-        public int MaxAgresion;
 
         public int MeatReward;
         public int WhiteFangReward;
         public int GoldFangReward;
         public GameObject[] questItems;
 
-        void Initialized()
+        public Quest()
         {
             questStage = 0;
             questCollectedItems = 0;
             questStatus = status.INACTIVE;
+        }
+
+        public Quest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward)
+        {
+            questStage = 0;
+            questCollectedItems = 0;
+            questStatus = status.INACTIVE;
+            this.questId = questId;
+            this.questTitle = questTitle;
+            this.questDescription = questDescription;
+            NeedStrenght = needStrenght;
+            NeedResistance = needResistance;
+            NeedSpeed = needSpeed;
+            MeatReward = meatReward;
+            WhiteFangReward = whiteFangReward;
+            GoldFangReward = goldFangReward;
         }
 
         // Update is called once per frame
@@ -47,22 +62,24 @@ namespace Wataha.GameObjects.Interable
 
         }
 
-        public void questActive()
+        public void QuestActive()
         {
             this.questStatus = status.ACTIVE;
         }
 
-        public void questFaild()
+        public void QuestFaild()
         {
             this.questStatus = status.FAILD;
         }
 
-        public void questSucced()
+        public void QuestSucced()
         {
             this.questStatus = status.SUCCED;
         }
 
-        public void itemCollected()
+        public abstract bool IfCompleted();
+        
+        public void ItemCollected()
         {
             questCollectedItems++;
         }
