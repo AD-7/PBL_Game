@@ -53,6 +53,7 @@ namespace Wataha
         private MainMenu mainMenu;
 
         BillboardSystem billboardTest;
+        BillboardSystem billboardTest2;
 
         public Game1()
         {
@@ -151,11 +152,16 @@ namespace Wataha
 
             simpleEffect = Content.Load<Effect>("Effects/Light");
             ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f, 0.00001f), 0.3f, Vector3.Zero, 0.1f);
+
+
             Vector3[] positions = new Vector3[1];
-            positions[0] = new Vector3(0, 3, 0);
+            Vector3[] positions2 = new Vector3[1];
+            positions[0] = new Vector3(20, 20, 20);
+            positions2[0] = new Vector3(10, 10, 10);
 
+            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions);
 
-            billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
+            billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions2);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
