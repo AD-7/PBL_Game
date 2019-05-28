@@ -126,6 +126,8 @@ namespace Wataha.GameSystem.Interfejs
             public float Wolf3PositionZ { get; set; }
 
             public int Meat { get; set; }
+            public int GoldFang { get; set; }
+            public int WhiteFang { get; set; }
 
             public SaveGameInfo()
             {
@@ -143,7 +145,9 @@ namespace Wataha.GameSystem.Interfejs
                 Wolf3PositionX = wolf3Position.X;
                 Wolf3PositionY = wolf3Position.Y;
                 Wolf3PositionZ = wolf3Position.Z;
-                //Meat = meat;
+                Meat = Resources.Meat;
+                GoldFang = Resources.Goldfangs;
+                WhiteFang = Resources.Whitefangs;
             }
 
         }

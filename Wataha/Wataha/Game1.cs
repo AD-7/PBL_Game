@@ -89,6 +89,9 @@ namespace Wataha
             wolf.position = new Vector3(saveGameInfo.Wolf1PositionX, saveGameInfo.Wolf1PositionY, saveGameInfo.Wolf1PositionZ);
             wolf2.position = new Vector3(saveGameInfo.Wolf2PositionX, saveGameInfo.Wolf2PositionY, saveGameInfo.Wolf2PositionZ);
             wolf3.position = new Vector3(saveGameInfo.Wolf3PositionX, saveGameInfo.Wolf3PositionY, saveGameInfo.Wolf3PositionZ);
+            Resources.Meat = saveGameInfo.Meat;
+            Resources.Goldfangs = saveGameInfo.GoldFang;
+            Resources.Whitefangs = saveGameInfo.WhiteFang;
         }
 
         /// <summary>
