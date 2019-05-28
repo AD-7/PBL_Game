@@ -100,7 +100,7 @@ technique BasicColorDrawing
 struct SMapVertexToPixel
 {
 	float4 Position : POSITION;
-	float4 Position2D    : TEXCOORD0;
+	float Depth    : TEXCOORD0;
 };
 struct SMapPixelToFrame
 {
@@ -112,7 +112,7 @@ SMapVertexToPixel ShadowMapVertexShader(float4 inPos : POSITION)
 	SMapVertexToPixel Output = (SMapVertexToPixel)0;
 
 	Output.Position = mul(inPos, xLightsWorldViewProjection);
-	Output.Position2D = Output.Position;
+	Output.Depth = Output.Position.z / Output.Position.w;
 
 	return Output;
 }
@@ -120,7 +120,7 @@ SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
 {
 	SMapPixelToFrame Output = (SMapPixelToFrame)0;
 Output.Color.a = xAlpha;
-	Output.Color =float4( PSIn.Position2D.z / PSIn.Position2D.w, 0.0f, 0.0f, 1.0f);
+	Output.Color =float4( PSIn.Depth, 0.0f, 0.0f, 0.0f);
 	
 
 	return Output;
