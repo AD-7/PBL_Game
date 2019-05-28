@@ -18,7 +18,7 @@ namespace Wataha.GameSystem.Interfejs
     {
         public HuntingSystem huntingSystem;
 
-        GameObjects.Movable.Wataha wataha;
+        public GameObjects.Movable.Wataha wataha;
         SpriteBatch spriteBatch;
         GraphicsDevice device;
         ContentManager Content;
@@ -36,6 +36,9 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recButtonWolf1Set, recButtonWolf2Set, recButtonWolf3Set;
         Rectangle recActualQuestButton;
         Rectangle recSaveButton;
+        Rectangle recSaveInfo, recSaveInfoOk;
+
+        Texture2D actualSaveInfoOk;
 
         Color resumeButtonColor = Color.White;
         Color saveButtonColor = Color.White;
@@ -47,7 +50,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
         public bool ifQuestPanel = false;
-
+        public bool ifSaveInfo = false;
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
@@ -80,12 +83,16 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/resumeButton")); // 5
             pictures.Add(Content.Load<Texture2D>("Pictures/backToMainMenu"));
             pictures.Add(Content.Load<Texture2D>("Pictures/exitButton"));
-            pictures.Add(Content.Load<Texture2D>("Pictures/rectangleForButtons"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/rectangleForButtons"));//8
             pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto"));
             pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto2"));  //10
             pictures.Add(Content.Load<Texture2D>("Pictures/buttonPhoto3"));
             pictures.Add(Content.Load<Texture2D>("Pictures/actualQuestButton"));
             pictures.Add(Content.Load<Texture2D>("Pictures/saveGameButton"));
+            pictures.Add(Content.Load<Texture2D>("Pictures/saveInfo"));//14
+            pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk"));//15
+            pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk2"));//16
+            actualSaveInfoOk = pictures[15];
 
             wolfPanel = new WolfPanel(Content.Load<Texture2D>("Pictures/rectangleForWolfPanel"), broadwayFont);
             wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/exitPicture"));
@@ -112,67 +119,7 @@ namespace Wataha.GameSystem.Interfejs
             huntingSystem.audio = new AudioSystem(Content);
         }
 
-        [Serializable]
-        public class SaveGameInfo
-        {
-            public float Wolf1PositionX { get; set; }
-            public float Wolf1PositionY { get; set; }
-            public float Wolf1PositionZ { get; set; }
-            public float Wolf2PositionX { get; set; }
-            public float Wolf2PositionY { get; set; }
-            public float Wolf2PositionZ { get; set; }
-            public float Wolf3PositionX { get; set; }
-            public float Wolf3PositionY { get; set; }
-            public float Wolf3PositionZ { get; set; }
 
-            public int Meat { get; set; }
-            public int GoldFang { get; set; }
-            public int WhiteFang { get; set; }
-
-            public SaveGameInfo()
-            {
-
-            }
-
-            public SaveGameInfo(Vector3 wolf1Position, Vector3 wolf2Position, Vector3 wolf3Position)
-            {
-                Wolf1PositionX = wolf1Position.X;
-                Wolf1PositionY = wolf1Position.Y;
-                Wolf1PositionZ = wolf1Position.Z;
-                Wolf2PositionX = wolf2Position.X;
-                Wolf2PositionY = wolf2Position.Y;
-                Wolf2PositionZ = wolf2Position.Z;
-                Wolf3PositionX = wolf3Position.X;
-                Wolf3PositionY = wolf3Position.Y;
-                Wolf3PositionZ = wolf3Position.Z;
-                Meat = Resources.Meat;
-                GoldFang = Resources.Goldfangs;
-                WhiteFang = Resources.Whitefangs;
-            }
-
-        }
-
-        public void SaveGame()
-        {
-
-            string fileName = "save.txt";
-
-            SaveGameInfo saveGameInfo = new SaveGameInfo(wataha.wolves.ElementAt(0).position, wataha.wolves.ElementAt(1).position, wataha.wolves.ElementAt(2).position);
-            FileStream fs = new FileStream(fileName, FileMode.Create);
-
-            BinaryFormatter formatter = new BinaryFormatter();
-            try
-            {
-                if (saveGameInfo != null) formatter.Serialize(fs, saveGameInfo);
-                // etc....
-            }
-            catch (SerializationException e)
-            {
-                Console.WriteLine("Failed to serialize. Reason: " + e.Message);
-                throw;
-            }
-            finally { fs.Close(); }
-        }
 
 
         public void Update()
@@ -214,7 +161,7 @@ namespace Wataha.GameSystem.Interfejs
                 recResumeButton.Height = recPausePanel.Height / 10;
 
                 recSaveButton.X = recResumeButton.X;
-                recSaveButton.Y = recPausePanel.Y + recPausePanel.Height / 2;
+                recSaveButton.Y = recResumeButton.Y + recPausePanel.Height / 6;
                 recSaveButton.Width = recPausePanel.Width / 2;
                 recSaveButton.Height = recPausePanel.Height / 10;
 
@@ -224,7 +171,7 @@ namespace Wataha.GameSystem.Interfejs
                 recBackToMainMenuButton.Height = recPausePanel.Height / 10;
 
                 recExitButton.X = recResumeButton.X;
-                recExitButton.Y = recBackToMainMenuButton.Y + recPausePanel.Height / 4;
+                recExitButton.Y = recBackToMainMenuButton.Y + recPausePanel.Height / 6;
                 recExitButton.Width = recPausePanel.Width / 2;
                 recExitButton.Height = recPausePanel.Height / 10;
 
@@ -257,6 +204,17 @@ namespace Wataha.GameSystem.Interfejs
                 actualQuestPanel.Update(screenWidth, screenHeight);
                 QuestPanel.Update(screenWidth, screenHeight);
                 marketPanel.Update(screenWidth, screenHeight);
+
+                recSaveInfo.X = recPausePanel.X + recPausePanel.Width / 3;
+                recSaveInfo.Y = recPausePanel.Y + recPausePanel.Width / 2;
+                recSaveInfo.Width = recPausePanel.Width / 2;
+                recSaveInfo.Height = recPausePanel.Height / 6;
+
+                recSaveInfoOk.X = recSaveInfo.X + (int)(recSaveInfo.Width * 0.4);
+                recSaveInfoOk.Y = recSaveInfo.Y + recSaveInfo.Height - recSaveInfo.Height / 3;
+                recSaveInfoOk.Width = recSaveInfo.Width / 6;
+                recSaveInfoOk.Height = recSaveInfo.Width / 9;
+
             }
 
             InputSystem.UpdateCursorPosition();
@@ -294,7 +252,7 @@ namespace Wataha.GameSystem.Interfejs
                         if (Resources.Meat >= 15)
                         {
                             Resources.Meat -= 15;
-                           Resources.Goldfangs += 1;
+                            Resources.Goldfangs += 1;
                         }
 
                     }
@@ -314,7 +272,7 @@ namespace Wataha.GameSystem.Interfejs
                         ifQuestPanel = false;
                     }
 
-                    if(QuestPanel.AcceptButtonEvent())
+                    if (QuestPanel.AcceptButtonEvent())
                     {
                         QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
                         QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
@@ -357,6 +315,7 @@ namespace Wataha.GameSystem.Interfejs
 
 
             }
+           
 
         }
 
@@ -411,7 +370,7 @@ namespace Wataha.GameSystem.Interfejs
                 actualQuestPanel.Draw(spriteBatch);
             }
 
-            if (QuestSystem.currentGiver != null &&  QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest && !ifQuestPanel)
+            if (QuestSystem.currentGiver != null && QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest && !ifQuestPanel)
             {
                 QuestPanel.DrawInfo(spriteBatch);
             }
@@ -438,6 +397,11 @@ namespace Wataha.GameSystem.Interfejs
                 spriteBatch.Draw(pictures[13], recSaveButton, saveButtonColor);
                 spriteBatch.Draw(pictures[6], recBackToMainMenuButton, backToMainMenuButtonColor);
                 spriteBatch.Draw(pictures[7], recExitButton, exitButtonColor);
+                if (ifSaveInfo)
+                {
+                    spriteBatch.Draw(pictures[14], recSaveInfo, Color.White);
+                    spriteBatch.Draw(actualSaveInfoOk, recSaveInfoOk, Color.White);
+                }
 
             }
 
@@ -451,7 +415,23 @@ namespace Wataha.GameSystem.Interfejs
         }
 
 
+        public bool InfoSaveOkEvent()
+        {
+            if (recSaveInfoOk.Intersects(InputSystem.Cursor))
+            {
+                actualSaveInfoOk = pictures[16];
 
+                if(InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                {
+                    ifSaveInfo = false;
+                    return true;
+                }
+                return false;
+            }
+
+            actualSaveInfoOk = pictures[15];
+            return false;
+        }
 
 
         public bool ActualQuestButtonEvent()

@@ -16,6 +16,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using static Wataha.GameSystem.Interfejs.HUDController;
+using System.Linq;
 
 namespace Wataha
 {
@@ -41,7 +42,7 @@ namespace Wataha
         private AudioSystem audioSystem;
         private ParticleSystem ps;
         private QuestSystem questSystem;
-
+        
         private GameObjects.Static.Environment trees, huntingTrees;
         private GameObjects.Static.Environment blockade, blockade2, croft,barrell;
         private Effect simpleEffect;
@@ -70,14 +71,14 @@ namespace Wataha
         public void LoadGame()
         {
             string fileName = "save.txt";
-            SaveGameInfo saveGameInfo = new SaveGameInfo();
+            SaveSystem saveGameInfo = new SaveSystem();
 
 
             FileStream fs = new FileStream(fileName, FileMode.Open);
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                saveGameInfo = (SaveGameInfo)formatter.Deserialize(fs);
+                saveGameInfo = (SaveSystem)formatter.Deserialize(fs);
             }
             catch (SerializationException e)
             {
@@ -89,6 +90,21 @@ namespace Wataha
             wolf.position = new Vector3(saveGameInfo.Wolf1PositionX, saveGameInfo.Wolf1PositionY, saveGameInfo.Wolf1PositionZ);
             wolf2.position = new Vector3(saveGameInfo.Wolf2PositionX, saveGameInfo.Wolf2PositionY, saveGameInfo.Wolf2PositionZ);
             wolf3.position = new Vector3(saveGameInfo.Wolf3PositionX, saveGameInfo.Wolf3PositionY, saveGameInfo.Wolf3PositionZ);
+            wolf.strength = saveGameInfo.Wolf1Strength;
+            wolf.resistance = saveGameInfo.Wolf1Resistance;
+            wolf.speed = saveGameInfo.Wolf1Speed;
+            wolf.energy = saveGameInfo.Wolf1Energy;
+            wolf.Name = saveGameInfo.Wolf1Name;
+            wolf2.strength = saveGameInfo.Wolf2Strength;
+            wolf2.resistance = saveGameInfo.Wolf2Resistance;
+            wolf2.speed = saveGameInfo.Wolf2Speed;
+            wolf2.energy = saveGameInfo.Wolf2Energy;
+            wolf2.Name = saveGameInfo.Wolf2Name;
+            wolf3.strength = saveGameInfo.Wolf3Strength;
+            wolf3.resistance = saveGameInfo.Wolf3Resistance;
+            wolf3.speed = saveGameInfo.Wolf3Speed;
+            wolf3.energy = saveGameInfo.Wolf3Energy;
+            wolf3.Name = saveGameInfo.Wolf3Name;
             Resources.Meat = saveGameInfo.Meat;
             Resources.Goldfangs = saveGameInfo.GoldFang;
             Resources.Whitefangs = saveGameInfo.WhiteFang;
@@ -373,24 +389,34 @@ namespace Wataha
                     }
                     else
                     {
-
-                        if (hud.ResumeButtonEvent())
-                        {
-                            hud.ifPaused = false;
-                        }
-                        if (hud.SaveButtonEvent())
-                        {
-                            hud.SaveGame();
-                        }
-                        if (hud.BackToMainMenuButtonEvent())
+                        if (!hud.ifSaveInfo)
                         {
 
-                            hud.ifPaused = false;
-                            gameInMainMenu = true;
+
+                            if (hud.ResumeButtonEvent())
+                            {
+                                hud.ifPaused = false;
+                            }
+                            if (hud.SaveButtonEvent())
+                            {
+                                SaveSystem saver = new SaveSystem(hud.wataha.wolves.ElementAt(0), hud.wataha.wolves.ElementAt(1), hud.wataha.wolves.ElementAt(2));
+                                saver.SaveGame();
+                                hud.ifSaveInfo = true;
+                            }
+                            if (hud.BackToMainMenuButtonEvent())
+                            {
+
+                                hud.ifPaused = false;
+                                gameInMainMenu = true;
+                            }
+                            if (hud.ExitButtonEvent())
+                            {
+                                Exit();
+                            }
                         }
-                        if (hud.ExitButtonEvent())
+                        else
                         {
-                            Exit();
+                            hud.InfoSaveOkEvent();
                         }
 
                     }
