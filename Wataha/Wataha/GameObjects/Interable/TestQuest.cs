@@ -15,7 +15,7 @@ namespace Wataha.GameObjects.Interable
 
         public override bool IfCompleted()
         {
-            if(Vector3.Distance(questDestination.sphere.Center,Vector3.Zero)<10.0f)
+            if(Vector3.Distance(questDestination.model.Meshes[0].BoundingSphere.Center,Vector3.Zero) <10.0f)
                   return true;
             else
                   return false;

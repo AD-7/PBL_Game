@@ -87,9 +87,9 @@ namespace Wataha.GameSystem.Interfejs
 
         public void Draw(SpriteBatch spriteBatch)
         {
-           spriteBatch.Draw(panelTextures[0], recQuestPanel, Color.White);
-           spriteBatch.Draw(currentAccept, recAcceptQuest, Color.White);
-           spriteBatch.Draw(currentCancel, recCancelQuest, Color.White);
+            spriteBatch.Draw(panelTextures[0], recQuestPanel, Color.White);
+            spriteBatch.Draw(currentAccept, recAcceptQuest, Color.White);
+            spriteBatch.Draw(currentCancel, recCancelQuest, Color.White);
 
             spriteBatch.DrawString(font, title, new Vector2((int)(recQuestPanel.X + recQuestPanel.Width * 0.45), recQuestPanel.Y + (int)(recQuestPanel.Height * 0.01)), Color.Yellow);
             spriteBatch.DrawString(font, description, new Vector2((int)(recQuestPanel.X + recQuestPanel.Width * 0.05), recQuestPanel.Y + (int)(recQuestPanel.Height * 0.2)), Color.Yellow);
