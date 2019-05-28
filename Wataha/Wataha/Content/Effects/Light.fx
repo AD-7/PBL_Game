@@ -35,8 +35,8 @@ sampler ShadowMapSampler = sampler_state
 	texture = <xShadowMap>; 
 	magfilter = Point;
 	minfilter = Point; 
-	mipfilter = None; 
-	AddressU = clamp; AddressV = clamp;
+	mipfilter = Point; 
+	AddressU = wrap; AddressV = wrap;
 };
 
 struct VertexShaderInput

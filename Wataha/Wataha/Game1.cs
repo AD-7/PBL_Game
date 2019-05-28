@@ -188,7 +188,7 @@ namespace Wataha
             wataha.wolves.Add(wolf3);
 
             PresentationParameters pp = device.PresentationParameters;
-            renderTarget = new RenderTarget2D(device, pp.BackBufferWidth, pp.BackBufferHeight, true, device.DisplayMode.Format, DepthFormat.Depth24);
+            renderTarget = new RenderTarget2D(device, 2048, 2048, false, SurfaceFormat.Single, DepthFormat.Depth24,0,RenderTargetUsage.PlatformContents);
 
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -318,7 +318,7 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            //  colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            // colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
                             colisionSystem.IsEnvironmentCollision(w, barrell, wataha);

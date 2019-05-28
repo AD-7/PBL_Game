@@ -18,9 +18,9 @@ namespace Wataha.GameObjects
         public BoundingBox collider;
         public BoundingSphere sphere;
 
-        Vector3 lightPos = new Vector3(-150, 65, 30);
-        float lightPower = 1.2f;
-        float ambientPower = 0.6f;
+        Vector3 lightPos = new Vector3(-200, 170, 180);
+        float lightPower = 1.5f;
+        float ambientPower = 0.5f;
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
         public Texture2D shadowMap;
@@ -31,8 +31,9 @@ namespace Wataha.GameObjects
             this.world = world;
             this.model = model;
             this.material = new Material();
-            Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(150, 20, -10), new Vector3(0, 1, 0));
-            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(150), 1f, 10f, 200f);
+            Matrix lightsView = Matrix.CreateLookAt(lightPos,new Vector3(-50, -20, -250), new Vector3(0, 1, 0));
+            // Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(150), 1f, 10f, 200f);
+            Matrix lightsProjection = Matrix.CreateOrthographic(300, 300, 0.1f, 1000f);
             lightsViewProjectionMatrix = lightsView * lightsProjection;
 
             generateTags();
