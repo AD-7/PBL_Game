@@ -181,13 +181,13 @@ namespace Wataha
             worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
 
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("courier/c"), worldw4));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("wolf2"), worldw4));
 
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 0.0f, -100.0f));
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("courier/c2"), worldw4));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("wolf3"), worldw4));
             questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1, questSystem.questGivers[1]));
             questSystem.questGivers[0].Init();
 
