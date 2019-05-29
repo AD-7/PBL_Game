@@ -45,10 +45,10 @@ namespace Wataha.GameSystem
             for (int i = 0; i < nBillboards * 4; i += 4)
             {
                 Vector3 pos = particlePositions[i / 4];
-                Vector3 pos1 = new Vector3(1, 0, 1) * 1;
-                Vector3 pos2 = new Vector3(1, 2, 1) * 1;
-                Vector3 pos3 = new Vector3(2, 2, 1) * 1;
-                Vector3 pos4 = new Vector3(2, 0, 1) * 1;
+                Vector3 pos1 =pos + new Vector3(1, 0, 1) * 1;
+                Vector3 pos2 =pos + new Vector3(1, 2, 1) * 1;
+                Vector3 pos3 =pos + new Vector3(2, 2, 1) * 1;
+                Vector3 pos4 =pos + new Vector3(2, 0, 1) * 1;
                 // Add 4 vertices at the billboard's position
                 //particles[i + 0] = new VertexPositionTexture(pos1, new Vector2(0, 0));
                 //particles[i + 1] = new VertexPositionTexture(pos2, new Vector2(0, 1));

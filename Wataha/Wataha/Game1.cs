@@ -42,9 +42,9 @@ namespace Wataha
         private AudioSystem audioSystem;
         private ParticleSystem ps;
         private QuestSystem questSystem;
-        
+
         private GameObjects.Static.Environment trees, huntingTrees;
-        private GameObjects.Static.Environment blockade, blockade2, croft,barrell;
+        private GameObjects.Static.Environment blockade, blockade2, croft, barrell;
         private Effect simpleEffect;
         RenderTarget2D renderTarget;
         HUDController hud;
@@ -154,14 +154,20 @@ namespace Wataha
             ps = new ParticleSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/fire2"), 400, new Vector2(0.0001f, 0.00001f), 0.3f, Vector3.Zero, 0.1f);
 
 
-            Vector3[] positions = new Vector3[1];
-            Vector3[] positions2 = new Vector3[1];
-            positions[0] = new Vector3(20, 20, 20);
-            positions2[0] = new Vector3(10, 10, 10);
-
+            Vector3[] positions = new Vector3[6];
+            positions[0] = new Vector3(2, 0, 2);
+            positions[1] = new Vector3(10, 0, -10);
+            positions[2] = new Vector3(8, 0, -20);
+            positions[3] = new Vector3(20, 0, -30);
+            positions[4] = new Vector3(40, 0, -10);
+            positions[5] = new Vector3(50, 0, -20);
             billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions);
 
-            billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions2);
+
+
+
+            //Vector3[] positions2 = new Vector3[1];
+            //billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -192,7 +198,7 @@ namespace Wataha
             wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
-            
+
 
             rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f, 5);
             rabit.SetModelEffect(simpleEffect, true);
@@ -248,7 +254,7 @@ namespace Wataha
             wataha.wolves.Add(wolf3);
 
             PresentationParameters pp = device.PresentationParameters;
-            renderTarget = new RenderTarget2D(device, 2048, 2048, false, SurfaceFormat.Single, DepthFormat.Depth24,0,RenderTargetUsage.PlatformContents);
+            renderTarget = new RenderTarget2D(device, 2048, 2048, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -259,10 +265,10 @@ namespace Wataha
             worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget,Content.Load<Model>("Rabbit/Rabbit"), plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("Rabbit/Rabbit"), plane, huntingTrees, skybox);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
-            
+
 
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
@@ -566,6 +572,7 @@ namespace Wataha
 
 
                     billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
+                    //billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
                     ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
                     hud.Draw();
