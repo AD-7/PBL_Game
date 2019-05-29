@@ -66,14 +66,12 @@ namespace Wataha
 
             Content = new ContentManager(this.Services, "Content");
             audioSystem = new AudioSystem(Content);
-
         }
 
         public void LoadGame()
         {
             string fileName = "save.txt";
             SaveSystem saveGameInfo = new SaveSystem();
-
 
             FileStream fs = new FileStream(fileName, FileMode.Open);
             try
@@ -111,26 +109,14 @@ namespace Wataha
             Resources.Whitefangs = saveGameInfo.WhiteFang;
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
-        /// 
         protected override void Initialize()
         {
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
             device = GraphicsDevice;
-
 
             Content.RootDirectory = "Content";
             //graphics.IsFullScreen = false;
@@ -164,10 +150,15 @@ namespace Wataha
             billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions);
 
 
+            //Vector3[] positions2 = new Vector3[6];
+            //positions2[0] = new Vector3(2, 2, 2);
+            //positions2[1] = new Vector3(10, 2, -10);
+            //positions2[2] = new Vector3(8, 2, -20);
+            //positions2[3] = new Vector3(20, 2, -30);
+            //positions2[4] = new Vector3(40, 2, -10);
+            //positions2[5] = new Vector3(50, 2, -20);
 
-
-            //Vector3[] positions2 = new Vector3[1];
-            //billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
+            //billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions2);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -268,32 +259,17 @@ namespace Wataha
             HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("Rabbit/Rabbit"), plane, huntingTrees, skybox);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
-
-
+            
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
-
-
-
+            
             mainMenu = new MainMenu(spriteBatch, Content, device);
-
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
-
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        /// 
 
         protected override void Update(GameTime gameTime)
         {
@@ -302,13 +278,10 @@ namespace Wataha
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
 
-
             if (!hud.huntingSystem.active)
             {
                 if (gameInMainMenu)
                 {
-
-
                     mainMenu.Update();
 
                     if (mainMenu.ExitButtonEvent())
@@ -326,13 +299,9 @@ namespace Wataha
                         LoadContent();
                         LoadGame();
                     }
-
                 }
                 else
                 {
-
-
-
                     if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
                     {
                         IsMouseVisible = true;
@@ -340,23 +309,17 @@ namespace Wataha
                         return;
                     }
 
-
-
                     if (!hud.ifPaused)
                     {
-
-
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
                         {
                             audioSystem.playGrowl(2);
                         }
 
-
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null && QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest)
                         {
                             hud.ifQuestPanel = true;
                         }
-
 
                         if (questSystem.ChceckNearestQuestGiver(wataha.wolves[0]))
                         {
@@ -366,6 +329,7 @@ namespace Wataha
                         {
                             hud.ifQuestPanel = false;
                         }
+
                         if (hud.marketPanel.CheckIfWolfIsClose(wataha.wolves[0], barrell))
                         {
                             hud.marketPanel.infoActive = true;
@@ -375,12 +339,11 @@ namespace Wataha
                             hud.marketPanel.infoActive = false;
                             hud.marketPanel.active = false;
                         }
+
                         if (hud.marketPanel.infoActive && InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F))
                         {
                             hud.marketPanel.active = true;
                         }
-
-
 
                         foreach (Wolf w in wataha.wolves)
                         {
@@ -397,14 +360,11 @@ namespace Wataha
                         questSystem.Update(gameTime, wataha.wolves[0]);
 
                         rabit.Update(gameTime);
-
                     }
                     else
                     {
                         if (!hud.ifSaveInfo)
                         {
-
-
                             if (hud.ResumeButtonEvent())
                             {
                                 hud.ifPaused = false;
@@ -417,7 +377,6 @@ namespace Wataha
                             }
                             if (hud.BackToMainMenuButtonEvent())
                             {
-
                                 hud.ifPaused = false;
                                 gameInMainMenu = true;
                             }
@@ -430,7 +389,6 @@ namespace Wataha
                         {
                             hud.InfoSaveOkEvent();
                         }
-
                     }
 
                     Vector3 offset = new Vector3(MathHelper.ToRadians(2.0f));
@@ -440,33 +398,22 @@ namespace Wataha
 
                     ps.AddParticle(randPosition, randAngle, randSpeed);
                     ps.Update();
-
-
+                    
                     hud.Update();
-
                 }
-
-
             }
+
             else
             {
                 hud.huntingSystem.Update(gameTime);
             }
 
-
-
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-
             graphics.GraphicsDevice.Clear(Color.Black);
-
 
 
             if (!hud.huntingSystem.active)
@@ -477,8 +424,6 @@ namespace Wataha
                 }
                 else
                 {
-
-
                     RasterizerState originalRasterizerState = graphics.GraphicsDevice.RasterizerState;
                     RasterizerState rasterizerState = new RasterizerState();
                     rasterizerState.CullMode = CullMode.None;
@@ -487,12 +432,9 @@ namespace Wataha
                     device.SetRenderTarget(renderTarget);
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
-
-
-
+                                       
                     //  plane.Draw(camera, "ShadowMap");
-
-
+                    
 
                     foreach (Wolf w in wataha.wolves)
                     {
@@ -511,8 +453,7 @@ namespace Wataha
                     barrell.Draw(camera, "ShadowMap");
                     device.SetRenderTarget(null);
 
-
-
+                    
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
@@ -530,9 +471,7 @@ namespace Wataha
 
                     device.BlendState = BlendState.AlphaBlend;
 
-
-
-
+                                       
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowedScene");
@@ -551,8 +490,7 @@ namespace Wataha
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
 
-
-
+                    
                     //foreach (QuestGiver q in questSystem.questGivers)
                     //{
                     //    q.shadowMap = null;
@@ -572,22 +510,19 @@ namespace Wataha
 
 
                     billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
-                    //billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
+                    billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
                     ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
                     hud.Draw();
-
-
-
-
-
                 }
 
             }
+
             else
             {
                 hud.huntingSystem.Draw();
             }
+
             base.Draw(gameTime);
         }
 
@@ -598,6 +533,5 @@ namespace Wataha
                 min.Y + (float)rand.NextDouble() * (max.Y - min.Y),
                 min.Z + (float)rand.NextDouble() * (max.Z - min.Z));
         }
-
     }
 }

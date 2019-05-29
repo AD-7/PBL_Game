@@ -18,6 +18,10 @@ float2 Size;
 float3 Up; // Camera's 'up' vector
 float3 Side; // Camera's 'side' vector
 
+bool AlphaTest = true;
+float AlphaTestValue = 0.5f;
+bool AlphaTestGreater = true;
+
 
 struct VertexShaderInput
 {
@@ -51,6 +55,12 @@ VertexShaderOutput VertexShaderFunction ( VertexShaderInput input )
 float4 PixelShaderFunction ( VertexShaderOutput input ) : COLOR0
 {
 	float4 color = tex2D ( texSampler, input.UV );
+
+	if ( AlphaTest )
+	{
+		clip ( ( color.a - AlphaTestValue ) * ( AlphaTestGreater ? 1 : -1 ) );
+	}
+	
 	return color;
 }
 

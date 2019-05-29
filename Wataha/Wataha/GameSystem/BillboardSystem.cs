@@ -45,16 +45,11 @@ namespace Wataha.GameSystem
             for (int i = 0; i < nBillboards * 4; i += 4)
             {
                 Vector3 pos = particlePositions[i / 4];
-                Vector3 pos1 =pos + new Vector3(1, 0, 1) * 1;
-                Vector3 pos2 =pos + new Vector3(1, 2, 1) * 1;
-                Vector3 pos3 =pos + new Vector3(2, 2, 1) * 1;
-                Vector3 pos4 =pos + new Vector3(2, 0, 1) * 1;
-                // Add 4 vertices at the billboard's position
-                //particles[i + 0] = new VertexPositionTexture(pos1, new Vector2(0, 0));
-                //particles[i + 1] = new VertexPositionTexture(pos2, new Vector2(0, 1));
-                //particles[i + 2] = new VertexPositionTexture(pos3, new Vector2(1, 1));
-                //particles[i + 3] = new VertexPositionTexture(pos4, new Vector2(1, 0)); 
-                
+                Vector3 pos1 = pos + new Vector3(1, 0, 1) * 1;
+                Vector3 pos2 = pos + new Vector3(1, 2, 1) * 1;
+                Vector3 pos3 = pos + new Vector3(2, 2, 1) * 1;
+                Vector3 pos4 = pos + new Vector3(2, 0, 1) * 1;
+
                 particles[i + 0] = new VertexPositionTexture(pos1, new Vector2(0, 0));
                 particles[i + 1] = new VertexPositionTexture(pos2, new Vector2(0, 1));
                 particles[i + 2] = new VertexPositionTexture(pos3, new Vector2(1, 1));
@@ -62,7 +57,6 @@ namespace Wataha.GameSystem
 
 
                 // Add 6 indices to form two triangles
-
                 indices[x++] = i + 0;
                 indices[x++] = i + 3;
                 indices[x++] = i + 2;
@@ -90,6 +84,29 @@ namespace Wataha.GameSystem
             effect.CurrentTechnique.Passes[0].Apply();
         }
 
+        void drawTransparentPixels()
+        {
+            graphicsDevice.DepthStencilState = DepthStencilState.DepthRead;
+            effect.Parameters["AlphaTest"].SetValue(true);
+            effect.Parameters["AlphaTestGreater"].SetValue(false);
+            drawBillboards();
+        }
+
+        void drawOpaquePixels()
+        {
+            graphicsDevice.DepthStencilState = DepthStencilState.Default;
+            effect.Parameters["AlphaTest"].SetValue(true);
+            effect.Parameters["AlphaTestGreater"].SetValue(true);
+            drawBillboards();
+        }
+
+        void drawBillboards()
+        {
+            effect.CurrentTechnique.Passes[0].Apply();
+            graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0,
+            4 * nBillboards, 0, nBillboards * 2);
+        }
+
         public void Draw(Matrix View, Matrix Projection, Vector3 Up, Vector3 Right)
         {
             // Set the vertex and index buffer to the graphics card
@@ -99,6 +116,9 @@ namespace Wataha.GameSystem
 
             // Enable alpha blending
             graphicsDevice.BlendState = BlendState.AlphaBlend;
+
+            drawOpaquePixels();
+            drawTransparentPixels();
 
             // Draw the billboards
             graphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4 * nBillboards, 0, nBillboards * 2);
