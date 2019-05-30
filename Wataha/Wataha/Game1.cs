@@ -158,7 +158,7 @@ namespace Wataha
             //positions2[4] = new Vector3(40, 2, -10);
             //positions2[5] = new Vector3(50, 2, -20);
 
-            //billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions2);
+       //     billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -349,7 +349,7 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            // colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
                             colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
@@ -510,7 +510,7 @@ namespace Wataha
 
 
                     billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
-                    billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
+                    //billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
                     ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
                     hud.Draw();

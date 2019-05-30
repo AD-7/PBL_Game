@@ -33,10 +33,10 @@ Texture xShadowMap;
 sampler ShadowMapSampler = sampler_state
 { 
 	texture = <xShadowMap>; 
-	magfilter = Point;
-	minfilter = Point; 
-	mipfilter = Point; 
-	AddressU = wrap; AddressV = wrap;
+	magfilter = Linear;
+	minfilter = Linear; 
+	mipfilter = Linear; 
+	AddressU = clamp; AddressV = clamp;
 };
 
 struct VertexShaderInput
@@ -173,7 +173,7 @@ SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
 	{
 		float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
 		float realDistance = PSIn.Pos2DAsSeenByLight.z / PSIn.Pos2DAsSeenByLight.w;
-		if ((realDistance - 1.0f / 350.0f) <= depthStoredInShadowMap)
+		if ((realDistance - 1.0f / 500.0f) <= depthStoredInShadowMap)
 		{
 			diffuseLightingFactor = DotProduct(xLightPos, PSIn.Position3D, PSIn.Normal);
 			diffuseLightingFactor = saturate(diffuseLightingFactor);
