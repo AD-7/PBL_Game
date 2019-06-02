@@ -1,4 +1,4 @@
-
+﻿
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -173,7 +173,7 @@ namespace Wataha
 
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
 
-            world2 *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            world2 *= Matrix.CreateTranslation(new Vector3(0, 10.0f, camera.CamPos.Z - 5));
             world2 *= Matrix.CreateScale(0.2f);
 
             Matrix worldw2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -191,23 +191,23 @@ namespace Wataha
 
 
 
-            rabit = new Animal(wolf, Content.Load<Model>("Wolf"), world2, 5.0f, 5);
+            rabit = new Animal(wolf, Content.Load<Model>("Rabbit/Rabbit"), world2, 5.0f, 5);
             rabit.SetModelEffect(simpleEffect, true);
 
 
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 0.0f, 0.0f));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 2.4f, 0.0f));
 
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("wolf2"), worldw4));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4));
 
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 0.0f, -100.0f));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 2.5f, -100.0f));
 
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("wolf3"), worldw4));
-            questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test", "Testowy opis", 1, 1, 1, 1, 1, 1, questSystem.questGivers[1]));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4));
+            questSystem.questGivers[0].questsList.Add(new TestQuest(0, "Test Quest", "Go to my brother blacksmith.", 1, 1, 1, 1, 1, 1, questSystem.questGivers[1]));
             questSystem.questGivers[0].Init();
 
             //foreach(QuestGiver q in questSystem.questGivers)
