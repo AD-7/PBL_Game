@@ -57,6 +57,11 @@ namespace Wataha
 
         public Game1()
         {
+            Trace.Listeners.Add((new TextWriterTraceListener("TextWriterOutput.log", "myListener")));
+            Trace.AutoFlush = true;
+
+            Trace.WriteLine("otaweto");
+
             graphics = new GraphicsDeviceManager(this);
             //  Window.AllowUserResizing = true;
 
@@ -66,12 +71,18 @@ namespace Wataha
 
             Content = new ContentManager(this.Services, "Content");
             audioSystem = new AudioSystem(Content);
+
+            Trace.WriteLine("Utorzono game1");
+
         }
 
         public void LoadGame()
         {
+            Trace.WriteLine("LoadGAmeStart");
+
             string fileName = "save.txt";
             SaveSystem saveGameInfo = new SaveSystem();
+
 
             FileStream fs = new FileStream(fileName, FileMode.Open);
             try
@@ -107,15 +118,23 @@ namespace Wataha
             Resources.Meat = saveGameInfo.Meat;
             Resources.Goldfangs = saveGameInfo.GoldFang;
             Resources.Whitefangs = saveGameInfo.WhiteFang;
+
+
+            Trace.WriteLine("LoadGameEND");
+
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+            Trace.WriteLine("inicializacjia");
+
         }
 
         protected override void LoadContent()
         {
+            Trace.WriteLine("LaodCOntentStart");
+
             device = GraphicsDevice;
 
             Content.RootDirectory = "Content";
@@ -128,9 +147,20 @@ namespace Wataha
             //IsFixedTimeStep = false;
             graphics.ApplyChanges();
 
+            Trace.WriteLine("LoadContentGrahic");
+
+
             camera = new Camera();
+            Trace.WriteLine("Camera");
+
             colisionSystem = new ColisionSystem();
+            Trace.WriteLine("systemKolizi");
+
             questSystem = new QuestSystem();
+            Trace.WriteLine("quest");
+
+
+
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -149,6 +179,8 @@ namespace Wataha
             positions[5] = new Vector3(50, 0, -20);
             billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions);
 
+            Trace.WriteLine("bilbord");
+
 
             //Vector3[] positions2 = new Vector3[6];
             //positions2[0] = new Vector3(2, 2, 2);
@@ -158,7 +190,7 @@ namespace Wataha
             //positions2[4] = new Vector3(40, 2, -10);
             //positions2[5] = new Vector3(50, 2, -20);
 
-       //     billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
+            //     billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -166,6 +198,8 @@ namespace Wataha
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
             skybox = new Skybox("Skyboxes/skybox", Content);
+
+            Trace.WriteLine("skybox");
 
             wataha = new GameObjects.Movable.Wataha(camera);
 
@@ -264,6 +298,9 @@ namespace Wataha
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
             
             mainMenu = new MainMenu(spriteBatch, Content, device);
+
+            Trace.WriteLine("LoadContentEnd");
+
         }
 
         protected override void UnloadContent()
