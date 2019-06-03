@@ -2,15 +2,10 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using Wataha.GameObjects.Interable;
+using Wataha.GameObjects.Movable;
 
 namespace Wataha.GameSystem.Interfejs
 {
@@ -57,6 +52,9 @@ namespace Wataha.GameSystem.Interfejs
         int stringOffsetWidth, stringOffsetHeight;
 
         string actualNameOfWolfPanel = "";
+
+     
+
 
         public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
         {
@@ -123,8 +121,9 @@ namespace Wataha.GameSystem.Interfejs
 
 
 
-
-        public void Update()
+        double timer = 20;
+        int consumption = 0;
+        public void Update(GameTime gameTime)
         {
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
             {
@@ -218,6 +217,26 @@ namespace Wataha.GameSystem.Interfejs
                 recSaveInfoOk.Height = recSaveInfo.Width / 9;
 
             }
+          
+            foreach (Wolf w in wataha.wolves)
+            {
+                consumption += w.strength + w.speed;
+            }
+            consumption /= 4;
+
+            if (timer > 0)
+            {
+                timer -= gameTime.ElapsedGameTime.TotalMilliseconds /1000;
+            }
+            if (timer <= 0)
+            {
+
+                Resources.Meat -= consumption;
+                timer = 20;
+            }
+
+
+
 
             InputSystem.UpdateCursorPosition();
 
@@ -340,6 +359,7 @@ namespace Wataha.GameSystem.Interfejs
 
             spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
             spriteBatch.DrawString(font30, Resources.Meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 14, recMeal.Y + stringOffsetHeight * 32), Color.Red);
+            spriteBatch.DrawString(font30, "Consumption: -" + consumption + "/20s", new Vector2(recMeal.X + stringOffsetWidth * 1, recResources.Y + recResources.Height ), Color.Red);
 
             spriteBatch.Draw(pictures[3], recWhiteFang, Color.White);     //whitefangs picture
             spriteBatch.DrawString(font30, Resources.Whitefangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);

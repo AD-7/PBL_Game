@@ -283,7 +283,7 @@ namespace Wataha
             wataha.wolves.Add(wolf3);
 
             PresentationParameters pp = device.PresentationParameters;
-            renderTarget = new RenderTarget2D(device, 2048, 2048, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+            renderTarget = new RenderTarget2D(device, 1048, 1048, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -312,12 +312,19 @@ namespace Wataha
             // TODO: Unload any non ContentManager content here
         }
 
+        float timer = 20;
         protected override void Update(GameTime gameTime)
         {
             InputSystem.oldKeybordState = InputSystem.newKeybordState;
             InputSystem.newKeybordState = Keyboard.GetState();
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
+
+          
+
+
+
+
 
             if (!hud.huntingSystem.active)
             {
@@ -390,7 +397,7 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                           // colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
                             colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
@@ -440,7 +447,7 @@ namespace Wataha
                     ps.AddParticle(randPosition, randAngle, randSpeed);
                     ps.Update();
 
-                    hud.Update();
+                    hud.Update(gameTime);
                 }
             }
 

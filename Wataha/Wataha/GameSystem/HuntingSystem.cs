@@ -3,11 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wataha.GameObjects.Movable;
-using Wataha.GameObjects.Static;
 using Wataha.GameSystem.Interfejs;
 
 namespace Wataha.GameSystem
@@ -213,7 +209,7 @@ namespace Wataha.GameSystem
             device.SetRenderTarget(renderTarget);
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
-            plane.Draw(camera, "ShadowMap");
+          
 
            
             foreach (Animal a in rabits)
@@ -232,7 +228,7 @@ namespace Wataha.GameSystem
 
 
 
-            plane.shadowMap = (Texture2D)renderTarget;
+          
             trees.shadowMap = (Texture2D)renderTarget;
 
             foreach (Animal a in rabits)
@@ -249,7 +245,7 @@ namespace Wataha.GameSystem
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
             device.BlendState = BlendState.AlphaBlend;
 
-            plane.Draw(camera, "ShadowedScene");
+          
 
             foreach (Animal a in rabits)
             {
@@ -266,7 +262,7 @@ namespace Wataha.GameSystem
 
             skybox.Draw(camera);
 
-            plane.shadowMap = null;
+          
             trees.shadowMap = null;
             foreach (Animal a in rabits)
             {
