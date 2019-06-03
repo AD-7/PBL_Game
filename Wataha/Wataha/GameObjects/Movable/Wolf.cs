@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameSystem;
 using Wataha.GameSystem.Animation;
-using WatahaSkinnedModel;
+
 
 namespace Wataha.GameObjects.Movable
 {
@@ -32,7 +32,7 @@ namespace Wataha.GameObjects.Movable
         public int energy = 99;
 
         float energyRecoverTime = 5.0f;
-        public AnimationPlayer animationPlayer;
+     //   public AnimationPlayer animationPlayer;
         public AnimationSystem animationSystem;
         float animationOffset = 0;
         Random rand;

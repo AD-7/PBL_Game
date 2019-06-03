@@ -2463,6 +2463,44 @@
 /processorParam:TextureFormat=Compressed
 /build:kostka/kostka_000120.obj
 
+#begin lumberjack/lumberJack.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=90
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=3
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:lumberjack/lumberJack.obj
+
+#begin lumberjack/lumberJack2.obj
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=90
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=2.5
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:lumberjack/lumberJack2.obj
+
 #begin MainMenu/about.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4389,42 +4427,4 @@
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:Wolf3.fbx
-
-#begin lumberjack/lumberJack.obj
-/importer:OpenAssetImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=90
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=3
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:lumberjack/lumberJack.obj
-
-#begin lumberjack/lumberJack2.obj
-/importer:OpenAssetImporter
-/processor:ModelProcessor
-/processorParam:ColorKeyColor=0,0,0,0
-/processorParam:ColorKeyEnabled=True
-/processorParam:DefaultEffect=BasicEffect
-/processorParam:GenerateMipmaps=True
-/processorParam:GenerateTangentFrames=False
-/processorParam:PremultiplyTextureAlpha=True
-/processorParam:PremultiplyVertexColors=True
-/processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=90
-/processorParam:RotationY=0
-/processorParam:RotationZ=0
-/processorParam:Scale=2.5
-/processorParam:SwapWindingOrder=False
-/processorParam:TextureFormat=Compressed
-/build:lumberjack/lumberJack2.obj
 

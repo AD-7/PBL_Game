@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameSystem;
 using Wataha.GameSystem.Animation;
-using WatahaSkinnedModel;
+
 
 namespace Wataha.GameObjects.Interable
 {
@@ -26,7 +26,7 @@ namespace Wataha.GameObjects.Interable
         public GameObject reward;
 
 
-        public AnimationPlayer animationPlayer;
+     //   public AnimationPlayer animationPlayer;
         public AnimationSystem animationSystem;
         float animationOffset = 0;
 
