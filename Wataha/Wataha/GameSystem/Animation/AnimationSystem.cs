@@ -12,9 +12,11 @@ namespace Wataha.GameSystem.Animation
     public class AnimationSystem
     {
         public Animation animation;
-        private GameObject WhoAmI; 
+        public GameObject WhoAmI; 
         private float timer;
         public Vector3 position { get; set; }
+        public Effect effect;
+
         public AnimationSystem(Animation animation,GameObject me)
         {
             this.animation = animation;
@@ -53,6 +55,7 @@ namespace Wataha.GameSystem.Animation
         public void Draw()
         {
             WhoAmI.model = animation.animation[animation.CurrentFrame];
+            
         }
 
     }

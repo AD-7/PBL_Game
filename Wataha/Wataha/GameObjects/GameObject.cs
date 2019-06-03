@@ -25,6 +25,7 @@ namespace Wataha.GameObjects
         float alpha = 1.0f;
         public Texture2D shadowMap;
         public Texture2D texture;
+        
 
         public GameObject(Matrix world, Model model)
         {

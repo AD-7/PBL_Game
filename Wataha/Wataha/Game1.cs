@@ -270,10 +270,14 @@ namespace Wataha
             barrell.SetModelEffect(simpleEffect, true);
             plane.SetModelEffect(simpleEffect, true);
 
-            wolf2.texture = Content.Load<Texture2D>("textures/textureW");
-            wolf2.SetTexture();
-            wolf3.texture = Content.Load<Texture2D>("textures/textureW2");
-            wolf3.SetTexture();
+            //   wolf2.texture = Content.Load<Texture2D>("textures/textureW");
+            //  wolf2.SetTexture();
+            //  wolf3.texture = Content.Load<Texture2D>("textures/textureW2");
+            //  wolf3.SetTexture();
+            wolf.animationSystem.animation.generateTags();
+            wolf.animationSystem.animation.SetEffect(simpleEffect, true);
+
+
             wataha.wolves.Add(wolf);
             wataha.wolves.Add(wolf2);
             wataha.wolves.Add(wolf3);
@@ -290,13 +294,13 @@ namespace Wataha
             worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("Rabbit/Rabbit"), plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("Rabbit/Rabbit"), simpleEffect, plane, huntingTrees, skybox);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
-            
+
 
             hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
-            
+
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
             Trace.WriteLine("LoadContentEnd");
@@ -435,7 +439,7 @@ namespace Wataha
 
                     ps.AddParticle(randPosition, randAngle, randSpeed);
                     ps.Update();
-                    
+
                     hud.Update();
                 }
             }
@@ -469,9 +473,9 @@ namespace Wataha
                     device.SetRenderTarget(renderTarget);
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
-                                       
+
                     //  plane.Draw(camera, "ShadowMap");
-                    
+
 
                     foreach (Wolf w in wataha.wolves)
                     {
@@ -490,7 +494,7 @@ namespace Wataha
                     barrell.Draw(camera, "ShadowMap");
                     device.SetRenderTarget(null);
 
-                    
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
@@ -508,7 +512,7 @@ namespace Wataha
 
                     device.BlendState = BlendState.AlphaBlend;
 
-                                       
+
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.Draw(camera, "ShadowedScene");
@@ -527,7 +531,7 @@ namespace Wataha
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
 
-                    
+
                     //foreach (QuestGiver q in questSystem.questGivers)
                     //{
                     //    q.shadowMap = null;

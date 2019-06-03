@@ -25,8 +25,9 @@ namespace Wataha.GameSystem
         Skybox skybox;
         ColisionSystem colisionSystem;
         Model rabitModel;
-        public AudioSystem audio;
+        Effect shadowEffect;
 
+        public AudioSystem audio;
         public List<Animal> rabits;
         public List<Animal> ship;
         public List<Animal> boars;
@@ -40,7 +41,7 @@ namespace Wataha.GameSystem
 
         double time;
 
-        public HuntingSystem(Camera camera, GraphicsDevice device, GraphicsDeviceManager graphics, RenderTarget2D rt, Model rabitModel, GameObjects.Static.Plane plane, GameObjects.Static.Environment trees, Skybox skybox)
+        public HuntingSystem(Camera camera, GraphicsDevice device, GraphicsDeviceManager graphics, RenderTarget2D rt, Model rabitModel, Effect effect , GameObjects.Static.Plane plane, GameObjects.Static.Environment trees, Skybox skybox)
         {
             this.camera = camera;
             this.device = device;
@@ -49,6 +50,7 @@ namespace Wataha.GameSystem
             this.trees = trees;
             this.skybox = skybox;
             this.renderTarget = rt;
+            this.shadowEffect = effect;
            
             colisionSystem = new ColisionSystem();
             huntingWataha = new GameObjects.Movable.Wataha(camera);
@@ -286,12 +288,12 @@ namespace Wataha.GameSystem
 
         void GenerateVectors()
         {
-            spawns.Add(new Vector3(-60f, 3.0f, 20f));
-            spawns.Add(new Vector3(60f, 3.0f, -40f)); 
-            spawns.Add(new Vector3(-30f, 3.0f, -50f));
-            spawns.Add(new Vector3(55f, 3.0f, -90f));
-            spawns.Add(new Vector3(45f, 3.0f, -100f));
-            spawns.Add(new Vector3(0f, 3.0f, -90f));
+            spawns.Add(new Vector3(-60f, 2.2f, 20f));
+            spawns.Add(new Vector3(60f, 2.2f, -40f)); 
+            spawns.Add(new Vector3(-30f, 2.2f, -50f));
+            spawns.Add(new Vector3(55f, 2.2f, -80f));
+            spawns.Add(new Vector3(45f, 2.2f, -90f));
+            spawns.Add(new Vector3(0f, 2.2f, -80f));
           
             spawns.Add(new Vector3(-35f, 3.0f, -20f));
         }
@@ -314,6 +316,7 @@ namespace Wataha.GameSystem
         {
             GenerateSpawn();
             Animal rabit = new Animal(wolf, model, spawnPoint, 8, 5);
+            rabit.SetModelEffect(shadowEffect, true);
             spawnPoint = new Matrix();
             rabits.Add(rabit);
 
