@@ -97,6 +97,8 @@ namespace Wataha.GameSystem.Interfejs
             wolfPanel = new WolfPanel(Content.Load<Texture2D>("Pictures/rectangleForWolfPanel"), broadwayFont);
             wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/exitPicture"));
             wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton"));
+            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton"));
+            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton2"));
 
 
             wolfPanel.font21 = Content.Load<SpriteFont>("Fonts/broadway21");
@@ -282,6 +284,15 @@ namespace Wataha.GameSystem.Interfejs
 
                 if (ifWolfPanel)
                 {
+
+                    if (wolfPanel.upgradeButtonEvent())
+                    {
+
+                    }
+                    if (wolfPanel.upgradeButtonEvent2())
+                    {
+
+                    }
 
                     if (wolfPanel.goHuntingButtonEvent(InputSystem.Cursor))
                     {

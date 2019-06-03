@@ -17,8 +17,10 @@ namespace Wataha.GameSystem.Interfejs
         private Rectangle recWolfPanel;
         private Rectangle recExit;
         private Rectangle recGoHuntingButton;
-        private Color goHuntingButtonColor = Color.Gray;
+        private Rectangle recUpgradeButton, recUpgradeButton2;
 
+        private Color goHuntingButtonColor = Color.Gray;
+        private Texture2D currentUpgradeButton, currentUpgradeButton2;
 
         public SpriteFont font21, font18, font14;
         public List<Texture2D> elements;
@@ -64,7 +66,16 @@ namespace Wataha.GameSystem.Interfejs
             recGoHuntingButton.Width = recWolfPanel.Width / 2;
             recGoHuntingButton.Height = recWolfPanel.Height / 16;
 
+            recUpgradeButton.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.2);
+            recUpgradeButton.Y = recWolfPanel.Y + recWolfPanel.Height - (int) (recWolfPanel.Height * 0.31);
+            recUpgradeButton.Width = recWolfPanel.Width / 6;
+            recUpgradeButton.Height = recWolfPanel.Width / 10;
 
+
+            recUpgradeButton2.X = recUpgradeButton.X + (int)(recWolfPanel.Width * 0.45);
+            recUpgradeButton2.Y = recUpgradeButton.Y;
+            recUpgradeButton2.Width = recUpgradeButton.Width;
+            recUpgradeButton2.Height = recUpgradeButton.Height;
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -93,12 +104,46 @@ namespace Wataha.GameSystem.Interfejs
             int ParametersY2 = recWolfPanel.Y + (recWolfPanel.Height / 100) * 42;
 
             spriteBatch.DrawString(font14, "::: Evolution :::", new Vector2(ParametersX2, ParametersY2), Color.OrangeRed);
+            spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
+            spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
 
 
             spriteBatch.Draw(elements[1], recGoHuntingButton, goHuntingButtonColor);
             if(!ifEnoughEnergy)
             spriteBatch.DrawString(font14, "Not enaugh energy", new Vector2(recGoHuntingButton.X, recGoHuntingButton.Y + recGoHuntingButton.Height + recGoHuntingButton.Height/4), Color.Red);
         }
+
+        public bool upgradeButtonEvent()
+        {
+            if (recUpgradeButton.Intersects(InputSystem.Cursor))
+            {
+                currentUpgradeButton = elements[3];
+
+                if(InputSystem.mouseState.LeftButton == ButtonState.Pressed  && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                {
+                    return true;
+                }
+                return false;
+            }
+            currentUpgradeButton = elements[2];
+            return false;
+        }
+        public bool upgradeButtonEvent2()
+        {
+            if (recUpgradeButton2.Intersects(InputSystem.Cursor))
+            {
+                currentUpgradeButton2 = elements[3];
+
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                {
+                    return true;
+                }
+                return false;
+            }
+            currentUpgradeButton2 = elements[2];
+            return false;
+        }
+
 
         public bool goHuntingButtonEvent(Rectangle cursor)
         {
