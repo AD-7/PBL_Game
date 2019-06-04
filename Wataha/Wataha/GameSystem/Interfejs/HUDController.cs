@@ -33,6 +33,7 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recSaveButton;
         Rectangle recSaveInfo, recSaveInfoOk;
         Rectangle recGameOver, recGameOverInfoOk;
+        Rectangle recNoMeat;
 
         Texture2D actualSaveInfoOk;
         Texture2D actualGameOverInfoOk;
@@ -97,6 +98,7 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk"));//15
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk2"));//16
             pictures.Add(Content.Load<Texture2D>("Pictures/gameOver")); //17
+            pictures.Add(Content.Load<Texture2D>("Pictures/noMeat")); //18
 
 
             actualSaveInfoOk = pictures[15];
@@ -278,7 +280,7 @@ namespace Wataha.GameSystem.Interfejs
             screenHeight = device.Viewport.Height;
 
 
-            if (!ifPaused)
+            if (!ifPaused && !ifGameOver)
             {
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
 
