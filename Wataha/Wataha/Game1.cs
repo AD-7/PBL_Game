@@ -288,7 +288,7 @@ namespace Wataha
             wataha.wolves.Add(wolf3);
 
             PresentationParameters pp = device.PresentationParameters;
-            renderTarget = new RenderTarget2D(device, 1048, 1048, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+            renderTarget = new RenderTarget2D(device, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
