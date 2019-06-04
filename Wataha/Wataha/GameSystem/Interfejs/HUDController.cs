@@ -32,8 +32,10 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recActualQuestButton;
         Rectangle recSaveButton;
         Rectangle recSaveInfo, recSaveInfoOk;
+        Rectangle recGameOver, recGameOverInfoOk;
 
         Texture2D actualSaveInfoOk;
+        Texture2D actualGameOverInfoOk;
 
         Color resumeButtonColor = Color.White;
         Color saveButtonColor = Color.White;
@@ -46,6 +48,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifActualQuestPanel = false;
         public bool ifQuestPanel = false;
         public bool ifSaveInfo = false;
+        public bool ifGameOver = false;
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
@@ -53,7 +56,10 @@ namespace Wataha.GameSystem.Interfejs
 
         string actualNameOfWolfPanel = "";
 
-     
+
+        double timer = 20;
+        double gameOverTimer = 30;
+        int consumption = 0;
 
 
         public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
@@ -90,7 +96,11 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfo"));//14
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk"));//15
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk2"));//16
+            pictures.Add(Content.Load<Texture2D>("Pictures/gameOver")); //17
+
+
             actualSaveInfoOk = pictures[15];
+            actualGameOverInfoOk = pictures[15];
 
             wolfPanel = new WolfPanel(Content.Load<Texture2D>("Pictures/rectangleForWolfPanel"), broadwayFont);
             wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/exitPicture"));
@@ -121,8 +131,6 @@ namespace Wataha.GameSystem.Interfejs
 
 
 
-        double timer = 20;
-        int consumption = 0;
         public void Update(GameTime gameTime)
         {
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
@@ -216,8 +224,18 @@ namespace Wataha.GameSystem.Interfejs
                 recSaveInfoOk.Width = recSaveInfo.Width / 6;
                 recSaveInfoOk.Height = recSaveInfo.Width / 9;
 
+                recGameOver.X =(int)( screenWidth * 0.35);
+                recGameOver.Y = screenHeight / 3;
+                recGameOver.Width = (int)(screenWidth * 0.3);
+                recGameOver.Height = screenHeight / 4;
+
+                recGameOverInfoOk.X = recGameOver.X + (int)(recGameOver.Width * 0.42);
+                recGameOverInfoOk.Y = recGameOver.Y + recGameOver.Height - recGameOver.Height / 4;
+                recGameOverInfoOk.Width = recGameOver.Width / 6;
+                recGameOverInfoOk.Height = recGameOver.Height / 6;
+
             }
-          
+
             foreach (Wolf w in wataha.wolves)
             {
                 consumption += w.strength + w.speed;
@@ -226,7 +244,7 @@ namespace Wataha.GameSystem.Interfejs
 
             if (timer > 0)
             {
-                timer -= gameTime.ElapsedGameTime.TotalMilliseconds /1000;
+                timer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
             if (timer <= 0)
             {
@@ -234,7 +252,19 @@ namespace Wataha.GameSystem.Interfejs
                 Resources.Meat -= consumption;
                 timer = 20;
             }
+            if(Resources.Meat <= 0)
+            {
+                gameOverTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            }
+            else
+            {
+                gameOverTimer = 30;
+            }
 
+            if(gameOverTimer <= 0)
+            {
+                ifGameOver = true;
+            }
 
 
 
@@ -345,7 +375,7 @@ namespace Wataha.GameSystem.Interfejs
 
 
             }
-           
+
 
         }
 
@@ -359,7 +389,7 @@ namespace Wataha.GameSystem.Interfejs
 
             spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
             spriteBatch.DrawString(font30, Resources.Meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 14, recMeal.Y + stringOffsetHeight * 32), Color.Red);
-            spriteBatch.DrawString(font30, "Consumption: -" + consumption + "/20s", new Vector2(recMeal.X + stringOffsetWidth * 1, recResources.Y + recResources.Height ), Color.Red);
+            spriteBatch.DrawString(font30, "Consumption: -" + consumption + "/20s", new Vector2(recMeal.X + stringOffsetWidth * 1, recResources.Y + recResources.Height), Color.Red);
 
             spriteBatch.Draw(pictures[3], recWhiteFang, Color.White);     //whitefangs picture
             spriteBatch.DrawString(font30, Resources.Whitefangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);
@@ -436,6 +466,11 @@ namespace Wataha.GameSystem.Interfejs
 
             }
 
+            if (ifGameOver)
+            {
+                spriteBatch.Draw(pictures[17], recGameOver, Color.White);
+                spriteBatch.Draw(actualGameOverInfoOk, recGameOverInfoOk, Color.White);
+            }
 
 
             spriteBatch.End();
@@ -446,13 +481,30 @@ namespace Wataha.GameSystem.Interfejs
         }
 
 
+        public bool InfoGameOverOkEvent()
+        {
+            if (recGameOverInfoOk.Intersects(InputSystem.Cursor))
+            {
+                actualGameOverInfoOk = pictures[16];
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                {
+                    ifGameOver = false;
+                    return true;
+                }
+                return false;
+
+            }
+            actualGameOverInfoOk = pictures[15];
+            return false;
+        }
+
         public bool InfoSaveOkEvent()
         {
             if (recSaveInfoOk.Intersects(InputSystem.Cursor))
             {
                 actualSaveInfoOk = pictures[16];
 
-                if(InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
                 {
                     ifSaveInfo = false;
                     return true;

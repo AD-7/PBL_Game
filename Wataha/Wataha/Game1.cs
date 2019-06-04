@@ -299,7 +299,7 @@ namespace Wataha
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 
 
-            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
+            hud = new HUDController(spriteBatch, device, Content, 50, 0, 0, wataha, tmp);
 
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
@@ -357,7 +357,7 @@ namespace Wataha
                         return;
                     }
 
-                    if (!hud.ifPaused)
+                    if (!hud.ifPaused && !hud.ifGameOver)
                     {
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
                         {
@@ -397,7 +397,7 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                           // colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                           colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
                             colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
@@ -411,31 +411,44 @@ namespace Wataha
                     }
                     else
                     {
-                        if (!hud.ifSaveInfo)
+                        if (!hud.ifGameOver)
                         {
-                            if (hud.ResumeButtonEvent())
+                            if (!hud.ifSaveInfo)
                             {
-                                hud.ifPaused = false;
+                                if (hud.ResumeButtonEvent())
+                                {
+                                    hud.ifPaused = false;
+                                }
+                                if (hud.SaveButtonEvent())
+                                {
+                                    SaveSystem saver = new SaveSystem(hud.wataha.wolves.ElementAt(0), hud.wataha.wolves.ElementAt(1), hud.wataha.wolves.ElementAt(2));
+                                    saver.SaveGame();
+                                    hud.ifSaveInfo = true;
+                                }
+                                if (hud.BackToMainMenuButtonEvent())
+                                {
+                                    hud.ifPaused = false;
+                                    gameInMainMenu = true;
+                                }
+                                if (hud.ExitButtonEvent())
+                                {
+                                    Exit();
+                                }
                             }
-                            if (hud.SaveButtonEvent())
+                            else
                             {
-                                SaveSystem saver = new SaveSystem(hud.wataha.wolves.ElementAt(0), hud.wataha.wolves.ElementAt(1), hud.wataha.wolves.ElementAt(2));
-                                saver.SaveGame();
-                                hud.ifSaveInfo = true;
-                            }
-                            if (hud.BackToMainMenuButtonEvent())
-                            {
-                                hud.ifPaused = false;
-                                gameInMainMenu = true;
-                            }
-                            if (hud.ExitButtonEvent())
-                            {
-                                Exit();
+                                hud.InfoSaveOkEvent();
                             }
                         }
                         else
                         {
-                            hud.InfoSaveOkEvent();
+                           if(hud.InfoGameOverOkEvent())
+                            {
+                                hud.ifPaused = false;
+                                hud.ifGameOver = false;
+                                gameInMainMenu = true;
+
+                            }
                         }
                     }
 
