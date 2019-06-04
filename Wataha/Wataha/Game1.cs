@@ -299,7 +299,7 @@ namespace Wataha
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 
 
-            hud = new HUDController(spriteBatch, device, Content, 50, 0, 0, wataha, tmp);
+            hud = new HUDController(spriteBatch, device, Content, 0, 0, 0, wataha, tmp);
 
             mainMenu = new MainMenu(spriteBatch, Content, device);
 

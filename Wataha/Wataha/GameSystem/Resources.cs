@@ -8,7 +8,7 @@ namespace Wataha.GameSystem
 {
     public static class Resources
     {
-      static  int  meat = 100;
+      static  int  meat = 0;
         static int whitefangs = 0;
         static int goldfangs = 0;
 

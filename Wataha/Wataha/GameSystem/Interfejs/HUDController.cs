@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Wataha.GameObjects.Interable;
@@ -33,6 +34,7 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recSaveButton;
         Rectangle recSaveInfo, recSaveInfoOk;
         Rectangle recGameOver, recGameOverInfoOk;
+        Rectangle recNoMeat;
 
         Texture2D actualSaveInfoOk;
         Texture2D actualGameOverInfoOk;
@@ -59,8 +61,11 @@ namespace Wataha.GameSystem.Interfejs
 
         double timer = 20;
         double gameOverTimer = 30;
-        int consumption = 0;
+        double dyingTimer = 0.5;
 
+        int consumption = 0;
+        private bool ifDying;
+        private bool ifNoMeatChanged;
 
         public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
         {
@@ -97,6 +102,7 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk"));//15
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk2"));//16
             pictures.Add(Content.Load<Texture2D>("Pictures/gameOver")); //17
+            pictures.Add(Content.Load<Texture2D>("Pictures/noMeat")); //18
 
 
             actualSaveInfoOk = pictures[15];
@@ -224,7 +230,7 @@ namespace Wataha.GameSystem.Interfejs
                 recSaveInfoOk.Width = recSaveInfo.Width / 6;
                 recSaveInfoOk.Height = recSaveInfo.Width / 9;
 
-                recGameOver.X =(int)( screenWidth * 0.35);
+                recGameOver.X = (int)(screenWidth * 0.35);
                 recGameOver.Y = screenHeight / 3;
                 recGameOver.Width = (int)(screenWidth * 0.3);
                 recGameOver.Height = screenHeight / 4;
@@ -234,7 +240,18 @@ namespace Wataha.GameSystem.Interfejs
                 recGameOverInfoOk.Width = recGameOver.Width / 6;
                 recGameOverInfoOk.Height = recGameOver.Height / 6;
 
+                recNoMeat.X = (int)(screenWidth * 0.46);
+                recNoMeat.Y = (int)(screenHeight * 0.15);
+                recNoMeat.Width = screenWidth / 16;
+                recNoMeat.Height = screenHeight / 16;
             }
+
+
+
+
+
+
+
 
             foreach (Wolf w in wataha.wolves)
             {
@@ -252,20 +269,51 @@ namespace Wataha.GameSystem.Interfejs
                 Resources.Meat -= consumption;
                 timer = 20;
             }
-            if(Resources.Meat <= 0)
+            if (Resources.Meat <= 0)
             {
+                ifDying = true;
                 gameOverTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
             else
             {
+                ifDying = false;
                 gameOverTimer = 30;
             }
 
-            if(gameOverTimer <= 0)
+            if (gameOverTimer <= 0)
             {
                 ifGameOver = true;
             }
 
+
+            if (ifDying)
+            {
+
+                dyingTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+
+                if (dyingTimer <= 0)
+                {
+                    if (!ifNoMeatChanged)
+                    {
+                        recNoMeat.X += recMeal.Width ;
+                        recNoMeat.Width /= 2;
+                        recNoMeat.Height /= 2;
+                    }
+                    else
+                    {
+                        recNoMeat.X -= recMeal.Width ;
+                        recNoMeat.Width *= 2;
+                        recNoMeat.Height *= 2;
+                    }
+                    ifNoMeatChanged = !ifNoMeatChanged;
+                    dyingTimer = 0.4;
+                }
+
+            }
+            else
+            {
+                dyingTimer = 1;
+            }
 
 
             InputSystem.UpdateCursorPosition();
@@ -278,7 +326,7 @@ namespace Wataha.GameSystem.Interfejs
             screenHeight = device.Viewport.Height;
 
 
-            if (!ifPaused)
+            if (!ifPaused && !ifGameOver)
             {
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
 
@@ -470,8 +518,13 @@ namespace Wataha.GameSystem.Interfejs
             {
                 spriteBatch.Draw(pictures[17], recGameOver, Color.White);
                 spriteBatch.Draw(actualGameOverInfoOk, recGameOverInfoOk, Color.White);
-            }
 
+            }
+            if (ifDying)
+            {
+                spriteBatch.Draw(pictures[18], recNoMeat, Color.White);
+                spriteBatch.DrawString(font30,gameOverTimer.ToString("0.# s"),new Vector2(recResources.Width + recResources.Width/22 ,recNoMeat.Y),Color.Red);
+            }
 
             spriteBatch.End();
 
