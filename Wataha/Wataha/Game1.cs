@@ -54,7 +54,6 @@ namespace Wataha
 
         BillboardSystem billboardTest;
         BillboardSystem billboardTest2;
-        BillboardSystem lumberBilboard;
 
         public Game1()
         {
@@ -181,10 +180,6 @@ namespace Wataha
             billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions);
 
             Trace.WriteLine("bilbord");
-
-            Vector3[] lumberPosition = new Vector3[1];
-            lumberPosition[0] = new Vector3(50, 0, -90);
-            lumberBilboard = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("textures/lumber"), new Vector2(0.001f), lumberPosition );
 
 
             //Vector3[] positions2 = new Vector3[6];
@@ -576,8 +571,6 @@ namespace Wataha
 
 
                     billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
-
-                    lumberBilboard.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
                     //billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
                     ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
