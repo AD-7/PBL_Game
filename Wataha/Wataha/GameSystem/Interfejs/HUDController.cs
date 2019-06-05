@@ -23,18 +23,22 @@ namespace Wataha.GameSystem.Interfejs
         public static QuestPanel QuestPanel;
         public MarketPanel marketPanel;
         public SpriteFont font30, broadwayFont;
+        private SpriteFont arial18Italic;
+        private SpriteFont arial15Italic;
+        private SpriteFont arial12Italic;
         public List<Texture2D> pictures;
         Rectangle recResumeButton;
         Rectangle recBackToMainMenuButton;
         Rectangle recExitButton;
         Rectangle recPausePanel, recButtonPanel;
-        Rectangle recResources, recMeal, recWhiteFang, recGoldFang;
+        Rectangle recResources;
         Rectangle recButtonWolf1Set, recButtonWolf2Set, recButtonWolf3Set;
         Rectangle recActualQuestButton;
         Rectangle recSaveButton;
         Rectangle recSaveInfo, recSaveInfoOk;
         Rectangle recGameOver, recGameOverInfoOk;
         Rectangle recNoMeat;
+        Rectangle recEnergy;
 
         Texture2D actualSaveInfoOk;
         Texture2D actualGameOverInfoOk;
@@ -61,7 +65,7 @@ namespace Wataha.GameSystem.Interfejs
 
         double timer = 20;
         double gameOverTimer = 30;
-        double dyingTimer = 0.5;
+        double dyingTimer = 0.4;
 
         int consumption = 0;
         private bool ifDying;
@@ -82,6 +86,10 @@ namespace Wataha.GameSystem.Interfejs
 
 
             font30 = Content.Load<SpriteFont>("Fonts/font1");
+            arial18Italic = Content.Load<SpriteFont>("Fonts/arial/arial18");
+            arial15Italic = Content.Load<SpriteFont>("Fonts/arial/arial15");
+
+            arial12Italic = Content.Load<SpriteFont>("Fonts/arial/arial12");
             broadwayFont = Content.Load<SpriteFont>("Fonts/Broadway");
 
             pictures.Add(Content.Load<Texture2D>("Pictures/panel"));
@@ -103,6 +111,7 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk2"));//16
             pictures.Add(Content.Load<Texture2D>("Pictures/gameOver")); //17
             pictures.Add(Content.Load<Texture2D>("Pictures/noMeat")); //18
+            pictures.Add(Content.Load<Texture2D>("pictures/energy")); //19
 
 
             actualSaveInfoOk = pictures[15];
@@ -132,7 +141,6 @@ namespace Wataha.GameSystem.Interfejs
             stringOffsetHeight = 0;
 
             huntingSystem.hudHunting = new HUDHunting(spriteBatch, device, Content);
-            huntingSystem.audio = new AudioSystem(Content);
         }
 
 
@@ -141,28 +149,13 @@ namespace Wataha.GameSystem.Interfejs
         {
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
             {
-                recResources.X = 0;
+                recResources.X = screenWidth / 3;
                 recResources.Y = (int)(screenHeight * 0.02);
                 recResources.Height = screenHeight / 11;
-                recResources.Width = screenWidth / 2;
+                recResources.Width = screenWidth / 3;
 
                 stringOffsetWidth = (recResources.Width / 100);
                 stringOffsetHeight = (recResources.Height / 100);
-
-                recMeal.X = (int)(recResources.Width * 0.02);
-                recMeal.Y = (int)(recResources.Height * 0.5);
-                recMeal.Height = (int)(recResources.Height * 0.25);
-                recMeal.Width = recResources.Width / 25;
-
-                recWhiteFang.X = recResources.Width / 4;
-                recWhiteFang.Y = recMeal.Y;
-                recWhiteFang.Height = recMeal.Width;
-                recWhiteFang.Width = recMeal.Height;
-
-                recGoldFang.X = (recResources.Width / 100) * 58;
-                recGoldFang.Y = recMeal.Y;
-                recGoldFang.Height = recMeal.Width;
-                recGoldFang.Width = recMeal.Height;
 
                 recPausePanel.X = screenWidth / 3;
                 recPausePanel.Y = (screenHeight / 100) * 5;
@@ -190,10 +183,12 @@ namespace Wataha.GameSystem.Interfejs
                 recExitButton.Width = recPausePanel.Width / 2;
                 recExitButton.Height = recPausePanel.Height / 10;
 
-                recButtonPanel.X = (screenWidth / 2) - (screenWidth / 8);
-                recButtonPanel.Y = (screenHeight / 100) * 92;
-                recButtonPanel.Height = (screenHeight / 100) * 12;
-                recButtonPanel.Width = (screenWidth / 4);
+                recButtonPanel.X = (int)(screenWidth * 0.85);
+                recButtonPanel.Y = recResources.Y + recResources.Height;
+                recButtonPanel.Height = (int)(screenHeight * 0.5);
+                recButtonPanel.Width = (int)(screenWidth * 0.15);
+
+    
 
                 recButtonWolf1Set.X = (recButtonPanel.X) + (recButtonPanel.X / 100) * 5;
                 recButtonWolf1Set.Y = (recButtonPanel.Y) + (recButtonPanel.Y / 100) * 3;
@@ -210,15 +205,12 @@ namespace Wataha.GameSystem.Interfejs
                 recButtonWolf3Set.Height = recButtonWolf1Set.Height;
                 recButtonWolf3Set.Width = recButtonWolf1Set.Width;
 
-                recActualQuestButton.X = screenWidth / 100;
-                recActualQuestButton.Y = screenHeight - screenHeight / 6;
+                recActualQuestButton.X = (int)(screenWidth * 0.02);
+                recActualQuestButton.Y = (int)(screenHeight * 0.02);
                 recActualQuestButton.Width = screenHeight / 8;
                 recActualQuestButton.Height = recActualQuestButton.Width;
 
-                wolfPanel.Update(screenWidth, screenHeight);
-                actualQuestPanel.Update(screenWidth, screenHeight);
-                QuestPanel.Update(screenWidth, screenHeight);
-                marketPanel.Update(screenWidth, screenHeight);
+
 
                 recSaveInfo.X = recPausePanel.X + recPausePanel.Width / 3;
                 recSaveInfo.Y = recPausePanel.Y + recPausePanel.Width / 2;
@@ -244,6 +236,11 @@ namespace Wataha.GameSystem.Interfejs
                 recNoMeat.Y = (int)(screenHeight * 0.15);
                 recNoMeat.Width = screenWidth / 16;
                 recNoMeat.Height = screenHeight / 16;
+
+                wolfPanel.Update(screenWidth, screenHeight);
+                actualQuestPanel.Update(screenWidth, screenHeight);
+                QuestPanel.Update(screenWidth, screenHeight);
+                marketPanel.Update(screenWidth, screenHeight);
             }
 
 
@@ -253,67 +250,7 @@ namespace Wataha.GameSystem.Interfejs
 
 
 
-            foreach (Wolf w in wataha.wolves)
-            {
-                consumption += w.strength + w.speed;
-            }
-            consumption /= 4;
 
-            if (timer > 0)
-            {
-                timer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-            }
-            if (timer <= 0)
-            {
-
-                Resources.Meat -= consumption;
-                timer = 20;
-            }
-            if (Resources.Meat <= 0)
-            {
-                ifDying = true;
-                gameOverTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-            }
-            else
-            {
-                ifDying = false;
-                gameOverTimer = 30;
-            }
-
-            if (gameOverTimer <= 0)
-            {
-                ifGameOver = true;
-            }
-
-
-            if (ifDying)
-            {
-
-                dyingTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
-
-                if (dyingTimer <= 0)
-                {
-                    if (!ifNoMeatChanged)
-                    {
-                        recNoMeat.X += recMeal.Width ;
-                        recNoMeat.Width /= 2;
-                        recNoMeat.Height /= 2;
-                    }
-                    else
-                    {
-                        recNoMeat.X -= recMeal.Width ;
-                        recNoMeat.Width *= 2;
-                        recNoMeat.Height *= 2;
-                    }
-                    ifNoMeatChanged = !ifNoMeatChanged;
-                    dyingTimer = 0.4;
-                }
-
-            }
-            else
-            {
-                dyingTimer = 1;
-            }
 
 
             InputSystem.UpdateCursorPosition();
@@ -328,6 +265,76 @@ namespace Wataha.GameSystem.Interfejs
 
             if (!ifPaused && !ifGameOver)
             {
+                foreach (Wolf w in wataha.wolves)
+                {
+                    consumption += w.strength + w.speed;
+                }
+                consumption /= 4;
+
+                if (timer > 0)
+                {
+                    timer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                }
+                if (timer <= 0)
+                {
+
+                    Resources.Meat -= consumption;
+                    timer = 20;
+                }
+                if (Resources.Meat <= 0)
+                {
+                    ifDying = true;
+                    gameOverTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                }
+                else
+                {
+                    ifDying = false;
+                    gameOverTimer = 30;
+                }
+
+                if (gameOverTimer <= 0)
+                {
+                    ifGameOver = true;
+                }
+
+
+                if (ifDying)
+                {
+
+                    dyingTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+
+                    if (dyingTimer <= 0)
+                    {
+                        if (!ifNoMeatChanged)
+                        {
+                            recNoMeat.X += recResources.Width / 30;
+                            recNoMeat.Width /= 2;
+                            recNoMeat.Height /= 2;
+                        }
+                        else
+                        {
+                            recNoMeat.X -= recResources.Width / 30;
+                            recNoMeat.Width *= 2;
+                            recNoMeat.Height *= 2;
+                        }
+                        ifNoMeatChanged = !ifNoMeatChanged;
+                        if (gameOverTimer <= 10)
+                        {
+                            dyingTimer = 0.2;
+                        }
+                        else
+                        {
+                            dyingTimer = 0.4;
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    dyingTimer = 0.4;
+                }
+
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
 
                 ActualQuestButtonEvent();
@@ -435,29 +442,24 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(pictures[0], recResources, Color.White);   // rectangle to display resources
 
 
-            spriteBatch.Draw(pictures[1], recMeal, Color.White);   // meat picture
-            spriteBatch.DrawString(font30, Resources.Meat.ToString(), new Vector2(recMeal.X + stringOffsetWidth * 14, recMeal.Y + stringOffsetHeight * 32), Color.Red);
-            spriteBatch.DrawString(font30, "Consumption: -" + consumption + "/20s", new Vector2(recMeal.X + stringOffsetWidth * 1, recResources.Y + recResources.Height), Color.Red);
 
-            spriteBatch.Draw(pictures[3], recWhiteFang, Color.White);     //whitefangs picture
-            spriteBatch.DrawString(font30, Resources.Whitefangs.ToString(), new Vector2(recWhiteFang.X + stringOffsetWidth * 19, recWhiteFang.Y + stringOffsetHeight * 32), Color.White);
+            spriteBatch.DrawString(arial18Italic, Resources.Meat.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.25), recResources.Y + (int)(recResources.Height * 0.25)), Color.White);
+            spriteBatch.DrawString(arial12Italic, "-" + consumption + " / 20s", new Vector2(recResources.X + (int)(recResources.Width * 0.24), recResources.Y + (int)(recResources.Height * 0.67)), Color.Red);
 
-            spriteBatch.Draw(pictures[2], recGoldFang, Color.White);     //goldfangs picture
-            spriteBatch.DrawString(font30, Resources.Goldfangs.ToString(), new Vector2(recGoldFang.X + stringOffsetWidth * 16, recGoldFang.Y + stringOffsetHeight * 32), Color.Gold);
+
+            spriteBatch.DrawString(arial18Italic, Resources.Whitefangs.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.55), recResources.Y + (int)(recResources.Height * 0.30)), Color.White);
+            spriteBatch.DrawString(arial18Italic, Resources.Goldfangs.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.82), recResources.Y + (int)(recResources.Height * 0.30)), Color.White);
 
             spriteBatch.Draw(pictures[8], recButtonPanel, Color.White);  //panel kontrolek wilków
 
-            spriteBatch.Draw(pictures[9], recButtonWolf1Set, Wolf1ButtonSetColor); // 
-            spriteBatch.DrawString(broadwayFont, "K i m i k o", new Vector2(recButtonWolf1Set.X, recButtonPanel.Y + recButtonPanel.Y / 200), Color.Blue);
-            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Kimiko")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf1Set.X, recButtonWolf1Set.Y + recButtonWolf1Set.Height + recButtonWolf1Set.Height / 10), Color.Green);
+            // spriteBatch.Draw(pictures[9], recButtonWolf1Set, Wolf1ButtonSetColor); // 
+              spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Kimiko")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 1.54)), Color.Green);
 
-            spriteBatch.Draw(pictures[10], recButtonWolf2Set, Wolf2ButtonSetColor);
-            spriteBatch.DrawString(broadwayFont, "Y u a", new Vector2(recButtonWolf2Set.X, recButtonPanel.Y + recButtonPanel.Y / 200), Color.Yellow);
-            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Yua")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf2Set.X, recButtonWolf2Set.Y + recButtonWolf2Set.Height + recButtonWolf2Set.Height / 10), Color.Green);
+            //   spriteBatch.Draw(pictures[10], recButtonWolf2Set, Wolf2ButtonSetColor);
+                spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Yua")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 0.95)), Color.Green);
 
-            spriteBatch.Draw(pictures[11], recButtonWolf3Set, Wolf3ButtonSetColor);
-            spriteBatch.DrawString(broadwayFont, "H a t s u", new Vector2(recButtonWolf3Set.X, recButtonPanel.Y + recButtonPanel.Y / 200), Color.Orange);
-            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Hatsu")).ToList()[0].energy.ToString(), new Vector2(recButtonWolf3Set.X, recButtonWolf3Set.Y + recButtonWolf3Set.Height + recButtonWolf3Set.Height / 10), Color.Green);
+            //    spriteBatch.Draw(pictures[11], recButtonWolf3Set, Wolf3ButtonSetColor);
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Hatsu")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y+ (int)(recButtonPanel.Width * 0.27)), Color.Green);
 
             spriteBatch.Draw(pictures[12], recActualQuestButton, actualQuestButtonColor);
 
@@ -498,6 +500,12 @@ namespace Wataha.GameSystem.Interfejs
                 marketPanel.Draw(spriteBatch);
             }
 
+
+            if (ifDying)
+            {
+                spriteBatch.Draw(pictures[18], recNoMeat, Color.White);
+                spriteBatch.DrawString(arial18Italic, gameOverTimer.ToString("0.# s"), new Vector2(recResources.X + (int)(recResources.Width * 0.43), recResources.Y + recResources.Height), Color.Red);
+            }
             if (ifPaused)
             {
                 spriteBatch.Draw(pictures[4], recPausePanel, Color.White);
@@ -520,12 +528,6 @@ namespace Wataha.GameSystem.Interfejs
                 spriteBatch.Draw(actualGameOverInfoOk, recGameOverInfoOk, Color.White);
 
             }
-            if (ifDying)
-            {
-                spriteBatch.Draw(pictures[18], recNoMeat, Color.White);
-                spriteBatch.DrawString(font30,gameOverTimer.ToString("0.# s"),new Vector2(recResources.Width + recResources.Width/22 ,recNoMeat.Y),Color.Red);
-            }
-
             spriteBatch.End();
 
             device.BlendState = BlendState.Opaque;
@@ -579,8 +581,8 @@ namespace Wataha.GameSystem.Interfejs
                     actualQuestButtonColor = Color.White;
                     if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
                     {
-                        recActualQuestButton.X = screenWidth / 120;
-                        recActualQuestButton.Y = screenHeight - screenHeight / 10;
+                        recActualQuestButton.X = (int)(screenWidth * 0.02);
+                        recActualQuestButton.Y = (int)(screenHeight * 0.02);
                         recActualQuestButton.Height /= 2;
                         recActualQuestButton.Width /= 2;
                         ifActualQuestPanel = true;
@@ -594,8 +596,8 @@ namespace Wataha.GameSystem.Interfejs
                     actualQuestButtonColor = Color.White;
                     if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
                     {
-                        recActualQuestButton.X = screenWidth / 100;
-                        recActualQuestButton.Y = screenHeight - screenHeight / 6;
+                        recActualQuestButton.X = (int)(screenWidth * 0.02);
+                        recActualQuestButton.Y = (int)(screenHeight * 0.02);
                         recActualQuestButton.Height *= 2;
                         recActualQuestButton.Width *= 2;
                         ifActualQuestPanel = false;
