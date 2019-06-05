@@ -48,7 +48,7 @@ namespace Wataha.GameSystem.Interfejs
         public void Update(int width, int height)
         {
             recActualQuestPanel.X = (int)((width / 100) * 0.2f);
-            recActualQuestPanel.Y = (height / 100) * 13;
+            recActualQuestPanel.Y = (height / 100) * 40;
             recActualQuestPanel.Width = (width / 100) *37;
             recActualQuestPanel.Height = (height / 100) * 55;
 
