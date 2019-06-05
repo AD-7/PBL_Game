@@ -485,19 +485,19 @@ namespace Wataha.GameSystem.Interfejs
                     }
 
                 }
-                /*   if (ifWolfPanel)
+                 if (ifWolfPanel)
                   {
 
-                      if (wolfPanel.upgradeButtonEvent())
-                      {
+                    //if (wolfPanel.upgradeButtonEvent())
+                    //{
 
-                      }
-                      if (wolfPanel.upgradeButtonEvent2())
-                      {
+                    //}
+                    //if (wolfPanel.upgradeButtonEvent2())
+                    //{
 
-                      }
+                    //}
 
-
+                    wolfPanel.skillsButtonEvent();
 
                       if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
                       {
@@ -508,7 +508,7 @@ namespace Wataha.GameSystem.Interfejs
                   else
                   {
                       actualNameOfWolfPanel = "";
-                  }*/
+                  }
 
 
 
