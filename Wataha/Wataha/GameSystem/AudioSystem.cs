@@ -68,7 +68,7 @@ namespace Wataha.GameSystem
             }
         }
 
-        public void playGrowl(int i)
+        public  static void playGrowl(int i)
         {
             if (!growl[i].State.Equals(SoundState.Playing))
                 growl[i].Play();

@@ -25,8 +25,8 @@ namespace Wataha.GameSystem.Interfejs
         private Texture2D story;
         private Texture2D newGameActual, loadActual, optionsActual, exitActual, authorsActual, aboutActual;
 
-        public int ScreenWidth, ScreenWidthOld;
-        public int ScreenHeight, ScreenHeightOld;
+        public int ScreenWidth;
+        public int ScreenHeight;
 
         Rectangle BG;
         Rectangle recButtonsBkg;
@@ -51,9 +51,8 @@ namespace Wataha.GameSystem.Interfejs
 
         int alphaColor = 200;
 
-
-
-
+        public Intro intro;
+        
         Color AudioColor;
         Color EffectColor;
 
@@ -61,6 +60,7 @@ namespace Wataha.GameSystem.Interfejs
         SpriteFont font30;
         public bool inOptions = false;
         public bool ifStory = false;
+        public bool ifIntro = false;
 
         float AudioVolume = 0.4f;
         float EffectVolume = 0.3f;
@@ -69,6 +69,7 @@ namespace Wataha.GameSystem.Interfejs
         public MainMenu(SpriteBatch spriteBatch, ContentManager content, GraphicsDevice device)
         {
             this.spriteBatch = spriteBatch;
+
 
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/bg")); //0
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/buttonsBkg"));//1
@@ -100,6 +101,8 @@ namespace Wataha.GameSystem.Interfejs
             story = content.Load<Texture2D>("MainMenu/story");
             this.device = device;
 
+            intro = new Intro(spriteBatch, device, content, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
+
             newGameActual = ButtonTextures[2];
             optionsActual = ButtonTextures[4];
             exitActual = ButtonTextures[6];
@@ -112,15 +115,16 @@ namespace Wataha.GameSystem.Interfejs
 
             font30 = content.Load<SpriteFont>("Fonts/font1");
 
-            ScreenHeightOld = 0;
-            ScreenWidthOld = 0;
-            ScreenWidth = device.Viewport.Width;
-            ScreenHeight = device.Viewport.Height;
-         
+           
         }
 
         public void Update()
         {
+
+            ScreenWidth = device.Viewport.Width;
+            ScreenHeight = device.Viewport.Height;
+
+
             BG.X = 0;
             BG.Y = 0;
             BG.Width = (int)ScreenWidth;
@@ -214,11 +218,10 @@ namespace Wataha.GameSystem.Interfejs
             recEffectsVolume.Width = recEffectsSliderBG.Width / 5;
             recEffectsVolume.Height = recEffectsSliderBG.Height / 2;
 
-            recAuthors.X = recButtonsBkg.X + (recButtonsBkg.Width/10)*4;
-            recAuthors.Y = recButtonsBkg.Y+ recButtonsBkg.Height/7;
+            recAuthors.X = recButtonsBkg.X + (recButtonsBkg.Width / 10) * 4;
+            recAuthors.Y = recButtonsBkg.Y + recButtonsBkg.Height / 7;
             recAuthors.Width = recButtonsBkg.Width / 2;
             recAuthors.Height = recButtonsBkg.Height / 2;
-
 
             if (AuthorsButtonEvent() && !ifAuthors)
             {
@@ -276,9 +279,6 @@ namespace Wataha.GameSystem.Interfejs
             }
 
             InputSystem.UpdateCursorPosition();
-
-            ScreenHeightOld = ScreenHeight;
-            ScreenWidthOld = ScreenWidth;
 
             ScreenWidth = device.Viewport.Width;
             ScreenHeight = device.Viewport.Height;
