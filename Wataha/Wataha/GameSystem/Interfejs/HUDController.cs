@@ -38,23 +38,27 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recSaveInfo, recSaveInfoOk;
         Rectangle recGameOver, recGameOverInfoOk;
         Rectangle recNoMeat;
-        Rectangle recEnergy;
+        Rectangle recGoHuntingButton1, recGoHuntingButton2, recGoHuntingButton3;
 
         Texture2D actualSaveInfoOk;
         Texture2D actualGameOverInfoOk;
-
+        Texture2D actualGoHuntingButton1, actualGoHuntingButton2, actualGoHuntingButton3;
         Color resumeButtonColor = Color.White;
         Color saveButtonColor = Color.White;
         Color backToMainMenuButtonColor = Color.White;
         Color exitButtonColor = Color.White;
         Color Wolf1ButtonSetColor = Color.White, Wolf3ButtonSetColor = Color.White, Wolf2ButtonSetColor = Color.White;
         Color actualQuestButtonColor = Color.Gray;
+        Color energyColor1 = Color.Green, energyColor2 = Color.Green, energyColor3 = Color.Green;
         public bool ifPaused = false;
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
         public bool ifQuestPanel = false;
         public bool ifSaveInfo = false;
         public bool ifGameOver = false;
+        private bool ifDying;
+        private bool ifNoMeatChanged;
+        public bool ifEnoughEnergy1 = true, ifEnoughEnergy2 = true, ifEnoughEnergy3 = true;
 
         int screenWidth, screenWidthOld;
         int screenHeight, screenHeightOld;
@@ -68,8 +72,6 @@ namespace Wataha.GameSystem.Interfejs
         double dyingTimer = 0.4;
 
         int consumption = 0;
-        private bool ifDying;
-        private bool ifNoMeatChanged;
 
         public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
         {
@@ -111,25 +113,19 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/saveInfoOk2"));//16
             pictures.Add(Content.Load<Texture2D>("Pictures/gameOver")); //17
             pictures.Add(Content.Load<Texture2D>("Pictures/noMeat")); //18
-            pictures.Add(Content.Load<Texture2D>("pictures/energy")); //19
-
+            pictures.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton")); //19
+            pictures.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton2")); //20
 
             actualSaveInfoOk = pictures[15];
             actualGameOverInfoOk = pictures[15];
+            actualGoHuntingButton1 = pictures[19];
+            actualGoHuntingButton2 = pictures[19];
+            actualGoHuntingButton3 = pictures[19];
 
-            wolfPanel = new WolfPanel(Content.Load<Texture2D>("Pictures/rectangleForWolfPanel"), broadwayFont);
-            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/exitPicture"));
-            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton"));
-            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton"));
-            wolfPanel.elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton2"));
+            wolfPanel = new WolfPanel(Content, broadwayFont);
 
-
-            wolfPanel.font21 = Content.Load<SpriteFont>("Fonts/broadway21");
-            wolfPanel.font18 = Content.Load<SpriteFont>("Fonts/broadway18");
-            wolfPanel.font14 = Content.Load<SpriteFont>("Fonts/broadway14");
-
-            actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), wolfPanel.font14);
-            QuestPanel = new QuestPanel(Content, wolfPanel.font14);
+            actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), arial15Italic);
+            QuestPanel = new QuestPanel(Content, arial15Italic);
             marketPanel = new MarketPanel(Content);
 
             screenWidth = device.Viewport.Width;
@@ -184,26 +180,41 @@ namespace Wataha.GameSystem.Interfejs
                 recExitButton.Height = recPausePanel.Height / 10;
 
                 recButtonPanel.X = (int)(screenWidth * 0.85);
-                recButtonPanel.Y = recResources.Y + recResources.Height;
+                recButtonPanel.Y = recResources.Y + recResources.Height * 3;
                 recButtonPanel.Height = (int)(screenHeight * 0.5);
                 recButtonPanel.Width = (int)(screenWidth * 0.15);
 
-    
 
-                recButtonWolf1Set.X = (recButtonPanel.X) + (recButtonPanel.X / 100) * 5;
-                recButtonWolf1Set.Y = (recButtonPanel.Y) + (recButtonPanel.Y / 100) * 3;
-                recButtonWolf1Set.Height = recButtonPanel.Height / 2;
-                recButtonWolf1Set.Width = recButtonPanel.Height / 2;
 
-                recButtonWolf2Set.X = recButtonPanel.X + recButtonPanel.Width / 2 - recButtonPanel.Width / 12;
-                recButtonWolf2Set.Y = recButtonWolf1Set.Y;
+                recButtonWolf1Set.X = recButtonPanel.X + recButtonPanel.Width / 7;
+                recButtonWolf1Set.Y = recButtonPanel.Y + (int)(recButtonPanel.Height * 0.77);
+                recButtonWolf1Set.Height = recButtonPanel.Width / 4;
+                recButtonWolf1Set.Width = recButtonPanel.Width / 4;
+
+                recGoHuntingButton1.X = recButtonWolf1Set.X + (int)(recButtonWolf1Set.Width * 1.5);
+                recGoHuntingButton1.Y = recButtonWolf1Set.Y + (int)(recButtonWolf1Set.Height * 0.8);
+                recGoHuntingButton1.Width = recButtonWolf1Set.Width;
+                recGoHuntingButton1.Height = (int)(recButtonWolf1Set.Height * 0.4);
+
+                recButtonWolf2Set.X = recButtonWolf1Set.X;
+                recButtonWolf2Set.Y = recButtonWolf1Set.Y - (int)(recButtonPanel.Height * 0.32);
                 recButtonWolf2Set.Height = recButtonWolf1Set.Height;
                 recButtonWolf2Set.Width = recButtonWolf1Set.Width;
 
-                recButtonWolf3Set.X = recButtonPanel.X + recButtonPanel.Width - recButtonWolf1Set.Width - (recButtonPanel.X / 100) * 5;
-                recButtonWolf3Set.Y = recButtonWolf1Set.Y;
+                recGoHuntingButton2.X = recGoHuntingButton1.X;
+                recGoHuntingButton2.Y = recButtonWolf2Set.Y + (int)(recButtonWolf2Set.Height * 0.8);
+                recGoHuntingButton2.Width = recGoHuntingButton1.Width;
+                recGoHuntingButton2.Height = recGoHuntingButton1.Height;
+
+                recButtonWolf3Set.X = recButtonWolf1Set.X;
+                recButtonWolf3Set.Y = recButtonWolf2Set.Y - (int)(recButtonPanel.Height * 0.37);
                 recButtonWolf3Set.Height = recButtonWolf1Set.Height;
                 recButtonWolf3Set.Width = recButtonWolf1Set.Width;
+
+                recGoHuntingButton3.X = recGoHuntingButton1.X;
+                recGoHuntingButton3.Y = recButtonWolf3Set.Y + (int)(recButtonWolf3Set.Height * 0.8);
+                recGoHuntingButton3.Width = recGoHuntingButton1.Width;
+                recGoHuntingButton3.Height = recGoHuntingButton1.Height;
 
                 recActualQuestButton.X = (int)(screenWidth * 0.02);
                 recActualQuestButton.Y = (int)(screenHeight * 0.02);
@@ -386,46 +397,118 @@ namespace Wataha.GameSystem.Interfejs
                     }
                 }
 
-                if (ifWolfPanel)
+                if (wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].energy >= 70)
                 {
+                    energyColor1 = Color.Green;
+                }
+                else if (wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].energy >= 50)
+                {
+                    energyColor1 = Color.Orange;
+                }
+                else if (wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].energy < 50)
+                {
+                    energyColor1 = Color.Red;
+                }
+                if (wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].energy >= 70)
+                {
+                    energyColor2 = Color.Green;
+                }
+                else if (wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].energy >= 50)
+                {
+                    energyColor2 = Color.Orange;
+                }
+                else if (wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].energy < 50)
+                {
+                    energyColor2 = Color.Red;
+                }
+                if (wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].energy >= 70)
+                {
+                    energyColor3 = Color.Green;
+                }
+                else if (wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].energy >= 50)
+                {
+                    energyColor3 = Color.Orange;
+                }
+                else if (wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].energy < 50)
+                {
+                    energyColor3 = Color.Red;
+                }
 
-                    if (wolfPanel.upgradeButtonEvent())
+                if (goHuntingButtonEvent1(InputSystem.Cursor))
+                {
+                    if (wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].energy >= 50)
                     {
 
-                    }
-                    if (wolfPanel.upgradeButtonEvent2())
-                    {
-
-                    }
-
-                    if (wolfPanel.goHuntingButtonEvent(InputSystem.Cursor))
-                    {
-                        if (wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0].energy >= 50)
-                        {
-
-                            ifWolfPanel = false;
-                            wolfPanel.ifEnoughEnergy = true;
-                            huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == actualNameOfWolfPanel).ToList()[0]);
-                            huntingSystem.active = true;
-                        }
-                        else
-                        {
-                            wolfPanel.ifEnoughEnergy = false;
-
-                        }
-
-                    }
-
-                    if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
-                    {
                         ifWolfPanel = false;
+                        ifEnoughEnergy1 = true;
+                        huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0]);
+                        huntingSystem.active = true;
+                    }
+                    else
+                    {
+                        ifEnoughEnergy1 = false;
+
                     }
 
                 }
-                else
+                if (goHuntingButtonEvent2(InputSystem.Cursor))
                 {
-                    actualNameOfWolfPanel = "";
+                    if (wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].energy >= 50)
+                    {
+
+                        ifWolfPanel = false;
+                        ifEnoughEnergy2 = true;
+                        huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == "Yua").ToList()[0]);
+                        huntingSystem.active = true;
+                    }
+                    else
+                    {
+                        ifEnoughEnergy2 = false;
+
+                    }
+
                 }
+                if (goHuntingButtonEvent3(InputSystem.Cursor))
+                {
+                    if (wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].energy >= 50)
+                    {
+
+                        ifWolfPanel = false;
+                        ifEnoughEnergy3 = true;
+                        huntingSystem.InitializeHunting(wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0]);
+                        huntingSystem.active = true;
+                    }
+                    else
+                    {
+                        ifEnoughEnergy3 = false;
+
+                    }
+
+                }
+                /*   if (ifWolfPanel)
+                  {
+
+                      if (wolfPanel.upgradeButtonEvent())
+                      {
+
+                      }
+                      if (wolfPanel.upgradeButtonEvent2())
+                      {
+
+                      }
+
+
+
+                      if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
+                      {
+                          ifWolfPanel = false;
+                      }
+
+                  }
+                  else
+                  {
+                      actualNameOfWolfPanel = "";
+                  }*/
 
 
 
@@ -452,14 +535,17 @@ namespace Wataha.GameSystem.Interfejs
 
             spriteBatch.Draw(pictures[8], recButtonPanel, Color.White);  //panel kontrolek wilków
 
-            // spriteBatch.Draw(pictures[9], recButtonWolf1Set, Wolf1ButtonSetColor); // 
-              spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Kimiko")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 1.54)), Color.Green);
+            spriteBatch.Draw(pictures[9], recButtonWolf1Set, Wolf1ButtonSetColor); // 
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Kimiko")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 1.54)), energyColor1);
+            spriteBatch.Draw(actualGoHuntingButton1, recGoHuntingButton1, Color.White);
 
-            //   spriteBatch.Draw(pictures[10], recButtonWolf2Set, Wolf2ButtonSetColor);
-                spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Yua")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 0.95)), Color.Green);
+            spriteBatch.Draw(pictures[10], recButtonWolf2Set, Wolf2ButtonSetColor);
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Yua")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 0.95)), energyColor2);
+            spriteBatch.Draw(actualGoHuntingButton2, recGoHuntingButton2, Color.White);
 
-            //    spriteBatch.Draw(pictures[11], recButtonWolf3Set, Wolf3ButtonSetColor);
-            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Hatsu")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y+ (int)(recButtonPanel.Width * 0.27)), Color.Green);
+            spriteBatch.Draw(pictures[11], recButtonWolf3Set, Wolf3ButtonSetColor);
+            spriteBatch.DrawString(broadwayFont, (wataha.wolves.Where(w => w.Name == "Hatsu")).ToList()[0].energy.ToString(), new Vector2(recButtonPanel.X + (int)(recButtonPanel.Width * 0.56), recButtonPanel.Y + (int)(recButtonPanel.Width * 0.27)), energyColor3);
+            spriteBatch.Draw(actualGoHuntingButton3, recGoHuntingButton3, Color.White);
 
             spriteBatch.Draw(pictures[12], recActualQuestButton, actualQuestButtonColor);
 
@@ -535,6 +621,50 @@ namespace Wataha.GameSystem.Interfejs
             device.SamplerStates[0] = SamplerState.LinearWrap;
         }
 
+
+
+        public bool goHuntingButtonEvent1(Rectangle cursor)
+        {
+            if (recGoHuntingButton1.Intersects(cursor))
+            {
+                actualGoHuntingButton1 = pictures[20];
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
+                return false;
+            }
+            actualGoHuntingButton1 = pictures[19];
+            return false;
+        }
+        public bool goHuntingButtonEvent2(Rectangle cursor)
+        {
+            if (recGoHuntingButton2.Intersects(cursor))
+            {
+                actualGoHuntingButton2 = pictures[20];
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
+                return false;
+            }
+            actualGoHuntingButton2 = pictures[19];
+            return false;
+        }
+        public bool goHuntingButtonEvent3(Rectangle cursor)
+        {
+            if (recGoHuntingButton3.Intersects(cursor))
+            {
+                actualGoHuntingButton3 = pictures[20];
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed)
+                {
+                    return true;
+                }
+                return false;
+            }
+            actualGoHuntingButton3 = pictures[19];
+            return false;
+        }
 
         public bool InfoGameOverOkEvent()
         {
