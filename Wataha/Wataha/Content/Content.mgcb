@@ -4501,7 +4501,6 @@
 /build:Wolf3.fbx
 
 <<<<<<< HEAD
-<<<<<<< HEAD
 #begin Pictures/upgradeButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4590,5 +4589,5 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/energy.png
 
-
+=======
 
