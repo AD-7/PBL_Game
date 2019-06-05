@@ -132,7 +132,6 @@ namespace Wataha.GameSystem.Interfejs
             stringOffsetHeight = 0;
 
             huntingSystem.hudHunting = new HUDHunting(spriteBatch, device, Content);
-            huntingSystem.audio = new AudioSystem(Content);
         }
 
 
