@@ -29,6 +29,7 @@ namespace Wataha.GameObjects.Movable
         Random rand = new Random();
         Wolf wolf;
         float animationFrequency;
+        float turnFrequency;
         //public Animal(Model model, String ModelName, ContentManager contentManager, Matrix world, float colliderSize, Camera cam) : base(world, model)
         //{
         //    this.cam = cam;
@@ -82,7 +83,8 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
             speedFactor = 100;
             animationOffset = (float)rand.NextDouble() * 10;
-            animationFrequency = rand.Next(1000, 2000)/100f;
+            animationFrequency = (float)rand.Next(1000, 2000)/100f;
+            turnFrequency = (float)rand.Next(200, 400) / 100f;
 
         }
         public void ajustHeight(float height)
@@ -104,7 +106,7 @@ namespace Wataha.GameObjects.Movable
             //float animationFactor = 0f;
             //float animationFactor2 = (float)Math.Sin(time + animationOffset) * 5;
             
-            if (time >= 3)
+            if (time >= turnFrequency)
             {
                 angle += rand.Next(10, 90);
                 time = 0;
