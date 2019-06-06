@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
@@ -10,12 +9,10 @@ using Wataha.GameObjects.Interable;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System;
-using Wataha.GameObjects;
 using Wataha.GameSystem.Interfejs;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
-using static Wataha.GameSystem.Interfejs.HUDController;
 using System.Linq;
 
 namespace Wataha

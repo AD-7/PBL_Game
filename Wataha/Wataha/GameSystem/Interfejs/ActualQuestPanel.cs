@@ -1,10 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Wataha.GameObjects.Interable;
 
 namespace Wataha.GameSystem.Interfejs
@@ -47,10 +42,10 @@ namespace Wataha.GameSystem.Interfejs
 
         public void Update(int width, int height)
         {
-            recActualQuestPanel.X = (int)((width / 100) * 0.12f);
-            recActualQuestPanel.Y = (height / 100) * 12;
-            recActualQuestPanel.Width = (width / 100) *37;
-            recActualQuestPanel.Height = (height / 100) * 62;
+            recActualQuestPanel.X = (int)(width * 0.0012f);
+            recActualQuestPanel.Y = (int)(height * 0.12);
+            recActualQuestPanel.Width = (int)(width * 0.37);
+            recActualQuestPanel.Height = (int)(height * 0.62);
 
         }
 

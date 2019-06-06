@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -52,12 +48,7 @@ namespace Wataha.GameSystem.Interfejs
         int alphaColor = 200;
 
         public Intro intro;
-        
-        Color AudioColor;
-        Color EffectColor;
 
-
-        SpriteFont font30;
         public bool inOptions = false;
         public bool ifStory = false;
         public bool ifIntro = false;
@@ -101,7 +92,7 @@ namespace Wataha.GameSystem.Interfejs
             story = content.Load<Texture2D>("MainMenu/story");
             this.device = device;
 
-            intro = new Intro(spriteBatch, device, content, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
+            intro = new Intro(spriteBatch, content, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight);
 
             newGameActual = ButtonTextures[2];
             optionsActual = ButtonTextures[4];
@@ -109,12 +100,6 @@ namespace Wataha.GameSystem.Interfejs
             authorsActual = ButtonTextures[8];
             loadActual = ButtonTextures[10];
             aboutActual = ButtonTextures[12];
-
-            AudioColor = new Color(255, 255, 255, alphaColor);
-            EffectColor = new Color(255, 255, 255, alphaColor);
-
-            font30 = content.Load<SpriteFont>("Fonts/font1");
-
            
         }
 
@@ -130,15 +115,15 @@ namespace Wataha.GameSystem.Interfejs
             BG.Width = (int)ScreenWidth;
             BG.Height = (int)ScreenHeight;
 
-            recTitle.X = (ScreenWidth / 6) * 2;
-            recTitle.Y = ScreenHeight / 12;
-            recTitle.Height = ScreenHeight / 5;
-            recTitle.Width = (ScreenWidth / 6) * 2;
+            recTitle.X = (int)(ScreenWidth * 0.33);
+            recTitle.Y = (int)(ScreenHeight * 0.083);
+            recTitle.Height = (int)(ScreenHeight * 0.2);
+            recTitle.Width = (int)(ScreenWidth * 0.33);
 
-            recButtonsBkg.X = ScreenWidth / 12;
-            recButtonsBkg.Y = ScreenHeight / 3;
-            recButtonsBkg.Width = (ScreenWidth / 12) * 10;
-            recButtonsBkg.Height = (ScreenHeight / 100) * 60;
+            recButtonsBkg.X = (int)(ScreenWidth * 0.083);
+            recButtonsBkg.Y = (int)(ScreenHeight * 0.33);
+            recButtonsBkg.Width = (int)(ScreenWidth * 0.83);
+            recButtonsBkg.Height = (int)(ScreenHeight * 0.6);
 
             recNewGameButton.X = recButtonsBkg.X + recButtonsBkg.Width / 12;
             recNewGameButton.Y = recButtonsBkg.Y + recButtonsBkg.Height / 6;

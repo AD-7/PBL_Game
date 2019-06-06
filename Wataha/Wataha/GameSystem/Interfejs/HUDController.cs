@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Wataha.GameObjects.Interable;
@@ -219,51 +218,41 @@ namespace Wataha.GameSystem.Interfejs
 
                 recActualQuestButton.X = (int)(screenWidth * 0.02);
                 recActualQuestButton.Y = (int)(screenHeight * 0.02);
-                recActualQuestButton.Width = screenHeight / 8;
-                recActualQuestButton.Height = recActualQuestButton.Width;
+                recActualQuestButton.Width = (int)(screenHeight * 0.125);
+                recActualQuestButton.Height = (int)(recActualQuestButton.Width);
 
 
 
-                recSaveInfo.X = recPausePanel.X + recPausePanel.Width / 3;
-                recSaveInfo.Y = recPausePanel.Y + recPausePanel.Width / 2;
-                recSaveInfo.Width = recPausePanel.Width / 2;
-                recSaveInfo.Height = recPausePanel.Height / 6;
+                recSaveInfo.X = (int)(recPausePanel.X + recPausePanel.Width * 0.33);
+                recSaveInfo.Y = (int)(recPausePanel.Y + recPausePanel.Width * 0.5);
+                recSaveInfo.Width = (int)(recPausePanel.Width * 0.5);
+                recSaveInfo.Height = (int)(recPausePanel.Height * 0.17);
 
                 recSaveInfoOk.X = recSaveInfo.X + (int)(recSaveInfo.Width * 0.4);
-                recSaveInfoOk.Y = recSaveInfo.Y + recSaveInfo.Height - recSaveInfo.Height / 3;
-                recSaveInfoOk.Width = recSaveInfo.Width / 6;
-                recSaveInfoOk.Height = recSaveInfo.Width / 9;
+                recSaveInfoOk.Y = (int)(recSaveInfo.Y + recSaveInfo.Height - recSaveInfo.Height * 0.33);
+                recSaveInfoOk.Width = (int)(recSaveInfo.Width * 0.17);
+                recSaveInfoOk.Height = (int)(recSaveInfo.Width * 0.11);
 
                 recGameOver.X = (int)(screenWidth * 0.35);
-                recGameOver.Y = screenHeight / 3;
+                recGameOver.Y = (int)(screenHeight * 0.33);
                 recGameOver.Width = (int)(screenWidth * 0.3);
-                recGameOver.Height = screenHeight / 4;
+                recGameOver.Height = (int)(screenHeight * 0.25);
 
                 recGameOverInfoOk.X = recGameOver.X + (int)(recGameOver.Width * 0.42);
-                recGameOverInfoOk.Y = recGameOver.Y + recGameOver.Height - recGameOver.Height / 4;
-                recGameOverInfoOk.Width = recGameOver.Width / 6;
-                recGameOverInfoOk.Height = recGameOver.Height / 6;
+                recGameOverInfoOk.Y = (int)(recGameOver.Y + recGameOver.Height - recGameOver.Height * 0.25);
+                recGameOverInfoOk.Width = (int)(recGameOver.Width * 0.17);
+                recGameOverInfoOk.Height = (int)(recGameOver.Height * 0.17);
 
                 recNoMeat.X = (int)(screenWidth * 0.46);
                 recNoMeat.Y = (int)(screenHeight * 0.15);
-                recNoMeat.Width = screenWidth / 16;
-                recNoMeat.Height = screenHeight / 16;
+                recNoMeat.Width = (int)(screenWidth * 0.0625);
+                recNoMeat.Height = (int)(screenHeight * 0.0625);
 
                 wolfPanel.Update(screenWidth, screenHeight);
                 actualQuestPanel.Update(screenWidth, screenHeight);
                 QuestPanel.Update(screenWidth, screenHeight);
                 marketPanel.Update(screenWidth, screenHeight);
             }
-
-
-
-
-
-
-
-
-
-
 
             InputSystem.UpdateCursorPosition();
 
@@ -281,11 +270,11 @@ namespace Wataha.GameSystem.Interfejs
                 {
                     consumption += w.strength + w.speed;
                 }
-                consumption /= 4;
+                consumption = (int)(consumption*0.25);
 
                 if (timer > 0)
                 {
-                    timer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                    timer -= (gameTime.ElapsedGameTime.TotalMilliseconds * 0.001);
                 }
                 if (timer <= 0)
                 {
@@ -296,7 +285,7 @@ namespace Wataha.GameSystem.Interfejs
                 if (Resources.Meat <= 0)
                 {
                     ifDying = true;
-                    gameOverTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                    gameOverTimer -= gameTime.ElapsedGameTime.TotalMilliseconds * 0.001;
                 }
                 else
                 {
@@ -313,20 +302,20 @@ namespace Wataha.GameSystem.Interfejs
                 if (ifDying)
                 {
 
-                    dyingTimer -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                    dyingTimer -= gameTime.ElapsedGameTime.TotalMilliseconds * 0.001;
 
                     if (dyingTimer <= 0)
                     {
                         if (!ifNoMeatChanged)
                         {
-                            recNoMeat.X += recResources.Width / 30;
+                            recNoMeat.X += (int)(recResources.Width / 0.033);
                             recNoMeat.Width /= 2;
                             recNoMeat.Height /= 2;
                         }
                         else
                         {
-                            recNoMeat.X -= recResources.Width / 30;
-                            recNoMeat.Width *= 2;
+                            recNoMeat.X -= (int)(recResources.Width / 0.033);
+							recNoMeat.Width *= 2;
                             recNoMeat.Height *= 2;
                         }
                         ifNoMeatChanged = !ifNoMeatChanged;

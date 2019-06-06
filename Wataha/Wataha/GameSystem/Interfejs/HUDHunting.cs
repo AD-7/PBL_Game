@@ -2,11 +2,6 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Wataha.GameSystem.Interfejs
 {
@@ -74,29 +69,29 @@ namespace Wataha.GameSystem.Interfejs
         {
             if (screenWidth != screenWidthOld || screenHeight != screenHeightOld)
             {
-                recInfoHuntingWindow.X = screenWidth / 4;
-                recInfoHuntingWindow.Y = (screenHeight / 100) * 20;
-                recInfoHuntingWindow.Width = screenWidth / 2;
-                recInfoHuntingWindow.Height = screenHeight / 2;
+                recInfoHuntingWindow.X = (int)(screenWidth * 0.25);
+                recInfoHuntingWindow.Y = (int)(screenHeight * 0.20);
+                recInfoHuntingWindow.Width = (int)(screenWidth * 0.5);
+                recInfoHuntingWindow.Height = (int)(screenHeight * 0.5);
 
-                recYesButton.X = recInfoHuntingWindow.X + (recInfoHuntingWindow.Width / 100) * 48;
-                recYesButton.Y = recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height / 8;
-                recYesButton.Width = recInfoHuntingWindow.Width / 10;
-                recYesButton.Height = recInfoHuntingWindow.Height / 12;
+                recYesButton.X = (int)(recInfoHuntingWindow.X + recInfoHuntingWindow.Width * 0.48);
+                recYesButton.Y = (int)(recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height * 0.125);
+                recYesButton.Width = (int)(recInfoHuntingWindow.Width * 0.1);
+                recYesButton.Height = (int)(recInfoHuntingWindow.Height * 0.083);
 
-                recOkButton.X = recInfoHuntingWindow.X + (recInfoHuntingWindow.Width / 100) * 48;
-                recOkButton.Y = recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height / 8;
-                recOkButton.Width = recInfoHuntingWindow.Width / 10;
-                recOkButton.Height = recInfoHuntingWindow.Height / 12;
+                recOkButton.X = (int)(recInfoHuntingWindow.X + recInfoHuntingWindow.Width * 0.48);
+                recOkButton.Y = (int)(recInfoHuntingWindow.Y + recInfoHuntingWindow.Height - recInfoHuntingWindow.Height * 0.125);
+                recOkButton.Width = (int)(recInfoHuntingWindow.Width * 0.1);
+                recOkButton.Height = (int)(recInfoHuntingWindow.Height * 0.083);
 
-                recInfoWindow.X = (screenWidth / 12) * 5;
-                recInfoWindow.Y = (screenHeight / 20);
-                recInfoWindow.Width = (screenWidth / 12) * 2;
-                recInfoWindow.Height = screenHeight / 10;
+                recInfoWindow.X = (int)(screenWidth * 0.417);
+                recInfoWindow.Y = (int)(screenHeight * 0.05);
+                recInfoWindow.Width = (int)(screenWidth * 0.17);
+                recInfoWindow.Height = (int)(screenHeight * 0.1);
 
-                recClock.X = (screenWidth / 100) * 49;
-                recClock.Y = (screenHeight / 100) * 85;
-                recClock.Width = screenHeight / 20;
+                recClock.X = (int)(screenWidth * 0.49);
+                recClock.Y = (int)(screenHeight * 0.85);
+                recClock.Width = (int)(screenHeight * 0.05);
                 recClock.Height = recClock.Width;
 
 
@@ -119,7 +114,7 @@ namespace Wataha.GameSystem.Interfejs
                 }
                 else
                 {
-                    seconds -= gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+                    seconds -= gameTime.ElapsedGameTime.TotalMilliseconds * 0.001;
                 }
 
                 if (seconds <= 6)

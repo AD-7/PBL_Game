@@ -91,7 +91,7 @@ namespace Wataha.GameObjects.Movable
         {
             position = position + new Vector3(0, height, 0);
         }
-        public void Draw(Camera camera, string technique)
+        public override void Draw(Camera camera, string technique)
         {
             //   base.DrawModel(model, camera.View, camera.Projection)
             base.Draw(camera, technique);

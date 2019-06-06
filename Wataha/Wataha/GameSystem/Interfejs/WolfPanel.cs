@@ -105,24 +105,24 @@ namespace Wataha.GameSystem.Interfejs
             recWolfPanel.Width = (int)(width * 0.60);
             recWolfPanel.Height = (int)(height * 0.26);
 
-            recExit.X = recWolfPanel.X + recWolfPanel.Width - recWolfPanel.Width / 20;
-            recExit.Y = recWolfPanel.Y + recWolfPanel.Width / 60;
-            recExit.Height = recWolfPanel.Width / 30;
-            recExit.Width = recWolfPanel.Width / 30;
+            recExit.X = (int)(recWolfPanel.X + recWolfPanel.Width - recWolfPanel.Width * 0.05);
+            recExit.Y = (int)(recWolfPanel.Y + recWolfPanel.Width * 0.017);
+            recExit.Height = (int)(recWolfPanel.Width * 0.033);
+            recExit.Width = (int)(recWolfPanel.Width * 0.033);
 
             recSkills.X = recWolfPanel.X;
             recSkills.Y = recWolfPanel.Y - (int)(recWolfPanel.Height * 0.15);
-            recSkills.Width = recWolfPanel.Width / 5;
-            recSkills.Height = recWolfPanel.Height / 6;
+            recSkills.Width = (int)(recWolfPanel.Width * 0.2);
+            recSkills.Height = (int)(recWolfPanel.Height * 0.17);
 
-            recEvo.X = recWolfPanel.X + recSkills.Width + recSkills.Width / 30;
+            recEvo.X = (int)(recWolfPanel.X + recSkills.Width + recSkills.Width * 0.33);
             recEvo.Y = recSkills.Y;
             recEvo.Width = recSkills.Width;
             recEvo.Height = recSkills.Height;
 
 
             recUpgradeButton.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.35); ; 
-            recUpgradeButton.Y = recWolfPanel.Y + recWolfPanel.Height - recWolfPanel.Height/6;
+            recUpgradeButton.Y = (int)(recWolfPanel.Y + recWolfPanel.Height - recWolfPanel.Height * 0.17);
             recUpgradeButton.Width = (int)(recWolfPanel.Width * 0.08);
             recUpgradeButton.Height =(int) (recWolfPanel.Width * 0.03);
             
