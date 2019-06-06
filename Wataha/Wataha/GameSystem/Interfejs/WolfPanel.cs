@@ -11,10 +11,12 @@ namespace Wataha.GameSystem.Interfejs
     {
         public Texture2D actualPanel;
         public Texture2D actualSkills;
+        private Texture2D actualEvo;
         private SpriteFont font;
         private Rectangle recWolfPanel;
         private Rectangle recExit;
         private Rectangle recSkills;
+        private Rectangle recEvo;
 
 
         private Rectangle recUpgradeButton, recUpgradeButton2;
@@ -33,6 +35,7 @@ namespace Wataha.GameSystem.Interfejs
         public int wolfEnergy;
 
         bool ifInSkills;
+        bool ifInEvo;
 
         public WolfPanel(ContentManager Content, SpriteFont font)
         {
@@ -49,8 +52,12 @@ namespace Wataha.GameSystem.Interfejs
             elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/kimikoPanelSkills"));        //7
             elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/yuaPanelSkills"));           //8
             elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/hatsuPanelSkills"));         //9
-
-
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/hatsuPanelEvo"));         //10
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/yuaPanelEvo"));           //11
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/kimikoPanelEvo"));        //12
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/evolution1"));            //13
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/evolution2"));            //14
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/evolution3"));            //15
 
             elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton"));
             elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton2"));
@@ -62,7 +69,9 @@ namespace Wataha.GameSystem.Interfejs
         public void SetPanel(Wolf wolf)
         {
             actualSkills = elements[4];
+            actualEvo = elements[13];
             ifInSkills = false;
+            ifInEvo = false;
 
             wolfName = wolf.Name;
             wolfResistance = wolf.resistance;
@@ -104,7 +113,7 @@ namespace Wataha.GameSystem.Interfejs
             recSkills.Width = recWolfPanel.Width / 5;
             recSkills.Height = recWolfPanel.Height / 6;
 
-
+            
 
             recUpgradeButton.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.2);
             recUpgradeButton.Y = recWolfPanel.Y + recWolfPanel.Height - (int)(recWolfPanel.Height * 0.31);
