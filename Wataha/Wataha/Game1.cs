@@ -330,12 +330,6 @@ namespace Wataha
             float delta = (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             IsMouseVisible = true;
 
-          
-
-
-
-
-
             if (!hud.huntingSystem.active)
             {
                 if (gameInMainMenu)
@@ -348,7 +342,7 @@ namespace Wataha
                     {
                         gameInMainMenu = false;
                         IsMouseVisible = false;
-                        this.LoadContent();
+                        mainMenu.ifIntro = true;
                     }
                     if (mainMenu.LoadButtonEvent())
                     {
@@ -358,9 +352,24 @@ namespace Wataha
                         LoadGame();
                     }
                 }
+                else if (mainMenu.ifIntro)
+                {
+                    mainMenu.intro.Update(gameTime);
+                    if(mainMenu.intro.IntroEvent())
+                    {
+                        mainMenu.ifIntro = false;
+                        this.LoadContent();
+                    }
+
+                    if (InputSystem.newKeybordState.IsKeyDown(Keys.Space))
+                    {
+                        mainMenu.ifIntro = false;
+                        this.LoadContent();
+                    }
+                }
                 else
                 {
-                    if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused)
+                    if (InputSystem.newKeybordState.IsKeyDown(Keys.Escape) && InputSystem.oldKeybordState.IsKeyUp(Keys.Escape) && !hud.ifPaused && !hud.ifGameOver)
                     {
                         IsMouseVisible = true;
                         hud.ifPaused = true;
@@ -371,7 +380,7 @@ namespace Wataha
                     {
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.E))
                         {
-                            audioSystem.playGrowl(2);
+                            AudioSystem.playGrowl(2);
                         }
 
                         if (InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F) && QuestSystem.currentGiver != null && QuestSystem.currentGiver.actualQuest != QuestSystem.currentQuest)
@@ -497,6 +506,10 @@ namespace Wataha
                 if (gameInMainMenu)
                 {
                     mainMenu.Draw();
+                }
+                else if(mainMenu.ifIntro)
+                {
+                    mainMenu.intro.Draw();
                 }
                 else
                 {

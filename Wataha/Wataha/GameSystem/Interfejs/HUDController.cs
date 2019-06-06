@@ -25,6 +25,7 @@ namespace Wataha.GameSystem.Interfejs
         public SpriteFont font30, broadwayFont;
         private SpriteFont arial18Italic;
         private SpriteFont arial15Italic;
+        private SpriteFont arial20Italic;
         private SpriteFont arial12Italic;
         public List<Texture2D> pictures;
         Rectangle recResumeButton;
@@ -90,7 +91,7 @@ namespace Wataha.GameSystem.Interfejs
             font30 = Content.Load<SpriteFont>("Fonts/font1");
             arial18Italic = Content.Load<SpriteFont>("Fonts/arial/arial18");
             arial15Italic = Content.Load<SpriteFont>("Fonts/arial/arial15");
-
+            arial20Italic = Content.Load<SpriteFont>("Fonts/arial/arial20");
             arial12Italic = Content.Load<SpriteFont>("Fonts/arial/arial12");
             broadwayFont = Content.Load<SpriteFont>("Fonts/Broadway");
 
@@ -122,7 +123,7 @@ namespace Wataha.GameSystem.Interfejs
             actualGoHuntingButton2 = pictures[19];
             actualGoHuntingButton3 = pictures[19];
 
-            wolfPanel = new WolfPanel(Content, broadwayFont);
+            wolfPanel = new WolfPanel(Content, arial20Italic);
 
             actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), arial15Italic);
             QuestPanel = new QuestPanel(Content, arial15Italic);
@@ -347,7 +348,8 @@ namespace Wataha.GameSystem.Interfejs
                 }
 
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
-
+                if(wolfPanel.wolfName != null)
+                wolfPanel.wolfEnergy = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].energy;
                 ActualQuestButtonEvent();
 
                 if (marketPanel.active)
@@ -488,17 +490,17 @@ namespace Wataha.GameSystem.Interfejs
                  if (ifWolfPanel)
                   {
 
-                    //if (wolfPanel.upgradeButtonEvent())
-                    //{
+                    if (wolfPanel.upgradeButtonEvent())
+                    {
 
-                    //}
-                    //if (wolfPanel.upgradeButtonEvent2())
-                    //{
+                    }
+                    if (wolfPanel.upgradeButtonEvent2())
+                    {
 
-                    //}
+                    }
 
                     wolfPanel.skillsButtonEvent();
-
+                    wolfPanel.evolutionButtonEvent();
                       if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
                       {
                           ifWolfPanel = false;
