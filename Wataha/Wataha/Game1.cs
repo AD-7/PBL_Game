@@ -225,7 +225,7 @@ namespace Wataha
 
 
 
-            rabit = new Animal(wolf, Content.Load<Model>("Rabbit/Rabbit"), world2, 5.0f, 5);
+            rabit = new Animal(wolf,Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), "RabitIdle", Content, world2, 5.0f, 5);
             rabit.SetModelEffect(simpleEffect, true);
 
 

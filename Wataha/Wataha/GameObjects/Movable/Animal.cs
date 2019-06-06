@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameSystem;
+using Wataha.GameSystem.Animation;
 
 namespace Wataha.GameObjects.Movable
 {
@@ -21,6 +22,7 @@ namespace Wataha.GameObjects.Movable
         public float colliderSize;
         public Vector3 position;
         public float speedFactor;
+        public AnimationSystem animationSystem;
 
         float animationOffset = 0;
         Random rand = new Random();
@@ -57,6 +59,23 @@ namespace Wataha.GameObjects.Movable
             }
             this.colliderSize = colliderSize;
             speedFactor = 6;
+        }
+        public Animal(Wolf  wolf,Model model, String ModelName, ContentManager contentManager, Matrix world, float colliderSize, int meat) : base(world, model)
+        {
+            this.wolf = wolf;
+            this.meat = meat;
+            Animation animation = new Animation(contentManager, ModelName);
+            animationSystem = new AnimationSystem(animation, this);
+            ifColisionTerrain = false;
+            position = world.Translation;
+            position = position + new Vector3(0, -1f, 0);
+            angle = 180;
+            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
+                                        new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
+            this.colliderSize = colliderSize;
+            speedFactor = 100;
+            animationOffset = (float)rand.NextDouble() * 10;
+
         }
 
         public void Draw(Camera camera, string technique)
