@@ -522,7 +522,7 @@ namespace Wataha
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
 
-                    //  plane.Draw(camera, "ShadowMap");
+                    
 
 
                     foreach (Wolf w in wataha.wolves)
@@ -549,6 +549,10 @@ namespace Wataha
                     foreach (Wolf w in wataha.wolves)
                     {
                         w.shadowMap = (Texture2D)renderTarget;
+                    }
+                    foreach (Animal rabit in rabits)
+                    {
+                        rabit.shadowMap = (Texture2D)renderTarget;
                     }
                     //foreach (QuestGiver q in questSystem.questGivers)
                     //{
@@ -595,7 +599,10 @@ namespace Wataha
                     {
                         w.shadowMap = null;
                     }
-
+                    foreach (Animal rabit in rabits)
+                    {
+                        rabit.shadowMap = null;
+                    }
                     trees.shadowMap = null;
                     blockade.shadowMap = null;
                     blockade2.shadowMap = null;
@@ -646,9 +653,11 @@ namespace Wataha
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Idle", "RabitIdle");
             animations.Add("Move", "RabitM");
-            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 5);
+            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 5,"rabit");
             rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
+            rabit.animationSystem.animation.generateTags();
+            rabit.animationSystem.animation.SetEffect(simpleEffect,true);
             rabits.Add(rabit);
 
         }
