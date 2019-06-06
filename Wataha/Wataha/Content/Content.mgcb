@@ -4552,7 +4552,7 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/GoHuntingButton2.png
 
-#begin Pictures/wolfPanel/kimikoPanel.png
+#begin Pictures/wolfpanel/evolution1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4562,9 +4562,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/kimikoPanel.png
+/build:Pictures/wolfpanel/evolution1.png
 
-#begin Pictures/wolfPanel/yuaPanel.png
+#begin Pictures/wolfpanel/evolution2.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4574,9 +4574,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/yuaPanel.png
+/build:Pictures/wolfpanel/evolution2.png
 
-#begin Pictures/wolfPanel/hatsuPanel.png
+#begin Pictures/wolfpanel/evolution3.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4586,9 +4586,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/hatsuPanel.png
+/build:Pictures/wolfpanel/evolution3.png
 
-#begin Pictures/wolfPanel/skills1.png
+#begin Pictures/wolfpanel/hatsuPanel.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -4598,67 +4598,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/skills1.png
-
-#begin Pictures/wolfPanel/skills2.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/skills2.png
-
-#begin Pictures/wolfPanel/skills3.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/skills3.png
-
-#begin Pictures/wolfPanel/hatsuPanelSkills.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/hatsuPanelSkills.png
-
-#begin Pictures/wolfPanel/kimikoPanelSkills.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/kimikoPanelSkills.png
-
-#begin Pictures/wolfPanel/yuaPanelSkills.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Pictures/wolfPanel/yuaPanelSkills.png
+/build:Pictures/wolfpanel/hatsuPanel.png
 
 #begin Pictures/wolfpanel/hatsuPanelEvo.png
 /importer:TextureImporter
@@ -4672,6 +4612,30 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/wolfpanel/hatsuPanelEvo.png
 
+#begin Pictures/wolfpanel/hatsuPanelSkills.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/hatsuPanelSkills.png
+
+#begin Pictures/wolfpanel/kimikoPanel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/kimikoPanel.png
+
 #begin Pictures/wolfpanel/kimikoPanelEvo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4684,6 +4648,66 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/wolfpanel/kimikoPanelEvo.png
 
+#begin Pictures/wolfpanel/kimikoPanelSkills.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/kimikoPanelSkills.png
+
+#begin Pictures/wolfpanel/skills1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/skills1.png
+
+#begin Pictures/wolfpanel/skills2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/skills2.png
+
+#begin Pictures/wolfpanel/skills3.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/skills3.png
+
+#begin Pictures/wolfpanel/yuaPanel.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/yuaPanel.png
+
 #begin Pictures/wolfpanel/yuaPanelEvo.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -4695,4 +4719,16 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pictures/wolfpanel/yuaPanelEvo.png
+
+#begin Pictures/wolfpanel/yuaPanelSkills.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Pictures/wolfpanel/yuaPanelSkills.png
 
