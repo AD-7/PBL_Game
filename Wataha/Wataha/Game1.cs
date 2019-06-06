@@ -54,6 +54,11 @@ namespace Wataha
 
         BillboardSystem billboardTest;
         BillboardSystem billboardTest2;
+        /// <summary>
+        /// Spawn points
+        /// </summary>
+        public List<Vector3> spawns;
+        public List<Animal> rabits;
 
         public Game1()
         {
@@ -72,6 +77,10 @@ namespace Wataha
             Content = new ContentManager(this.Services, "Content");
             audioSystem = new AudioSystem(Content);
 
+            spawns = new List<Vector3>();
+            rabits = new List<Animal>();
+            GenerateVectors();
+            
             Trace.WriteLine("Utorzono game1");
 
         }
@@ -224,8 +233,10 @@ namespace Wataha
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
-
-            rabit = new Animal(wolf,Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), "RabitIdle", Content, world2, 5.0f, 5);
+            for(int i =0; i < 10; i++)
+            {
+                GenerateRabits(wolf, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"));
+            }
 
 
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -396,17 +407,22 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                           colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
                             colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
                         }
-                        colisionSystem.IsEnvironmentCollision(rabit, trees);
+                        foreach (Animal rabit in rabits)
+                        {
+                            colisionSystem.IsEnvironmentCollision(rabit, trees);
+                        }
 
                         wataha.Update(gameTime);
                         questSystem.Update(gameTime, wataha.wolves[0]);
-
-                        rabit.Update(gameTime);
+                        foreach (Animal rabit in rabits)
+                        {
+                            rabit.Update(gameTime);
+                        }
                     }
                     else
                     {
@@ -500,7 +516,10 @@ namespace Wataha
                     {
                         w.Draw(camera, "ShadowMap");
                     }
+                    foreach (Animal rabit in rabits)
+                    {
                     rabit.Draw(camera, "ShadowMap");
+                    }
 
                     //foreach (QuestGiver q in questSystem.questGivers)
                     //{
@@ -536,7 +555,10 @@ namespace Wataha
                     {
                         w.Draw(camera, "ShadowedScene");
                     }
-                    rabit.Draw(camera, "ShadowedScene");
+                    foreach(Animal rabit in rabits)
+                    {
+                        rabit.Draw(camera, "ShadowedScene");
+                    }
 
                     foreach (QuestGiver q in questSystem.questGivers)
                     {
@@ -592,6 +614,41 @@ namespace Wataha
                 (min.X + (float)rand.NextDouble() * (max.X - min.X),
                 min.Y + (float)rand.NextDouble() * (max.Y - min.Y),
                 min.Z + (float)rand.NextDouble() * (max.Z - min.Z));
+        }
+        private Matrix GenerateSpawn()
+        {
+            Matrix world = new Matrix();
+            world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            world *= Matrix.CreateTranslation(spawns[rand.Next(0, 6)]);
+
+            return world;
+
+
+        }
+
+        public void GenerateRabits(Wolf wolf, Model model)
+        {
+            Matrix spawnPoint = GenerateSpawn();
+            Dictionary<String, String> animations = new Dictionary<string, string>();
+            animations.Add("Idle", "RabitIdle");
+            animations.Add("Move", "RabitM");
+            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 5);
+            rabit.ajustHeight(-1.05f);
+            spawnPoint = new Matrix();
+            rabits.Add(rabit);
+
+        }
+        void GenerateVectors()
+        {
+            spawns.Add(new Vector3(-60f, 2.2f, 20f));
+            spawns.Add(new Vector3(60f, 2.2f, -40f));
+            spawns.Add(new Vector3(-30f, 2.2f, -50f));
+            spawns.Add(new Vector3(55f, 2.2f, -80f));
+            spawns.Add(new Vector3(45f, 2.2f, -90f));
+            spawns.Add(new Vector3(0f, 2.2f, -80f));
+
+            spawns.Add(new Vector3(-35f, 3.0f, -20f));
         }
     }
 }

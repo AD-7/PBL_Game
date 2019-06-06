@@ -1607,7 +1607,7 @@
 /build:RabitIdle/Rabbitstand1_000015.obj
 
 #begin RabitM/Rabbit_000001.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1617,16 +1617,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000001.obj
 
 #begin RabitM/Rabbit_000002.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1636,16 +1636,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000002.obj
 
 #begin RabitM/Rabbit_000003.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1655,16 +1655,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000003.obj
 
 #begin RabitM/Rabbit_000004.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1674,16 +1674,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000004.obj
 
 #begin RabitM/Rabbit_000005.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1693,16 +1693,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000005.obj
 
 #begin RabitM/Rabbit_000006.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1712,16 +1712,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000006.obj
 
 #begin RabitM/Rabbit_000007.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1731,16 +1731,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000007.obj
 
 #begin RabitM/Rabbit_000008.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1750,16 +1750,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000008.obj
 
 #begin RabitM/Rabbit_000009.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1769,16 +1769,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000009.obj
 
 #begin RabitM/Rabbit_000010.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1788,16 +1788,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000010.obj
 
 #begin RabitM/Rabbit_000011.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1807,16 +1807,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000011.obj
 
 #begin RabitM/Rabbit_000012.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1826,16 +1826,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000012.obj
 
 #begin RabitM/Rabbit_000013.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1845,16 +1845,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000013.obj
 
 #begin RabitM/Rabbit_000014.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1864,16 +1864,16 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000014.obj
 
 #begin RabitM/Rabbit_000015.obj
-/importer:OpenAssetImporter
+/importer:FbxImporter
 /processor:ModelProcessor
 /processorParam:ColorKeyColor=0,0,0,0
 /processorParam:ColorKeyEnabled=True
@@ -1883,10 +1883,10 @@
 /processorParam:PremultiplyTextureAlpha=True
 /processorParam:PremultiplyVertexColors=True
 /processorParam:ResizeTexturesToPowerOfTwo=False
-/processorParam:RotationX=0
+/processorParam:RotationX=90
 /processorParam:RotationY=0
 /processorParam:RotationZ=0
-/processorParam:Scale=1
+/processorParam:Scale=5
 /processorParam:SwapWindingOrder=False
 /processorParam:TextureFormat=Compressed
 /build:RabitM/Rabbit_000015.obj

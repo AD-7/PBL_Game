@@ -65,7 +65,7 @@ namespace Wataha.GameSystem.Animation
             {
 
                 Trace.WriteLine("Animation - LaodContent  animation " + obj);
-                if (obj.Contains("tex_0"))
+                if (obj.Contains("tex"))
                     continue;
                 String modelPath = animationFolder + "\\" + obj;
                 animation.Add(i, content.Load<Model>(modelPath));

@@ -313,8 +313,12 @@ namespace Wataha.GameSystem
         public void GenerateRabits(Wolf wolf, Model model)
         {
             GenerateSpawn();
-            Animal rabit = new Animal(wolf, model,"RabitIdle",Content, spawnPoint, 8, 5);
+            Dictionary<String, String> animations = new Dictionary<string, string>();
+            animations.Add("Idle", "RabitIdle");
+            animations.Add("Move", "RabitM");
+            Animal rabit = new Animal(wolf, model,animations,Content, spawnPoint, 8, 5);
             rabit.SetModelEffect(shadowEffect, true);
+            rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
             rabits.Add(rabit);
 
