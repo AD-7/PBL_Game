@@ -23,6 +23,7 @@ namespace Wataha.GameSystem
         Model rabitModel;
         Effect shadowEffect;
 
+        public AudioSystem audio;
         public List<Animal> rabits;
         public List<Animal> ship;
         public List<Animal> boars;
@@ -324,7 +325,7 @@ namespace Wataha.GameSystem
             {
                 if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 7 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
                 {
-                    AudioSystem.playGrowl(0);
+                    audio.playGrowl(0);
                     a.active = false;
                     tmp.Add(a);
 
