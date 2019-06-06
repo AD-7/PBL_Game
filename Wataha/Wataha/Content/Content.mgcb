@@ -4732,3 +4732,10 @@
 /processorParam:TextureFormat=Color
 /build:Pictures/wolfpanel/yuaPanelSkills.png
 
+#begin Fonts/arial/arial20.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/arial/arial20.spritefont
+

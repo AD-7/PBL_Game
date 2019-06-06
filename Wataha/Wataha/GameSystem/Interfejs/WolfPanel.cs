@@ -148,6 +148,15 @@ namespace Wataha.GameSystem.Interfejs
                 spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
                 spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
             }
+            if (ifInSkills)
+            {
+                spriteBatch.DrawString(font, wolfAge.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.175), recWolfPanel.Y + (int)(recWolfPanel.Height*0.39)), Color.White);
+                spriteBatch.DrawString(font, wolfStrength.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.335), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.39)), Color.White);
+                spriteBatch.DrawString(font, wolfResistance.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.66), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.39)), Color.White);
+                spriteBatch.DrawString(font, wolfSpeed.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.865), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.39)), Color.White);
+                spriteBatch.DrawString(font, wolfEnergy.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.47), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.73)), Color.White);
+
+            }
 
         }
 
