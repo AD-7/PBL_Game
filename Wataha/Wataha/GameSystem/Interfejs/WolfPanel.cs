@@ -62,7 +62,7 @@ namespace Wataha.GameSystem.Interfejs
             elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton"));
             elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton2"));
 
-            
+
 
         }
 
@@ -70,6 +70,8 @@ namespace Wataha.GameSystem.Interfejs
         {
             actualSkills = elements[4];
             actualEvo = elements[13];
+            currentUpgradeButton = elements[16];
+            currentUpgradeButton2 = elements[16];
             ifInSkills = false;
             ifInEvo = false;
 
@@ -98,12 +100,12 @@ namespace Wataha.GameSystem.Interfejs
 
         public void Update(int width, int height)
         {
-            recWolfPanel.X = (int)(width * 0.15);
+            recWolfPanel.X = (int)(width * 0.22);
             recWolfPanel.Y = (int)(height * 0.7);
             recWolfPanel.Width = (int)(width * 0.60);
-            recWolfPanel.Height = (int)(height * 0.25);
+            recWolfPanel.Height = (int)(height * 0.26);
 
-            recExit.X = recWolfPanel.X + recWolfPanel.Width - recWolfPanel.Width / 22;
+            recExit.X = recWolfPanel.X + recWolfPanel.Width - recWolfPanel.Width / 20;
             recExit.Y = recWolfPanel.Y + recWolfPanel.Width / 60;
             recExit.Height = recWolfPanel.Width / 30;
             recExit.Width = recWolfPanel.Width / 30;
@@ -113,33 +115,69 @@ namespace Wataha.GameSystem.Interfejs
             recSkills.Width = recWolfPanel.Width / 5;
             recSkills.Height = recWolfPanel.Height / 6;
 
+            recEvo.X = recWolfPanel.X + recSkills.Width + recSkills.Width / 30;
+            recEvo.Y = recSkills.Y;
+            recEvo.Width = recSkills.Width;
+            recEvo.Height = recSkills.Height;
+
+
+            recUpgradeButton.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.35); ; 
+            recUpgradeButton.Y = recWolfPanel.Y + recWolfPanel.Height - recWolfPanel.Height/6;
+            recUpgradeButton.Width = (int)(recWolfPanel.Width * 0.08);
+            recUpgradeButton.Height =(int) (recWolfPanel.Width * 0.03);
             
 
-            recUpgradeButton.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.2);
-            recUpgradeButton.Y = recWolfPanel.Y + recWolfPanel.Height - (int)(recWolfPanel.Height * 0.31);
-            recUpgradeButton.Width = recWolfPanel.Width / 6;
-            recUpgradeButton.Height = recWolfPanel.Width / 10;
-
-
-            recUpgradeButton2.X = recUpgradeButton.X + (int)(recWolfPanel.Width * 0.45);
+            recUpgradeButton2.X = recUpgradeButton.X + (int)(recWolfPanel.Width * 0.44);
             recUpgradeButton2.Y = recUpgradeButton.Y;
             recUpgradeButton2.Width = recUpgradeButton.Width;
             recUpgradeButton2.Height = recUpgradeButton.Height;
 
 
-           
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(actualSkills, recSkills, Color.White);
+            spriteBatch.Draw(actualEvo, recEvo, Color.White);
             spriteBatch.Draw(actualPanel, recWolfPanel, Color.White);
             spriteBatch.Draw(elements[0], recExit, Color.White);
 
+            if (ifInEvo)
+            {
+                spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
+                spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
+            }
 
         }
 
+        public bool evolutionButtonEvent()
+        {
 
+            if (recEvo.Intersects(InputSystem.Cursor))
+            {
+                if (!ifInEvo)
+                    actualEvo = elements[14];
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
+                {
+                    actualEvo = elements[15];
+                    if (wolfName == "Kimiko")
+                        actualPanel = elements[12];
+                    else if (wolfName == "Yua")
+                        actualPanel = elements[11];
+                    else if (wolfName == "Hatsu")
+                        actualPanel = elements[10];
+                     ifInSkills = false;
+                    ifInEvo = true;
+                  
+                    return true;
+                }
+                return false;
+            }
+            if (!ifInEvo)
+                actualEvo = elements[13];
+            return false;
+        }
 
         public bool skillsButtonEvent()
         {
@@ -156,13 +194,14 @@ namespace Wataha.GameSystem.Interfejs
                         actualPanel = elements[8];
                     else if (wolfName == "Hatsu")
                         actualPanel = elements[9];
+                    ifInEvo = false;
                     ifInSkills = true;
                     return true;
                 }
                 return false;
             }
-            if(!ifInSkills)
-            actualSkills = elements[4];
+            if (!ifInSkills)
+                actualSkills = elements[4];
 
             return false;
         }
@@ -172,7 +211,7 @@ namespace Wataha.GameSystem.Interfejs
         {
             if (recUpgradeButton.Intersects(InputSystem.Cursor))
             {
-                currentUpgradeButton = elements[3];
+                currentUpgradeButton = elements[17];
 
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
                 {
@@ -180,14 +219,14 @@ namespace Wataha.GameSystem.Interfejs
                 }
                 return false;
             }
-            currentUpgradeButton = elements[2];
+            currentUpgradeButton = elements[16];
             return false;
         }
         public bool upgradeButtonEvent2()
         {
             if (recUpgradeButton2.Intersects(InputSystem.Cursor))
             {
-                currentUpgradeButton2 = elements[3];
+                currentUpgradeButton2 = elements[17];
 
                 if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld.LeftButton == ButtonState.Released)
                 {
@@ -195,7 +234,7 @@ namespace Wataha.GameSystem.Interfejs
                 }
                 return false;
             }
-            currentUpgradeButton2 = elements[2];
+            currentUpgradeButton2 = elements[16];
             return false;
         }
 

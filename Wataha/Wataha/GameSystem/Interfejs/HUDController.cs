@@ -488,17 +488,17 @@ namespace Wataha.GameSystem.Interfejs
                  if (ifWolfPanel)
                   {
 
-                    //if (wolfPanel.upgradeButtonEvent())
-                    //{
+                    if (wolfPanel.upgradeButtonEvent())
+                    {
 
-                    //}
-                    //if (wolfPanel.upgradeButtonEvent2())
-                    //{
+                    }
+                    if (wolfPanel.upgradeButtonEvent2())
+                    {
 
-                    //}
+                    }
 
                     wolfPanel.skillsButtonEvent();
-
+                    wolfPanel.evolutionButtonEvent();
                       if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
                       {
                           ifWolfPanel = false;
