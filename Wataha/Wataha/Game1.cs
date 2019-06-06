@@ -226,7 +226,6 @@ namespace Wataha
 
 
             rabit = new Animal(wolf,Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), "RabitIdle", Content, world2, 5.0f, 5);
-            rabit.SetModelEffect(simpleEffect, true);
 
 
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -294,7 +293,7 @@ namespace Wataha
             worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("Rabbit/Rabbit"), simpleEffect, plane, huntingTrees, skybox);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), simpleEffect, plane, huntingTrees, skybox, Content);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 

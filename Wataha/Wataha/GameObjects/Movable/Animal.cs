@@ -106,6 +106,7 @@ namespace Wataha.GameObjects.Movable
             }
 
             CheckSecurity();
+            animationSystem.Update(gameTime);
 
 
 
