@@ -13,6 +13,7 @@ namespace Wataha.GameObjects.Movable
 {
     public class Animal : GameObject
     {
+        public string kindOfAnimal;
         public int meat;
         float dirX, dirZ, angle;
 
@@ -44,8 +45,9 @@ namespace Wataha.GameObjects.Movable
         //}
 
         //ten kontruktor jest ok
-        public Animal(Wolf wolf, Model model, Matrix world, float colliderSize, int meat) : base(world, model)
+        public Animal(Wolf wolf, Model model, Matrix world, float colliderSize, int meat,string kindOfAnimal) : base(world, model)
         {
+            this.kindOfAnimal = kindOfAnimal;
             this.wolf = wolf;
             this.meat = meat;
             ifColisionTerrain = false;
@@ -63,12 +65,13 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
             speedFactor = 6;
         }
-        public Animal(Wolf  wolf,Model model, Dictionary<String, String> AnimationFolders, ContentManager contentManager, Matrix world, float colliderSize, int meat) : base(world, model)
+        public Animal(Wolf wolf, Model model, Dictionary<String, String> AnimationFolders, ContentManager contentManager, Matrix world, float colliderSize, int meat, string kindOfAnimal) : base(world, model)
         {
+            this.kindOfAnimal = kindOfAnimal;
             this.wolf = wolf;
             this.meat = meat;
             animations = new Dictionary<string, Animation>();
-            foreach(String AnimationName in AnimationFolders.Keys)
+            foreach (String AnimationName in AnimationFolders.Keys)
             {
                 animations.Add(AnimationName, new Animation(contentManager, AnimationFolders[AnimationName]));
             }
@@ -83,7 +86,7 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
             speedFactor = 100;
             animationOffset = (float)rand.NextDouble() * 10;
-            animationFrequency = (float)rand.Next(1000, 2000)/100f;
+            animationFrequency = (float)rand.Next(1000, 2000) / 100f;
             turnFrequency = (float)rand.Next(200, 400) / 100f;
 
         }
@@ -105,7 +108,7 @@ namespace Wataha.GameObjects.Movable
             animTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             //float animationFactor = 0f;
             //float animationFactor2 = (float)Math.Sin(time + animationOffset) * 5;
-            
+
             if (time >= turnFrequency)
             {
                 angle += rand.Next(10, 90);
@@ -124,15 +127,28 @@ namespace Wataha.GameObjects.Movable
                 }
                 else
                 {
+
                     if (animTime <= animationFrequency + 1.33f)
                     {
-                        animationSystem.Play(animations["Idle"]);
+                        if (CheckSecurity())
+                        {
+                            animationSystem.Play(animations["Idle"]);
+                        }
+                        else
+                        {
+                            position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+                            animationSystem.Play(animations["Move"]);
+                           
+                        }
                     }
                     else
                     {
                         animTime = 0;
                         animationFrequency = rand.Next(1000, 2000) / 100f;
                     }
+
+
+
                 }
             }
             else
@@ -140,10 +156,10 @@ namespace Wataha.GameObjects.Movable
                 position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                 animationSystem.Play(animations["Move"]);
             }
-            
+
 
             //CheckSecurity();
-            
+
 
 
 
@@ -190,19 +206,24 @@ namespace Wataha.GameObjects.Movable
                 if (!ifColisionTerrain)
                     angle = -wolf.angle;
                 else
-                    angle =- wolf.angle / 2;
+                    angle = -wolf.angle /2;
 
-                speedFactor = 4;
+                if(kindOfAnimal =="rabit")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                speedFactor = 3;
+
+
                 secure = false;
             }
             else if (distance < 15 && oldDistance < 15)
             {
-                speedFactor = 5;
+                if (kindOfAnimal == "rabit")
+                    speedFactor = 4;
                 secure = false;
             }
-            else 
+            else
             {
-                speedFactor = 12;
+                if (kindOfAnimal == "rabit")
+                    speedFactor = 10;
             }
 
 
