@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Wataha.GameSystem;
+using Wataha.GameSystem.Animation;
 
 namespace Wataha.GameObjects.Movable
 {
@@ -21,10 +22,13 @@ namespace Wataha.GameObjects.Movable
         public float colliderSize;
         public Vector3 position;
         public float speedFactor;
+        public AnimationSystem animationSystem;
 
+        public Dictionary<String, Animation> animations;
         float animationOffset = 0;
         Random rand = new Random();
         Wolf wolf;
+        float animationFrequency;
         //public Animal(Model model, String ModelName, ContentManager contentManager, Matrix world, float colliderSize, Camera cam) : base(world, model)
         //{
         //    this.cam = cam;
@@ -58,7 +62,33 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
             speedFactor = 6;
         }
+        public Animal(Wolf  wolf,Model model, Dictionary<String, String> AnimationFolders, ContentManager contentManager, Matrix world, float colliderSize, int meat) : base(world, model)
+        {
+            this.wolf = wolf;
+            this.meat = meat;
+            animations = new Dictionary<string, Animation>();
+            foreach(String AnimationName in AnimationFolders.Keys)
+            {
+                animations.Add(AnimationName, new Animation(contentManager, AnimationFolders[AnimationName]));
+            }
+            animations["Idle"].frameSpeed = 0.05f;
+            animationSystem = new AnimationSystem(animations["Idle"], this);
+            ifColisionTerrain = false;
+            position = world.Translation;
+            position = position + new Vector3(0, -1f, 0);
+            angle = 180;
+            collider = new BoundingBox(new Vector3(world.Translation.X - colliderSize / 2, world.Translation.Y - colliderSize / 2, world.Translation.Z - colliderSize / 2),
+                                        new Vector3(world.Translation.X + colliderSize / 2, world.Translation.Y + colliderSize / 2, world.Translation.Z + colliderSize / 2));
+            this.colliderSize = colliderSize;
+            speedFactor = 100;
+            animationOffset = (float)rand.NextDouble() * 10;
+            animationFrequency = rand.Next(1000, 2000)/100f;
 
+        }
+        public void ajustHeight(float height)
+        {
+            position = position + new Vector3(0, height, 0);
+        }
         public void Draw(Camera camera, string technique)
         {
             //   base.DrawModel(model, camera.View, camera.Projection)
@@ -66,12 +96,14 @@ namespace Wataha.GameObjects.Movable
         }
 
         float time = 0;
+        float animTime = 0;
         public override void Update(GameTime gameTime)
         {
             time += (float)gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            animTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             //float animationFactor = 0f;
             //float animationFactor2 = (float)Math.Sin(time + animationOffset) * 5;
-
+            
             if (time >= 3)
             {
                 angle += rand.Next(10, 90);
@@ -81,12 +113,35 @@ namespace Wataha.GameObjects.Movable
             dirX = (float)Math.Sin(angle);
             dirZ = (float)Math.Cos(angle);
 
-            if (!ifColisionTerrain)
+            if (CheckSecurity())
+            {
+                if (!ifColisionTerrain && animTime <= animationFrequency)
+                {
+                    position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+                    animationSystem.Play(animations["Move"]);
+                }
+                else
+                {
+                    if (animTime <= animationFrequency + 1.33f)
+                    {
+                        animationSystem.Play(animations["Idle"]);
+                    }
+                    else
+                    {
+                        animTime = 0;
+                        animationFrequency = rand.Next(1000, 2000) / 100f;
+                    }
+                }
+            }
+            else
             {
                 position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
+                animationSystem.Play(animations["Move"]);
             }
+            
 
-            CheckSecurity();
+            //CheckSecurity();
+            
 
 
 
@@ -101,7 +156,7 @@ namespace Wataha.GameObjects.Movable
             }
             sphere = BoundingSphere.CreateFromBoundingBox(collider);
 
-
+            animationSystem.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -124,10 +179,10 @@ namespace Wataha.GameObjects.Movable
         }
 
         float oldDistance;
-        public void CheckSecurity()
+        public Boolean CheckSecurity()
         {
             float distance = Vector3.Distance(this.position, wolf.position);
-
+            Boolean secure = true;
             if (distance < 15 && oldDistance >= 15)
             {
                 if (!ifColisionTerrain)
@@ -136,10 +191,12 @@ namespace Wataha.GameObjects.Movable
                     angle =- wolf.angle / 2;
 
                 speedFactor = 4;
+                secure = false;
             }
             else if (distance < 15 && oldDistance < 15)
             {
                 speedFactor = 5;
+                secure = false;
             }
             else 
             {
@@ -148,6 +205,7 @@ namespace Wataha.GameObjects.Movable
 
 
             oldDistance = distance;
+            return secure;
         }
 
 

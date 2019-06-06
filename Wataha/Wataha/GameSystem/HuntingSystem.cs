@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -30,14 +31,15 @@ namespace Wataha.GameSystem
         public List<Vector3> spawns;
         public HUDHunting hudHunting;
         public bool active = false;
-
+        ContentManager Content;
         public Wolf huntingWolf;
         public Wataha.GameObjects.Movable.Wataha huntingWataha; // składa się z jednego wilka
 
         double time;
 
-        public HuntingSystem(Camera camera, GraphicsDevice device, GraphicsDeviceManager graphics, RenderTarget2D rt, Model rabitModel, Effect effect , GameObjects.Static.Plane plane, GameObjects.Static.Environment trees, Skybox skybox)
+        public HuntingSystem(Camera camera, GraphicsDevice device, GraphicsDeviceManager graphics, RenderTarget2D rt, Model rabitModel, Effect effect , GameObjects.Static.Plane plane, GameObjects.Static.Environment trees, Skybox skybox, ContentManager Content)
         {
+            this.Content = Content;
             this.camera = camera;
             this.device = device;
             this.graphics = graphics;
@@ -310,8 +312,12 @@ namespace Wataha.GameSystem
         public void GenerateRabits(Wolf wolf, Model model)
         {
             GenerateSpawn();
-            Animal rabit = new Animal(wolf, model, spawnPoint, 8, 5);
+            Dictionary<String, String> animations = new Dictionary<string, string>();
+            animations.Add("Idle", "RabitIdle");
+            animations.Add("Move", "RabitM");
+            Animal rabit = new Animal(wolf, model,animations,Content, spawnPoint, 8, 5);
             rabit.SetModelEffect(shadowEffect, true);
+            rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
             rabits.Add(rabit);
 

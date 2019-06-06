@@ -28,6 +28,13 @@ namespace Wataha.GameSystem.Animation
             loadContent(animationfolder);
             frameSpeed = 0.02f;
         }
+        public Animation(ContentManager content, String animationfolder, float _frameSpeed)
+        {
+            animation = new Dictionary<int, Model>();
+            this.content = content;
+            loadContent(animationfolder);
+            frameSpeed = _frameSpeed;
+        }
         public Animation()
         {
             //For testing purposes;
@@ -58,7 +65,7 @@ namespace Wataha.GameSystem.Animation
             {
 
                 Trace.WriteLine("Animation - LaodContent  animation " + obj);
-                if (obj.Equals("tex_0"))
+                if (obj.Contains("tex"))
                     continue;
                 String modelPath = animationFolder + "\\" + obj;
                 animation.Add(i, content.Load<Model>(modelPath));
