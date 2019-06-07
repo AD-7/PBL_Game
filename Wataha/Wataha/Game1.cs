@@ -226,8 +226,8 @@ namespace Wataha
             worldw3 *= Matrix.CreateScale(0.2f);
 
             wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk2", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk3", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk4", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
             for(int i =0; i < 10; i++)

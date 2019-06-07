@@ -75,8 +75,15 @@ namespace Wataha.GameObjects.Movable
             {
                 animations.Add(AnimationName, new Animation(contentManager, AnimationFolders[AnimationName]));
             }
-            animations["Idle"].frameSpeed = 0.05f;
-            animationSystem = new AnimationSystem(animations["Idle"], this);
+            if (animations.ContainsKey("Idle"))
+            {
+                animations["Idle"].frameSpeed = 0.05f;
+                animationSystem = new AnimationSystem(animations["Idle"], this);
+            }
+            else
+            {
+                animationSystem = new AnimationSystem(animations["Move"], this);
+            }
             ifColisionTerrain = false;
             position = world.Translation;
             position = position + new Vector3(0, -1f, 0);
@@ -130,7 +137,7 @@ namespace Wataha.GameObjects.Movable
 
                     if (animTime <= animationFrequency + 1.33f)
                     {
-                        if (CheckSecurity())
+                        if (CheckSecurity() && animations.ContainsKey("Idle"))
                         {
                             animationSystem.Play(animations["Idle"]);
                         }
@@ -210,6 +217,10 @@ namespace Wataha.GameObjects.Movable
 
                 if(kindOfAnimal =="rabit")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
                 speedFactor = 3;
+                if (kindOfAnimal == "sheep")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                    speedFactor = 4;
+                if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                    speedFactor = 2;
 
 
                 secure = false;
@@ -218,12 +229,22 @@ namespace Wataha.GameObjects.Movable
             {
                 if (kindOfAnimal == "rabit")
                     speedFactor = 4;
+                if (kindOfAnimal == "sheep")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                    speedFactor = 5;
+                if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                    speedFactor = 3;
+
                 secure = false;
             }
             else
             {
                 if (kindOfAnimal == "rabit")
                     speedFactor = 10;
+                if (kindOfAnimal == "sheep")
+                    speedFactor = 10;
+                if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                    speedFactor = 10;
+
             }
 
 

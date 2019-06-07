@@ -105,8 +105,18 @@ namespace Wataha.GameSystem
 
             hudHunting.energyLoss = (wolf.strength * 3 + wolf.resistance * 2 + wolf.speed) / 2;
             wolf.energy -= hudHunting.energyLoss;
+            for(int i = 0; i < 8; i++)
+            {
+                GenerateRabits(huntingWataha.wolves[0], rabitModel);
+            }
+            for (int i = 0; i < 4; i++)
+            {
+                GenerateSheeps(huntingWataha.wolves[0], rabitModel);
+            }
+            GenerateBoars(huntingWataha.wolves[0], rabitModel);
 
-            GenerateRabits(huntingWataha.wolves[0], rabitModel);
+
+
         }
 
 
@@ -316,7 +326,7 @@ namespace Wataha.GameSystem
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Idle", "RabitIdle");
             animations.Add("Move", "RabitM");
-            Animal rabit = new Animal(wolf, model,animations,Content, spawnPoint, 8, 5,"rabit");
+            Animal rabit = new Animal(wolf, model,animations,Content, spawnPoint, 8, 3,"rabit");
             rabit.animationSystem.animation.generateTags();
             rabit.animationSystem.animation.SetEffect(shadowEffect, true);
             rabit.ajustHeight(-1.05f);
@@ -324,7 +334,34 @@ namespace Wataha.GameSystem
             rabits.Add(rabit);
 
         }
+        public void GenerateSheeps(Wolf wolf, Model model)
+        {
+            GenerateSpawn();
+            Dictionary<String, String> animations = new Dictionary<string, string>();
+            animations.Add("Move", "SheepM");
+            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16, 10, "sheep");
+            sheep.ajustHeight(-1.05f);
+            sheep.animations["Move"].frameSpeed = 0.01f;
+            spawnPoint = new Matrix();
+            sheep.animationSystem.animation.generateTags();
+            sheep.animationSystem.animation.SetEffect(shadowEffect, true);
+            rabits.Add(sheep);
 
+        }
+        public void GenerateBoars(Wolf wolf, Model model)
+        {
+            GenerateSpawn();
+            Dictionary<String, String> animations = new Dictionary<string, string>();
+            animations.Add("Move", "BoarM");
+            Animal boar = new Animal(wolf, model, animations, Content, spawnPoint, 16, 20, "boar");
+            boar.ajustHeight(-1.05f);
+            boar.animations["Move"].frameSpeed = 0.01f;
+            spawnPoint = new Matrix();
+            boar.animationSystem.animation.generateTags();
+            boar.animationSystem.animation.SetEffect(shadowEffect, true);
+            rabits.Add(boar);
+
+        }
         void CheckKilledRabits()
         {
             List<Animal> tmp = new List<Animal>();
@@ -337,7 +374,14 @@ namespace Wataha.GameSystem
                     tmp.Add(a);
 
                     if(hudHunting.huntedMeat + a.meat <= hudHunting.maxMeat)
-                    hudHunting.huntedMeat += a.meat;
+                    {
+                        hudHunting.huntedMeat += a.meat;
+                    }
+                    else
+                    {
+                        hudHunting.huntedMeat = hudHunting.maxMeat;
+                    }
+
 
                 }
             }
