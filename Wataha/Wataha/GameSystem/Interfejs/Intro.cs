@@ -11,6 +11,7 @@ namespace Wataha.GameSystem.Interfejs
         private Texture2D story;
         private Texture2D bg;
         private int Timer;
+        private int StartTime = 2;
 
         public int ScreenWidth;
         public int ScreenHeight;
@@ -31,7 +32,7 @@ namespace Wataha.GameSystem.Interfejs
             recIntro.Width = (int)(ScreenWidth * 0.9);
             recIntro.Height = (int)(ScreenHeight);
 
-            Timer = 3;
+            Timer = StartTime;
         }
 
         public void Update(GameTime gameTime)
@@ -39,7 +40,7 @@ namespace Wataha.GameSystem.Interfejs
             if (Timer <= 0)
             {
                 recIntro.Y -= 1;
-                Timer = 3;
+                Timer = StartTime;
             }
             Timer--;
         }
