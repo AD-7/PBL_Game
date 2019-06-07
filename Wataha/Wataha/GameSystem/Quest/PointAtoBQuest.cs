@@ -8,9 +8,9 @@ using Wataha.GameObjects.Movable;
 
 namespace Wataha.GameObjects.Interable
 {
-    class TestQuest : Quest
+    class PointAtoBQuest : Quest
     {
-        public TestQuest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward, GameObject game) : base(questId, questTitle, questDescription, needStrenght, needResistance, needSpeed, meatReward, whiteFangReward, goldFangReward, game)
+        public PointAtoBQuest(int questId, string questTitle, string questDescription, int needStrenght, int needResistance, int needSpeed, int meatReward, int whiteFangReward, int goldFangReward, GameObject game) : base(questId, questTitle, questDescription, needStrenght, needResistance, needSpeed, meatReward, whiteFangReward, goldFangReward, game)
         {
         }
 

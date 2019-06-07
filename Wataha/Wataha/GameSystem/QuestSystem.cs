@@ -31,6 +31,12 @@ namespace Wataha.GameSystem
 
             if(currentQuest != null && currentQuest.IfCompleted(wolf))
             {
+                if(currentQuest is DeliverQuest)
+                {
+                    Resources.Meat -= ((DeliverQuest)currentQuest).NeedMeat;
+                    Resources.Whitefangs -= ((DeliverQuest)currentQuest).NeedWhite;
+                    Resources.Goldfangs -= ((DeliverQuest)currentQuest).NeedGold;
+                }
                 currentQuestGivers.CompletedQuest();
                 Resources.Meat += currentQuest.MeatReward;
                 Resources.Whitefangs += currentQuest.WhiteFangReward;

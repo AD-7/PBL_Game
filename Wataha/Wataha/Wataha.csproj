@@ -66,10 +66,11 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Interable\InterableObject.cs" />
-    <Compile Include="GameObjects\Interable\Quest.cs" />
+    <Compile Include="GameSystem\Quest\Quest.cs" />
     <Compile Include="GameObjects\Interable\QuestGiver.cs" />
     <Compile Include="GameObjects\Interable\QuestItem.cs" />
-    <Compile Include="GameObjects\Interable\TestQuest.cs" />
+    <Compile Include="GameSystem\Quest\DeliverQuest.cs" />
+    <Compile Include="GameSystem\Quest\PointAtoBQuest.cs" />
     <Compile Include="GameSystem\Interfejs\Intro.cs" />
     <Compile Include="GameSystem\Interfejs\MarketPanel.cs" />
     <Compile Include="GameSystem\Interfejs\QuestPanel.cs" />
