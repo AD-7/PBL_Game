@@ -45,7 +45,7 @@ namespace Wataha.GameObjects.Movable
         //}
 
         //ten kontruktor jest ok
-        public Animal(Wolf wolf, Model model, Matrix world, float colliderSize, int meat,string kindOfAnimal) : base(world, model)
+        public Animal(Wolf wolf, Model model, Matrix world, float colliderSize, int meat, string kindOfAnimal) : base(world, model)
         {
             this.kindOfAnimal = kindOfAnimal;
             this.wolf = wolf;
@@ -116,7 +116,7 @@ namespace Wataha.GameObjects.Movable
             //float animationFactor = 0f;
             //float animationFactor2 = (float)Math.Sin(time + animationOffset) * 5;
 
-            if (time >= turnFrequency)
+            if (time >= turnFrequency && !ifInTrouble)
             {
                 angle += rand.Next(10, 90);
                 time = 0;
@@ -125,7 +125,7 @@ namespace Wataha.GameObjects.Movable
             dirX = (float)Math.Sin(angle);
             dirZ = (float)Math.Cos(angle);
 
-            if (CheckSecurity())
+            if (!ifInTrouble)
             {
                 if (!ifColisionTerrain && animTime <= animationFrequency)
                 {
@@ -137,16 +137,11 @@ namespace Wataha.GameObjects.Movable
 
                     if (animTime <= animationFrequency + 1.33f)
                     {
-                        if (CheckSecurity() && animations.ContainsKey("Idle"))
+                        if (!ifInTrouble && animations.ContainsKey("Idle"))
                         {
                             animationSystem.Play(animations["Idle"]);
                         }
-                        else
-                        {
-                            position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
-                            animationSystem.Play(animations["Move"]);
-                           
-                        }
+
                     }
                     else
                     {
@@ -165,7 +160,7 @@ namespace Wataha.GameObjects.Movable
             }
 
 
-            //CheckSecurity();
+            CheckSecurity();
 
 
 
@@ -206,26 +201,40 @@ namespace Wataha.GameObjects.Movable
         float oldDistance;
         public Boolean CheckSecurity()
         {
+            int safeDist = 12;
+
+            if (kindOfAnimal == "sheep")
+            {
+                safeDist = 20;
+            }
+            else if (kindOfAnimal == "boar")
+            {
+                safeDist = 16;
+            }
+          
+
+
+
             float distance = Vector3.Distance(this.position, wolf.position);
             Boolean secure = true;
-            if (distance < 15 && oldDistance >= 15)
+            if (distance < safeDist && oldDistance >= safeDist)
             {
                 if (!ifColisionTerrain)
                     angle = -wolf.angle;
                 else
-                    angle = -wolf.angle /2;
+                    angle = -wolf.angle / 2;
 
-                if(kindOfAnimal =="rabit")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
-                speedFactor = 3;
+                if (kindOfAnimal == "rabit")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
+                    speedFactor = 3;
                 if (kindOfAnimal == "sheep")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
                     speedFactor = 4;
                 if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
                     speedFactor = 2;
 
-
+                ifInTrouble = true;
                 secure = false;
             }
-            else if (distance < 15 && oldDistance < 15)
+            else if (distance < safeDist && oldDistance < safeDist)
             {
                 if (kindOfAnimal == "rabit")
                     speedFactor = 4;
@@ -233,18 +242,18 @@ namespace Wataha.GameObjects.Movable
                     speedFactor = 5;
                 if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
                     speedFactor = 3;
-
+                ifInTrouble = true;
                 secure = false;
             }
             else
             {
                 if (kindOfAnimal == "rabit")
-                    speedFactor = 10;
+                    speedFactor = 7;
                 if (kindOfAnimal == "sheep")
                     speedFactor = 10;
                 if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
-                    speedFactor = 10;
-
+                    speedFactor = 9;
+                ifInTrouble = false;
             }
 
 

@@ -17,7 +17,6 @@ namespace Wataha.GameSystem
         GraphicsDeviceManager graphics;
         GraphicsDevice device;
         RenderTarget2D renderTarget;
-        GameObjects.Static.Plane plane;
         GameObjects.Static.Environment trees;
         Skybox skybox;
         ColisionSystem colisionSystem;
@@ -25,7 +24,7 @@ namespace Wataha.GameSystem
         Effect shadowEffect;
 
         public List<Animal> rabits;
-        public List<Animal> ship;
+        public List<Animal> sheeps;
         public List<Animal> boars;
         public Matrix spawnPoint;
         public List<Vector3> spawns;
@@ -35,34 +34,50 @@ namespace Wataha.GameSystem
         public Wolf huntingWolf;
         public Wataha.GameObjects.Movable.Wataha huntingWataha; // składa się z jednego wilka
 
-        double time;
-     
+        double time, timeS, timeB;
 
-        public HuntingSystem(Camera camera, GraphicsDevice device, GraphicsDeviceManager graphics, RenderTarget2D rt, Model rabitModel, Effect effect , GameObjects.Static.Plane plane, GameObjects.Static.Environment trees, Skybox skybox, ContentManager Content)
+
+        public HuntingSystem(Camera camera, GraphicsDevice device, GraphicsDeviceManager graphics, RenderTarget2D rt, Model rabitModel, Effect effect,  GameObjects.Static.Environment trees, Skybox skybox, ContentManager Content)
         {
             this.Content = Content;
             this.camera = camera;
             this.device = device;
             this.graphics = graphics;
-            this.plane = plane;
             this.trees = trees;
             this.skybox = skybox;
             this.renderTarget = rt;
             this.shadowEffect = effect;
-           
+
             colisionSystem = new ColisionSystem();
             huntingWataha = new GameObjects.Movable.Wataha(camera);
-            this.rabitModel = rabitModel;   
+            this.rabitModel = rabitModel;
             spawns = new List<Vector3>();
             rabits = new List<Animal>();
+            sheeps = new List<Animal>();
+            boars = new List<Animal>();
             GenerateVectors();
-        
+
 
         }
 
 
         public void InitializeHunting(Wolf wolf)
         {
+            Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            worldH *= Matrix.CreateScale(0.2f);
+            string wolfPath = "wilk2";
+            if(wolf.Name == "Kimiko")
+            {
+                wolfPath = "wilk3";
+            }
+            else if(wolf.Name == "Hatsu")
+            {
+                wolfPath = "wilk4";
+            }
+
+            huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), wolfPath, Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             huntingWolf.Name = wolf.Name;
             huntingWolf.strength = wolf.strength;
             huntingWolf.speed = wolf.speed;
@@ -105,15 +120,13 @@ namespace Wataha.GameSystem
 
             hudHunting.energyLoss = (wolf.strength * 3 + wolf.resistance * 2 + wolf.speed) / 2;
             wolf.energy -= hudHunting.energyLoss;
-            for(int i = 0; i < 8; i++)
+            for (int i = 0; i < 3; i++)
             {
                 GenerateRabits(huntingWataha.wolves[0], rabitModel);
+            
             }
-            for (int i = 0; i < 4; i++)
-            {
-                GenerateSheeps(huntingWataha.wolves[0], rabitModel);
-            }
-            GenerateBoars(huntingWataha.wolves[0], rabitModel);
+     
+       
 
 
 
@@ -122,18 +135,20 @@ namespace Wataha.GameSystem
 
         public void ClearHunting()
         {
-            Resources.Meat += hudHunting.huntedMeat; 
+            Resources.Meat += hudHunting.huntedMeat;
 
             time = 0;
+            timeS = 0;
+            timeB = 0;
 
-            Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
-            worldH *= Matrix.CreateScale(0.2f);
+            //Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            //worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            //worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            //worldH *= Matrix.CreateScale(0.2f);
 
-            huntingWolf.position = worldH.Translation;
-            huntingWolf.position += new Vector3(0, -1f, 0); ;
-            huntingWolf.angle = 180;
+            //huntingWolf.position = worldH.Translation;
+            //huntingWolf.position += new Vector3(0, -1f, 0); ;
+            //huntingWolf.angle = 180;
 
 
 
@@ -150,6 +165,8 @@ namespace Wataha.GameSystem
             hudHunting.ifEndHuntingWindow = false;
 
             rabits.Clear();
+            sheeps.Clear();
+            boars.Clear();
 
 
         }
@@ -166,10 +183,10 @@ namespace Wataha.GameSystem
                 ClearHunting();
                 active = false;
             }
-           
 
 
-            if (time >= 2.5)
+
+            if (time >= 2)
             {
                 GenerateRabits(huntingWataha.wolves[0], rabitModel);
                 time = 0;
@@ -179,9 +196,29 @@ namespace Wataha.GameSystem
                 time += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
 
+            if(timeS >= 5)
+            {
+                GenerateSheeps(huntingWataha.wolves[0], rabitModel);
+                timeS = 0;
+            }
+            else
+            {
+                timeS += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            }
+            if(timeB >= 8)
+            {
+                GenerateBoars(huntingWataha.wolves[0], rabitModel);
+                timeB = 0;
+            }
+            else
+            {
+                timeB += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            }
+
 
             CheckKilledRabits();
-
+            CheckKilledSheeps();
+            CheckKilledBoars();
 
             if (!hudHunting.ifInfoHuntingWindow && !hudHunting.ifEndHuntingWindow)
             {
@@ -200,7 +237,26 @@ namespace Wataha.GameSystem
 
 
                 }
+                foreach (Animal a in sheeps)
+                {
+                    if (a.active)
+                    {
+                        a.Update(gameTime);
+                        colisionSystem.IsEnvironmentCollision(a, trees);
+                    }
 
+
+                }
+                foreach (Animal a in boars)
+                {
+                    if (a.active)
+                    {
+                        a.Update(gameTime);
+                        colisionSystem.IsEnvironmentCollision(a, trees);
+                    }
+
+
+                }
                 huntingWataha.Update(gameTime);
             }
 
@@ -221,13 +277,23 @@ namespace Wataha.GameSystem
             device.SetRenderTarget(renderTarget);
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
-          
 
-           
+
+
             foreach (Animal a in rabits)
             {
-                if(a.active)
-                a.Draw(camera, "ShadowMap");
+                if (a.active)
+                    a.Draw(camera, "ShadowMap");
+            }
+            foreach (Animal a in sheeps)
+            {
+                if (a.active)
+                    a.Draw(camera, "ShadowMap");
+            }
+            foreach (Animal a in boars)
+            {
+                if (a.active)
+                    a.Draw(camera, "ShadowMap");
             }
 
             foreach (Wolf w in huntingWataha.wolves)
@@ -240,13 +306,23 @@ namespace Wataha.GameSystem
 
 
 
-          
+
             trees.shadowMap = (Texture2D)renderTarget;
 
             foreach (Animal a in rabits)
             {
-                if(a.active)
-                a.shadowMap = (Texture2D)renderTarget;
+                if (a.active)
+                    a.shadowMap = (Texture2D)renderTarget;
+            }
+            foreach (Animal a in sheeps)
+            {
+                if (a.active)
+                    a.shadowMap = (Texture2D)renderTarget;
+            }
+            foreach (Animal a in boars)
+            {
+                if (a.active)
+                    a.shadowMap = (Texture2D)renderTarget;
             }
             foreach (Wolf w in huntingWataha.wolves)
             {
@@ -257,12 +333,22 @@ namespace Wataha.GameSystem
             device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
             device.BlendState = BlendState.AlphaBlend;
 
-          
+
 
             foreach (Animal a in rabits)
             {
-                if (a.active) 
-                a.Draw(camera, "ShadowedScene");
+                if (a.active)
+                    a.Draw(camera, "ShadowedScene");
+            }
+            foreach (Animal a in sheeps)
+            {
+                if (a.active)
+                    a.Draw(camera, "ShadowedScene");
+            }
+            foreach (Animal a in boars)
+            {
+                if (a.active)
+                    a.Draw(camera, "ShadowedScene");
             }
             foreach (Wolf w in huntingWataha.wolves)
             {
@@ -274,12 +360,24 @@ namespace Wataha.GameSystem
 
             skybox.Draw(camera);
 
-          
+
             trees.shadowMap = null;
             foreach (Animal a in rabits)
             {
-                if(a.active)
-                a.shadowMap = null;
+                if (a.active)
+                    a.shadowMap = null;
+
+            }
+            foreach (Animal a in sheeps)
+            {
+                if (a.active)
+                    a.shadowMap = null;
+
+            }
+            foreach (Animal a in boars)
+            {
+                if (a.active)
+                    a.shadowMap = null;
 
             }
             foreach (Wolf w in huntingWataha.wolves)
@@ -297,12 +395,12 @@ namespace Wataha.GameSystem
         void GenerateVectors()
         {
             spawns.Add(new Vector3(-60f, 2.2f, 20f));
-            spawns.Add(new Vector3(60f, 2.2f, -40f)); 
+            spawns.Add(new Vector3(60f, 2.2f, -40f));
             spawns.Add(new Vector3(-30f, 2.2f, -50f));
             spawns.Add(new Vector3(55f, 2.2f, -80f));
             spawns.Add(new Vector3(45f, 2.2f, -90f));
             spawns.Add(new Vector3(0f, 2.2f, -80f));
-          
+
             spawns.Add(new Vector3(-35f, 3.0f, -20f));
         }
         private void GenerateSpawn()
@@ -313,7 +411,7 @@ namespace Wataha.GameSystem
             Matrix world = new Matrix();
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world *= Matrix.CreateTranslation(spawns[rand.Next(0,6)]);
+            world *= Matrix.CreateTranslation(spawns[rand.Next(0, 6)]);
 
             spawnPoint = world;
 
@@ -326,11 +424,11 @@ namespace Wataha.GameSystem
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Idle", "RabitIdle");
             animations.Add("Move", "RabitM");
-            Animal rabit = new Animal(wolf, model,animations,Content, spawnPoint, 8, 3,"rabit");
-            rabit.animationSystem.animation.generateTags();
-            rabit.animationSystem.animation.SetEffect(shadowEffect, true);
+            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 2, "rabit");
             rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
+            rabit.animationSystem.animation.generateTags();
+            rabit.animationSystem.animation.SetEffect(shadowEffect, true);
             rabits.Add(rabit);
 
         }
@@ -339,13 +437,13 @@ namespace Wataha.GameSystem
             GenerateSpawn();
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Move", "SheepM");
-            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16, 10, "sheep");
+            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16,  8, "sheep");
             sheep.ajustHeight(-1.05f);
             sheep.animations["Move"].frameSpeed = 0.01f;
             spawnPoint = new Matrix();
             sheep.animationSystem.animation.generateTags();
             sheep.animationSystem.animation.SetEffect(shadowEffect, true);
-            rabits.Add(sheep);
+            sheeps.Add(sheep);
 
         }
         public void GenerateBoars(Wolf wolf, Model model)
@@ -359,7 +457,7 @@ namespace Wataha.GameSystem
             spawnPoint = new Matrix();
             boar.animationSystem.animation.generateTags();
             boar.animationSystem.animation.SetEffect(shadowEffect, true);
-            rabits.Add(boar);
+            boars.Add(boar);
 
         }
         void CheckKilledRabits()
@@ -367,13 +465,13 @@ namespace Wataha.GameSystem
             List<Animal> tmp = new List<Animal>();
             foreach (Animal a in rabits)
             {
-                if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 7 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
+                if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 8 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
                 {
                     AudioSystem.playGrowl(0);
                     a.active = false;
                     tmp.Add(a);
 
-                    if(hudHunting.huntedMeat + a.meat <= hudHunting.maxMeat)
+                    if (hudHunting.huntedMeat + a.meat <= hudHunting.maxMeat)
                     {
                         hudHunting.huntedMeat += a.meat;
                     }
@@ -391,5 +489,61 @@ namespace Wataha.GameSystem
             }
         }
 
+        void CheckKilledSheeps()
+        {
+            List<Animal> tmp = new List<Animal>();
+            foreach (Animal a in sheeps)
+            {
+                if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 6 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
+                {
+                    AudioSystem.playGrowl(0);
+                    a.active = false;
+                    tmp.Add(a);
+
+                    if (hudHunting.huntedMeat + a.meat <= hudHunting.maxMeat)
+                    {
+                        hudHunting.huntedMeat += a.meat;
+                    }
+                    else
+                    {
+                        hudHunting.huntedMeat = hudHunting.maxMeat;
+                    }
+
+
+                }
+            }
+            foreach (Animal a in tmp)
+            {
+                sheeps.Remove(a);
+            }
+        }
+        void CheckKilledBoars()
+        {
+            List<Animal> tmp = new List<Animal>();
+            foreach (Animal a in boars)
+            {
+                if (Vector3.Distance(a.position, huntingWataha.wolves[0].position) <= 6 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
+                {
+                    AudioSystem.playGrowl(0);
+                    a.active = false;
+                    tmp.Add(a);
+
+                    if (hudHunting.huntedMeat + a.meat <= hudHunting.maxMeat)
+                    {
+                        hudHunting.huntedMeat += a.meat;
+                    }
+                    else
+                    {
+                        hudHunting.huntedMeat = hudHunting.maxMeat;
+                    }
+
+
+                }
+            }
+            foreach (Animal a in tmp)
+            {
+                boars.Remove(a);
+            }
+        }
     }
 }

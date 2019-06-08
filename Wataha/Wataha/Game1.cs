@@ -26,7 +26,7 @@ namespace Wataha
         GraphicsDevice device;
         SpriteBatch spriteBatch;
         Random rand = new Random();
-        private GameObjects.Static.Plane plane;
+
         private Wolf wolf, wolf2, wolf3;
         private Animal rabit;
         private GameObjects.Movable.Wataha wataha;
@@ -200,7 +200,7 @@ namespace Wataha
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
-            plane = new GameObjects.Static.Plane(Content.Load<Model>("plane"), world, 30);
+        
             Matrix world3 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
 
             skybox = new Skybox("Skyboxes/skybox", Content);
@@ -230,7 +230,7 @@ namespace Wataha
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk4", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
-            for(int i =0; i < 10; i++)
+            for(int i =0; i < 8; i++)
             {
                 GenerateRabits(wolf, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"));
             }
@@ -277,7 +277,7 @@ namespace Wataha
             blockade2.SetModelEffect(simpleEffect, true);
             croft.SetModelEffect(simpleEffect, true);
             barrell.SetModelEffect(simpleEffect, true);
-            plane.SetModelEffect(simpleEffect, true);
+         
 
             //   wolf2.texture = Content.Load<Texture2D>("textures/textureW");
             //  wolf2.SetTexture();
@@ -303,7 +303,7 @@ namespace Wataha
             worldH *= Matrix.CreateScale(0.2f);
 
 
-            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), simpleEffect, plane, huntingTrees, skybox, Content);
+            HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), simpleEffect,  huntingTrees, skybox, Content);
             tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 

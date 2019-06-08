@@ -115,7 +115,7 @@ namespace Wataha.GameObjects.Movable
 
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
-                        speedFactor = 3f;
+                        speedFactor = 2.5f;
                         animationFactor = 20f + animationFactor2;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     }
@@ -141,7 +141,7 @@ namespace Wataha.GameObjects.Movable
 
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
-                        speedFactor = 4;
+                        speedFactor = 4.5f;
                         animationFactor = 10f + animationFactor2;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     }
