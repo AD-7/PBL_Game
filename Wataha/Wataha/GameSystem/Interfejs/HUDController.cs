@@ -65,8 +65,6 @@ namespace Wataha.GameSystem.Interfejs
         int stringOffsetWidth, stringOffsetHeight;
 
         string actualNameOfWolfPanel = "";
-
-
         double timer = 20;
         double gameOverTimer = 30;
         double dyingTimer = 0.4;
@@ -270,7 +268,7 @@ namespace Wataha.GameSystem.Interfejs
                 {
                     consumption += w.strength + w.speed;
                 }
-                consumption = (int)(consumption*0.25);
+                consumption = (int)(consumption * 0.25);
 
                 if (timer > 0)
                 {
@@ -315,7 +313,7 @@ namespace Wataha.GameSystem.Interfejs
                         else
                         {
                             recNoMeat.X -= (int)(recResources.Width / 0.033);
-							recNoMeat.Width *= 2;
+                            recNoMeat.Width *= 2;
                             recNoMeat.Height *= 2;
                         }
                         ifNoMeatChanged = !ifNoMeatChanged;
@@ -337,8 +335,8 @@ namespace Wataha.GameSystem.Interfejs
                 }
 
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
-                if(wolfPanel.wolfName != null)
-                wolfPanel.wolfEnergy = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].energy;
+                if (wolfPanel.wolfName != null)
+                    wolfPanel.wolfEnergy = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].energy;
                 ActualQuestButtonEvent();
 
                 if (marketPanel.active)
@@ -476,30 +474,30 @@ namespace Wataha.GameSystem.Interfejs
                     }
 
                 }
-                 if (ifWolfPanel)
-                  {
+                if (ifWolfPanel)
+                {
 
-                    if (wolfPanel.upgradeButtonEvent())
+                    if (wolfPanel.upgradeButtonEvent(wataha))
                     {
 
                     }
-                    if (wolfPanel.upgradeButtonEvent2())
+                    if (wolfPanel.upgradeButtonEvent2(wataha))
                     {
 
                     }
 
                     wolfPanel.skillsButtonEvent();
                     wolfPanel.evolutionButtonEvent();
-                      if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
-                      {
-                          ifWolfPanel = false;
-                      }
+                    if (wolfPanel.exitButtonEvent(InputSystem.Cursor))
+                    {
+                        ifWolfPanel = false;
+                    }
 
-                  }
-                  else
-                  {
-                      actualNameOfWolfPanel = "";
-                  }
+                }
+                else
+                {
+                    actualNameOfWolfPanel = "";
+                }
 
 
 
