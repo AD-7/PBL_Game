@@ -242,7 +242,7 @@ namespace Wataha
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4));
           
             questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
-            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
+            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
             questSystem.questGivers[0].Init();
             questSystem.questGivers[1].Init();
 
@@ -411,7 +411,8 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
+                            if (!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                                colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
                             colisionSystem.IsEnvironmentCollision(w, barrell, wataha);
@@ -552,7 +553,8 @@ namespace Wataha
                         q.Draw(camera, "ShadowMap");
                     }
                     trees.Draw(camera, "ShadowMap");
-                    blockade.Draw(camera, "ShadowMap");
+                    if(!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                        blockade.Draw(camera, "ShadowMap");
                     blockade2.Draw(camera, "ShadowMap");
                     croft.Draw(camera, "ShadowMap");
                     barrell.Draw(camera, "ShadowMap");
@@ -595,7 +597,8 @@ namespace Wataha
                         q.Draw(camera, "ShadowedScene");
                     }
                     trees.Draw(camera, "ShadowedScene");
-                    blockade.Draw(camera, "ShadowedScene");
+                    if (!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                        blockade.Draw(camera, "ShadowedScene");
                     blockade2.Draw(camera, "ShadowedScene");
                     croft.Draw(camera, "ShadowedScene");
                     barrell.Draw(camera, "ShadowedScene");

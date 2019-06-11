@@ -11,10 +11,12 @@ namespace Wataha.GameSystem.Interfejs
         private Texture2D story;
         private Texture2D bg;
         private int Timer;
-        private int StartTime = 1;
+        private int StartTime = 2;
 
         public int ScreenWidth;
         public int ScreenHeight;
+
+        SpriteFont font;
 
         Rectangle recIntro;
 
@@ -23,13 +25,14 @@ namespace Wataha.GameSystem.Interfejs
             this.spriteBatch = spriteBatch;
             this.story = content.Load<Texture2D>("MainMenu/story");
             this.bg = content.Load<Texture2D>("MainMenu/bg2");
+            font = content.Load<SpriteFont>("Fonts/Broadway");
             ScreenWidth = screenWidth;
             ScreenHeight = screenHeight;
 
-            recIntro.Y = (int)(ScreenHeight * 0.9);
+            recIntro.Y = (int)(ScreenHeight * 0.8);
             recIntro.X = (int)(ScreenWidth * 0.05);
 
-            recIntro.Width = (int)(ScreenWidth * 0.9);
+            recIntro.Width = (int)(ScreenWidth * 0.8);
             recIntro.Height = (int)(ScreenHeight);
 
             Timer = StartTime;
@@ -50,6 +53,8 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Begin();
             spriteBatch.Draw(bg, new Rectangle(0,0,ScreenWidth,ScreenHeight), Color.White);
             spriteBatch.Draw(story, recIntro, Color.White);
+            spriteBatch.DrawString(font, "'space' to skip",new Vector2 ((int)(ScreenWidth * 0.85), (int)(ScreenHeight*0.9)),Color.Yellow);
+         
             spriteBatch.End();
         }
 
