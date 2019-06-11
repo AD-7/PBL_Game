@@ -193,12 +193,12 @@ namespace Wataha.GameSystem.Interfejs
             recEffectMute.Height = recEffectsSliderBG.Height;
             recEffectMute.Width = recEffectMute.Height;
 
-            recAudioVolume.X = recAudioMute.X - recAudioMute.Width * 5;
+            recAudioVolume.X = recAudioMute.X - (int)(recAudioMute.Width * 3.8);
             recAudioVolume.Y = recAudioMute.Y + recAudioMute.Height / 4;
             recAudioVolume.Width = recAudioSliderBG.Width / 5;
             recAudioVolume.Height = recAudioSliderBG.Height / 2;
 
-            recEffectsVolume.X = recEffectMute.X - recEffectMute.Width * 5;
+            recEffectsVolume.X = recEffectMute.X - (int)(recAudioMute.Width * 3.8);
             recEffectsVolume.Y = recEffectMute.Y + recEffectMute.Height / 4;
             recEffectsVolume.Width = recEffectsSliderBG.Width / 5;
             recEffectsVolume.Height = recEffectsSliderBG.Height / 2;
@@ -289,7 +289,7 @@ namespace Wataha.GameSystem.Interfejs
 
                 spriteBatch.Draw(ButtonTextures[14], recEffectsSliderBG, Color.White);
                 spriteBatch.Draw(ButtonTextures[15], recEffectsSlider, Color.White);
-                spriteBatch.Draw(ButtonTextures[18], recAudioVolume, Color.White);
+               spriteBatch.Draw(ButtonTextures[18], recAudioVolume, Color.White);
                 spriteBatch.Draw(ButtonTextures[19], recEffectsVolume, Color.White);
                 if (AudioSystem.audioEnable)
                     spriteBatch.Draw(ButtonTextures[16], recAudioMute, Color.White);

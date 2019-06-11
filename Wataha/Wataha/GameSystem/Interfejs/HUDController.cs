@@ -336,7 +336,14 @@ namespace Wataha.GameSystem.Interfejs
 
                 Wolf1ButtonEvent(); Wolf2ButtonEvent(); Wolf3ButtonEvent();
                 if (wolfPanel.wolfName != null)
+                {
                     wolfPanel.wolfEnergy = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].energy;
+                    wolfPanel.wolfResistance = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].resistance;
+                    wolfPanel.wolfStrength = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].strength;
+                    wolfPanel.wolfSpeed = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].speed;
+
+                }
+                  
                 ActualQuestButtonEvent();
 
                 if (marketPanel.active)

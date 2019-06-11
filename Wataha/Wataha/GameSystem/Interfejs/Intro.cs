@@ -11,7 +11,7 @@ namespace Wataha.GameSystem.Interfejs
         private Texture2D story;
         private Texture2D bg;
         private int Timer;
-        private int StartTime = 2;
+        private int StartTime = 1;
 
         public int ScreenWidth;
         public int ScreenHeight;

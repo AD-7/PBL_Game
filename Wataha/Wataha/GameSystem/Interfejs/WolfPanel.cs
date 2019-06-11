@@ -124,21 +124,21 @@ namespace Wataha.GameSystem.Interfejs
         public void Update(int width, int height)
         {
             recWolfPanel.X = (int)(width * 0.22);
-            recWolfPanel.Y = (int)(height * 0.7);
+            recWolfPanel.Y = (int)(height * 0.6);
             recWolfPanel.Width = (int)(width * 0.60);
-            recWolfPanel.Height = (int)(height * 0.26);
+            recWolfPanel.Height = (int)(height * 0.36);
 
             recExit.X = (int)(recWolfPanel.X + recWolfPanel.Width - recWolfPanel.Width * 0.05);
             recExit.Y = (int)(recWolfPanel.Y + recWolfPanel.Width * 0.017);
             recExit.Height = (int)(recWolfPanel.Width * 0.033);
             recExit.Width = (int)(recWolfPanel.Width * 0.033);
 
-            recSkills.X = recWolfPanel.X;
+            recSkills.X = recWolfPanel.X + (int)(recSkills.Width * 0.33);
             recSkills.Y = recWolfPanel.Y - (int)(recWolfPanel.Height * 0.15);
             recSkills.Width = (int)(recWolfPanel.Width * 0.2);
             recSkills.Height = (int)(recWolfPanel.Height * 0.17);
 
-            recEvo.X = (int)(recWolfPanel.X + recSkills.Width + recSkills.Width * 0.30);
+            recEvo.X = (int)(recWolfPanel.X + recSkills.Width + recSkills.Width * 0.1);
             recEvo.Y = recSkills.Y;
             recEvo.Width = recSkills.Width;
             recEvo.Height = recSkills.Height;
