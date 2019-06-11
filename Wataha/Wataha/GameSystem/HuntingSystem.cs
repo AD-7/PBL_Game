@@ -65,7 +65,7 @@ namespace Wataha.GameSystem
         {
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldH *= Matrix.CreateTranslation(new Vector3(0, 15.0f, camera.CamPos.Z - 5));
+            worldH *= Matrix.CreateTranslation(new Vector3(0, 12.6f, camera.CamPos.Z - 5));
             worldH *= Matrix.CreateScale(0.2f);
             string wolfPath = "wilk2";
             if(wolf.Name == "Kimiko")
@@ -427,8 +427,12 @@ namespace Wataha.GameSystem
             Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 2, "rabit");
             rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
-            rabit.animationSystem.animation.generateTags();
-            rabit.animationSystem.animation.SetEffect(shadowEffect, true);
+     
+            rabit.animations["Idle"].generateTags();
+            rabit.animations["Move"].generateTags();
+            rabit.animations["Idle"].SetEffect(shadowEffect,true);
+            rabit.animations["Move"].SetEffect(shadowEffect,true);
+
             rabits.Add(rabit);
 
         }

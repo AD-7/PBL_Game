@@ -213,16 +213,16 @@ namespace Wataha
 
             world2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
 
-            world2 *= Matrix.CreateTranslation(new Vector3(0, 10.0f, camera.CamPos.Z - 5));
+            world2 *= Matrix.CreateTranslation(new Vector3(0, 12f, camera.CamPos.Z - 5));
             world2 *= Matrix.CreateScale(0.2f);
 
             Matrix worldw2 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw2 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw2 *= Matrix.CreateTranslation(new Vector3(14, 15.0f, camera.CamPos.Z - 12));
+            worldw2 *= Matrix.CreateTranslation(new Vector3(14, 12f, camera.CamPos.Z - 12));
             worldw2 *= Matrix.CreateScale(0.2f);
             Matrix worldw3 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw3 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 15.0f, camera.CamPos.Z - 7));
+            worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 12f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
             wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
@@ -279,13 +279,13 @@ namespace Wataha
             barrell.SetModelEffect(simpleEffect, true);
          
 
-            //   wolf2.texture = Content.Load<Texture2D>("textures/textureW");
-            //  wolf2.SetTexture();
-            //  wolf3.texture = Content.Load<Texture2D>("textures/textureW2");
-            //  wolf3.SetTexture();
+       
             wolf.animationSystem.animation.generateTags();
             wolf.animationSystem.animation.SetEffect(simpleEffect, true);
-
+            wolf2.animationSystem.animation.generateTags();
+            wolf2.animationSystem.animation.SetEffect(simpleEffect, true);
+            wolf3.animationSystem.animation.generateTags();
+            wolf3.animationSystem.animation.SetEffect(simpleEffect, true);
 
             wataha.wolves.Add(wolf);
             wataha.wolves.Add(wolf2);
@@ -655,21 +655,23 @@ namespace Wataha
             Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 5,"rabit");
             rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
-            rabit.animationSystem.animation.generateTags();
-            rabit.animationSystem.animation.SetEffect(simpleEffect,true);
+            rabit.animations["Idle"].generateTags();
+            rabit.animations["Move"].generateTags();
+            rabit.animations["Idle"].SetEffect(simpleEffect, true);
+            rabit.animations["Move"].SetEffect(simpleEffect, true);
             rabits.Add(rabit);
 
         }
         void GenerateVectors()
         {
-            spawns.Add(new Vector3(-60f, 2.2f, 20f));
-            spawns.Add(new Vector3(60f, 2.2f, -40f));
-            spawns.Add(new Vector3(-30f, 2.2f, -50f));
-            spawns.Add(new Vector3(55f, 2.2f, -80f));
-            spawns.Add(new Vector3(45f, 2.2f, -90f));
-            spawns.Add(new Vector3(0f, 2.2f, -80f));
+            spawns.Add(new Vector3(-60f, 2f, 20f));
+            spawns.Add(new Vector3(60f, 2f, -40f));
+            spawns.Add(new Vector3(-30f, 2f, -50f));
+            spawns.Add(new Vector3(55f, 2f, -80f));
+            spawns.Add(new Vector3(45f, 2f, -90f));
+            spawns.Add(new Vector3(0f, 2f, -80f));
 
-            spawns.Add(new Vector3(-35f, 3.0f, -20f));
+            spawns.Add(new Vector3(-35f, 2f, -20f));
         }
     }
 }

@@ -138,7 +138,7 @@ namespace Wataha.GameSystem.Interfejs
             recSkills.Width = (int)(recWolfPanel.Width * 0.2);
             recSkills.Height = (int)(recWolfPanel.Height * 0.17);
 
-            recEvo.X = (int)(recWolfPanel.X + recSkills.Width + recSkills.Width * 0.33);
+            recEvo.X = (int)(recWolfPanel.X + recSkills.Width + recSkills.Width * 0.30);
             recEvo.Y = recSkills.Y;
             recEvo.Width = recSkills.Width;
             recEvo.Height = recSkills.Height;
@@ -168,8 +168,7 @@ namespace Wataha.GameSystem.Interfejs
 
             if (ifInEvo)
             {
-                spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
-                spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
+               
 
                 int wolfLevel = 0;
 
@@ -180,6 +179,8 @@ namespace Wataha.GameSystem.Interfejs
                 else if (wolfName == "Hatsu")
                     wolfLevel = wolf1Level;
 
+                spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
+                spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
 
                 spriteBatch.DrawString(font, skills[wolfLevel].strength.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.35)), Color.White);
                 spriteBatch.DrawString(font, skills[wolfLevel].resistance.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45)), Color.White);
