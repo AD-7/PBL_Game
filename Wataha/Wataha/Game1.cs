@@ -177,26 +177,18 @@ namespace Wataha
 
 
             Vector3[] positions = new Vector3[6];
+            Vector3[] positions2 = new Vector3[1];
             positions[0] = new Vector3(2, 0, 2);
             positions[1] = new Vector3(10, 0, -10);
             positions[2] = new Vector3(8, 0, -20);
             positions[3] = new Vector3(20, 0, -30);
             positions[4] = new Vector3(40, 0, -10);
             positions[5] = new Vector3(50, 0, -20);
+            positions2[0] = new Vector3(1000);
             billboardTest = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/grass"), new Vector2(0.001f), positions);
+            billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions2);
 
             Trace.WriteLine("bilbord");
-
-
-            //Vector3[] positions2 = new Vector3[6];
-            //positions2[0] = new Vector3(2, 2, 2);
-            //positions2[1] = new Vector3(10, 2, -10);
-            //positions2[2] = new Vector3(8, 2, -20);
-            //positions2[3] = new Vector3(20, 2, -30);
-            //positions2[4] = new Vector3(40, 2, -10);
-            //positions2[5] = new Vector3(50, 2, -20);
-
-            //     billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions);
 
 
             world = world * Matrix.CreateTranslation(new Vector3(0, 0, 0));
@@ -259,6 +251,8 @@ namespace Wataha
             {
                 q.SetModelEffect(simpleEffect, true);
             }
+
+           
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
@@ -433,6 +427,24 @@ namespace Wataha
                         {
                             rabit.Update(gameTime);
                         }
+
+                        Vector3[] positions2 = new Vector3[questSystem.questGivers.Count];
+                        int i = 0;
+                        foreach(QuestGiver q in questSystem.questGivers)
+                        {
+                            if (QuestSystem.currentQuest == null && q.actualQuest!=null &&( q.questsGiverNeedToStart == null || (q.questsGiverNeedToStart != null && q.questsGiverNeedToStart.actualQuest == null)))
+                                positions2[i] = new Vector3(questSystem.questGivers[i].position.X,
+                                                    questSystem.questGivers[i].position.Y + 5.0f,
+                                                    questSystem.questGivers[i].position.Z);
+                            else
+                                positions2[i] = new Vector3(questSystem.questGivers[i].position.X,
+                                                    questSystem.questGivers[i].position.Y + 1000.0f,
+                                                    questSystem.questGivers[i].position.Z);
+                            i++;
+                        }
+                        
+                        billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions2);
+
                     }
                     else
                     {
@@ -613,7 +625,7 @@ namespace Wataha
 
 
                     billboardTest.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
-                    //billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
+                    billboardTest2.Draw(camera.View, camera.Projection, wolf.cam.up, camera.right);
                     ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
                     hud.Draw();
