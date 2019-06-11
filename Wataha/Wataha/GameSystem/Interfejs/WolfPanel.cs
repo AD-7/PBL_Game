@@ -347,6 +347,7 @@ namespace Wataha.GameSystem.Interfejs
                     {
                         if (!(Resources.Meat - skills[wolfLevel].costM < 0 || Resources.Goldfangs - skills[wolfLevel].costGF < 0 || Resources.Whitefangs - skills[wolfLevel].costWF < 0))
                         {
+                          
                             wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].strength += skills[wolf3Level].strength;
                             wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].speed += skills[wolf3Level].speed;
                             wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].resistance += skills[wolf3Level].resistance;

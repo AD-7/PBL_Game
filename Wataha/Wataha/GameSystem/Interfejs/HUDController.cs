@@ -37,7 +37,7 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recSaveButton;
         Rectangle recSaveInfo, recSaveInfoOk;
         Rectangle recGameOver, recGameOverInfoOk;
-        Rectangle recNoMeat;
+        Rectangle recNoMeat, recGoHunt;
         Rectangle recGoHuntingButton1, recGoHuntingButton2, recGoHuntingButton3;
 
         Texture2D actualSaveInfoOk;
@@ -114,6 +114,7 @@ namespace Wataha.GameSystem.Interfejs
             pictures.Add(Content.Load<Texture2D>("Pictures/noMeat")); //18
             pictures.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton")); //19
             pictures.Add(Content.Load<Texture2D>("Pictures/GoHuntingButton2")); //20
+            pictures.Add(Content.Load<Texture2D>("Pictures/goHunt")); //21
 
             actualSaveInfoOk = pictures[15];
             actualGameOverInfoOk = pictures[15];
@@ -247,7 +248,11 @@ namespace Wataha.GameSystem.Interfejs
                 recNoMeat.Width = (int)(screenWidth * 0.0625);
                 recNoMeat.Height = (int)(screenHeight * 0.0625);
 
-               
+                recGoHunt.X = recNoMeat.X;
+                recGoHunt.Y = (int)(screenHeight * 0.3);
+                recGoHunt.Width = (int)(screenWidth * 0.0825);
+                recGoHunt.Height = (int)(screenHeight * 0.0825);
+
                 actualQuestPanel.Update(screenWidth, screenHeight);
                 QuestPanel.Update(screenWidth, screenHeight);
                 marketPanel.Update(screenWidth, screenHeight);
@@ -600,6 +605,7 @@ namespace Wataha.GameSystem.Interfejs
             {
                 spriteBatch.Draw(pictures[18], recNoMeat, Color.White);
                 spriteBatch.DrawString(arial18Italic, gameOverTimer.ToString("0.# s"), new Vector2(recResources.X + (int)(recResources.Width * 0.43), recResources.Y + recResources.Height), Color.Red);
+                spriteBatch.Draw(pictures[21], recGoHunt, Color.White);
             }
             if (ifPaused)
             {
