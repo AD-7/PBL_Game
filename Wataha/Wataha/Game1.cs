@@ -248,15 +248,16 @@ namespace Wataha
             worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 2.5f, -100.0f));
 
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4));
-            questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 1, 1, 1, questSystem.questGivers[1]));
+            questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
+            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
             questSystem.questGivers[0].Init();
-            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers for repair our saw. Plese bring to me 3 white fang and 1 gold fang", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
             questSystem.questGivers[1].Init();
 
-            //foreach(QuestGiver q in questSystem.questGivers)
-            //{
-            //    q.SetModelEffect(simpleEffect, true);
-            //}
+
+                //foreach(QuestGiver q in questSystem.questGivers)
+                //{
+                //    q.SetModelEffect(simpleEffect, true);
+                //}
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);

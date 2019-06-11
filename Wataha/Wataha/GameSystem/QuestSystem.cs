@@ -15,7 +15,7 @@ namespace Wataha.GameSystem
     class QuestSystem
     {
         public List<QuestGiver> questGivers;
-        public static QuestGiver currentQuestGivers;
+        public static QuestGiver currentQuestGivers = null;
         public static QuestGiver currentGiver = null;
         public static Quest currentQuest = null;
 
@@ -59,7 +59,7 @@ namespace Wataha.GameSystem
         {
             foreach (QuestGiver giver in questGivers)
             {
-                if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f)
+                if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f && currentQuest == null)
                 {
                     currentGiver = giver;
                     currentQuestGivers = currentGiver;
@@ -68,7 +68,6 @@ namespace Wataha.GameSystem
                 else
                 {
                     currentGiver = null;
-                    return false;
                 }
 
             }

@@ -124,7 +124,7 @@ namespace Wataha.GameSystem.Interfejs
             wolfPanel = new WolfPanel(Content, arial20Italic);
 
             actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), arial15Italic);
-            QuestPanel = new QuestPanel(Content, arial20Italic);
+            QuestPanel = new QuestPanel(Content, arial18Italic);
             marketPanel = new MarketPanel(Content);
 
             screenWidth = device.Viewport.Width;
