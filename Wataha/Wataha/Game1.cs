@@ -230,34 +230,35 @@ namespace Wataha
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk4", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
-            for(int i =0; i < 8; i++)
+            for(int i =0; i < 5; i++)
             {
                 GenerateRabits(wolf, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"));
             }
 
 
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(10.0f, 2.4f, 0.0f));
+           // worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(-8.0f, 0.5f, -20.0f));
 
 
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4));
-
+            worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 2.5f, -100.0f));
+            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 2.1f, -100.0f));
 
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4));
+          
             questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
             questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
             questSystem.questGivers[0].Init();
             questSystem.questGivers[1].Init();
 
 
-                //foreach(QuestGiver q in questSystem.questGivers)
-                //{
-                //    q.SetModelEffect(simpleEffect, true);
-                //}
+            foreach (QuestGiver q in questSystem.questGivers)
+            {
+                q.SetModelEffect(simpleEffect, true);
+            }
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
@@ -534,10 +535,10 @@ namespace Wataha
                     rabit.Draw(camera, "ShadowMap");
                     }
 
-                    //foreach (QuestGiver q in questSystem.questGivers)
-                    //{
-                    //    q.Draw(camera, "ShadowMap");
-                    //}
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.Draw(camera, "ShadowMap");
+                    }
                     trees.Draw(camera, "ShadowMap");
                     blockade.Draw(camera, "ShadowMap");
                     blockade2.Draw(camera, "ShadowMap");
@@ -554,10 +555,10 @@ namespace Wataha
                     {
                         rabit.shadowMap = (Texture2D)renderTarget;
                     }
-                    //foreach (QuestGiver q in questSystem.questGivers)
-                    //{
-                    //    q.shadowMap = (Texture2D)renderTarget;
-                    //}
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.shadowMap = (Texture2D)renderTarget;
+                    }
                     trees.shadowMap = (Texture2D)renderTarget;
                     blockade.shadowMap = (Texture2D)renderTarget;
                     blockade2.shadowMap = (Texture2D)renderTarget;
@@ -590,10 +591,10 @@ namespace Wataha
                     skybox.Draw(camera);
 
 
-                    //foreach (QuestGiver q in questSystem.questGivers)
-                    //{
-                    //    q.shadowMap = null;
-                    //}
+                    foreach (QuestGiver q in questSystem.questGivers)
+                    {
+                        q.shadowMap = null;
+                    }
 
                     foreach (Wolf w in wataha.wolves)
                     {
