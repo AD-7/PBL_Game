@@ -120,7 +120,7 @@ namespace Wataha.GameSystem.Interfejs
             actualGoHuntingButton2 = pictures[19];
             actualGoHuntingButton3 = pictures[19];
 
-            wolfPanel = new WolfPanel(Content, arial20Italic);
+            wolfPanel = new WolfPanel(Content, arial20Italic, device.Viewport.Width, device.Viewport.Height);
 
             actualQuestPanel = new ActualQuestPanel(Content.Load<Texture2D>("Pictures/actualQuestPanel"), arial15Italic);
             QuestPanel = new QuestPanel(Content, arial20Italic);
@@ -246,12 +246,12 @@ namespace Wataha.GameSystem.Interfejs
                 recNoMeat.Width = (int)(screenWidth * 0.0625);
                 recNoMeat.Height = (int)(screenHeight * 0.0625);
 
-                wolfPanel.Update(screenWidth, screenHeight);
+               
                 actualQuestPanel.Update(screenWidth, screenHeight);
                 QuestPanel.Update(screenWidth, screenHeight);
                 marketPanel.Update(screenWidth, screenHeight);
             }
-
+            
             InputSystem.UpdateCursorPosition();
 
             screenHeightOld = screenHeight;
@@ -483,15 +483,14 @@ namespace Wataha.GameSystem.Interfejs
                 }
                 if (ifWolfPanel)
                 {
-
-                    if (wolfPanel.upgradeButtonEvent(wataha))
+                    if (!wolfPanel.ifMax)
                     {
+                        wolfPanel.upgradeButtonEvent(wataha);
 
+                        wolfPanel.upgradeButtonEvent2(wataha);
                     }
-                    if (wolfPanel.upgradeButtonEvent2(wataha))
-                    {
-
-                    }
+                 
+                      
 
                     wolfPanel.skillsButtonEvent();
                     wolfPanel.evolutionButtonEvent();
@@ -499,7 +498,7 @@ namespace Wataha.GameSystem.Interfejs
                     {
                         ifWolfPanel = false;
                     }
-
+                    wolfPanel.Update();
                 }
                 else
                 {

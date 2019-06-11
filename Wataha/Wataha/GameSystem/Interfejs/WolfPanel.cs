@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Wataha.GameObjects.Movable;
@@ -18,7 +19,8 @@ namespace Wataha.GameSystem.Interfejs
         private Rectangle recExit;
         private Rectangle recSkills;
         private Rectangle recEvo;
-
+        private Rectangle recMax, recMax2;
+        private Rectangle recNotEnaugh;
 
         private Rectangle recUpgradeButton, recUpgradeButton2;
 
@@ -37,14 +39,17 @@ namespace Wataha.GameSystem.Interfejs
 
         bool ifInSkills;
         bool ifInEvo;
+        public bool ifMax;
 
-        private int wolf1Level;
-        private int wolf2Level;
-        private int wolf3Level;
+        public int wolfLevel;
+        public int wolf1Level;
+        public int wolf2Level;
+        public int wolf3Level;
 
         public List<UpgradeSystem> skills = new List<UpgradeSystem>();
+        private Rectangle recNotEnaugh2;
 
-        public WolfPanel(ContentManager Content, SpriteFont font)
+        public WolfPanel(ContentManager Content, SpriteFont font, int width, int height)
         {
             this.font = font;
 
@@ -66,8 +71,10 @@ namespace Wataha.GameSystem.Interfejs
             elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/evolution2"));            //14
             elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/evolution3"));            //15
 
-            elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton"));
-            elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton2"));
+            elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton"));                    //16
+            elements.Add(Content.Load<Texture2D>("Pictures/upgradeButton2"));                   //17
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/max"));                    //18
+            elements.Add(Content.Load<Texture2D>("Pictures/wolfpanel/notenaugh"));              //19
 
             skills.Add(new UpgradeSystem(2, 1, 1, 0, 50, 0, 0));
             skills.Add(new UpgradeSystem(1, 2, 0, 0, 50, 0, 0));
@@ -87,42 +94,8 @@ namespace Wataha.GameSystem.Interfejs
             wolf1Level = 0;
             wolf2Level = 0;
             wolf3Level = 0;
-        }
+            wolfLevel = 0;
 
-        public void SetPanel(Wolf wolf)
-        {
-            actualSkills = elements[4];
-            actualEvo = elements[13];
-            currentUpgradeButton = elements[16];
-            currentUpgradeButton2 = elements[16];
-            ifInSkills = false;
-            ifInEvo = false;
-
-            wolfName = wolf.Name;
-            wolfResistance = wolf.resistance;
-            wolfSpeed = wolf.speed;
-            wolfStrength = wolf.strength;
-            wolfEnergy = wolf.energy;
-            if (wolfName == "Kimiko")
-            {
-                actualPanel = elements[1];
-                wolfAge = 7;
-            }
-            else if (wolfName == "Yua")
-            {
-                actualPanel = elements[2];
-                wolfAge = 2;
-            }
-            else if (wolfName == "Hatsu")
-            {
-                actualPanel = elements[3];
-                wolfAge = 4;
-            }
-
-        }
-
-        public void Update(int width, int height)
-        {
             recWolfPanel.X = (int)(width * 0.22);
             recWolfPanel.Y = (int)(height * 0.6);
             recWolfPanel.Width = (int)(width * 0.60);
@@ -155,7 +128,86 @@ namespace Wataha.GameSystem.Interfejs
             recUpgradeButton2.Width = recUpgradeButton.Width;
             recUpgradeButton2.Height = recUpgradeButton.Height;
 
+            recNotEnaugh.X = recUpgradeButton.X;
+            recNotEnaugh.Y = recUpgradeButton.Y;
+            recNotEnaugh.Width = (int)(recWolfPanel.Width * 0.08);
+            recNotEnaugh.Height = recUpgradeButton.Height;
 
+            recNotEnaugh2.X = recUpgradeButton2.X;
+            recNotEnaugh2.Y = recUpgradeButton2.Y;
+            recNotEnaugh2.Width = (int)(recWolfPanel.Width * 0.08);
+            recNotEnaugh2.Height = recUpgradeButton2.Height;
+
+            recMax.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.37);
+            recMax.Y = recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45);
+            recMax.Width = recNotEnaugh.Width;
+            recMax.Height = recNotEnaugh.Height;
+
+            recMax2.X = recWolfPanel.X + (int)(recWolfPanel.Width * 0.77);
+            recMax2.Y = recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45);
+            recMax2.Width = recMax.Width;
+            recMax2.Height = recMax.Height;
+           
+        }
+
+        public void SetPanel(Wolf wolf)
+        {
+            actualSkills = elements[4];
+            actualEvo = elements[13];
+            currentUpgradeButton = elements[16];
+            currentUpgradeButton2 = elements[16];
+            ifInSkills = false;
+            ifInEvo = false;
+
+            wolfName = wolf.Name;
+            wolfResistance = wolf.resistance;
+            wolfSpeed = wolf.speed;
+            wolfStrength = wolf.strength;
+            wolfEnergy = wolf.energy;
+            if (wolfName == "Kimiko")
+            {
+                actualPanel = elements[1];
+                wolfAge = 7;
+                wolfLevel = wolf3Level;
+            }
+            else if (wolfName == "Yua")
+            {
+                actualPanel = elements[2];
+                wolfAge = 2;
+                wolfLevel = wolf2Level;
+            }
+            else if (wolfName == "Hatsu")
+            {
+                actualPanel = elements[3];
+                wolfAge = 4;
+                wolfLevel = wolf1Level;
+            }
+
+        }
+
+        public void Update()
+        {
+
+
+            if (wolfName == "Kimiko")
+            {
+                wolfLevel = wolf3Level;
+            }
+            else if (wolfName == "Yua")
+            {
+
+                wolfLevel = wolf2Level;
+            }
+            else if (wolfName == "Hatsu")
+            {
+
+                wolfLevel = wolf1Level;
+            }
+
+            if (!ifMax && skills.Count == wolfLevel)
+            {
+                ifMax = true;
+            }
 
         }
 
@@ -168,36 +220,51 @@ namespace Wataha.GameSystem.Interfejs
 
             if (ifInEvo)
             {
-               
-
-                int wolfLevel = 0;
-
-                if (wolfName == "Kimiko")
-                    wolfLevel = wolf3Level;
-                else if (wolfName == "Yua")
-                    wolfLevel = wolf2Level;
-                else if (wolfName == "Hatsu")
-                    wolfLevel = wolf1Level;
-
-                spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
-                spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
-
-                spriteBatch.DrawString(font, skills[wolfLevel].strength.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.35)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel].resistance.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel].speed.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.55)), Color.White);
-
-                spriteBatch.DrawString(font, skills[wolfLevel].costM.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.20), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel].costWF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.33), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel].costGF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.43), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
 
 
-                spriteBatch.DrawString(font, skills[wolfLevel + 1].strength.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.77), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.35)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel + 1].resistance.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.77), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel + 1].speed.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.77), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.55)), Color.White);
+                if (!ifMax)
+                {
+                    if ((Resources.Meat - skills[wolfLevel].costM < 0 || Resources.Goldfangs - skills[wolfLevel].costGF < 0 || Resources.Whitefangs - skills[wolfLevel].costWF < 0))
+                    {
+                        spriteBatch.Draw(elements[19], recNotEnaugh, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(currentUpgradeButton, recUpgradeButton, Color.White);
+                    }
 
-                spriteBatch.DrawString(font, skills[wolfLevel + 1].costM.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.64), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel + 1].costWF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.76), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
-                spriteBatch.DrawString(font, skills[wolfLevel + 1].costGF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.86), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+                    if ((Resources.Meat - skills[wolfLevel + 1].costM < 0 || Resources.Goldfangs - skills[wolfLevel + 1].costGF < 0 || Resources.Whitefangs - skills[wolfLevel + 1].costWF < 0))
+                    {
+                        spriteBatch.Draw(elements[19], recNotEnaugh2, Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(currentUpgradeButton2, recUpgradeButton2, Color.White);
+                    }
+                
+                
+                    spriteBatch.DrawString(font, skills[wolfLevel].strength.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.35)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel].resistance.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel].speed.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.37), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.55)), Color.White);
+
+                    spriteBatch.DrawString(font, skills[wolfLevel].costM.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.20), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel].costWF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.33), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel].costGF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.43), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+
+
+                    spriteBatch.DrawString(font, skills[wolfLevel + 1].strength.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.77), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.35)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel + 1].resistance.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.77), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.45)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel + 1].speed.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.77), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.55)), Color.White);
+
+                    spriteBatch.DrawString(font, skills[wolfLevel + 1].costM.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.64), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel + 1].costWF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.76), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+                    spriteBatch.DrawString(font, skills[wolfLevel + 1].costGF.ToString(), new Vector2(recWolfPanel.X + (int)(recWolfPanel.Width * 0.86), recWolfPanel.Y + (int)(recWolfPanel.Height * 0.70)), Color.White);
+                }
+                else
+                {
+                    spriteBatch.Draw(elements[18], recMax, Color.White);
+                    spriteBatch.Draw(elements[18], recMax2, Color.White);
+                }
             }
 
             if (ifInSkills)
@@ -278,33 +345,44 @@ namespace Wataha.GameSystem.Interfejs
                 {
                     if (wolfName == "Kimiko")
                     {
-                        wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].strength += skills[wolf3Level].strength;
-                        wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].speed += skills[wolf3Level].speed;
-                        wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].resistance += skills[wolf3Level].resistance;
-                        Resources.Meat -= skills[wolf3Level].costM;
-                        Resources.Whitefangs -= skills[wolf3Level].costWF;
-                        Resources.Goldfangs -= skills[wolf3Level].costGF;
-                        wolf3Level += 2;
+                        if (!(Resources.Meat - skills[wolfLevel].costM < 0 || Resources.Goldfangs - skills[wolfLevel].costGF < 0 || Resources.Whitefangs - skills[wolfLevel].costWF < 0))
+                        {
+                            wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].strength += skills[wolf3Level].strength;
+                            wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].speed += skills[wolf3Level].speed;
+                            wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].resistance += skills[wolf3Level].resistance;
+                            Resources.Meat -= skills[wolf3Level].costM;
+                            Resources.Whitefangs -= skills[wolf3Level].costWF;
+                            Resources.Goldfangs -= skills[wolf3Level].costGF;
+                            wolf3Level += 2;
+                        }
+
                     }
                     else if (wolfName == "Yua")
                     {
-                        wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].strength += skills[wolf2Level].strength;
-                        wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].speed += skills[wolf2Level].speed;
-                        wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].resistance += skills[wolf2Level].resistance;
-                        Resources.Meat -= skills[wolf2Level].costM;
-                        Resources.Whitefangs -= skills[wolf2Level].costWF;
-                        Resources.Goldfangs -= skills[wolf2Level].costGF;
-                        wolf2Level += 2;
+                        if (!(Resources.Meat - skills[wolfLevel].costM < 0 || Resources.Goldfangs - skills[wolfLevel].costGF < 0 || Resources.Whitefangs - skills[wolfLevel].costWF < 0))
+                        {
+                            wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].strength += skills[wolf2Level].strength;
+                            wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].speed += skills[wolf2Level].speed;
+                            wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].resistance += skills[wolf2Level].resistance;
+                            Resources.Meat -= skills[wolf2Level].costM;
+                            Resources.Whitefangs -= skills[wolf2Level].costWF;
+                            Resources.Goldfangs -= skills[wolf2Level].costGF;
+                            wolf2Level += 2;
+                        }
+
                     }
                     else if (wolfName == "Hatsu")
                     {
-                        wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].strength += skills[wolf1Level].strength;
-                        wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].speed += skills[wolf1Level].speed;
-                        wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].resistance += skills[wolf1Level].resistance;
-                        Resources.Meat -= skills[wolf1Level].costM;
-                        Resources.Whitefangs -= skills[wolf1Level].costWF;
-                        Resources.Goldfangs -= skills[wolf1Level].costGF;
-                        wolf1Level += 2;
+                        if (!(Resources.Meat - skills[wolfLevel].costM < 0 || Resources.Goldfangs - skills[wolfLevel].costGF < 0 || Resources.Whitefangs - skills[wolfLevel].costWF < 0))
+                        {
+                            wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].strength += skills[wolf1Level].strength;
+                            wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].speed += skills[wolf1Level].speed;
+                            wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].resistance += skills[wolf1Level].resistance;
+                            Resources.Meat -= skills[wolf1Level].costM;
+                            Resources.Whitefangs -= skills[wolf1Level].costWF;
+                            Resources.Goldfangs -= skills[wolf1Level].costGF;
+                            wolf1Level += 2;
+                        }
                     }
 
                     return true;
@@ -314,6 +392,7 @@ namespace Wataha.GameSystem.Interfejs
             currentUpgradeButton = elements[16];
             return false;
         }
+
         public bool upgradeButtonEvent2(GameObjects.Movable.Wataha wataha)
         {
             if (recUpgradeButton2.Intersects(InputSystem.Cursor))
@@ -324,33 +403,44 @@ namespace Wataha.GameSystem.Interfejs
                 {
                     if (wolfName == "Kimiko")
                     {
-                        wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].strength += skills[wolf3Level + 1].strength;
-                        wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].speed += skills[wolf3Level + 1].speed;
-                        wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].resistance += skills[wolf3Level + 1].resistance;
-                        Resources.Meat -= skills[wolf3Level + 1].costM;
-                        Resources.Whitefangs -= skills[wolf3Level + 1].costWF;
-                        Resources.Goldfangs -= skills[wolf3Level + 1].costGF;
-                        wolf3Level += 2;
+                        if (!(Resources.Meat - skills[wolfLevel + 1].costM < 0 || Resources.Goldfangs - skills[wolfLevel + 1].costGF < 0 || Resources.Whitefangs - skills[wolfLevel + 1].costWF < 0))
+                        {
+                            wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].strength += skills[wolf3Level + 1].strength;
+                            wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].speed += skills[wolf3Level + 1].speed;
+                            wataha.wolves.Where(w => w.Name == "Kimiko").ToList()[0].resistance += skills[wolf3Level + 1].resistance;
+                            Resources.Meat -= skills[wolf3Level + 1].costM;
+                            Resources.Whitefangs -= skills[wolf3Level + 1].costWF;
+                            Resources.Goldfangs -= skills[wolf3Level + 1].costGF;
+                            wolf3Level += 2;
+                        }
                     }
                     else if (wolfName == "Yua")
                     {
-                        wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].strength += skills[wolf2Level + 1].strength;
-                        wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].speed += skills[wolf2Level + 1].speed;
-                        wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].resistance += skills[wolf2Level + 1].resistance;
-                        Resources.Meat -= skills[wolf2Level + 1].costM;
-                        Resources.Whitefangs -= skills[wolf2Level + 1].costWF;
-                        Resources.Goldfangs -= skills[wolf2Level + 1].costGF;
-                        wolf2Level += 2;
+                        if (!(Resources.Meat - skills[wolfLevel + 1].costM < 0 || Resources.Goldfangs - skills[wolfLevel + 1].costGF < 0 || Resources.Whitefangs - skills[wolfLevel + 1].costWF < 0))
+
+                        {
+                            wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].strength += skills[wolf2Level + 1].strength;
+                            wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].speed += skills[wolf2Level + 1].speed;
+                            wataha.wolves.Where(w => w.Name == "Yua").ToList()[0].resistance += skills[wolf2Level + 1].resistance;
+                            Resources.Meat -= skills[wolf2Level + 1].costM;
+                            Resources.Whitefangs -= skills[wolf2Level + 1].costWF;
+                            Resources.Goldfangs -= skills[wolf2Level + 1].costGF;
+                            wolf2Level += 2;
+                        }
                     }
                     else if (wolfName == "Hatsu")
                     {
-                        wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].strength += skills[wolf1Level + 1].strength;
-                        wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].speed += skills[wolf1Level + 1].speed;
-                        wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].resistance += skills[wolf1Level + 1].resistance;
-                        Resources.Meat -= skills[wolf1Level + 1].costM;
-                        Resources.Whitefangs -= skills[wolf1Level + 1].costWF;
-                        Resources.Goldfangs -= skills[wolf1Level + 1].costGF;
-                        wolf1Level += 2;
+                        if (!(Resources.Meat - skills[wolfLevel + 1].costM < 0 || Resources.Goldfangs - skills[wolfLevel + 1].costGF < 0 || Resources.Whitefangs - skills[wolfLevel + 1].costWF < 0))
+
+                        {
+                            wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].strength += skills[wolf1Level + 1].strength;
+                            wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].speed += skills[wolf1Level + 1].speed;
+                            wataha.wolves.Where(w => w.Name == "Hatsu").ToList()[0].resistance += skills[wolf1Level + 1].resistance;
+                            Resources.Meat -= skills[wolf1Level + 1].costM;
+                            Resources.Whitefangs -= skills[wolf1Level + 1].costWF;
+                            Resources.Goldfangs -= skills[wolf1Level + 1].costGF;
+                            wolf1Level += 2;
+                        }
                     }
                     return true;
                 }
