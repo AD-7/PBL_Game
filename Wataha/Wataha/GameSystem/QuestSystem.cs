@@ -43,6 +43,8 @@ namespace Wataha.GameSystem
                 Resources.Goldfangs += currentQuest.GoldFangReward;
                 currentQuest = null;
                 currentQuestGivers = null;
+
+                HUDController.ifQuestCompleted = true; 
             }
 
 

@@ -20,15 +20,17 @@ namespace Wataha.GameSystem.Interfejs
         private Rectangle recAcceptQuest;
         private Rectangle recCancelQuest;
         private Rectangle recInteract;
+        private Rectangle recQuestCompleted;
+        private Rectangle recOK;
 
 
         private Texture2D currentAccept; 
         private Texture2D currentCancel;
+        private Texture2D currentOK;
 
         private string description = "";
         private string reward = "";
         private string title = "";
-        private string requirements = "";
 		private string NeedStrenght = "";
 		private string NeedSpeed = "";
 		private string NeedResistance = "";
@@ -43,13 +45,15 @@ namespace Wataha.GameSystem.Interfejs
                 manager.Load<Texture2D>("Pictures/QuestPanel/accept2"),     //2
                 manager.Load<Texture2D>("Pictures/QuestPanel/cancel"),      //3
                 manager.Load<Texture2D>("Pictures/QuestPanel/cancel2"),     //4
-                manager.Load<Texture2D>("Pictures/QuestPanel/pressFInfo")   //5
-                
-
+                manager.Load<Texture2D>("Pictures/QuestPanel/pressFInfo"),   //5
+                manager.Load<Texture2D>("Pictures/QuestPanel/questCompleted"),   //6
+                manager.Load<Texture2D>("Pictures/QuestPanel/ok"),   //7
+                manager.Load<Texture2D>("Pictures/QuestPanel/ok2")   //8
             };
             this.font = font;
             currentCancel = panelTextures[3];
             currentAccept = panelTextures[1];
+            currentOK = panelTextures[7];
         }
 
 
@@ -87,6 +91,17 @@ namespace Wataha.GameSystem.Interfejs
             recInteract.Y = (int)(height * 0.20);
             recInteract.Width = (int)(width * 0.2);
             recInteract.Height = (int)(height  * 0.1);
+
+            recQuestCompleted.X = (int)(width * 0.3);
+            recQuestCompleted.Y = (int)(height * 0.3);
+            recQuestCompleted.Width = (int)(width * 0.4);
+            recQuestCompleted.Height = (int)(height * 0.4);
+
+            recOK.X = (int)(recQuestCompleted.X + recQuestCompleted.Width * 0.4);
+            recOK.Y = (int)(recQuestCompleted.Y + recQuestCompleted.Height * 0.8);
+            recOK.Width = (int)(recQuestCompleted.Width * 0.2);
+            recOK.Height = (int)(recQuestCompleted.Width * 0.1);
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -106,6 +121,18 @@ namespace Wataha.GameSystem.Interfejs
         public void DrawInfo(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(panelTextures[5], recInteract, Color.White);
+        }
+
+        public void DrawCompleted(SpriteBatch spriteBatch)
+        {
+            string reward2 = reward.Replace("\n \n", " ");
+            string[] rew = reward2.Split(' '); 
+            spriteBatch.Draw(panelTextures[6], recQuestCompleted, Color.White);
+            spriteBatch.Draw(currentOK, recOK, Color.White);
+            spriteBatch.DrawString(font, rew[0], new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.2), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
+            spriteBatch.DrawString(font, rew[1], new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.5), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
+            spriteBatch.DrawString(font, rew[2], new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.8), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
+          
         }
 
 
@@ -139,6 +166,23 @@ namespace Wataha.GameSystem.Interfejs
             }
             else
                 currentCancel = panelTextures[3];
+            return false;
+        }
+
+        public bool OkButtonEvent()
+        {
+            if (recOK.Intersects(InputSystem.Cursor))
+            {
+                currentOK = panelTextures[8];
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    return true;
+                }
+
+                return false;
+            }
+            else
+                currentOK = panelTextures[7];
             return false;
         }
 
