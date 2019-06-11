@@ -54,6 +54,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
         public bool ifQuestPanel = false;
+        public static bool  ifQuestCompleted = false;
         public bool ifSaveInfo = false;
         public bool ifGameOver = false;
         private bool ifDying;
@@ -379,7 +380,6 @@ namespace Wataha.GameSystem.Interfejs
 
                 if (ifQuestPanel)
                 {
-                    QuestPanel.AcceptButtonEvent();
                     if (QuestPanel.CancelButtonEvent())
                     {
                         ifQuestPanel = false;
@@ -390,6 +390,14 @@ namespace Wataha.GameSystem.Interfejs
                         QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
                         QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
                         ifQuestPanel = false;
+                    }
+                }
+
+                if(ifQuestCompleted)
+                {
+                    if(QuestPanel.OkButtonEvent())
+                    {
+                        ifQuestCompleted = false;
                     }
                 }
 
@@ -573,6 +581,12 @@ namespace Wataha.GameSystem.Interfejs
                 QuestPanel.SetPanel(QuestSystem.currentGiver.actualQuest);
                 QuestPanel.Draw(spriteBatch);
             }
+
+            if(ifQuestCompleted)
+            {
+                QuestPanel.DrawCompleted(spriteBatch);
+            }
+
             if (marketPanel.infoActive)
             {
                 marketPanel.DrawInfo(spriteBatch);
