@@ -22,6 +22,9 @@ namespace Wataha.GameSystem
         public QuestSystem()
         {
             this.questGivers = new List<QuestGiver>();
+            currentGiver = null;
+            currentQuest = null;
+            currentQuestGivers = null;
         }
 
         public void Update(GameTime gameTime, Wolf wolf)

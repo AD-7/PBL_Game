@@ -85,6 +85,7 @@ namespace Wataha.GameSystem.Interfejs
             Resources.Goldfangs = gold_fangs;
             pictures = new List<Texture2D>();
 
+            ifQuestCompleted = false;
 
             font30 = Content.Load<SpriteFont>("Fonts/font1");
             arial18Italic = Content.Load<SpriteFont>("Fonts/arial/arial18");
