@@ -27,9 +27,13 @@ namespace Wataha.GameSystem.Interfejs
             {
                 title = quest.questTitle;
                 description = quest.questDescription;
-                reward = "Meat: " + quest.MeatReward + "    " +
-                         "White Fang: " + quest.WhiteFangReward + "    " +
-                         "Gold Fang: " + quest.GoldFangReward;
+                reward = quest.MeatReward + "      " +
+                         quest.WhiteFangReward + "      " +
+                         quest.GoldFangReward;
+
+                if (quest is SheepQuest)
+                    description += "\n sheep in craft:" + ((SheepQuest)quest).sheepInCroft +
+                                   "\n sheep was eat:" + ((SheepQuest)quest).eatSheep;
             }
          }
 
@@ -54,8 +58,8 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(panel, recActualQuestPanel, Color.White);
 
             spriteBatch.DrawString(font, title, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.45), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.05)), Color.Yellow);
-            spriteBatch.DrawString(font, description, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.05), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.15)), Color.Yellow);
-            spriteBatch.DrawString(font, reward, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.09), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.9)), Color.Yellow);
+            spriteBatch.DrawString(font, description, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.05), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.7)), Color.Yellow);
+            spriteBatch.DrawString(font, reward, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.09), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.2)), Color.Yellow);
         }
 
 

@@ -30,5 +30,9 @@ namespace Wataha.GameObjects.Interable
             else
                   return false;
         }
+
+        public override void Update()
+        {
+        }
     }
 }

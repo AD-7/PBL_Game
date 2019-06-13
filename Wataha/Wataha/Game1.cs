@@ -228,31 +228,6 @@ namespace Wataha
             }
 
 
-            Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-           // worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(-8.0f, 0.5f, -20.0f));
-
-
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4));
-            worldw4 = new Matrix();
-            worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
-            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(-90));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(50.0f, 2.1f, -100.0f));
-
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4));
-          
-            questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
-            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
-            questSystem.questGivers[0].Init();
-            questSystem.questGivers[1].Init();
-
-
-            foreach (QuestGiver q in questSystem.questGivers)
-            {
-                q.SetModelEffect(simpleEffect, true);
-            }
-
-           
 
             trees = new GameObjects.Static.Environment(Content.Load<Model>("tres"), world3, 2);
             huntingTrees = new GameObjects.Static.Environment(Content.Load<Model>("huntingTrees"), world3, 2);
@@ -260,9 +235,7 @@ namespace Wataha
             Matrix worldb2 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             blockade2 = new GameObjects.Static.Environment(Content.Load<Model>("B2"), worldb2, 10);
             croft = new GameObjects.Static.Environment(Content.Load<Model>("croft"), worldb2, 35);
-            barrell = new GameObjects.Static.Environment(Content.Load<Model>("barrell"), worldb2, 5);
-
-
+            barrell = new GameObjects.Static.Environment(Content.Load<Model>("barrell"), worldb2, 5);      
 
             wolf.SetModelEffect(simpleEffect, true);
             wolf2.SetModelEffect(simpleEffect, true);
@@ -286,6 +259,39 @@ namespace Wataha
             wataha.wolves.Add(wolf);
             wataha.wolves.Add(wolf2);
             wataha.wolves.Add(wolf3);
+
+
+
+            Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            // worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(-8.0f, 0.5f, -20.0f));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4, null));
+
+            worldw4 = new Matrix();
+            worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(55.0f, 2.1f, -100.0f));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4, questSystem.questGivers[0]));
+
+            worldw4 = new Matrix();
+            worldw4 = Matrix.CreateRotationY(MathHelper.ToRadians(-90));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(40.0f, 2.1f, -330.0f));
+            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, questSystem.questGivers[1]));
+
+
+            questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
+            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
+            questSystem.questGivers[2].questsList.Add(new SheepQuest(2, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, questSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            questSystem.questGivers[0].Init();
+            questSystem.questGivers[1].Init();
+            questSystem.questGivers[2].Init();
+
+
+            foreach (QuestGiver q in questSystem.questGivers)
+            {
+                q.SetModelEffect(simpleEffect, true);
+            }
+
 
             PresentationParameters pp = device.PresentationParameters;
             renderTarget = new RenderTarget2D(device, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
@@ -422,12 +428,26 @@ namespace Wataha
                             colisionSystem.IsEnvironmentCollision(rabit, trees);
                         }
 
+                        if (QuestSystem.currentQuest is SheepQuest)
+                        {
+                            foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
+                                colisionSystem.IsEnvironmentCollision(sheep, trees);
+                        }
+
                         wataha.Update(gameTime);
                         questSystem.Update(gameTime, wataha.wolves[0]);
                         foreach (Animal rabit in rabits)
                         {
                             rabit.Update(gameTime);
                         }
+
+                        if (QuestSystem.currentQuest is SheepQuest)
+                        {
+                            foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
+                                sheep.Update(gameTime);
+                        }
+
+
 
                         Vector3[] positions2 = new Vector3[questSystem.questGivers.Count];
                         int i = 0;
@@ -548,6 +568,12 @@ namespace Wataha
                     rabit.Draw(camera, "ShadowMap");
                     }
 
+                    if (QuestSystem.currentQuest is SheepQuest)
+                    {
+                        foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
+                            sheep.Draw(camera, "ShadowMap");
+                    }
+
                     foreach (QuestGiver q in questSystem.questGivers)
                     {
                         q.Draw(camera, "ShadowMap");
@@ -569,6 +595,13 @@ namespace Wataha
                     {
                         rabit.shadowMap = (Texture2D)renderTarget;
                     }
+
+                    if (QuestSystem.currentQuest is SheepQuest)
+                    {
+                        foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
+                            sheep.shadowMap = (Texture2D)renderTarget;
+                    }
+
                     foreach (QuestGiver q in questSystem.questGivers)
                     {
                         q.shadowMap = (Texture2D)renderTarget;
@@ -590,6 +623,12 @@ namespace Wataha
                     foreach(Animal rabit in rabits)
                     {
                         rabit.Draw(camera, "ShadowedScene");
+                    }
+
+                    if (QuestSystem.currentQuest is SheepQuest)
+                    {
+                        foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
+                            sheep.Draw(camera, "ShadowedScene");
                     }
 
                     foreach (QuestGiver q in questSystem.questGivers)
@@ -619,6 +658,14 @@ namespace Wataha
                     {
                         rabit.shadowMap = null;
                     }
+
+                    if (QuestSystem.currentQuest is SheepQuest)
+                    {
+                        foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
+                            sheep.shadowMap = null;
+                    }
+
+
                     trees.shadowMap = null;
                     blockade.shadowMap = null;
                     blockade2.shadowMap = null;

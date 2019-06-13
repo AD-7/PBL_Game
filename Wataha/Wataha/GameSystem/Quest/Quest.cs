@@ -59,10 +59,8 @@ namespace Wataha.GameObjects.Interable
         }
 
         // Update is called once per frame
-        public void Update()
-        {
+        public abstract void Update();
 
-        }
 
         public void QuestActive()
         {

@@ -30,10 +30,11 @@ namespace Wataha.GameObjects.Interable
         public AnimationSystem animationSystem;
         float animationOffset = 0;
 
-        public QuestGiver(Model model, Matrix world) : base(world,model)
+        public QuestGiver(Model model, Matrix world, QuestGiver questsGiverNeedToStart) : base(world,model)
         {
             questsList = new List<Quest>();
             questCompleted = new List<Quest>();
+            this.questsGiverNeedToStart = questsGiverNeedToStart;
 
             position = world.Translation;
             position = position + new Vector3(0, -1f, 0);

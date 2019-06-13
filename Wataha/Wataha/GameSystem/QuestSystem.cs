@@ -29,8 +29,8 @@ namespace Wataha.GameSystem
 
         public void Update(GameTime gameTime, Wolf wolf)
         {
-            foreach (QuestGiver q in questGivers)
-                q.Update(gameTime);
+            if(currentQuest != null)
+                  currentQuest.Update();
 
             if(currentQuest != null && currentQuest.IfCompleted(wolf))
             {
@@ -62,7 +62,8 @@ namespace Wataha.GameSystem
         {
             foreach (QuestGiver giver in questGivers)
             {
-                if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f && currentQuest == null)
+                if (Vector3.Distance(wolf.model.Meshes[0].BoundingSphere.Center, giver.model.Meshes[0].BoundingSphere.Center) < 15.0f && currentQuest == null &&
+                    (giver.questsGiverNeedToStart == null || (giver.questsGiverNeedToStart != null && giver.questsGiverNeedToStart.actualQuest == null)))
                 {
                     currentGiver = giver;
                     currentQuestGivers = currentGiver;
