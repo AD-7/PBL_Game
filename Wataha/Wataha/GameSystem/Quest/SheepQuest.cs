@@ -70,7 +70,7 @@ namespace Wataha.GameObjects.Interable
             List<Animal> tmp = new List<Animal>();
             foreach (Animal a in sheeps)
             {
-                if (Vector3.Distance(a.sphere.Center, croft.model.Meshes[0].BoundingSphere.Center) <= 19 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
+                if (Vector3.Distance(a.sphere.Center, croft.model.Meshes[0].BoundingSphere.Center) <= 19)
                 {
                     a.active = false;
                     tmp.Add(a);
