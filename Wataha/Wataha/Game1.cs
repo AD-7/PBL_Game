@@ -270,7 +270,7 @@ namespace Wataha
             worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(-90));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(55.0f, 2.1f, -100.0f));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(52.0f, 2.1f, -100.0f));
             questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4, questSystem.questGivers[0]));
 
             worldw4 = new Matrix();
