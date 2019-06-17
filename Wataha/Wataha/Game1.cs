@@ -217,9 +217,18 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 12f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk3", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk4", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+            Dictionary<String, String> animationsW2 = new Dictionary<string, string>();
+            animationsW2.Add("Idle", "wilk2");
+            animationsW2.Add("Atak", "wilk2A");
+            Dictionary<String, String> animationsW3 = new Dictionary<string, string>();
+            animationsW3.Add("Idle", "wilk3");
+            animationsW3.Add("Atak", "wilk3A");
+            Dictionary<String, String> animationsW4 = new Dictionary<string, string>();
+            animationsW4.Add("Idle", "wilk4");
+            animationsW4.Add("Atak", "wilk4A");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), animationsW2, Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), animationsW3, Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), animationsW4, Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
             for(int i =0; i < 5; i++)
@@ -306,7 +315,7 @@ namespace Wataha
 
 
             HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), simpleEffect,  huntingTrees, skybox, Content);
-            tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
+            tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), animationsW2, Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 
 

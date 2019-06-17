@@ -76,8 +76,10 @@ namespace Wataha.GameSystem
             {
                 wolfPath = "wilk4";
             }
-
-            huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), wolfPath, Content, worldH, 3.0f, camera, 0, 0, 0, "S");
+            Dictionary<String, String> animationsW2 = new Dictionary<string, string>();
+            animationsW2.Add("Idle", "wilk2");
+            animationsW2.Add("Atak", "wilk2A");
+            huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), animationsW2, Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             huntingWolf.Name = wolf.Name;
             huntingWolf.strength = wolf.strength;
             huntingWolf.speed = wolf.speed;
