@@ -34,9 +34,13 @@ namespace Wataha.GameSystem.Interfejs
 		private string NeedStrenght = "";
 		private string NeedSpeed = "";
 		private string NeedResistance = "";
+        string rew0 = "";
+        string rew1 = "";
+        string rew2 = "";
 
 
-		public QuestPanel(ContentManager manager, SpriteFont font)
+
+        public QuestPanel(ContentManager manager, SpriteFont font)
         {
             panelTextures = new List<Texture2D>()
             {
@@ -64,7 +68,11 @@ namespace Wataha.GameSystem.Interfejs
             reward = quest.MeatReward + "\n\n\n" +
                      quest.WhiteFangReward + "\n\n\n" +
                      quest.GoldFangReward;
-			NeedStrenght = quest.NeedStrenght + "";
+            rew0 = quest.MeatReward.ToString();
+            rew1 = quest.WhiteFangReward.ToString();
+            rew2 = quest.GoldFangReward.ToString();
+
+            NeedStrenght = quest.NeedStrenght + "";
 			NeedSpeed = quest.NeedSpeed + "";
 			NeedResistance =   quest.NeedResistance + "";
             //  if(quest.reward) reward = "\n Dostep do kolejnego obszaru \n"; 
@@ -125,13 +133,11 @@ namespace Wataha.GameSystem.Interfejs
 
         public void DrawCompleted(SpriteBatch spriteBatch)
         {
-            string reward2 = reward.Replace("\n \n", " ");
-            string[] rew = reward2.Split(' '); 
             spriteBatch.Draw(panelTextures[6], recQuestCompleted, Color.White);
             spriteBatch.Draw(currentOK, recOK, Color.White);
-            spriteBatch.DrawString(font, rew[0], new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.2), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
-            spriteBatch.DrawString(font, rew[1], new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.5), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
-            spriteBatch.DrawString(font, rew[2], new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.8), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
+            spriteBatch.DrawString(font, rew0, new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.2), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
+            spriteBatch.DrawString(font, rew1, new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.5), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
+            spriteBatch.DrawString(font, rew2, new Vector2((int)(recQuestCompleted.X + recQuestCompleted.Width * 0.8), recQuestCompleted.Y + (int)(recQuestCompleted.Height * 0.6)), Color.Yellow);
           
         }
 
