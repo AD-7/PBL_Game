@@ -14,6 +14,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Linq;
+using Wataha.GameSystem.Animation;
 
 namespace Wataha
 {
@@ -257,13 +258,21 @@ namespace Wataha
             barrell.SetModelEffect(simpleEffect, true);
          
 
-       
-            wolf.animationSystem.animation.generateTags();
-            wolf.animationSystem.animation.SetEffect(simpleEffect, true);
-            wolf2.animationSystem.animation.generateTags();
-            wolf2.animationSystem.animation.SetEffect(simpleEffect, true);
-            wolf3.animationSystem.animation.generateTags();
-            wolf3.animationSystem.animation.SetEffect(simpleEffect, true);
+            foreach(String key in wolf.animations.Keys)
+            {
+                wolf.animations[key].generateTags();
+                wolf.animations[key].SetEffect(simpleEffect, true);
+            }
+            foreach (String key in wolf2.animations.Keys)
+            {
+                wolf2.animations[key].generateTags();
+                wolf2.animations[key].SetEffect(simpleEffect, true);
+            }
+            foreach (String key in wolf3.animations.Keys)
+            {
+                wolf3.animations[key].generateTags();
+                wolf3.animations[key].SetEffect(simpleEffect, true);
+            }
 
             wataha.wolves.Add(wolf);
             wataha.wolves.Add(wolf2);
