@@ -66,7 +66,7 @@ namespace Wataha.GameSystem.Interfejs
         int stringOffsetWidth, stringOffsetHeight;
 
         string actualNameOfWolfPanel = "";
-        double timer = 20;
+        double timer = 100;
         double gameOverTimer = 30;
         double dyingTimer = 0.4;
 
@@ -285,7 +285,7 @@ namespace Wataha.GameSystem.Interfejs
                 {
 
                     Resources.Meat -= consumption;
-                    timer = 20;
+                    timer = 100;
                 }
                 if (Resources.Meat <= 0)
                 {
@@ -536,7 +536,7 @@ namespace Wataha.GameSystem.Interfejs
 
 
             spriteBatch.DrawString(arial18Italic, Resources.Meat.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.25), recResources.Y + (int)(recResources.Height * 0.25)), Color.White);
-            spriteBatch.DrawString(arial12Italic, "-" + consumption + " / 20s", new Vector2(recResources.X + (int)(recResources.Width * 0.24), recResources.Y + (int)(recResources.Height * 0.67)), Color.Red);
+            spriteBatch.DrawString(arial12Italic, "-" + consumption + " / 100s", new Vector2(recResources.X + (int)(recResources.Width * 0.24), recResources.Y + (int)(recResources.Height * 0.67)), Color.Red);
 
 
             spriteBatch.DrawString(arial18Italic, Resources.Whitefangs.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.55), recResources.Y + (int)(recResources.Height * 0.30)), Color.White);
