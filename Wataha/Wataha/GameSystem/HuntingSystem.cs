@@ -85,6 +85,7 @@ namespace Wataha.GameSystem
             huntingWolf.speed = wolf.speed;
             huntingWolf.resistance = wolf.resistance;
             huntingWolf.energy = wolf.energy;
+            huntingWolf.isHunting = true;
 
             huntingWataha.wolves.Add(huntingWolf);
 

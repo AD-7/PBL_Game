@@ -27,15 +27,13 @@ namespace Wataha.GameObjects.Movable
         public int resistance;
         public int speed;
         public int energy = 99;
+        public bool isHunting = false;
 
         float energyRecoverTime = 5.0f;
 
         public AnimationSystem animationSystem;
         public Dictionary<String, Animation> animations;
         float animationOffset = 0;
-        Wolf wolf;
-        float animationFrequency;
-        float turnFrequency;
         Random rand;
 
         public Wolf(Model model, Dictionary<String, String> AnimationFolders, ContentManager contentManager, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world, model)
@@ -136,7 +134,7 @@ namespace Wataha.GameObjects.Movable
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
-                    if (Keyboard.GetState().IsKeyDown(Keys.E))
+                    if (Keyboard.GetState().IsKeyDown(Keys.E) && isHunting)
                     {
                         isAtacking = true;
                         animTime = 0;
@@ -171,7 +169,7 @@ namespace Wataha.GameObjects.Movable
                 else
                 {
 
-                    if (Keyboard.GetState().IsKeyDown(Keys.E))
+                    if (Keyboard.GetState().IsKeyDown(Keys.E) && isHunting)
                     {
                         isAtacking = true;
                         animTime = 0;
