@@ -65,7 +65,7 @@ namespace Wataha.GameSystem
         {
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldH *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            worldH *= Matrix.CreateTranslation(new Vector3(0, 12.6f, camera.CamPos.Z - 5));
+            worldH *= Matrix.CreateTranslation(new Vector3(0, 12f, camera.CamPos.Z - 5));
             worldH *= Matrix.CreateScale(0.2f);
             string wolfPath = "wilk2";
             if(wolf.Name == "Kimiko")
@@ -186,7 +186,7 @@ namespace Wataha.GameSystem
 
 
 
-            if (time >= 2)
+            if (time >= 3)
             {
                 GenerateRabits(huntingWataha.wolves[0], rabitModel);
                 time = 0;
@@ -196,7 +196,7 @@ namespace Wataha.GameSystem
                 time += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
 
-            if(timeS >= 5)
+            if(timeS >= 6)
             {
                 GenerateSheeps(huntingWataha.wolves[0], rabitModel);
                 timeS = 0;
@@ -205,7 +205,7 @@ namespace Wataha.GameSystem
             {
                 timeS += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
-            if(timeB >= 8)
+            if(timeB >= 9)
             {
                 GenerateBoars(huntingWataha.wolves[0], rabitModel);
                 timeB = 0;
@@ -394,14 +394,16 @@ namespace Wataha.GameSystem
 
         void GenerateVectors()
         {
-            spawns.Add(new Vector3(-60f, 2.2f, 20f));
-            spawns.Add(new Vector3(60f, 2.2f, -40f));
-            spawns.Add(new Vector3(-30f, 2.2f, -50f));
-            spawns.Add(new Vector3(55f, 2.2f, -80f));
-            spawns.Add(new Vector3(45f, 2.2f, -90f));
-            spawns.Add(new Vector3(0f, 2.2f, -80f));
-
-            spawns.Add(new Vector3(-35f, 3.0f, -20f));
+            spawns.Add(new Vector3(-60f, 2f, 30f));
+            spawns.Add(new Vector3(60f, 2f, -40f));
+            spawns.Add(new Vector3(-30f, 2f, -50f));
+            spawns.Add(new Vector3(55f, 2f, -80f));
+            spawns.Add(new Vector3(45f, 2f, -110f));
+            spawns.Add(new Vector3(0f, 2f, -80f));
+            spawns.Add(new Vector3(45f, 2f, -190f));
+            spawns.Add(new Vector3(-50f, 2f, -180f));
+            spawns.Add(new Vector3(-35f, 2f, -20f));
+            spawns.Add(new Vector3(55f, 2f, -60f));
         }
         private void GenerateSpawn()
         {
@@ -411,7 +413,7 @@ namespace Wataha.GameSystem
             Matrix world = new Matrix();
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             world *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
-            world *= Matrix.CreateTranslation(spawns[rand.Next(0, 6)]);
+            world *= Matrix.CreateTranslation(spawns[rand.Next(0, 9)]);
 
             spawnPoint = world;
 

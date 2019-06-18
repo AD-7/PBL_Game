@@ -93,7 +93,7 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
             speedFactor = 100;
             animationOffset = (float)rand.NextDouble() * 10;
-            animationFrequency = (float)rand.Next(1000, 2000) / 100f;
+            animationFrequency = (float)rand.Next(1, 20);
             turnFrequency = (float)rand.Next(200, 400) / 100f;
 
         }
@@ -135,19 +135,19 @@ namespace Wataha.GameObjects.Movable
                 else
                 {
 
-                    if (animTime <= animationFrequency + 1.33f)
-                    {
-                        if (!ifInTrouble && animations.ContainsKey("Idle"))
-                        {
-                            animationSystem.Play(animations["Idle"]);
-                        }
+                    //if (animTime <= animationFrequency + 1.33f)
+                    //{
+                    //    if (!ifInTrouble && animations.ContainsKey("Idle"))
+                    //    {
+                    //        animationSystem.Play(animations["Idle"]);
+                    //    }
 
-                    }
-                    else
-                    {
-                        animTime = 0;
-                        animationFrequency = rand.Next(1000, 2000) / 100f;
-                    }
+                    //}
+                    //else
+                    //{
+                       animTime = 0;
+                       animationFrequency = rand.Next(3,10 );
+                    //}
 
 
 

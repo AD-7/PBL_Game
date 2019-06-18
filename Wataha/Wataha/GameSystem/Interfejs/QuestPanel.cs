@@ -61,8 +61,8 @@ namespace Wataha.GameSystem.Interfejs
         {
             title = quest.questTitle;
             description = quest.questDescription;
-            reward = quest.MeatReward + "\n\n\n" +
-                     quest.WhiteFangReward + "\n\n\n" +
+            reward = quest.MeatReward + "\n\n \n" +
+                     quest.WhiteFangReward + "\n\n \n" +
                      quest.GoldFangReward;
 			NeedStrenght = quest.NeedStrenght + "";
 			NeedSpeed = quest.NeedSpeed + "";
