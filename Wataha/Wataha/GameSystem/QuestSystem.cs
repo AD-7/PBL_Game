@@ -14,14 +14,14 @@ namespace Wataha.GameSystem
 {
     class QuestSystem
     {
-        public List<QuestGiver> questGivers;
+        public static List<QuestGiver> questGivers;
         public static QuestGiver currentQuestGivers = null;
         public static QuestGiver currentGiver = null;
         public static Quest currentQuest = null;
 
         public QuestSystem()
         {
-            this.questGivers = new List<QuestGiver>();
+            questGivers = new List<QuestGiver>();
             currentGiver = null;
             currentQuest = null;
             currentQuestGivers = null;

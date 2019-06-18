@@ -125,6 +125,19 @@ namespace Wataha
             Resources.Meat = saveGameInfo.Meat;
             Resources.Goldfangs = saveGameInfo.GoldFang;
             Resources.Whitefangs = saveGameInfo.WhiteFang;
+            for (int i = 0; i < saveGameInfo.questCompleted.Count; i++)
+            {
+                foreach (int j in saveGameInfo.questCompleted[i])
+                    QuestSystem.questGivers[i].questCompleted.Add(QuestSystem.questGivers[i].questsList[j]);
+                if ((QuestSystem.questGivers[i].questsList.IndexOf(QuestSystem.questGivers[i].actualQuest) + QuestSystem.questGivers[i].questCompleted.Count) < QuestSystem.questGivers[i].questsList.Count)
+                {
+                    QuestSystem.questGivers[i].actualQuest = QuestSystem.questGivers[i].questsList[QuestSystem.questGivers[i].questsList.IndexOf(QuestSystem.questGivers[i].actualQuest) + QuestSystem.questGivers[i].questCompleted.Count];
+                }
+                else
+                {
+                    QuestSystem.questGivers[i].actualQuest = null;
+                }
+            }
 
 
             Trace.WriteLine("LoadGameEND");
@@ -283,29 +296,29 @@ namespace Wataha
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             // worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             worldw4 *= Matrix.CreateTranslation(new Vector3(-8.0f, 0.5f, -20.0f));
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4, null));
+            QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4, null));
 
             worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateTranslation(new Vector3(52.0f, 2.1f, -100.0f));
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4, questSystem.questGivers[0]));
+            QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4, QuestSystem.questGivers[0]));
 
             worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationY(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateTranslation(new Vector3(40.0f, 2.1f, -330.0f));
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, questSystem.questGivers[1]));
+            QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, QuestSystem.questGivers[1]));
 
-            questSystem.questGivers[0].questsList.Add(new GoHuntingQuest(3, "Hunting", "First, you should gain some meat! \nGo hunt using panel on the right side.", 5, 5, 5, 5, 10, 10, questSystem.questGivers[0]));
-            questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
-            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 15 white fang \nand 13 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 13, 15, 0));
-            questSystem.questGivers[2].questsList.Add(new SheepQuest(2, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, questSystem.questGivers[2], croft, Content, wataha.wolves[0]));
-            questSystem.questGivers[0].Init();
-            questSystem.questGivers[1].Init();
-            questSystem.questGivers[2].Init();
+            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(3, "Hunting", "First, you should gain some meat! \nGo hunt using panel on the right side.", 5, 5, 5, 5, 10, 10, QuestSystem.questGivers[0]));
+            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, QuestSystem.questGivers[1]));
+            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 15 white fang \nand 13 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 13, 15, 0));
+            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(2, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            QuestSystem.questGivers[0].Init();
+            QuestSystem.questGivers[1].Init();
+            QuestSystem.questGivers[2].Init();
 
 
-            foreach (QuestGiver q in questSystem.questGivers)
+            foreach (QuestGiver q in QuestSystem.questGivers)
             {
                 q.SetModelEffect(simpleEffect, true);
             }
@@ -328,7 +341,7 @@ namespace Wataha
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 
 
-            hud = new HUDController(spriteBatch, device, Content, 50, 0, 0, wataha, tmp);
+            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
@@ -435,7 +448,7 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            if (!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                            if (!(QuestSystem.questGivers[1].actualQuest == null && QuestSystem.questGivers[1].questCompleted.Count == QuestSystem.questGivers[1].questsList.Count))
                                 colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
@@ -467,18 +480,18 @@ namespace Wataha
 
 
 
-                        Vector3[] positions2 = new Vector3[questSystem.questGivers.Count];
+                        Vector3[] positions2 = new Vector3[QuestSystem.questGivers.Count];
                         int i = 0;
-                        foreach(QuestGiver q in questSystem.questGivers)
+                        foreach(QuestGiver q in QuestSystem.questGivers)
                         {
                             if (QuestSystem.currentQuest == null && q.actualQuest!=null &&( q.questsGiverNeedToStart == null || (q.questsGiverNeedToStart != null && q.questsGiverNeedToStart.actualQuest == null)))
-                                positions2[i] = new Vector3(questSystem.questGivers[i].position.X,
-                                                    questSystem.questGivers[i].position.Y + 5.0f,
-                                                    questSystem.questGivers[i].position.Z);
+                                positions2[i] = new Vector3(QuestSystem.questGivers[i].position.X,
+                                                    QuestSystem.questGivers[i].position.Y + 5.0f,
+                                                    QuestSystem.questGivers[i].position.Z);
                             else
-                                positions2[i] = new Vector3(questSystem.questGivers[i].position.X,
-                                                    questSystem.questGivers[i].position.Y + 1000.0f,
-                                                    questSystem.questGivers[i].position.Z);
+                                positions2[i] = new Vector3(QuestSystem.questGivers[i].position.X,
+                                                    QuestSystem.questGivers[i].position.Y + 1000.0f,
+                                                    QuestSystem.questGivers[i].position.Z);
                             i++;
                         }
                         
@@ -592,12 +605,12 @@ namespace Wataha
                             sheep.Draw(camera, "ShadowMap");
                     }
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.Draw(camera, "ShadowMap");
                     }
                     trees.Draw(camera, "ShadowMap");
-                    if(!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                    if(!(QuestSystem.questGivers[1].actualQuest == null && QuestSystem.questGivers[1].questCompleted.Count == QuestSystem.questGivers[1].questsList.Count))
                         blockade.Draw(camera, "ShadowMap");
                     blockade2.Draw(camera, "ShadowMap");
                     croft.Draw(camera, "ShadowMap");
@@ -620,7 +633,7 @@ namespace Wataha
                             sheep.shadowMap = (Texture2D)renderTarget;
                     }
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.shadowMap = (Texture2D)renderTarget;
                     }
@@ -649,12 +662,12 @@ namespace Wataha
                             sheep.Draw(camera, "ShadowedScene");
                     }
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.Draw(camera, "ShadowedScene");
                     }
                     trees.Draw(camera, "ShadowedScene");
-                    if (!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                    if (!(QuestSystem.questGivers[1].actualQuest == null && QuestSystem.questGivers[1].questCompleted.Count == QuestSystem.questGivers[1].questsList.Count))
                         blockade.Draw(camera, "ShadowedScene");
                     blockade2.Draw(camera, "ShadowedScene");
                     croft.Draw(camera, "ShadowedScene");
@@ -663,7 +676,7 @@ namespace Wataha
                     skybox.Draw(camera);
 
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.shadowMap = null;
                     }
