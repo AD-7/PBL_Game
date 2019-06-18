@@ -298,7 +298,7 @@ namespace Wataha
 
             questSystem.questGivers[0].questsList.Add(new GoHuntingQuest(3, "Hunting", "First, you should gain some meat! \nGo hunt using panel on the right side.", 5, 5, 5, 5, 10, 10, questSystem.questGivers[0]));
             questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(0, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
-            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 1, 3, 0));
+            questSystem.questGivers[1].questsList.Add(new DeliverQuest(1, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 15 white fang \nand 13 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, questSystem.questGivers[1], 13, 15, 0));
             questSystem.questGivers[2].questsList.Add(new SheepQuest(2, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, questSystem.questGivers[2], croft, Content, wataha.wolves[0]));
             questSystem.questGivers[0].Init();
             questSystem.questGivers[1].Init();
