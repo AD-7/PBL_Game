@@ -93,8 +93,8 @@ namespace Wataha.GameObjects.Movable
             this.colliderSize = colliderSize;
             speedFactor = 100;
             animationOffset = (float)rand.NextDouble() * 10;
-            animationFrequency = (float)rand.Next(1, 20);
-            turnFrequency = (float)rand.Next(200, 400) / 100f;
+            animationFrequency = 1;
+            turnFrequency = (float)rand.Next(5, 20);
 
         }
         public void ajustHeight(float height)
@@ -118,7 +118,7 @@ namespace Wataha.GameObjects.Movable
 
             if (time >= turnFrequency && !ifInTrouble)
             {
-                angle += rand.Next(10, 90);
+                angle += rand.Next(10, 50);
                 time = 0;
             }
 
@@ -127,7 +127,7 @@ namespace Wataha.GameObjects.Movable
 
             if (!ifInTrouble)
             {
-                if (!ifColisionTerrain && animTime <= animationFrequency)
+                if (!ifColisionTerrain && animTime >= animationFrequency)
                 {
                     position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                     animationSystem.Play(animations["Move"]);
@@ -146,7 +146,7 @@ namespace Wataha.GameObjects.Movable
                     //else
                     //{
                        animTime = 0;
-                       animationFrequency = rand.Next(3,10 );
+                       animationFrequency = rand.Next(2,5 );
                     //}
 
 
