@@ -145,8 +145,9 @@ namespace Wataha.GameObjects.Movable
                     //}
                     //else
                     //{
+                    animationSystem.Stop();
                        animTime = 0;
-                       animationFrequency = rand.Next(2,5 );
+                       animationFrequency = rand.Next(1,3);
                     //}
 
 
@@ -201,15 +202,15 @@ namespace Wataha.GameObjects.Movable
         float oldDistance;
         public Boolean CheckSecurity()
         {
-            int safeDist = 12;
+            int safeDist = 27;
 
             if (kindOfAnimal == "sheep")
             {
-                safeDist = 20;
+                safeDist = 35;
             }
             else if (kindOfAnimal == "boar")
             {
-                safeDist = 16;
+                safeDist = 20;
             }
           
 
@@ -225,9 +226,9 @@ namespace Wataha.GameObjects.Movable
                     angle = -wolf.angle / 2;
 
                 if (kindOfAnimal == "rabit")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
-                    speedFactor = 3;
+                    speedFactor = 2.5f;
                 if (kindOfAnimal == "sheep")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
-                    speedFactor = 4;
+                    speedFactor = 3.5f;
                 if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
                     speedFactor = 2;
 
@@ -237,9 +238,9 @@ namespace Wataha.GameObjects.Movable
             else if (distance < safeDist && oldDistance < safeDist)
             {
                 if (kindOfAnimal == "rabit")
-                    speedFactor = 4;
+                    speedFactor = 3.5f;
                 if (kindOfAnimal == "sheep")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
-                    speedFactor = 5;
+                    speedFactor = 4.5f;
                 if (kindOfAnimal == "boar")                // różne prędkości dla różnych zwierząt, czym mniejsze tym szybciej
                     speedFactor = 3;
                 ifInTrouble = true;

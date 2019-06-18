@@ -310,10 +310,13 @@ namespace Wataha
             QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, QuestSystem.questGivers[1]));
 
             QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat! \nGo hunt using panel on the right side.", 5, 5, 5, 5, 10, 10, QuestSystem.questGivers[0]));
+            QuestSystem.questGivers[0].questsList.Add(new BuyFangsQuest(1,"Market","Excellent! Now you know how to hunt. \n In the west there is a market. \n Go and exchange meat for at least 1 white fang.",2,2,2,0,1,0,barrell));
+            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources. \nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 1, 1, 1, 10, 1, 1, QuestSystem.questGivers[1]));
 
-            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(1, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, QuestSystem.questGivers[1]));
-            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(2, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
-            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(3, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(3, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
+
+            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(4, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+
             QuestSystem.questGivers[0].Init();
             QuestSystem.questGivers[1].Init();
             QuestSystem.questGivers[2].Init();

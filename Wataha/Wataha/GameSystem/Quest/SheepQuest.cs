@@ -89,12 +89,12 @@ namespace Wataha.GameObjects.Interable
         {
             List<Vector3> spawns = new List<Vector3>()
             {
-            new Vector3(20.0f, 2.1f, -330f),
+            new Vector3(-20.0f, 2.1f, -330f),
             new Vector3(0.0f, 2.1f, -310f),
-            new Vector3(25.0f, 2.1f, -320f),
-            new Vector3(15.0f, 2.1f, -330f),
-            new Vector3(10.0f, 2.1f, -325f),
-            new Vector3(40.0f, 2.1f, -350f)
+            new Vector3(15.0f, 2.1f, -320f),
+            new Vector3(11.0f, 2.1f, -330f),
+            new Vector3(8.0f, 2.1f, -325f),
+            new Vector3(0.0f, 2.1f, -350f)
             };
             Random rand = new Random();
 
