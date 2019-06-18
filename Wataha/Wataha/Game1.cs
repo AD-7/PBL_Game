@@ -14,6 +14,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Linq;
+using Wataha.GameSystem.Animation;
 
 namespace Wataha
 {
@@ -124,6 +125,19 @@ namespace Wataha
             Resources.Meat = saveGameInfo.Meat;
             Resources.Goldfangs = saveGameInfo.GoldFang;
             Resources.Whitefangs = saveGameInfo.WhiteFang;
+            for (int i = 0; i < saveGameInfo.questCompleted.Count; i++)
+            {
+                foreach (int j in saveGameInfo.questCompleted[i])
+                    QuestSystem.questGivers[i].questCompleted.Add(QuestSystem.questGivers[i].questsList[j]);
+                if ((QuestSystem.questGivers[i].questsList.IndexOf(QuestSystem.questGivers[i].actualQuest) + QuestSystem.questGivers[i].questCompleted.Count) < QuestSystem.questGivers[i].questsList.Count)
+                {
+                    QuestSystem.questGivers[i].actualQuest = QuestSystem.questGivers[i].questsList[QuestSystem.questGivers[i].questsList.IndexOf(QuestSystem.questGivers[i].actualQuest) + QuestSystem.questGivers[i].questCompleted.Count];
+                }
+                else
+                {
+                    QuestSystem.questGivers[i].actualQuest = null;
+                }
+            }
 
 
             Trace.WriteLine("LoadGameEND");
@@ -217,9 +231,18 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 12f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
-            wolf = new Wolf(Content.Load<Model>("Wolf"), "wilk2", Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), "wilk3", Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), "wilk4", Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+            Dictionary<String, String> animationsW2 = new Dictionary<string, string>();
+            animationsW2.Add("Idle", "wilk2");
+            animationsW2.Add("Atak", "wilk2A");
+            Dictionary<String, String> animationsW3 = new Dictionary<string, string>();
+            animationsW3.Add("Idle", "wilk3");
+            animationsW3.Add("Atak", "wilk3A");
+            Dictionary<String, String> animationsW4 = new Dictionary<string, string>();
+            animationsW4.Add("Idle", "wilk4");
+            animationsW4.Add("Atak", "wilk4A");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), animationsW2, Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), animationsW3, Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), animationsW4, Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
             for(int i =0; i < 5; i++)
@@ -248,13 +271,21 @@ namespace Wataha
             barrell.SetModelEffect(simpleEffect, true);
          
 
-       
-            wolf.animationSystem.animation.generateTags();
-            wolf.animationSystem.animation.SetEffect(simpleEffect, true);
-            wolf2.animationSystem.animation.generateTags();
-            wolf2.animationSystem.animation.SetEffect(simpleEffect, true);
-            wolf3.animationSystem.animation.generateTags();
-            wolf3.animationSystem.animation.SetEffect(simpleEffect, true);
+            foreach(String key in wolf.animations.Keys)
+            {
+                wolf.animations[key].generateTags();
+                wolf.animations[key].SetEffect(simpleEffect, true);
+            }
+            foreach (String key in wolf2.animations.Keys)
+            {
+                wolf2.animations[key].generateTags();
+                wolf2.animations[key].SetEffect(simpleEffect, true);
+            }
+            foreach (String key in wolf3.animations.Keys)
+            {
+                wolf3.animations[key].generateTags();
+                wolf3.animations[key].SetEffect(simpleEffect, true);
+            }
 
             wataha.wolves.Add(wolf);
             wataha.wolves.Add(wolf2);
@@ -265,18 +296,18 @@ namespace Wataha
             Matrix worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             // worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
             worldw4 *= Matrix.CreateTranslation(new Vector3(-8.0f, 0.5f, -20.0f));
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4, null));
+            QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack2"), worldw4, null));
 
             worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateRotationY(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateTranslation(new Vector3(52.0f, 2.1f, -100.0f));
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4, questSystem.questGivers[0]));
+            QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack"), worldw4, QuestSystem.questGivers[0]));
 
             worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationY(MathHelper.ToRadians(-90));
             worldw4 *= Matrix.CreateTranslation(new Vector3(40.0f, 2.1f, -330.0f));
-            questSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, questSystem.questGivers[1]));
+            QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, QuestSystem.questGivers[1]));
 
             questSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should gain some meat! \nGo hunt using panel on the right side.", 5, 5, 5, 5, 10, 10, questSystem.questGivers[0]));
             questSystem.questGivers[0].questsList.Add(new PointAtoBQuest(1, "Deliver letter", "Please deliver that letter \n to my brother blacksmith.", 1, 1, 1, 10, 1, 1, questSystem.questGivers[1]));
@@ -287,7 +318,7 @@ namespace Wataha
             questSystem.questGivers[2].Init();
 
 
-            foreach (QuestGiver q in questSystem.questGivers)
+            foreach (QuestGiver q in QuestSystem.questGivers)
             {
                 q.SetModelEffect(simpleEffect, true);
             }
@@ -306,11 +337,11 @@ namespace Wataha
 
 
             HuntingSystem tmp = new HuntingSystem(camera, device, graphics, renderTarget, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"), simpleEffect,  huntingTrees, skybox, Content);
-            tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), "wilk2", Content, worldH, 3.0f, camera, 0, 0, 0, "S");
+            tmp.huntingWolf = new Wolf(Content.Load<Model>("Wolf2"), animationsW2, Content, worldH, 3.0f, camera, 0, 0, 0, "S");
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 
 
-            hud = new HUDController(spriteBatch, device, Content, 50, 0, 0, wataha, tmp);
+            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
 
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
@@ -417,7 +448,7 @@ namespace Wataha
                         {
 
                             colisionSystem.IsEnvironmentCollision(w, trees, wataha);
-                            if (!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                            if (!(QuestSystem.questGivers[1].actualQuest == null && QuestSystem.questGivers[1].questCompleted.Count == QuestSystem.questGivers[1].questsList.Count))
                                 colisionSystem.IsEnvironmentCollision(w, blockade, wataha);
                             colisionSystem.IsEnvironmentCollision(w, blockade2, wataha);
                             colisionSystem.IsEnvironmentCollision(w, croft, wataha);
@@ -449,18 +480,18 @@ namespace Wataha
 
 
 
-                        Vector3[] positions2 = new Vector3[questSystem.questGivers.Count];
+                        Vector3[] positions2 = new Vector3[QuestSystem.questGivers.Count];
                         int i = 0;
-                        foreach(QuestGiver q in questSystem.questGivers)
+                        foreach(QuestGiver q in QuestSystem.questGivers)
                         {
                             if (QuestSystem.currentQuest == null && q.actualQuest!=null &&( q.questsGiverNeedToStart == null || (q.questsGiverNeedToStart != null && q.questsGiverNeedToStart.actualQuest == null)))
-                                positions2[i] = new Vector3(questSystem.questGivers[i].position.X,
-                                                    questSystem.questGivers[i].position.Y + 5.0f,
-                                                    questSystem.questGivers[i].position.Z);
+                                positions2[i] = new Vector3(QuestSystem.questGivers[i].position.X,
+                                                    QuestSystem.questGivers[i].position.Y + 5.0f,
+                                                    QuestSystem.questGivers[i].position.Z);
                             else
-                                positions2[i] = new Vector3(questSystem.questGivers[i].position.X,
-                                                    questSystem.questGivers[i].position.Y + 1000.0f,
-                                                    questSystem.questGivers[i].position.Z);
+                                positions2[i] = new Vector3(QuestSystem.questGivers[i].position.X,
+                                                    QuestSystem.questGivers[i].position.Y + 1000.0f,
+                                                    QuestSystem.questGivers[i].position.Z);
                             i++;
                         }
                         
@@ -574,12 +605,12 @@ namespace Wataha
                             sheep.Draw(camera, "ShadowMap");
                     }
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.Draw(camera, "ShadowMap");
                     }
                     trees.Draw(camera, "ShadowMap");
-                    if(!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                    if(!(QuestSystem.questGivers[1].actualQuest == null && QuestSystem.questGivers[1].questCompleted.Count == QuestSystem.questGivers[1].questsList.Count))
                         blockade.Draw(camera, "ShadowMap");
                     blockade2.Draw(camera, "ShadowMap");
                     croft.Draw(camera, "ShadowMap");
@@ -602,7 +633,7 @@ namespace Wataha
                             sheep.shadowMap = (Texture2D)renderTarget;
                     }
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.shadowMap = (Texture2D)renderTarget;
                     }
@@ -631,12 +662,12 @@ namespace Wataha
                             sheep.Draw(camera, "ShadowedScene");
                     }
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.Draw(camera, "ShadowedScene");
                     }
                     trees.Draw(camera, "ShadowedScene");
-                    if (!(questSystem.questGivers[1].actualQuest == null && questSystem.questGivers[1].questCompleted.Count == questSystem.questGivers[1].questsList.Count))
+                    if (!(QuestSystem.questGivers[1].actualQuest == null && QuestSystem.questGivers[1].questCompleted.Count == QuestSystem.questGivers[1].questsList.Count))
                         blockade.Draw(camera, "ShadowedScene");
                     blockade2.Draw(camera, "ShadowedScene");
                     croft.Draw(camera, "ShadowedScene");
@@ -645,7 +676,7 @@ namespace Wataha
                     skybox.Draw(camera);
 
 
-                    foreach (QuestGiver q in questSystem.questGivers)
+                    foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.shadowMap = null;
                     }

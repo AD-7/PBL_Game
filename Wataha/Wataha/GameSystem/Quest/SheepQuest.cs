@@ -18,6 +18,7 @@ namespace Wataha.GameObjects.Interable
         public List<Animal> sheeps = new List<Animal>();
         public int sheepInCroft = 0;
         public int eatSheep = 0;
+        public Wolf wolf;
         int totalSheep = 5;
         Static.Environment croft;
 
@@ -25,6 +26,7 @@ namespace Wataha.GameObjects.Interable
         {
 
             this.croft = croft;
+            this.wolf = wolf;
             for(int i = 0; i < totalSheep; i++)
                     GenerateSheeps(wolf, content);
 
@@ -33,7 +35,7 @@ namespace Wataha.GameObjects.Interable
         public override void Update()
         {
             CheckSheepsGetCroft();
-            //CheckKilledSheeps(wolf);
+            CheckKilledSheeps(wolf);
         }
 
         public override bool IfCompleted(Wolf wolf)

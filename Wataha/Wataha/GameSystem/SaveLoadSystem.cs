@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using Wataha.GameObjects.Interable;
 using Wataha.GameObjects.Movable;
 
 namespace Wataha.GameSystem
@@ -43,13 +44,21 @@ namespace Wataha.GameSystem
         public int GoldFang { get; set; }
         public int WhiteFang { get; set; }
 
+        public List<List<int>> questCompleted;
+
         public SaveSystem()
         {
-
+            
         }
 
         public SaveSystem(Wolf wolf1, Wolf wolf2, Wolf wolf3)
         {
+            questCompleted = new List<List<int>>();
+            for (int i = 0; i < QuestSystem.questGivers.Count; i++)
+            {
+                questCompleted.Add(new List<int>());
+            }
+
             Wolf1PositionX = wolf1.position.X;
             Wolf1PositionY = wolf1.position.Y;
             Wolf1PositionZ = wolf1.position.Z;
@@ -77,6 +86,15 @@ namespace Wataha.GameSystem
             Meat = Resources.Meat;
             GoldFang = Resources.Goldfangs;
             WhiteFang = Resources.Whitefangs;
+            for (int i = 0; i < QuestSystem.questGivers.Count; i++)
+            {
+                int j = 0;
+                foreach (Quest quest in QuestSystem.questGivers[i].questCompleted)
+                {
+                    questCompleted[i].Add(j);
+                    j++;
+                }
+            }
         }
 
 

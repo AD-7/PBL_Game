@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using Wataha.GameSystem;
 using Wataha.GameSystem.Animation;
 
@@ -26,22 +27,40 @@ namespace Wataha.GameObjects.Movable
         public int resistance;
         public int speed;
         public int energy = 99;
+        public bool isHunting = false;
 
         float energyRecoverTime = 5.0f;
-     //   public AnimationPlayer animationPlayer;
+
         public AnimationSystem animationSystem;
+        public Dictionary<String, Animation> animations;
         float animationOffset = 0;
         Random rand;
 
-        public Wolf(Model model, String ModelName, ContentManager contentManager, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world, model)
+        public Wolf(Model model, Dictionary<String, String> AnimationFolders, ContentManager contentManager, Matrix world, float colliderSize, Camera cam, int strength, int resistance, int speed, string name) : base(world, model)
         {
             rand = new Random(strength);
             this.Name = name;
             this.strength = strength;
             this.resistance = resistance;
             this.speed = speed;
-            Animation animation = new Animation(contentManager, ModelName);
-            animationSystem = new AnimationSystem(animation, this);
+
+
+            animations = new Dictionary<string, Animation>();
+            foreach (String AnimationName in AnimationFolders.Keys)
+            {
+                animations.Add(AnimationName, new Animation(contentManager, AnimationFolders[AnimationName]));
+            }
+            if (animations.ContainsKey("Idle"))
+            {
+                animations["Idle"].frameSpeed = 0.05f;
+                animationSystem = new AnimationSystem(animations["Idle"], this);
+            }
+            else
+            {
+                animationSystem = new AnimationSystem(animations["Move"], this);
+            }
+
+
             this.cam = cam;
             ifColisionTerrain = false;
             position = world.Translation;
@@ -80,6 +99,8 @@ namespace Wataha.GameObjects.Movable
         }
 
         float time = 0;
+        float animTime = 0;
+        Boolean isAtacking = false;
         public override void Update(GameTime gameTime)
         {
             time += (float)gameTime.ElapsedGameTime.TotalSeconds + (float)rand.NextDouble() * 0.01f;
@@ -99,7 +120,7 @@ namespace Wataha.GameObjects.Movable
             }
 
 
-
+            animTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             float animationFactor = 0f;
             float animationFactor2 = (float)(0.5f + Math.Sin(time + animationOffset)) * 5;
@@ -108,13 +129,22 @@ namespace Wataha.GameObjects.Movable
             dirZ = (float)Math.Cos(angle);
 
             Boolean shouldAnimate = true;
+            
             if (!ifColisionTerrain)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
                 {
-
+                    if (Keyboard.GetState().IsKeyDown(Keys.E) && isHunting)
+                    {
+                        isAtacking = true;
+                        animTime = 0;
+                    }
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
+                        if (!isAtacking)
+                        {
+                            animationSystem.Play(animations["Idle"]);
+                        }  
                         speedFactor = 2.5f;
                         animationFactor = 20f + animationFactor2;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
@@ -126,7 +156,6 @@ namespace Wataha.GameObjects.Movable
                             position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
                         shouldAnimate = false;
                     }
-
                     if (Keyboard.GetState().IsKeyDown(Keys.A))
                     {
                         angle += 0.05f;
@@ -135,12 +164,22 @@ namespace Wataha.GameObjects.Movable
                     {
                         angle -= 0.05f;
                     }
+                    
                 }
                 else
                 {
 
+                    if (Keyboard.GetState().IsKeyDown(Keys.E) && isHunting)
+                    {
+                        isAtacking = true;
+                        animTime = 0;
+                    }
                     if (Keyboard.GetState().IsKeyDown(Keys.W))
                     {
+                        if (!isAtacking)
+                        {
+                            animationSystem.Play(animations["Idle"]);
+                        }
                         speedFactor = 4.5f;
                         animationFactor = 10f + animationFactor2;
                         position += new Vector3(dirX / speedFactor, 0, dirZ / speedFactor);
@@ -160,20 +199,33 @@ namespace Wataha.GameObjects.Movable
                     {
                         angle -= 0.05f;
                     }
+                    
                 }
 
             }
-            if (animationSystem != null && !shouldAnimate)
+
+
+
+            if (animationSystem != null && !shouldAnimate && !isAtacking)
             {
                 animationSystem.animation.frameSpeed = 0.02f * (1f + animationSystem.animation.CurrentFrame * 2f / animationSystem.animation.NumberOfFrames);
                 if (animationSystem.animation.CurrentFrame == 0) animationSystem.Stop();
                 animationSystem.Update(gameTime);
             }
 
-            if (animationSystem != null && shouldAnimate)
+            if (animationSystem != null && shouldAnimate && !isAtacking)
             {
                 animationSystem.animation.frameSpeed = 0.2f / animationFactor;
                 animationSystem.Update(gameTime);
+            }
+            if (animationSystem != null && isAtacking)
+            {
+                animationSystem.Play(animations["Atak"]);
+                animationSystem.Update(gameTime);
+            }
+            if (animTime >= animations["Atak"].NumberOfFrames * animations["Atak"].frameSpeed)
+            {
+                isAtacking = false;
             }
 
             world = Matrix.CreateRotationX(MathHelper.ToRadians(-90)) * Matrix.CreateRotationY(angle) * Matrix.CreateTranslation(position);// * Matrix.CreateFromAxisAngle(Vector3.UnitY, MathHelper.ToRadians(-90)); ;
