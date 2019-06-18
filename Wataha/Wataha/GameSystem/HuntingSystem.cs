@@ -397,16 +397,16 @@ namespace Wataha.GameSystem
 
         void GenerateVectors()
         {
-            spawns.Add(new Vector3(-60f, 2f, 30f));
-            spawns.Add(new Vector3(60f, 2f, -40f));
-            spawns.Add(new Vector3(-30f, 2f, -50f));
-            spawns.Add(new Vector3(55f, 2f, -80f));
-            spawns.Add(new Vector3(45f, 2f, -110f));
-            spawns.Add(new Vector3(0f, 2f, -80f));
-            spawns.Add(new Vector3(45f, 2f, -190f));
-            spawns.Add(new Vector3(-50f, 2f, -180f));
-            spawns.Add(new Vector3(-35f, 2f, -20f));
-            spawns.Add(new Vector3(55f, 2f, -60f));
+            spawns.Add(new Vector3(-60f, 1.8f, 30f));
+            spawns.Add(new Vector3(60f, 1.8f, -40f));
+            spawns.Add(new Vector3(-30f, 1.8f, -50f));
+            spawns.Add(new Vector3(55f, 1.8f, -80f));
+            spawns.Add(new Vector3(45f, 1.8f, -110f));
+            spawns.Add(new Vector3(0f, 1.8f, -80f));
+            spawns.Add(new Vector3(45f, 1.8f, -190f));
+            spawns.Add(new Vector3(-50f, 1.8f, -180f));
+            spawns.Add(new Vector3(-35f, 1.8f, -20f));
+            spawns.Add(new Vector3(55f, 1.8f, -60f));
         }
         private void GenerateSpawn()
         {

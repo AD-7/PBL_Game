@@ -269,7 +269,7 @@ namespace Wataha.GameSystem.Interfejs
             screenHeight = device.Viewport.Height;
 
 
-            if (!ifPaused && !ifGameOver)
+            if (!ifPaused && !ifGameOver && !ifQuestPanel)
             {
                 foreach (Wolf w in wataha.wolves)
                 {
@@ -384,20 +384,7 @@ namespace Wataha.GameSystem.Interfejs
                 }
 
 
-                if (ifQuestPanel)
-                {
-                    if (QuestPanel.CancelButtonEvent())
-                    {
-                        ifQuestPanel = false;
-                    }
-
-                    if (QuestPanel.AcceptButtonEvent())
-                    {
-                        QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
-                        QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
-                        ifQuestPanel = false;
-                    }
-                }
+             
 
                 if(ifQuestCompleted)
                 {
@@ -521,6 +508,20 @@ namespace Wataha.GameSystem.Interfejs
 
 
 
+            }
+            if (ifQuestPanel)
+            {
+                if (QuestPanel.CancelButtonEvent())
+                {
+                    ifQuestPanel = false;
+                }
+
+                if (QuestPanel.AcceptButtonEvent())
+                {
+                    QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
+                    QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
+                    ifQuestPanel = false;
+                }
             }
 
 
