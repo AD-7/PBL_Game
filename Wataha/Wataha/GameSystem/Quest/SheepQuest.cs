@@ -54,7 +54,7 @@ namespace Wataha.GameObjects.Interable
             {
                 if (Vector3.Distance(a.position, wolf.position) <= 6 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
                 {
-                    AudioSystem.playGrowl(0);
+                  
                     a.active = false;
                     tmp.Add(a);
                     eatSheep++;

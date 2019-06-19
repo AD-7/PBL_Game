@@ -15,6 +15,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System.Linq;
 using Wataha.GameSystem.Animation;
+using Wataha.GameObjects;
 
 namespace Wataha
 {
@@ -245,7 +246,7 @@ namespace Wataha
             wolf3 = new Wolf(Content.Load<Model>("Wolf3"), animationsW4, Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
 
 
-            for(int i =0; i < 5; i++)
+            for(int i =0; i < 0; i++)
             {
                 GenerateRabits(wolf, Content.Load<Model>("RabitIdle/Rabbitstand1_000001"));
             }
@@ -309,13 +310,15 @@ namespace Wataha
             worldw4 *= Matrix.CreateTranslation(new Vector3(40.0f, 2.1f, -330.0f));
             QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, QuestSystem.questGivers[1]));
 
-            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat! \nGo hunt using panel on the right side.", 5, 5, 5, 5, 10, 10, QuestSystem.questGivers[0]));
+
+            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat! \nGo hunt using panel on the right side.", 0, 0, 0, 5, 10, 10, QuestSystem.questGivers[0]));
             QuestSystem.questGivers[0].questsList.Add(new BuyFangsQuest(1,"Market","Excellent! Now you know how to hunt. \n In the west there is a market. \n Go and exchange meat for at least 1 white fang.",2,2,2,0,1,0,barrell));
-            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources. \nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 1, 1, 1, 10, 1, 1, QuestSystem.questGivers[1]));
+            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources. \nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 5, 5, 5, 10, 1, 1, QuestSystem.questGivers[1]));
 
-            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(3, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
+            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(3, "Missing tools", "Ohhh, during the Storm, my tools were lost. \nCould you help me and find 4 of them?\n They should be near in the forest.  ", 0, 0, 0, 40, 4, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
+            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(4, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
 
-            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(4, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(5, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
 
             QuestSystem.questGivers[0].Init();
             QuestSystem.questGivers[1].Init();
@@ -326,6 +329,7 @@ namespace Wataha
             {
                 q.SetModelEffect(simpleEffect, true);
             }
+          
 
 
             PresentationParameters pp = device.PresentationParameters;
@@ -608,6 +612,11 @@ namespace Wataha
                         foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
                             sheep.Draw(camera, "ShadowMap");
                     }
+                    if (QuestSystem.currentQuest is FindToolsQuest)
+                    {
+                        foreach (GameObject tool in ((FindToolsQuest)QuestSystem.currentQuest).tools)
+                            tool.Draw(camera, "ShadowMap");
+                    }
 
                     foreach (QuestGiver q in QuestSystem.questGivers)
                     {
@@ -635,6 +644,11 @@ namespace Wataha
                     {
                         foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
                             sheep.shadowMap = (Texture2D)renderTarget;
+                    }
+                    if (QuestSystem.currentQuest is FindToolsQuest)
+                    {
+                        foreach (GameObject tool in ((FindToolsQuest)QuestSystem.currentQuest).tools)
+                            tool.shadowMap = (Texture2D)renderTarget;
                     }
 
                     foreach (QuestGiver q in QuestSystem.questGivers)
@@ -665,7 +679,11 @@ namespace Wataha
                         foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
                             sheep.Draw(camera, "ShadowedScene");
                     }
-
+                    if (QuestSystem.currentQuest is FindToolsQuest)
+                    {
+                        foreach (GameObject tool in ((FindToolsQuest)QuestSystem.currentQuest).tools)
+                            tool.Draw(camera, "ShadowedScene");
+                    }
                     foreach (QuestGiver q in QuestSystem.questGivers)
                     {
                         q.Draw(camera, "ShadowedScene");
@@ -698,6 +716,11 @@ namespace Wataha
                     {
                         foreach (Animal sheep in ((SheepQuest)QuestSystem.currentQuest).sheeps)
                             sheep.shadowMap = null;
+                    }
+                    if (QuestSystem.currentQuest is FindToolsQuest)
+                    {
+                        foreach (GameObject tool in ((FindToolsQuest)QuestSystem.currentQuest).tools)
+                            tool.shadowMap = null;
                     }
 
 

@@ -11,6 +11,7 @@ namespace Wataha.GameSystem.Interfejs
         private Rectangle recActualQuestPanel;
 
         private string description = "";
+        private string state = "";
         private string reward = "";
         private string title = "";
 
@@ -32,14 +33,19 @@ namespace Wataha.GameSystem.Interfejs
                          quest.GoldFangReward;
 
                 if (quest is SheepQuest)
-                    description += "\n sheep in craft:" + ((SheepQuest)quest).sheepInCroft +
+                    state = "" + "\n all sheeps: 5" +
+                        "\n sheep in craft:" + ((SheepQuest)quest).sheepInCroft +
                                    "\n sheep was eat:" + ((SheepQuest)quest).eatSheep;
+                if (quest is FindToolsQuest)
+                    state = "\n missing tools: 4" +
+                              "\n found tools: " + (((FindToolsQuest)quest).collectedTools);
             }
          }
 
         public void ClearPanel()
         {
             description = "";
+            state = "";
             reward = "";
             title = "";
         }
@@ -58,7 +64,8 @@ namespace Wataha.GameSystem.Interfejs
             spriteBatch.Draw(panel, recActualQuestPanel, Color.White);
 
             spriteBatch.DrawString(font, title, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.45), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.05)), Color.White);
-            spriteBatch.DrawString(font, description, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.05), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.7)), Color.White);
+            spriteBatch.DrawString(font, state, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.1), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.4)), Color.White);
+            spriteBatch.DrawString(font, description, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.06), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.7)), Color.White);
             spriteBatch.DrawString(font, reward, new Vector2((int)(recActualQuestPanel.X + recActualQuestPanel.Width * 0.09), recActualQuestPanel.Y + (int)(recActualQuestPanel.Height * 0.21)), Color.White);
         }
 

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Wataha.GameObjects.Interable
 {
-    class InterableObject : GameObject
+    public class InterableObject : GameObject
     {
         public InterableObject(Matrix world, Model model) : base(world, model)
         {
