@@ -64,7 +64,6 @@ namespace Wataha.GameObjects
                     lightPos.X += 0.001f;
                     lightPos.Y += 0.0005f;
 
-                    lightPower += 0.00001f;
                     ambientPower += 0.00001f;
 
                     lightColor.X += 0.0001f;
@@ -78,7 +77,6 @@ namespace Wataha.GameObjects
                     lightPos.X += 0.001f;
                     lightPos.Y -= 0.0005f;
 
-                    lightPower -= 0.00001f;
                     ambientPower += 0.00001f;
 
                     lightColor.X -= 0.0001f;
@@ -93,7 +91,6 @@ namespace Wataha.GameObjects
                     lightPos.X -= 0.001f;
                     lightPos.Y -= 0.0005f;
 
-                    lightPower -= 0.00001f;
                     ambientPower -= 0.00001f;
 
                     lightColor.X -= 0.0001f;
@@ -113,7 +110,6 @@ namespace Wataha.GameObjects
                     lightColor.Y += 0.0001f;
                     lightColor.Z -= 0.0001f;
 
-                    lightPower += 0.00001f;
                     ambientPower -= 0.00001f;
 
 
