@@ -66,11 +66,6 @@ namespace Wataha.GameObjects
 
                     ambientPower += 0.00001f;
 
-                    lightColor.X += 0.0001f;
-                    lightColor.Z += 0.0001f;
-
-                    Console.WriteLine("1" + lightPos);
-
                 }
                 else if (lightPos.X >= 100 && lightPos.X < 400 && lightPos.Y <= 320 && lightPos.Y > 170)
                 {
@@ -79,12 +74,6 @@ namespace Wataha.GameObjects
 
                     ambientPower += 0.00001f;
 
-                    lightColor.X -= 0.0001f;
-                    lightColor.Z += 0.0001f;
-
-
-                    Console.WriteLine("2" + lightPos);
-
                 }
                 else if (lightPos.X > 100 && lightPos.X <= 400 && lightPos.Y <= 170 && lightPos.Y > 20)
                 {
@@ -92,28 +81,14 @@ namespace Wataha.GameObjects
                     lightPos.Y -= 0.0005f;
 
                     ambientPower -= 0.00001f;
-
-                    lightColor.X -= 0.0001f;
-                    lightColor.Y -= 0.0001f;
-                    lightColor.Z += 0.0001f;
-
-
-                    Console.WriteLine("3" + lightPos);
-
                 }
                 else if (lightPos.X > -200 && lightPos.X <= 100 && lightPos.Y >= 20 && lightPos.Y < 170)
                 {
                     lightPos.X -= 0.001f;
                     lightPos.Y += 0.0005f;
-
-                    lightColor.X += 0.0001f;
-                    lightColor.Y += 0.0001f;
-                    lightColor.Z -= 0.0001f;
-
                     ambientPower -= 0.00001f;
 
 
-                    Console.WriteLine("4" + lightPos);
 
                 }
 
