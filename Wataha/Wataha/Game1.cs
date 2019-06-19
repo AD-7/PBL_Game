@@ -311,14 +311,15 @@ namespace Wataha
             QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, QuestSystem.questGivers[1]));
 
 
-            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat! \nGo hunt using panel on the right side.", 0, 0, 0, 5, 10, 10, QuestSystem.questGivers[0]));
-            QuestSystem.questGivers[0].questsList.Add(new BuyFangsQuest(1,"Market","Excellent! Now you know how to hunt. \n In the west there is a market. \n Go and exchange meat for at least 1 white fang.",2,2,2,0,1,0,barrell));
-            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources. \nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 5, 5, 5, 10, 1, 1, QuestSystem.questGivers[1]));
+            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat!\nGo hunt using panel on the right side.", 0, 0, 0, 5, 10, 10, QuestSystem.questGivers[0]));
+            QuestSystem.questGivers[0].questsList.Add(new BuyFangsQuest(1,"Market","Excellent! Now you know how to hunt.\n In the west there is a market.\n Go and exchange meat for at least 1 white fang.",2,2,2,0,1,0,barrell));
+            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources.\nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 5, 5, 5, 10, 1, 1, QuestSystem.questGivers[1]));
 
-            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(3, "Missing tools", "Ohhh, during the Storm, my tools were lost. \nCould you help me and find 4 of them?\n They should be near in the forest.  ", 0, 0, 0, 40, 4, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
-            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(4, "Repair dull chainsaw", "We need help with getting resoucers \nfor repair our saw. \nPlese bring to me 3 white fang \nand 1 gold fang. If you do that\n i will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
+            QuestSystem.questGivers[1].questsList.Add(new UpgradeQuest(3, "Skills", "Thank you my dear wolves. The letter is very important for me.\n Of course, I can help you!\nBut first, you should train!\n(Upgrade you wolves using their small pictures on the right panel)", 5, 5, 5, 20, 1, 0, QuestSystem.questGivers[1], wataha));
+            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(4, "Missing tools", "Ohhh, during the Storm, my tools were lost.\nCould you help me and find 4 of them?\n They should be near in the forest.  ", 0, 0, 0, 40, 4, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
+            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(5, "Repair dull chainsaw", "We need help with getting resoucers\nfor repair our saw.\nPlese bring to me 3 white fang\nand 1 gold fang.\nIf you do that I will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
 
-            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(5, "Sheep is escaped", "Help me!!\n My sheep was run out from craft.\n Can you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(6, "Sheep is escaped", "Help me!!\nMy sheep was run out from craft.\nCan you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
 
             QuestSystem.questGivers[0].Init();
             QuestSystem.questGivers[1].Init();
