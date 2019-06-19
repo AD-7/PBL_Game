@@ -21,11 +21,14 @@ namespace Wataha.GameObjects
         Vector3 lightPos = new Vector3(-200, 170, 180);
         float lightPower = 1.5f;
         float ambientPower = 0.5f;
+        Vector4 lightColor = new Vector4(1,1,1, 1);
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
         public Texture2D shadowMap;
         public Texture2D texture;
-        
+
+        int timer = 1;
+
 
         public GameObject(Matrix world, Model model)
         {
@@ -56,7 +59,72 @@ namespace Wataha.GameObjects
         public virtual void Update(GameTime gameTime)
         {
 
+                if (lightPos.X >= -200 && lightPos.X < 100 && lightPos.Y >= 170 && lightPos.Y < 320)
+                {
+                    lightPos.X += 0.001f;
+                    lightPos.Y += 0.0005f;
 
+                    lightPower += 0.00001f;
+                    ambientPower += 0.00001f;
+
+                    lightColor.X += 0.0001f;
+                    lightColor.Z += 0.0001f;
+
+                    Console.WriteLine("1" + lightPos);
+
+                }
+                else if (lightPos.X >= 100 && lightPos.X < 400 && lightPos.Y <= 320 && lightPos.Y > 170)
+                {
+                    lightPos.X += 0.001f;
+                    lightPos.Y -= 0.0005f;
+
+                    lightPower -= 0.00001f;
+                    ambientPower += 0.00001f;
+
+                    lightColor.X -= 0.0001f;
+                    lightColor.Z += 0.0001f;
+
+
+                    Console.WriteLine("2" + lightPos);
+
+                }
+                else if (lightPos.X > 100 && lightPos.X <= 400 && lightPos.Y <= 170 && lightPos.Y > 20)
+                {
+                    lightPos.X -= 0.001f;
+                    lightPos.Y -= 0.0005f;
+
+                    lightPower -= 0.00001f;
+                    ambientPower -= 0.00001f;
+
+                    lightColor.X -= 0.0001f;
+                    lightColor.Y -= 0.0001f;
+                    lightColor.Z += 0.0001f;
+
+
+                    Console.WriteLine("3" + lightPos);
+
+                }
+                else if (lightPos.X > -200 && lightPos.X <= 100 && lightPos.Y >= 20 && lightPos.Y < 170)
+                {
+                    lightPos.X -= 0.001f;
+                    lightPos.Y += 0.0005f;
+
+                    lightColor.X += 0.0001f;
+                    lightColor.Y += 0.0001f;
+                    lightColor.Z -= 0.0001f;
+
+                    lightPower += 0.00001f;
+                    ambientPower -= 0.00001f;
+
+
+                    Console.WriteLine("4" + lightPos);
+
+                }
+
+
+                Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(-50, -20, -250), new Vector3(0, 1, 0));
+                Matrix lightsProjection = Matrix.CreateOrthographic(300, 300, 0.1f, 1000f);
+                lightsViewProjectionMatrix = lightsView * lightsProjection;
         }
 
         public void RotateY(float degrees)
@@ -125,6 +193,7 @@ namespace Wataha.GameObjects
                                 effect.Parameters["xWorld"].SetValue(world);
                                 effect.Parameters["xLightPos"].SetValue(lightPos);
                                 effect.Parameters["xLightPower"].SetValue(lightPower);
+                                effect.Parameters["LightColor"].SetValue(lightColor);
                                 effect.Parameters["xAmbient"].SetValue(ambientPower);
                                 effect.Parameters["xShadowMap"].SetValue(shadowMap);
                                 effect.Parameters["xAlpha"].SetValue(alpha);
@@ -170,6 +239,7 @@ namespace Wataha.GameObjects
                                 effect.Parameters["xWorld"].SetValue(world);
                                 effect.Parameters["xLightPos"].SetValue(lightPos);
                                 effect.Parameters["xLightPower"].SetValue(lightPower);
+                                effect.Parameters["LightColor"].SetValue(lightColor);
                                 effect.Parameters["xAmbient"].SetValue(ambientPower);
                                 effect.Parameters["xShadowMap"].SetValue(shadowMap);
                                 effect.Parameters["xAlpha"].SetValue(alpha);

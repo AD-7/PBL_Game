@@ -504,7 +504,10 @@ namespace Wataha
                         }
                         
                         billboardTest2 = new BillboardSystem(GraphicsDevice, Content, Content.Load<Texture2D>("Pictures/questionMark"), new Vector2(0.001f), positions2);
-
+                        trees.Update(gameTime);
+                        barrell.Update(gameTime);
+                        blockade.Update(gameTime);
+                        blockade2.Update(gameTime);
                     }
                     else
                     {

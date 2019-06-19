@@ -16,7 +16,7 @@ float xLightPower;
 float xAmbient;
 float xAlpha;
 
-float4 LightColor = float4 (1, 1, 1,1);
+float4 LightColor;
 
 Texture xTexture;
 sampler TextureSampler = sampler_state
@@ -183,7 +183,7 @@ SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
 
 	float4 baseColor = tex2D(TextureSampler, PSIn.TexCoords);
 
-	Output.Color = (diffuseLightingFactor + xAmbient)* baseColor  ;
+	Output.Color = (diffuseLightingFactor + xAmbient)* baseColor * LightColor;
 	Output.Color.a = xAlpha;
 
 
