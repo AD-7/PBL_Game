@@ -55,14 +55,6 @@ namespace Wataha.GameObjects.Static
                 }
                
             }
-
-            int i = 0;
-            foreach (ModelMesh mesh in model.Meshes)
-            {
-                mesh.BoundingSphere = BoundingSphere.CreateFromBoundingBox(colliders[i]);
-                i ++;
-            }
-
         }
 
         public override void Draw(Camera camera, string technique)
