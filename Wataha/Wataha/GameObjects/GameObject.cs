@@ -21,14 +21,11 @@ namespace Wataha.GameObjects
         Vector3 lightPos = new Vector3(-200, 170, 180);
         float lightPower = 1.5f;
         float ambientPower = 0.5f;
-        Vector4 lightColor = new Vector4(1,1,1, 1);
+        Vector4 lightColor = new Vector4(1, 1, 1, 1);
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
         public Texture2D shadowMap;
         public Texture2D texture;
-
-        int timer = 1;
-
 
         public GameObject(Matrix world, Model model)
         {
