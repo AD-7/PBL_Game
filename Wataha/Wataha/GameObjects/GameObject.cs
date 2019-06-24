@@ -19,8 +19,8 @@ namespace Wataha.GameObjects
         public BoundingSphere sphere;
 
         Vector3 lightPos = new Vector3(-200, 170, 180);
-        float lightPower = 1.5f;
-        float ambientPower = 0.5f;
+        float lightPower = 0.8f;
+        float ambientPower = 0.4f;
         Vector4 lightColor = new Vector4(1, 1, 1, 1);
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
@@ -56,38 +56,41 @@ namespace Wataha.GameObjects
         public virtual void Update(GameTime gameTime)
         {
 
-                if (lightPos.X >= -200 && lightPos.X < 100 && lightPos.Y >= 170 && lightPos.Y < 320)
+                if (lightPos.X >= -200 && lightPos.X < 170 && lightPos.Y >= 170 && lightPos.Y < 200)
                 {
                     lightPos.X += 0.001f;
-                    lightPos.Y += 0.0005f;
+                    lightPos.Y += 0.0007f;
 
-                    ambientPower += 0.00001f;
+                    ambientPower += 0.0001f;
+                lightPower += 0.000005f;
 
                 }
-                else if (lightPos.X >= 100 && lightPos.X < 400 && lightPos.Y <= 320 && lightPos.Y > 170)
+                else if (lightPos.X >= 170 && lightPos.X < 250 && lightPos.Y <= 200 && lightPos.Y > 170)
                 {
                     lightPos.X += 0.001f;
-                    lightPos.Y -= 0.0005f;
+                    lightPos.Y -= 0.0007f;
 
-                    ambientPower += 0.00001f;
+                    ambientPower += 0.0001f;
+                lightPower += 0.000001f;
 
-                }
-                else if (lightPos.X > 100 && lightPos.X <= 400 && lightPos.Y <= 170 && lightPos.Y > 20)
+            }
+                else if (lightPos.X > 170 && lightPos.X <= 250 && lightPos.Y <= 170 && lightPos.Y > 120)
                 {
                     lightPos.X -= 0.001f;
-                    lightPos.Y -= 0.0005f;
-
-                    ambientPower -= 0.00001f;
-                }
-                else if (lightPos.X > -200 && lightPos.X <= 100 && lightPos.Y >= 20 && lightPos.Y < 170)
+                    lightPos.Y -= 0.0007f;
+                
+                    ambientPower -= 0.0001f;
+                lightPower -= 0.000001f;
+            }
+                else if (lightPos.X > -200 && lightPos.X <= 170 && lightPos.Y >= 120 && lightPos.Y < 170)
                 {
                     lightPos.X -= 0.001f;
-                    lightPos.Y += 0.0005f;
-                    ambientPower -= 0.00001f;
+                    lightPos.Y += 0.0007f;
+                    ambientPower -= 0.0001f;
+                lightPower -= 0.000005f;
 
 
-
-                }
+            }
 
 
                 Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(-50, -20, -250), new Vector3(0, 1, 0));
