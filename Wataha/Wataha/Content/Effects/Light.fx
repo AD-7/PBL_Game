@@ -173,7 +173,7 @@ SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
 	{
 		float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
 		float realDistance = PSIn.Pos2DAsSeenByLight.z / PSIn.Pos2DAsSeenByLight.w;
-		if ((realDistance - 1.0f / 700.0f) <= depthStoredInShadowMap)
+		if ((realDistance - 1.0f / 2000.0f) <= depthStoredInShadowMap)
 		{
 			diffuseLightingFactor = DotProduct(xLightPos, PSIn.Position3D, PSIn.Normal);
 			diffuseLightingFactor = saturate(diffuseLightingFactor);

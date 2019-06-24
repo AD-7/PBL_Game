@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using Wataha.GameObjects;
 using Wataha.GameObjects.Movable;
 using Wataha.GameSystem.Interfejs;
 
@@ -261,9 +262,13 @@ namespace Wataha.GameSystem
 
                 }
                 huntingWataha.Update(gameTime);
+                GameObject.changeDay();
+
             }
 
             hudHunting.Update(gameTime);
+            trees.Update(gameTime);
+
 
         }
 

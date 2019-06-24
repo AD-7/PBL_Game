@@ -562,6 +562,9 @@ namespace Wataha
                     ps.Update();
 
                     hud.Update(gameTime);
+
+
+                    GameObject.changeDay();
                 }
             }
 

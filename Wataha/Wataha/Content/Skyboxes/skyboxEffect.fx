@@ -12,6 +12,10 @@ float4x4 View;
 float4x4 Projection;
  
 float3 CameraPosition;
+
+
+float xAmbient;
+float4 LightColor;
  
 Texture SkyBoxTexture; 
 samplerCUBE SkyBoxSampler = sampler_state 
@@ -51,7 +55,8 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
-    return texCUBE(SkyBoxSampler, normalize(input.TextureCoordinate));
+	float4 test = {1.0f,0.4f,1.0f,1.0f };
+    return texCUBE(SkyBoxSampler, normalize(input.TextureCoordinate)) * xAmbient * LightColor;
 }
 
 technique Skybox
