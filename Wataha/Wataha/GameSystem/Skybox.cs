@@ -38,6 +38,9 @@ namespace Wataha.GameSystem
                         part.Effect.Parameters["Projection"].SetValue(camera.Projection);
                         part.Effect.Parameters["SkyBoxTexture"].SetValue(skyBoxTexture);
                         part.Effect.Parameters["CameraPosition"].SetValue(camera.CamPos);
+                        part.Effect.Parameters["xAmbient"].SetValue(GameObjects.GameObject.ambientPower);
+                        part.Effect.Parameters["LightColor"].SetValue(GameObjects.GameObject.lightColor);
+
                     }
 
                     mesh.Draw();

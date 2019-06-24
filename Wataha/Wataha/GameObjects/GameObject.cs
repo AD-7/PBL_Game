@@ -18,10 +18,11 @@ namespace Wataha.GameObjects
         public BoundingBox collider;
         public BoundingSphere sphere;
 
-        static Vector3 lightPos = new Vector3(-200, 170, 180);
-        static float lightPower = 0.8f;
-        static float ambientPower = 0.4f;
-        Vector4 lightColor = new Vector4(1, 1, 1, 1);
+        public static Vector3 lightPos = new Vector3(-100, 170, 180);
+        public static float lightPower = 0.8f;
+        public static float ambientPower = 0.4f;
+        Color color = new Color(255, 211, 142);
+        public static Vector4 lightColor = new Vector4(1, 1, 1, 1);
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
         public Texture2D shadowMap;
@@ -32,9 +33,12 @@ namespace Wataha.GameObjects
             this.world = world;
             this.model = model;
             this.material = new Material();
-            lightPos = new Vector3(-200, 170, 180);
+            lightPos = new Vector3(-100, 170, 180);
             lightPower = 0.8f;
             ambientPower = 0.4f;
+            color = new Color(255, 211, 142, 255);
+            lightColor = color.ToVector4();
+            
 
             Matrix lightsView = Matrix.CreateLookAt(lightPos,new Vector3(-50, -20, -250), new Vector3(0, 1, 0));
             // Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(150), 1f, 10f, 200f);
@@ -64,48 +68,53 @@ namespace Wataha.GameObjects
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
         }
 
+        static int i = 0;
 
         public static void changeDay()
         {
-            if (lightPos.X >= -200 && lightPos.X < 170 && lightPos.Y >= 170 && lightPos.Y < 200)
+            i++;
+            if (lightPos.X >= -100 && lightPos.X < 0 && lightPos.Y >= 170 && lightPos.Y < 180)
             {
-                lightPos.X += 0.001f;
-                lightPos.Y += 0.0007f;
+                lightPos.X += 0.005f;
+                lightPos.Y += 0.0005f;
 
-                ambientPower += 0.00001f;
+                lightColor.Y += 0.0000860545f;
+                lightColor.Z += 0.00002210036f;
+
+                ambientPower += 0.00005f;
                 lightPower += 0.000005f;
 
-                Console.WriteLine("1" + lightPos);
+                Console.WriteLine("1" + lightPos + "\ncolor" + lightColor +"\n" + i);
             }
-            else if (lightPos.X >= 170 && lightPos.X < 250 && lightPos.Y <= 200 && lightPos.Y > 170)
+            else if (lightPos.X >= 0 && lightPos.X < 100 && lightPos.Y <= 180 && lightPos.Y > 170)
             {
                 lightPos.X += 0.001f;
-                lightPos.Y -= 0.0007f;
+                lightPos.Y -= 0.0001f;
 
-                ambientPower += 0.00001f;
+                ambientPower += 0.00005f;
                 lightPower += 0.000001f;
 
                 Console.WriteLine("2" + lightPos);
 
 
             }
-            else if (lightPos.X > 170 && lightPos.X <= 250 && lightPos.Y <= 170 && lightPos.Y > 120)
+            else if (lightPos.X > 0 && lightPos.X <= 100 && lightPos.Y <= 170 && lightPos.Y > 160)
             {
                 lightPos.X -= 0.001f;
-                lightPos.Y -= 0.0007f;
+                lightPos.Y -= 0.0001f;
 
-                ambientPower -= 0.00001f;
+                ambientPower -= 0.00005f;
                 lightPower -= 0.000001f;
 
                 Console.WriteLine("3" + lightPos);
 
             }
-            else if (lightPos.X > -200 && lightPos.X <= 170 && lightPos.Y >= 120 && lightPos.Y < 170)
+            else if (lightPos.X > -100 && lightPos.X <= 0 && lightPos.Y >= 160 && lightPos.Y < 170)
             {
                 lightPos.X -= 0.001f;
-                lightPos.Y += 0.0007f;
+                lightPos.Y += 0.0001f;
 
-                ambientPower -= 0.00001f;
+                ambientPower -= 0.00005f;
                 lightPower -= 0.000005f;
 
                 Console.WriteLine("4" + lightPos);
