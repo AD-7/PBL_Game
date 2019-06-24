@@ -18,9 +18,9 @@ namespace Wataha.GameObjects
         public BoundingBox collider;
         public BoundingSphere sphere;
 
-        Vector3 lightPos = new Vector3(-200, 170, 180);
-        float lightPower = 0.8f;
-        float ambientPower = 0.4f;
+        static Vector3 lightPos = new Vector3(-200, 170, 180);
+        static float lightPower = 0.8f;
+        static float ambientPower = 0.4f;
         Vector4 lightColor = new Vector4(1, 1, 1, 1);
         Matrix lightsViewProjectionMatrix;
         float alpha = 1.0f;
@@ -32,6 +32,10 @@ namespace Wataha.GameObjects
             this.world = world;
             this.model = model;
             this.material = new Material();
+            lightPos = new Vector3(-200, 170, 180);
+            lightPower = 0.8f;
+            ambientPower = 0.4f;
+
             Matrix lightsView = Matrix.CreateLookAt(lightPos,new Vector3(-50, -20, -250), new Vector3(0, 1, 0));
             // Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(150), 1f, 10f, 200f);
             Matrix lightsProjection = Matrix.CreateOrthographic(300, 300, 0.1f, 1000f);
@@ -55,49 +59,58 @@ namespace Wataha.GameObjects
 
         public virtual void Update(GameTime gameTime)
         {
-
-                if (lightPos.X >= -200 && lightPos.X < 170 && lightPos.Y >= 170 && lightPos.Y < 200)
-                {
-                    lightPos.X += 0.001f;
-                    lightPos.Y += 0.0007f;
-
-                    ambientPower += 0.0001f;
-                lightPower += 0.000005f;
-
-                }
-                else if (lightPos.X >= 170 && lightPos.X < 250 && lightPos.Y <= 200 && lightPos.Y > 170)
-                {
-                    lightPos.X += 0.001f;
-                    lightPos.Y -= 0.0007f;
-
-                    ambientPower += 0.0001f;
-                lightPower += 0.000001f;
-
-            }
-                else if (lightPos.X > 170 && lightPos.X <= 250 && lightPos.Y <= 170 && lightPos.Y > 120)
-                {
-                    lightPos.X -= 0.001f;
-                    lightPos.Y -= 0.0007f;
-                
-                    ambientPower -= 0.0001f;
-                lightPower -= 0.000001f;
-            }
-                else if (lightPos.X > -200 && lightPos.X <= 170 && lightPos.Y >= 120 && lightPos.Y < 170)
-                {
-                    lightPos.X -= 0.001f;
-                    lightPos.Y += 0.0007f;
-                    ambientPower -= 0.0001f;
-                lightPower -= 0.000005f;
-
-
-            }
-
-
                 Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(-50, -20, -250), new Vector3(0, 1, 0));
                 Matrix lightsProjection = Matrix.CreateOrthographic(300, 300, 0.1f, 1000f);
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
         }
 
+
+        public static void changeDay()
+        {
+            if (lightPos.X >= -200 && lightPos.X < 170 && lightPos.Y >= 170 && lightPos.Y < 200)
+            {
+                lightPos.X += 0.001f;
+                lightPos.Y += 0.0007f;
+
+                ambientPower += 0.00001f;
+                lightPower += 0.000005f;
+
+                Console.WriteLine("1" + lightPos);
+            }
+            else if (lightPos.X >= 170 && lightPos.X < 250 && lightPos.Y <= 200 && lightPos.Y > 170)
+            {
+                lightPos.X += 0.001f;
+                lightPos.Y -= 0.0007f;
+
+                ambientPower += 0.00001f;
+                lightPower += 0.000001f;
+
+                Console.WriteLine("2" + lightPos);
+
+
+            }
+            else if (lightPos.X > 170 && lightPos.X <= 250 && lightPos.Y <= 170 && lightPos.Y > 120)
+            {
+                lightPos.X -= 0.001f;
+                lightPos.Y -= 0.0007f;
+
+                ambientPower -= 0.00001f;
+                lightPower -= 0.000001f;
+
+                Console.WriteLine("3" + lightPos);
+
+            }
+            else if (lightPos.X > -200 && lightPos.X <= 170 && lightPos.Y >= 120 && lightPos.Y < 170)
+            {
+                lightPos.X -= 0.001f;
+                lightPos.Y += 0.0007f;
+
+                ambientPower -= 0.00001f;
+                lightPower -= 0.000005f;
+
+                Console.WriteLine("4" + lightPos);
+            }
+        }
         public void RotateY(float degrees)
         {
             world *= Matrix.CreateRotationY(MathHelper.ToRadians(degrees));
