@@ -111,15 +111,15 @@ namespace Wataha.GameSystem
                 hudHunting.seconds -= 4;
 
             if (wolf.strength < 8)
-                hudHunting.maxMeat = 10;
+                hudHunting.maxMeat = 20;
             else if (wolf.strength >= 8 && wolf.strength <= 12)
-                hudHunting.maxMeat = 30;
-            else if (wolf.strength <= 15)
                 hudHunting.maxMeat = 50;
+            else if (wolf.strength <= 15)
+                hudHunting.maxMeat = 70;
             else if (wolf.strength <= 18)
-                hudHunting.maxMeat = 80;
-            else if (wolf.strength <= 20)
                 hudHunting.maxMeat = 100;
+            else if (wolf.strength <= 20)
+                hudHunting.maxMeat = 150;
 
 
             hudHunting.energyLoss = (wolf.strength * 3 + wolf.resistance * 2 + wolf.speed) / 2;
@@ -434,7 +434,7 @@ namespace Wataha.GameSystem
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Idle", "RabitIdle");
             animations.Add("Move", "RabitM");
-            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 2, "rabit");
+            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 5, "rabit");
             rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
      
@@ -451,7 +451,7 @@ namespace Wataha.GameSystem
             GenerateSpawn();
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Move", "SheepM");
-            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16,  8, "sheep");
+            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16,  10, "sheep");
             sheep.ajustHeight(-1.05f);
             sheep.animations["Move"].frameSpeed = 0.01f;
             spawnPoint = new Matrix();
@@ -465,7 +465,7 @@ namespace Wataha.GameSystem
             GenerateSpawn();
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Move", "BoarM");
-            Animal boar = new Animal(wolf, model, animations, Content, spawnPoint, 16, 20, "boar");
+            Animal boar = new Animal(wolf, model, animations, Content, spawnPoint, 16, 30, "boar");
             boar.ajustHeight(-1.05f);
             boar.animations["Move"].frameSpeed = 0.01f;
             spawnPoint = new Matrix();

@@ -69,7 +69,7 @@ namespace Wataha
             graphics = new GraphicsDeviceManager(this);
             //  Window.AllowUserResizing = true;
 
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
 
@@ -162,7 +162,7 @@ namespace Wataha
             //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -334,7 +334,7 @@ namespace Wataha
 
 
             PresentationParameters pp = device.PresentationParameters;
-            renderTarget = new RenderTarget2D(device, graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+            renderTarget = new RenderTarget2D(device,2048, 2048, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
