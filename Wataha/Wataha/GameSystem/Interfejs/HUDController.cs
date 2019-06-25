@@ -66,7 +66,7 @@ namespace Wataha.GameSystem.Interfejs
         int stringOffsetWidth, stringOffsetHeight;
 
         string actualNameOfWolfPanel = "";
-        double timer = 100;
+        double timer = 60;
         double gameOverTimer = 30;
         double dyingTimer = 0.4;
 
@@ -285,7 +285,7 @@ namespace Wataha.GameSystem.Interfejs
                 {
 
                     Resources.Meat -= consumption;
-                    timer = 100;
+                    timer = 60;
                 }
                 if (Resources.Meat <= 0)
                 {
@@ -295,7 +295,7 @@ namespace Wataha.GameSystem.Interfejs
                 else
                 {
                     ifDying = false;
-                    gameOverTimer = 30;
+                    gameOverTimer = 15;
                 }
 
                 if (gameOverTimer <= 0)
@@ -324,7 +324,7 @@ namespace Wataha.GameSystem.Interfejs
                             recNoMeat.Height *= 2;
                         }
                         ifNoMeatChanged = !ifNoMeatChanged;
-                        if (gameOverTimer <= 10)
+                        if (gameOverTimer <= 8)
                         {
                             dyingTimer = 0.2;
                         }
@@ -537,7 +537,7 @@ namespace Wataha.GameSystem.Interfejs
 
 
             spriteBatch.DrawString(arial18Italic, Resources.Meat.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.25), recResources.Y + (int)(recResources.Height * 0.25)), Color.White);
-            spriteBatch.DrawString(arial12Italic, "-" + consumption + " / 100s", new Vector2(recResources.X + (int)(recResources.Width * 0.24), recResources.Y + (int)(recResources.Height * 0.67)), Color.Red);
+            spriteBatch.DrawString(arial12Italic, "-" + consumption + " / min", new Vector2(recResources.X + (int)(recResources.Width * 0.24), recResources.Y + (int)(recResources.Height * 0.67)), Color.Red);
 
 
             spriteBatch.DrawString(arial18Italic, Resources.Whitefangs.ToString(), new Vector2(recResources.X + (int)(recResources.Width * 0.55), recResources.Y + (int)(recResources.Height * 0.30)), Color.White);

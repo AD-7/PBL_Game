@@ -564,7 +564,7 @@ namespace Wataha
                     hud.Update(gameTime);
 
 
-                    GameObject.changeDay();
+                    GameObject.changeDay(gameTime);
                 }
             }
 

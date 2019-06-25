@@ -262,7 +262,7 @@ namespace Wataha.GameSystem
 
                 }
                 huntingWataha.Update(gameTime);
-                GameObject.changeDay();
+                GameObject.changeDay(gameTime);
 
             }
 

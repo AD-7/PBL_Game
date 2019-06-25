@@ -19,8 +19,8 @@ namespace Wataha.GameObjects
         public BoundingSphere sphere;
 
         public static Vector3 lightPos = new Vector3(-100, 170, 180);
-        public static float lightPower = 0.8f;
-        public static float ambientPower = 0.4f;
+        public static float lightPower = 0.9f;
+        public static float ambientPower = 0.5f;
         Color color = new Color(255, 211, 142);
         public static Vector4 lightColor = new Vector4(1, 1, 1, 1);
         Matrix lightsViewProjectionMatrix;
@@ -33,9 +33,9 @@ namespace Wataha.GameObjects
             this.world = world;
             this.model = model;
             this.material = new Material();
-            lightPos = new Vector3(-100, 170, 180);
-            lightPower = 0.8f;
-            ambientPower = 0.4f;
+            lightPos = new Vector3(-100, 170, 170);
+            lightPower = 0.9f;
+            ambientPower = 0.5f;
             color = new Color(255, 211, 142, 255);
             lightColor = color.ToVector4();
             
@@ -68,57 +68,138 @@ namespace Wataha.GameObjects
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
         }
 
-        static int i = 0;
+        static double i = 0;
 
-        public static void changeDay()
+        public static void changeDay(GameTime gameTime)
         {
-            i++;
-            if (lightPos.X >= -100 && lightPos.X < 0 && lightPos.Y >= 170 && lightPos.Y < 180)
+            i += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+       
+            if(i  <= 180)
             {
-                lightPos.X += 0.005f;
-                lightPos.Y += 0.0005f;
+                lightPos.X += 0.0005f;
+               // lightPos.Y += 0.0005f;
+                lightPos.Z -= 0.0005f;
 
-                lightColor.Y += 0.0000860545f;
-                lightColor.Z += 0.00002210036f;
+                lightColor.Y += 0.00000862745f;
+                lightColor.Z += 0.00002607843f;
 
                 ambientPower += 0.00005f;
-                lightPower += 0.000005f;
+                lightPower += 0.000007f;
 
                 Console.WriteLine("1" + lightPos + "\ncolor" + lightColor +"\n" + i);
             }
-            else if (lightPos.X >= 0 && lightPos.X < 100 && lightPos.Y <= 180 && lightPos.Y > 170)
+            else if(i >= 180  && i <= 360)
             {
-                lightPos.X += 0.001f;
-                lightPos.Y -= 0.0001f;
+                lightPos.X += 0.005f;
+                // lightPos.Y -= 0.0005f;
+                lightPos.Z -= 0.0005f;
 
-                ambientPower += 0.00005f;
-                lightPower += 0.000001f;
+
+                lightColor.Y -= 0.00000862745f;
+                lightColor.Z -= 0.00002607843f;
+
+                ambientPower -= 0.00005f;
+                lightPower -= 0.000007f;
 
                 Console.WriteLine("2" + lightPos);
-
-
             }
-            else if (lightPos.X > 0 && lightPos.X <= 100 && lightPos.Y <= 170 && lightPos.Y > 160)
+            else if(i >= 360 && i <= 480)
             {
-                lightPos.X -= 0.001f;
-                lightPos.Y -= 0.0001f;
+                lightPos.X -= 0.005f;
+                //  lightPos.Y -= 0.0005f;
+                lightPos.Z += 0.0005f;
+
+
+                lightColor.X -= 0.00003921568f;
+                lightColor.Y -= 0.000027058823f;
+                lightColor.Z += 0.000096862745f;
 
                 ambientPower -= 0.00005f;
-                lightPower -= 0.000001f;
+                lightPower -= 0.000007f;
 
                 Console.WriteLine("3" + lightPos);
-
             }
-            else if (lightPos.X > -100 && lightPos.X <= 0 && lightPos.Y >= 160 && lightPos.Y < 170)
+            else if(i >= 480 && i <=600)
             {
-                lightPos.X -= 0.001f;
-                lightPos.Y += 0.0001f;
+                lightPos.X -= 0.005f;
+                // lightPos.Y += 0.0005f;
+                lightPos.Z += 0.0005f;
 
-                ambientPower -= 0.00005f;
-                lightPower -= 0.000005f;
+
+                lightColor.X += 0.00003921568f;
+                lightColor.Y += 0.000027058823f;
+                lightColor.Z -= 0.000096862745f;
+
+                ambientPower += 0.00005f;
+                lightPower += 0.000007f;
 
                 Console.WriteLine("4" + lightPos);
             }
+            else
+            {
+                i = 0;
+            }
+
+
+
+            //i++;
+            //if (lightPos.X >= -100 && lightPos.X < 0 && lightPos.Y >= 170 && lightPos.Y < 180)
+            //{
+            //    lightPos.X += 0.005f;
+            //    lightPos.Y += 0.0005f;
+
+            //    lightColor.Y += 0.00000862745f;
+            //    lightColor.Z += 0.00002607843f;
+
+            //    ambientPower += 0.00005f;
+            //    lightPower += 0.000005f;
+
+            //    Console.WriteLine("1" + lightPos + "\ncolor" + lightColor +"\n" + i);
+            //}
+            //else if (lightPos.X >= 0 && lightPos.X < 100 && lightPos.Y <= 181 && lightPos.Y > 170)
+            //{
+            //    lightPos.X += 0.005f;
+            //    lightPos.Y -= 0.0005f;
+
+            //    lightColor.Y -= 0.00000862745f;
+            //    lightColor.Z -= 0.00002607843f;
+
+            //    ambientPower += 0.00005f;
+            //    lightPower += 0.000001f;
+
+            //    Console.WriteLine("2" + lightPos);
+
+
+            //}
+            //else if (lightPos.X > 0 && lightPos.X <= 100 && lightPos.Y <= 171 && lightPos.Y > 160)
+            //{
+            //    lightPos.X -= 0.005f;
+            //    lightPos.Y -= 0.0005f;
+
+            //    lightColor.X -= 0.00003921568f;
+            //    lightColor.Y -= 0.000027058823f;
+            //    lightColor.Z += 0.000046862745f;
+
+            //    ambientPower -= 0.00005f;
+            //    lightPower -= 0.000001f;
+
+            //    Console.WriteLine("3" + lightPos);
+
+            //}
+            //else if (lightPos.X > -100 && lightPos.X <= 0 && lightPos.Y >= 159 && lightPos.Y < 170)
+            //{
+            //    lightPos.X -= 0.005f;
+            //    lightPos.Y += 0.0005f;
+
+            //    lightColor.X += 0.00003921568f;
+            //    lightColor.Y += 0.000027058823f;
+            //    lightColor.Z -= 0.000046862745f;
+
+            //    ambientPower -= 0.00005f;
+            //    lightPower -= 0.000005f;
+
+            //    Console.WriteLine("4" + lightPos);
+            //}
         }
         public void RotateY(float degrees)
         {
