@@ -68,13 +68,13 @@ namespace Wataha.GameObjects
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
         }
 
-        static double i = 0;
+       public static double timer = 0;
 
         public static void changeDay(GameTime gameTime)
         {
-            i += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
+            timer += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
        
-            if(i  <= 180)
+            if(timer  <= 180)
             {
                 lightPos.X += 0.0005f;
                // lightPos.Y += 0.0005f;
@@ -86,9 +86,8 @@ namespace Wataha.GameObjects
                 ambientPower += 0.00005f;
                 lightPower += 0.000007f;
 
-                Console.WriteLine("1" + lightPos + "\ncolor" + lightColor +"\n" + i);
             }
-            else if(i >= 180  && i <= 360)
+            else if(timer >= 180  && timer <= 360)
             {
                 lightPos.X += 0.005f;
                 // lightPos.Y -= 0.0005f;
@@ -101,9 +100,8 @@ namespace Wataha.GameObjects
                 ambientPower -= 0.00005f;
                 lightPower -= 0.000007f;
 
-                Console.WriteLine("2" + lightPos);
             }
-            else if(i >= 360 && i <= 480)
+            else if(timer >= 360 && timer <= 480)
             {
                 lightPos.X -= 0.005f;
                 //  lightPos.Y -= 0.0005f;
@@ -117,9 +115,8 @@ namespace Wataha.GameObjects
                 ambientPower -= 0.00005f;
                 lightPower -= 0.000007f;
 
-                Console.WriteLine("3" + lightPos);
             }
-            else if(i >= 480 && i <=600)
+            else if(timer >= 480 && timer <=600)
             {
                 lightPos.X -= 0.005f;
                 // lightPos.Y += 0.0005f;
@@ -133,11 +130,10 @@ namespace Wataha.GameObjects
                 ambientPower += 0.00005f;
                 lightPower += 0.000007f;
 
-                Console.WriteLine("4" + lightPos);
             }
             else
             {
-                i = 0;
+                timer = 0;
             }
 
 

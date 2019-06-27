@@ -40,8 +40,9 @@ namespace Wataha.GameObjects.Interable
 
         public override bool IfCompleted(Wolf wolf)
         {
-            if (Vector3.Distance(questDestination.model.Meshes[0].BoundingSphere.Center, wolf.model.Meshes[0].BoundingSphere.Center) < 10.0f && (eatSheep + sheepInCroft) == totalSheep )
-                  return true;
+            if ((Vector3.Distance(questDestination.model.Meshes[0].BoundingSphere.Center, wolf.model.Meshes[0].BoundingSphere.Center) < 10.0f && (eatSheep + sheepInCroft) == totalSheep && sheepInCroft > eatSheep )
+                || ((eatSheep + sheepInCroft) == totalSheep && sheepInCroft < eatSheep))
+                    return true;
             else
                   return false;
         }

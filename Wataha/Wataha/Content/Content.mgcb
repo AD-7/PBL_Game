@@ -1852,6 +1852,82 @@
 /processorParam:TextureFormat=Compressed
 /build:plane.FBX
 
+#begin quest items/hammer.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.07
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:quest items/hammer.FBX
+
+#begin quest items/handsaw.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.05
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:quest items/handsaw.FBX
+
+#begin quest items/screwdriver.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.07
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:quest items/screwdriver.FBX
+
+#begin quest items/spanner.FBX
+/importer:FbxImporter
+/processor:ModelProcessor
+/processorParam:ColorKeyColor=0,0,0,0
+/processorParam:ColorKeyEnabled=True
+/processorParam:DefaultEffect=BasicEffect
+/processorParam:GenerateMipmaps=True
+/processorParam:GenerateTangentFrames=False
+/processorParam:PremultiplyTextureAlpha=True
+/processorParam:PremultiplyVertexColors=True
+/processorParam:ResizeTexturesToPowerOfTwo=False
+/processorParam:RotationX=0
+/processorParam:RotationY=0
+/processorParam:RotationZ=0
+/processorParam:Scale=0.07
+/processorParam:SwapWindingOrder=False
+/processorParam:TextureFormat=Compressed
+/build:quest items/spanner.FBX
+
 #begin Rabbit/Rabbit.fbx
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -4009,18 +4085,6 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Skyboxes/skyboxEffect.fx
-
-#begin Skyboxes/Sunset.dds
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Skyboxes/Sunset.dds
 
 #begin Songs/forest (1).mp3
 /importer:Mp3Importer
@@ -8736,6 +8800,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Wolf3.fbx
 
+
 #begin quest items/hammer.FBX
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -8847,4 +8912,5 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Pictures/levelMEDIUM.png
+
 
