@@ -40,18 +40,23 @@ namespace Wataha.GameSystem.Interfejs
         Rectangle recEffectsSlider;
         Rectangle recAudioMute;
         Rectangle recEffectMute;
+        Rectangle recLevelEasy;
+        Rectangle recLevelMedium;
+        Rectangle recLevelHard;
         Rectangle recAudioVolume;
         Rectangle recEffectsVolume;
         Rectangle recTitle;
         Rectangle recAuthors;
+        Rectangle recEasy, recMedium, recHard;
 
         int alphaColor = 200;
 
         public Intro intro;
 
-        public bool inOptions = false;
+        public bool inOptions = true;
         public bool ifStory = false;
         public bool ifIntro = false;
+        public int level = 0;
 
         float AudioVolume = 0.4f;
         float EffectVolume = 0.3f;
@@ -88,6 +93,9 @@ namespace Wataha.GameSystem.Interfejs
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/audioVolume")); //18
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/effectVolume")); //19
             ButtonTextures.Add(content.Load<Texture2D>("MainMenu/authorsss")); //20
+            ButtonTextures.Add(content.Load<Texture2D>("Pictures/levelEASY")); //21
+            ButtonTextures.Add(content.Load<Texture2D>("Pictures/levelMEDIUM")); //22
+            ButtonTextures.Add(content.Load<Texture2D>("Pictures/levelHARD")); //23
             title = content.Load<Texture2D>("MainMenu/title");
             story = content.Load<Texture2D>("MainMenu/story");
             this.device = device;
@@ -100,7 +108,7 @@ namespace Wataha.GameSystem.Interfejs
             authorsActual = ButtonTextures[8];
             loadActual = ButtonTextures[10];
             aboutActual = ButtonTextures[12];
-           
+
         }
 
         public void Update()
@@ -193,6 +201,21 @@ namespace Wataha.GameSystem.Interfejs
             recEffectMute.Height = recEffectsSliderBG.Height;
             recEffectMute.Width = recEffectMute.Height;
 
+            recLevelEasy.X = recEffectsSliderBG.X - recEffectsSliderBG.Width / 16;
+            recLevelEasy.Y = recEffectsSliderBG.Y + recEffectsSliderBG.Height * 3;
+            recLevelEasy.Width = recEffectMute.Width;
+            recLevelEasy.Height = recEffectMute.Height;
+
+            recLevelMedium.X = recLevelEasy.X + recEffectsVolume.Width * 2;
+            recLevelMedium.Y = recEffectsSliderBG.Y + recEffectsSliderBG.Height * 3;
+            recLevelMedium.Width = recEffectMute.Width;
+            recLevelMedium.Height = recEffectMute.Height;
+
+            recLevelHard.X = recLevelEasy.X + recEffectsVolume.Width * 4 ;
+            recLevelHard.Y = recEffectsSliderBG.Y + recEffectsSliderBG.Height * 3;
+            recLevelHard.Width = recEffectMute.Width;
+            recLevelHard.Height = recEffectMute.Height;
+
             recAudioVolume.X = recAudioMute.X - (int)(recAudioMute.Width * 3.8);
             recAudioVolume.Y = recAudioMute.Y + recAudioMute.Height / 4;
             recAudioVolume.Width = recAudioSliderBG.Width / 5;
@@ -202,6 +225,24 @@ namespace Wataha.GameSystem.Interfejs
             recEffectsVolume.Y = recEffectMute.Y + recEffectMute.Height / 4;
             recEffectsVolume.Width = recEffectsSliderBG.Width / 5;
             recEffectsVolume.Height = recEffectsSliderBG.Height / 2;
+
+
+            recEasy.X = recEffectsVolume.X + recLevelEasy.Width *2;
+            recEasy.Y = recLevelEasy.Y + recLevelEasy.Height/6;
+            recEasy.Width = recEffectsVolume.Width / 3;
+            recEasy.Height = recEffectsVolume.Height * 2;
+
+            recMedium.X = recEasy.X + recLevelEasy.Width * 6;
+            recMedium.Y = recEasy.Y;
+            recMedium.Height = recEasy.Height;
+            recMedium.Width = recEasy.Width + recEasy.Width/2;
+
+            recHard.X = recMedium.X + recLevelEasy.Width * 7;
+            recHard.Y = recMedium.Y;
+            recHard.Width = recEasy.Width;
+            recHard.Height = recEasy.Height;
+
+
 
             recAuthors.X = recButtonsBkg.X + (recButtonsBkg.Width / 10) * 4;
             recAuthors.Y = recButtonsBkg.Y + recButtonsBkg.Height / 7;
@@ -261,6 +302,32 @@ namespace Wataha.GameSystem.Interfejs
                     else
                         SoundEffect.MasterVolume = 0;
                 }
+
+                if (LevelMediumCheckboxEvents())
+                {
+                    if(level != 1)
+                    {
+                        level = 1;
+                        Resources.Meat = 50;
+                    }
+                }
+                if (LevelEasyCheckboxEvents())
+                {
+                    if (level != 0)
+                    {
+                        level = 0;
+                        Resources.Meat = 100;
+                    }
+                }
+                if (LevelHardCheckboxEvents())
+                {
+                    if (level != 2)
+                    {
+                        level = 2;
+                        Resources.Meat = 10;
+                    }
+                }
+
             }
 
             InputSystem.UpdateCursorPosition();
@@ -289,8 +356,12 @@ namespace Wataha.GameSystem.Interfejs
 
                 spriteBatch.Draw(ButtonTextures[14], recEffectsSliderBG, Color.White);
                 spriteBatch.Draw(ButtonTextures[15], recEffectsSlider, Color.White);
-               spriteBatch.Draw(ButtonTextures[18], recAudioVolume, Color.White);
+                spriteBatch.Draw(ButtonTextures[18], recAudioVolume, Color.White);
                 spriteBatch.Draw(ButtonTextures[19], recEffectsVolume, Color.White);
+                spriteBatch.Draw(ButtonTextures[21], recEasy, Color.White);
+                spriteBatch.Draw(ButtonTextures[22], recMedium, Color.White);
+                spriteBatch.Draw(ButtonTextures[23], recHard, Color.White);
+
                 if (AudioSystem.audioEnable)
                     spriteBatch.Draw(ButtonTextures[16], recAudioMute, Color.White);
                 else
@@ -300,6 +371,26 @@ namespace Wataha.GameSystem.Interfejs
                     spriteBatch.Draw(ButtonTextures[16], recEffectMute, Color.White);
                 else
                     spriteBatch.Draw(ButtonTextures[17], recEffectMute, Color.White);
+
+                if(level == 0)
+                {
+                    spriteBatch.Draw(ButtonTextures[16], recLevelEasy, Color.White);
+                    spriteBatch.Draw(ButtonTextures[17], recLevelMedium, Color.White);
+                    spriteBatch.Draw(ButtonTextures[17], recLevelHard, Color.White);
+                }
+                else if(level == 1)
+                {
+                    spriteBatch.Draw(ButtonTextures[17], recLevelEasy, Color.White);
+                    spriteBatch.Draw(ButtonTextures[16], recLevelMedium, Color.White);
+                    spriteBatch.Draw(ButtonTextures[17], recLevelHard, Color.White);
+                }
+                else if (level == 2)
+                {
+                    spriteBatch.Draw(ButtonTextures[17], recLevelEasy, Color.White);
+                    spriteBatch.Draw(ButtonTextures[17], recLevelMedium, Color.White);
+                    spriteBatch.Draw(ButtonTextures[16], recLevelHard, Color.White);
+                }
+
             }
 
 
@@ -506,6 +597,48 @@ namespace Wataha.GameSystem.Interfejs
             return false;
         }
 
+
+
+
+        public bool LevelEasyCheckboxEvents()
+        {
+            if ((recLevelEasy.Intersects(InputSystem.Cursor)))
+            {
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public bool LevelMediumCheckboxEvents()
+        {
+            if ((recLevelMedium.Intersects(InputSystem.Cursor)))
+            {
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+
+        public bool LevelHardCheckboxEvents()
+        {
+            if ((recLevelHard.Intersects(InputSystem.Cursor)))
+            {
+                if (InputSystem.mouseState.LeftButton == ButtonState.Pressed && InputSystem.mouseStateOld != InputSystem.mouseState)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
         public bool AudioCheckboxEvents()
         {
             if ((recAudioMute.Intersects(InputSystem.Cursor)))

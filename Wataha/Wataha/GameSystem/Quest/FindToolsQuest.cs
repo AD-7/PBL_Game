@@ -42,7 +42,7 @@ namespace Wataha.GameObjects.Interable
             worldw4 = new Matrix();
             worldw4 = Matrix.CreateRotationX(MathHelper.ToRadians(90));
             worldw4 *= Matrix.CreateRotationZ(MathHelper.ToRadians(90));
-            worldw4 *= Matrix.CreateTranslation(new Vector3(77, 0.01f, -45.0f));
+            worldw4 *= Matrix.CreateTranslation(new Vector3(77, 0.01f, -30.0f));
             tools.Add(new QuestItem(worldw4, content.Load<Model>("quest items/spanner"), 0.1f));
 
             worldw4 = new Matrix();
@@ -86,7 +86,7 @@ namespace Wataha.GameObjects.Interable
             List<QuestItem> tmp = new List<QuestItem>();
             foreach (QuestItem t in tools)
             {
-                if (Vector3.Distance(t.model.Meshes[0].BoundingSphere.Center, wolf.position) <= 6 && InputSystem.newKeybordState.IsKeyDown(Keys.E) && InputSystem.oldKeybordState.IsKeyUp(Keys.E))
+                if (Vector3.Distance(t.model.Meshes[0].BoundingSphere.Center, wolf.position) <= 6 && InputSystem.newKeybordState.IsKeyDown(Keys.F) && InputSystem.oldKeybordState.IsKeyUp(Keys.F))
                 {
 
 

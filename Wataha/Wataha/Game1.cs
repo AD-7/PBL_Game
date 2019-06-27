@@ -69,7 +69,7 @@ namespace Wataha
             graphics = new GraphicsDeviceManager(this);
             //  Window.AllowUserResizing = true;
 
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             graphics.ApplyChanges();
 
@@ -162,7 +162,7 @@ namespace Wataha
             //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -241,9 +241,9 @@ namespace Wataha
             Dictionary<String, String> animationsW4 = new Dictionary<string, string>();
             animationsW4.Add("Idle", "wilk4");
             animationsW4.Add("Atak", "wilk4A");
-            wolf = new Wolf(Content.Load<Model>("Wolf"), animationsW2, Content, world2, 3.0f, camera, 12, 9, 10, "Kimiko");
-            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), animationsW3, Content, worldw2, 3.0f, camera, 10, 3, 11, "Yua");
-            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), animationsW4, Content, worldw3, 3.0f, camera, 9, 5, 8, "Hatsu");
+            wolf = new Wolf(Content.Load<Model>("Wolf"), animationsW2, Content, world2, 3.0f, camera, 12, 10, 10, "Kimiko");
+            wolf2 = new Wolf(Content.Load<Model>("Wolf2"), animationsW3, Content, worldw2, 3.0f, camera, 7, 3, 11, "Yua");
+            wolf3 = new Wolf(Content.Load<Model>("Wolf3"), animationsW4, Content, worldw3, 3.0f, camera, 8, 5, 8, "Hatsu");
 
 
             for(int i =0; i < 0; i++)
@@ -311,15 +311,15 @@ namespace Wataha
             QuestSystem.questGivers.Add(new QuestGiver(Content.Load<Model>("lumberjack/lumberJack3"), worldw4, QuestSystem.questGivers[1]));
 
 
-            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat!\nGo hunt using panel on the right side.", 0, 0, 0, 5, 10, 10, QuestSystem.questGivers[0]));
-            QuestSystem.questGivers[0].questsList.Add(new BuyFangsQuest(1,"Market","Excellent! Now you know how to hunt.\n In the west there is a market.\n Go and exchange meat for at least 1 white fang.",2,2,2,0,1,0,barrell));
-            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources.\nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 5, 5, 5, 10, 1, 1, QuestSystem.questGivers[1]));
+            QuestSystem.questGivers[0].questsList.Add(new GoHuntingQuest(0, "Hunting", "First, you should provide meat!\nGo hunt using panel on the right side.", 1, 1, 1, 10, 0, 0, QuestSystem.questGivers[0]));
+            QuestSystem.questGivers[0].questsList.Add(new BuyFangsQuest(1,"Market","Excellent! Now you know how to hunt.\n In the west there is a market.\n Go and exchange meat for at least 1 white fang.",5,5,5,0,5,0,barrell));
+            QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources.\nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 5, 6, 8, 5, 0, 0, QuestSystem.questGivers[1]));
 
-            QuestSystem.questGivers[1].questsList.Add(new UpgradeQuest(3, "Skills", "Thank you my dear wolves. The letter is very important for me.\n Of course, I can help you!\nBut first, you should train!\n(Upgrade you wolves using their small pictures on the right panel)", 5, 5, 5, 20, 1, 0, QuestSystem.questGivers[1], wataha));
-            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(4, "Missing tools", "Ohhh, during the Storm, my tools were lost.\nCould you help me and find 4 of them?\n They should be near in the forest.  ", 0, 0, 0, 40, 4, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
-            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(5, "Repair dull chainsaw", "We need help with getting resoucers\nfor repair our saw.\nPlese bring to me 3 white fang\nand 1 gold fang.\nIf you do that I will clean barricade", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 1, 3, 0));
+            QuestSystem.questGivers[1].questsList.Add(new UpgradeQuest(3, "Skills", "Thank you my dear wolves.\nThe letter is very important for me.\n Of course, I can help you!\nBut first, you should train!\n(Upgrade you wolves using their small pictures\non the right panel)", 9, 6, 9, 15, 1, 1, QuestSystem.questGivers[1], wataha));
+            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(4, "Missing tools", "Ohhh, during the Storm, my tools were lost.\nCould you help me and find 4 of them?\n They should be near in the forest.  ", 11, 8, 12, 50, 2, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
+            QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(5, "Repair dull chainsaw", "We need help with getting resoucers\nfor repair our saw.\nPlese bring to me 12 white fang\nand 5 gold fang.\nIf you do that I will clean barricade", 12, 8, 12, 30, 0, 0, QuestSystem.questGivers[1], 5, 12, 0));
 
-            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(6, "Sheep is escaped", "Help me!!\nMy sheep was run out from craft.\nCan you move them back?", 12, 7, 8, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(6, "Sheep is escaped", "Help me!!\nMy sheep was run out from craft.\nCan you move them back?", 14, 9, 13, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
 
             QuestSystem.questGivers[0].Init();
             QuestSystem.questGivers[1].Init();
@@ -350,7 +350,7 @@ namespace Wataha
             tmp.huntingWolf.SetModelEffect(simpleEffect, true);
 
 
-            hud = new HUDController(spriteBatch, device, Content, 100, 0, 0, wataha, tmp);
+            hud = new HUDController(spriteBatch, device, Content,  wataha, tmp);
 
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
@@ -375,6 +375,7 @@ namespace Wataha
             {
                 if (gameInMainMenu)
                 {
+                    //Resources.Meat = 0;
                     mainMenu.Update();
 
                     if (mainMenu.ExitButtonEvent())

@@ -54,7 +54,7 @@ namespace Wataha.GameSystem.Interfejs
         public bool ifWolfPanel = false;
         public bool ifActualQuestPanel = false;
         public bool ifQuestPanel = false;
-        public static bool  ifQuestCompleted = false;
+        public static bool ifQuestCompleted = false;
         public bool ifSaveInfo = false;
         public bool ifGameOver = false;
         private bool ifDying;
@@ -72,7 +72,7 @@ namespace Wataha.GameSystem.Interfejs
 
         int consumption = 0;
 
-        public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager, int meat, int white_fangs, int gold_fangs, Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
+        public HUDController(SpriteBatch batch, GraphicsDevice device, ContentManager manager,  Wataha.GameObjects.Movable.Wataha wataha, HuntingSystem hs)
         {
 
             this.huntingSystem = hs;
@@ -80,9 +80,7 @@ namespace Wataha.GameSystem.Interfejs
             this.device = device;
             this.spriteBatch = batch;
             this.Content = manager;
-            Resources.Meat = meat;
-            Resources.Whitefangs = white_fangs;
-            Resources.Goldfangs = gold_fangs;
+         
             pictures = new List<Texture2D>();
 
             ifQuestCompleted = false;
@@ -258,7 +256,7 @@ namespace Wataha.GameSystem.Interfejs
                 QuestPanel.Update(screenWidth, screenHeight);
                 marketPanel.Update(screenWidth, screenHeight);
             }
-            
+
             InputSystem.UpdateCursorPosition();
 
             screenHeightOld = screenHeight;
@@ -350,7 +348,7 @@ namespace Wataha.GameSystem.Interfejs
                     wolfPanel.wolfSpeed = wataha.wolves.Where(w => w.Name == wolfPanel.wolfName).ToList()[0].speed;
 
                 }
-                  
+
                 ActualQuestButtonEvent();
 
                 if (marketPanel.active)
@@ -384,11 +382,11 @@ namespace Wataha.GameSystem.Interfejs
                 }
 
 
-             
 
-                if(ifQuestCompleted)
+
+                if (ifQuestCompleted)
                 {
-                    if(QuestPanel.OkButtonEvent())
+                    if (QuestPanel.OkButtonEvent())
                     {
                         ifQuestCompleted = false;
                     }
@@ -490,8 +488,8 @@ namespace Wataha.GameSystem.Interfejs
 
                         wolfPanel.upgradeButtonEvent2(wataha);
                     }
-                 
-                      
+
+
 
                     wolfPanel.skillsButtonEvent();
                     wolfPanel.evolutionButtonEvent();
@@ -516,11 +514,33 @@ namespace Wataha.GameSystem.Interfejs
                     ifQuestPanel = false;
                 }
 
+
+                int tmpStrength = 0;
+                int tmpResistance = 0;
+                int tmpSpeed = 0;
+
+                foreach (Wolf w in wataha.wolves)
+                {
+                    tmpStrength += w.strength;
+                    tmpResistance += w.resistance;
+                    tmpSpeed += w.speed;
+                }
+                tmpStrength /= 3;
+                tmpResistance /= 3;
+                tmpSpeed /= 3;
+
                 if (QuestPanel.AcceptButtonEvent())
                 {
-                    QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
-                    QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
-                    ifQuestPanel = false;
+                   
+
+                    if (tmpStrength >= QuestSystem.currentGiver.actualQuest.NeedStrenght && tmpResistance >= QuestSystem.currentGiver.actualQuest.NeedResistance && tmpSpeed >= QuestSystem.currentGiver.actualQuest.NeedSpeed)
+                    {
+                        QuestSystem.currentQuest = QuestSystem.currentGiver.actualQuest;
+                        QuestSystem.currentQuest.questStatus = Quest.status.ACTIVE;
+                        ifQuestPanel = false;
+
+                    }
+
                 }
             }
 
@@ -588,7 +608,7 @@ namespace Wataha.GameSystem.Interfejs
                 QuestPanel.Draw(spriteBatch);
             }
 
-            if(ifQuestCompleted)
+            if (ifQuestCompleted)
             {
                 QuestPanel.DrawCompleted(spriteBatch);
             }
