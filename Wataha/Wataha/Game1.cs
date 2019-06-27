@@ -140,6 +140,11 @@ namespace Wataha
                 }
             }
 
+            GameObject.timer = saveGameInfo.Timer;
+            GameObject.ambientPower = saveGameInfo.AmbientPower;
+            GameObject.lightPower = saveGameInfo.LightPower;
+            GameObject.lightPos = new Vector3(saveGameInfo.LightPosX, saveGameInfo.LightPosY, saveGameInfo.LightPosZ);
+            GameObject.lightColor = new Vector4(saveGameInfo.LightColorX, saveGameInfo.LightColorY, saveGameInfo.LightColorZ, saveGameInfo.LightColorW);
 
             Trace.WriteLine("LoadGameEND");
 

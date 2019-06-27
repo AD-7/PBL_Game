@@ -44,6 +44,19 @@ namespace Wataha.GameSystem
         public int GoldFang { get; set; }
         public int WhiteFang { get; set; }
 
+
+        public float LightPosX { get; set; }
+        public float LightPosY { get; set; }
+        public float LightPosZ { get; set; }
+        public float LightPower { get; set; }
+        public float AmbientPower { get; set; }
+        public float LightColorX { get; set; }
+        public float LightColorY { get; set; }
+        public float LightColorZ { get; set; }
+        public float LightColorW { get; set; }
+        public double Timer { get; set; }
+
+
         public List<List<int>> questCompleted;
 
         public SaveSystem()
@@ -95,7 +108,18 @@ namespace Wataha.GameSystem
                     j++;
                 }
             }
-        }
+
+            LightPosX = GameObjects.GameObject.lightPos.X;
+            LightPosY = GameObjects.GameObject.lightPos.Y;
+            LightPosZ = GameObjects.GameObject.lightPos.Z;
+            AmbientPower = GameObjects.GameObject.ambientPower;
+            LightPower = GameObjects.GameObject.lightPower;
+            LightColorX = GameObjects.GameObject.lightColor.X;
+            LightColorY = GameObjects.GameObject.lightColor.Y;
+            LightColorZ = GameObjects.GameObject.lightColor.Z;
+            LightColorW = GameObjects.GameObject.lightColor.W;
+            Timer = GameObjects.GameObject.timer;
+    }
 
 
 
