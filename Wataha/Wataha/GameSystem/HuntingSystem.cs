@@ -122,7 +122,7 @@ namespace Wataha.GameSystem
                 hudHunting.maxMeat = 150;
 
 
-            hudHunting.energyLoss = (wolf.strength * 3 + wolf.resistance * 2 + wolf.speed) / 2;
+            hudHunting.energyLoss = (wolf.strength * 3 + wolf.resistance * 2 + wolf.speed) / 3;
             wolf.energy -= hudHunting.energyLoss;
             for (int i = 0; i < 3; i++)
             {
