@@ -322,11 +322,11 @@ namespace Wataha
             QuestSystem.questGivers[0].questsList.Add(new PointAtoBQuest(2, "Deliver letter", "Now you are able to get all resources.\nPlease deliver that letter \n to my brother blacksmith.\n He can help you find your brothers.", 5, 6, 8, 5, 0, 0, QuestSystem.questGivers[1]));
 
             QuestSystem.questGivers[1].questsList.Add(new UpgradeQuest(3, "Skills", "Thank you my dear wolves.\nThe letter is very important for me.\n Of course, I can help you!\nBut first, you should train!\n(Upgrade you wolves using their small pictures\non the right panel)", 8, 6, 9, 15, 1, 1, QuestSystem.questGivers[1], wataha));
-            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(4, "Missing tools", "Ohhh, during the Storm, my tools were lost.\nCould you help me and find 4 of them?\n They should be near in the forest.  ", 10, 8, 10, 50, 2, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
+            QuestSystem.questGivers[1].questsList.Add(new FindToolsQuest(4, "Missing tools", "Ohhh, during the Storm, my tools were lost.\nCould you help me and find 4 of them?\n They should be near in the forest.  ", 9, 8, 9, 50, 2, 1, QuestSystem.questGivers[1], Content, wataha.wolves[0], simpleEffect));
             QuestSystem.questGivers[1].questsList.Add(new DeliverQuest(5, "Repair dull chainsaw", "We need help with getting resoucers\nfor repair our saw.\nPlese bring to me 12 white fang\nand 7 gold fang.\nIf you do that I will clean barricade on the north.", 4, 6, 5, 60, 0, 0, QuestSystem.questGivers[1], 7, 12, 0));
 
 
-            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(6, "Sheep is escaped", "Help me!!\nMy sheep was run out from craft.\nCan you move them back?", 14, 9, 13, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
+            QuestSystem.questGivers[2].questsList.Add(new SheepQuest(6, "Sheep is escaped", "Help me!!\nMy sheep was run out from craft.\nCan you move them back?", 13, 9, 11, 100, 10, 5, QuestSystem.questGivers[2], croft, Content, wataha.wolves[0]));
 
             QuestSystem.questGivers[0].Init();
             QuestSystem.questGivers[1].Init();
