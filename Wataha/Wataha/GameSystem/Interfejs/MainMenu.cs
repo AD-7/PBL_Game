@@ -109,6 +109,11 @@ namespace Wataha.GameSystem.Interfejs
             loadActual = ButtonTextures[10];
             aboutActual = ButtonTextures[12];
 
+            if (level == 0) Resources.Meat = 100;
+            if (level == 1) Resources.Meat = 50;
+            if (level == 2) Resources.Meat = 10;
+
+
         }
 
         public void Update()

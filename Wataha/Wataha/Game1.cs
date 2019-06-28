@@ -358,7 +358,8 @@ namespace Wataha
 
 
             hud = new HUDController(spriteBatch, device, Content,  wataha, tmp);
-
+            Resources.Whitefangs = 0;
+            Resources.Goldfangs = 0;
             mainMenu = new MainMenu(spriteBatch, Content, device);
 
             Trace.WriteLine("LoadContentEnd");
