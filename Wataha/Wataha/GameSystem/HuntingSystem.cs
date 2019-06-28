@@ -200,7 +200,7 @@ namespace Wataha.GameSystem
                 time += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
 
-            if(timeS >= 6)
+            if(timeS >= 4)
             {
                 GenerateSheeps(huntingWataha.wolves[0], rabitModel);
                 timeS = 0;
@@ -209,7 +209,7 @@ namespace Wataha.GameSystem
             {
                 timeS += gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
             }
-            if(timeB >= 9)
+            if(timeB >= 7)
             {
                 GenerateBoars(huntingWataha.wolves[0], rabitModel);
                 timeB = 0;
@@ -434,7 +434,7 @@ namespace Wataha.GameSystem
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Idle", "RabitIdle");
             animations.Add("Move", "RabitM");
-            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8, 5, "rabit");
+            Animal rabit = new Animal(wolf, model, animations, Content, spawnPoint, 8,8 , "rabit");
             rabit.ajustHeight(-1.05f);
             spawnPoint = new Matrix();
      
@@ -451,7 +451,7 @@ namespace Wataha.GameSystem
             GenerateSpawn();
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Move", "SheepM");
-            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16,  10, "sheep");
+            Animal sheep = new Animal(wolf, model, animations, Content, spawnPoint, 16,  12, "sheep");
             sheep.ajustHeight(-1.05f);
             sheep.animations["Move"].frameSpeed = 0.01f;
             spawnPoint = new Matrix();
@@ -465,7 +465,7 @@ namespace Wataha.GameSystem
             GenerateSpawn();
             Dictionary<String, String> animations = new Dictionary<string, string>();
             animations.Add("Move", "BoarM");
-            Animal boar = new Animal(wolf, model, animations, Content, spawnPoint, 16, 30, "boar");
+            Animal boar = new Animal(wolf, model, animations, Content, spawnPoint, 16, 20, "boar");
             boar.ajustHeight(-1.05f);
             boar.animations["Move"].frameSpeed = 0.01f;
             spawnPoint = new Matrix();
