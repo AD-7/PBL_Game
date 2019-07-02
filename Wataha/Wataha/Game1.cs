@@ -46,7 +46,7 @@ namespace Wataha
         private GameObjects.Static.Environment trees, huntingTrees;
         private GameObjects.Static.Environment blockade, blockade2, croft, barrell;
         private Effect simpleEffect;
-        RenderTarget2D renderTarget;
+        RenderTarget2D renderTarget, renderTarget2;
         HUDController hud;
 
         private bool gameInMainMenu = true;
@@ -354,6 +354,12 @@ namespace Wataha
             renderTarget = new RenderTarget2D(device,2048, 2048, false,
                 SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
+            renderTarget2 = new RenderTarget2D(GraphicsDevice,
+               GraphicsDevice.PresentationParameters.BackBufferWidth,
+               GraphicsDevice.PresentationParameters.BackBufferHeight,
+               false,
+               GraphicsDevice.PresentationParameters.BackBufferFormat,
+               DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
 
@@ -689,13 +695,7 @@ namespace Wataha
                     croft.shadowMap = (Texture2D)renderTarget;
                     barrell.shadowMap = (Texture2D)renderTarget;
 
-                   RenderTarget2D renderTarget2 = new RenderTarget2D(GraphicsDevice,
-                GraphicsDevice.PresentationParameters.BackBufferWidth,
-                GraphicsDevice.PresentationParameters.BackBufferHeight,
-                false,
-                GraphicsDevice.PresentationParameters.BackBufferFormat,
-                DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
-                   device.SetRenderTarget(renderTarget2);
+                    device.SetRenderTarget(renderTarget2);
 
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
