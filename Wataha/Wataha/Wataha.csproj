@@ -66,6 +66,7 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Interable\InterableObject.cs" />
+    <Compile Include="GameObjects\Static\Reflekt.cs" />
     <Compile Include="GameSystem\Quest\BuyFangsQuest.cs" />
     <Compile Include="GameSystem\Quest\UpgradeQuest.cs" />
     <Compile Include="GameSystem\Quest\GoHuntingQuest.cs" />

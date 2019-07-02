@@ -16,6 +16,7 @@ using System.Runtime.Serialization;
 using System.Linq;
 using Wataha.GameSystem.Animation;
 using Wataha.GameObjects;
+using Wataha.GameObjects.Static;
 
 namespace Wataha
 {
@@ -58,6 +59,8 @@ namespace Wataha
         /// </summary>
         public List<Vector3> spawns;
         public List<Animal> rabits;
+
+        public Reflekt reflekt;
 
         public Game1()
         {
@@ -167,7 +170,7 @@ namespace Wataha
             //graphics.IsFullScreen = false;
             graphics.PreferredBackBufferHeight = device.DisplayMode.Height;
             graphics.PreferredBackBufferWidth = device.DisplayMode.Width;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.GraphicsProfile = GraphicsProfile.HiDef;
             //graphics.SynchronizeWithVerticalRetrace = false;
             //IsFixedTimeStep = false;
@@ -237,6 +240,11 @@ namespace Wataha
             worldw3 *= Matrix.CreateTranslation(new Vector3(-10, 12f, camera.CamPos.Z - 7));
             worldw3 *= Matrix.CreateScale(0.2f);
 
+            Matrix world5 = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
+            //world5 *= Matrix.CreateRotationY(MathHelper.ToRadians(180));
+            world5 *= Matrix.CreateTranslation(new Vector3(0, 5, 0));
+            world5 *= Matrix.CreateScale(0.2f);
+
             Dictionary<String, String> animationsW2 = new Dictionary<string, string>();
             animationsW2.Add("Idle", "wilk2");
             animationsW2.Add("Atak", "wilk2A");
@@ -264,7 +272,9 @@ namespace Wataha
             Matrix worldb2 = Matrix.CreateTranslation(new Vector3(0, 0, 0));
             blockade2 = new GameObjects.Static.Environment(Content.Load<Model>("B2"), worldb2, 10);
             croft = new GameObjects.Static.Environment(Content.Load<Model>("croft"), worldb2, 35);
-            barrell = new GameObjects.Static.Environment(Content.Load<Model>("barrell"), worldb2, 5);      
+            barrell = new GameObjects.Static.Environment(Content.Load<Model>("barrell"), worldb2, 5);
+            reflekt = new Reflekt(world5,Content.Load<Model>("cube"), Content, Content.Load<TextureCube>("Skyboxes/skybox"));
+
 
             wolf.SetModelEffect(simpleEffect, true);
             wolf2.SetModelEffect(simpleEffect, true);
@@ -341,7 +351,8 @@ namespace Wataha
 
 
             PresentationParameters pp = device.PresentationParameters;
-            renderTarget = new RenderTarget2D(device,2048, 2048, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+            renderTarget = new RenderTarget2D(device,2048, 2048, false,
+                SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
             Matrix worldH = Matrix.CreateRotationX(MathHelper.ToRadians(-90));
@@ -606,6 +617,7 @@ namespace Wataha
                     RasterizerState rasterizerState = new RasterizerState();
                     rasterizerState.CullMode = CullMode.None;
                     graphics.GraphicsDevice.RasterizerState = rasterizerState;
+                    GraphicsDevice.SamplerStates[1] = SamplerState.LinearClamp;
 
                     device.SetRenderTarget(renderTarget);
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
@@ -676,6 +688,15 @@ namespace Wataha
                     blockade2.shadowMap = (Texture2D)renderTarget;
                     croft.shadowMap = (Texture2D)renderTarget;
                     barrell.shadowMap = (Texture2D)renderTarget;
+
+                   RenderTarget2D renderTarget2 = new RenderTarget2D(GraphicsDevice,
+                GraphicsDevice.PresentationParameters.BackBufferWidth,
+                GraphicsDevice.PresentationParameters.BackBufferHeight,
+                false,
+                GraphicsDevice.PresentationParameters.BackBufferFormat,
+                DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+                   device.SetRenderTarget(renderTarget2);
+
                     device.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.Black, 1.0f, 0);
 
                     device.BlendState = BlendState.AlphaBlend;
@@ -712,7 +733,7 @@ namespace Wataha
                     barrell.Draw(camera, "ShadowedScene");
                     device.BlendState = BlendState.Opaque;
                     skybox.Draw(camera);
-
+                    reflekt.DrawModelWithEffect(camera.View, camera.Projection, camera);
 
                     foreach (QuestGiver q in QuestSystem.questGivers)
                     {
@@ -753,6 +774,17 @@ namespace Wataha
                     ps.Draw(camera.View, camera.Projection, wolf.cam.up, wolf.cam.right);
 
                     hud.Draw();
+
+                   device.SetRenderTarget(null);
+                   GraphicsDevice.Clear(Color.Black);
+
+
+                    spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque,
+                SamplerState.LinearClamp, DepthStencilState.Default,
+                RasterizerState.CullNone, Content.Load<Effect>("Effects/post"));
+                    spriteBatch.Draw(renderTarget2, new Rectangle(0, 0, device.PresentationParameters.BackBufferWidth, device.PresentationParameters.BackBufferHeight), Color.White);
+
+                    spriteBatch.End();
                 }
 
             }

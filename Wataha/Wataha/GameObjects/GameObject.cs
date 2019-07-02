@@ -76,9 +76,9 @@ namespace Wataha.GameObjects
        
             if(timer  <= 180)
             {
-                lightPos.X += 0.0005f;
-               // lightPos.Y += 0.0005f;
-                lightPos.Z -= 0.0005f;
+               // lightPos.X += 0.0005f;
+               //// lightPos.Y += 0.0005f;
+               // lightPos.Z -= 0.0005f;
 
                 lightColor.Y += 0.00000862745f;
                 lightColor.Z += 0.00002607843f;
@@ -89,9 +89,9 @@ namespace Wataha.GameObjects
             }
             else if(timer >= 180  && timer <= 360)
             {
-                lightPos.X += 0.005f;
-                // lightPos.Y -= 0.0005f;
-                lightPos.Z -= 0.0005f;
+                //lightPos.X += 0.005f;
+                //// lightPos.Y -= 0.0005f;
+                //lightPos.Z -= 0.0005f;
 
 
                 lightColor.Y -= 0.00000862745f;
@@ -103,9 +103,9 @@ namespace Wataha.GameObjects
             }
             else if(timer >= 360 && timer <= 480)
             {
-                lightPos.X -= 0.005f;
-                //  lightPos.Y -= 0.0005f;
-                lightPos.Z += 0.0005f;
+                //lightPos.X -= 0.005f;
+                ////  lightPos.Y -= 0.0005f;
+                //lightPos.Z += 0.0005f;
 
 
                 lightColor.X -= 0.00003921568f;
@@ -118,9 +118,9 @@ namespace Wataha.GameObjects
             }
             else if(timer >= 480 && timer <=600)
             {
-                lightPos.X -= 0.005f;
-                // lightPos.Y += 0.0005f;
-                lightPos.Z += 0.0005f;
+                //lightPos.X -= 0.005f;
+                //// lightPos.Y += 0.0005f;
+                //lightPos.Z += 0.0005f;
 
 
                 lightColor.X += 0.00003921568f;
